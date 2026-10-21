@@ -52,3 +52,8 @@ PARA GUARDAR SU TRABAJO
   Archivo > Guardar las respuestas  crea un archivo con sus respuestas.
   Guardelo con un nombre distinto al del cuestionario, por ejemplo
   respuestas-laboratorio-A.raml, y NO encima de Biosafety_es.raml.
+
+  Los dos cuestionarios son de 105 preguntas en un solo modulo. El de
+  bioproteccion venia partido en dos (Instalacion y Agente) y por ese reparto
+  se perdian las 46 respuestas de instalacion al volver a cargar el archivo.
+  Ya esta corregido.

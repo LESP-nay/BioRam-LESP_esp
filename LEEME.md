@@ -119,10 +119,19 @@ Cada modelo se arma distinto, a propósito:
 
 **Bioprotección** se traduce desde el modelo inglés vigente, porque la
 traducción oficial corresponde a ese mismo modelo: comparten los 151
-identificadores. Viene repartida en dos módulos, *Instalación* y *Agente*, igual
-que el original en inglés y que la traducción oficial de Sandia. No es un
-defecto: el modelo separa las preguntas de la instalación, que se responden una
-vez, de las del agente, que se responden por cada agente.
+identificadores. Después se **unen sus dos módulos** (*Instalación*, 46
+preguntas, y *Agente*, 59) en uno solo de 105, como en bioseguridad. No es solo
+comodidad: los dos módulos venían con el mismo identificador de raíz, y el
+programa reparte las respuestas guardadas por ese identificador, así que al
+volver a cargar un archivo las 46 respuestas de instalación se perdían sin
+avisar y los resultados salían más bajos. Con un módulo único el problema
+desaparece.
+
+Unir no cambia ningún cálculo, porque los perfiles de resultados apuntan a
+preguntas y categorías, no a módulos. `traduccion/unir_modulos.py` lo comprueba
+solo: calcula los perfiles antes y después con cinco escenarios y aborta si
+algún número cambia. También se verificó con el motor Java: 40 valores
+idénticos.
 
 **Bioseguridad** parte de `traduccion/fuente/Biosafety_es_corregido.raml`, el
 cuestionario de un solo módulo que usa el laboratorio. El modelo inglés de
@@ -195,6 +204,12 @@ Además se comprobó, con el motor real del programa y no leyendo el XML:
 - La imagen de la gráfica traducida está en los dos modelos, en sus dos
   gráficas, y la comprobación de integridad solo acepta esa diferencia: si se
   altera cualquier otra imagen, falla.
+- Los dos modelos tienen un solo módulo de 105 preguntas, y el ciclo de
+  responder, guardar y volver a cargar conserva las 105 en ambos.
+- `traduccion/motor.py` es el motor de cálculo escrito en Python. No lo usa el
+  programa: sirve para comprobar que un cambio en un modelo no altera ningún
+  resultado. Reproduce el motor Java exactamente: se comparó con él en 135
+  valores, idénticos hasta el décimo decimal.
 
 Lo que **no** se pudo probar aquí, porque este entorno es Linux y sin pantalla:
 
