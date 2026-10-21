@@ -8,7 +8,7 @@ emplea la traducción publicada de Sandia.
 
 # Títulos de módulo y de categoría.
 CATEGORIAS = {
-    'Facility': 'Centro',
+    'Facility': 'Instalación',
     'Agent': 'Agente',
 
     '*********Likelihood of Exposure**********':

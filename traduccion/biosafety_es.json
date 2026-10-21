@@ -7,7 +7,7 @@
  {
   "id": "bdf4bb10-475b-4fcc-8df7-7719ea8bcc68:1/0/2:title",
   "en": "Facility",
-  "es": "Centro"
+  "es": "Instalación"
  },
  {
   "id": "1b9cc647-9a51-424b-b6f9-834a225c4760:1/0/3/0/2:title",
@@ -292,7 +292,7 @@
  {
   "id": "c52d2609-e9c6-4fed-ac55-98b9019181ae:1/0/3/1/3/1/3/0/4:detailText",
   "en": "0 = There is no identification of, or education on, biosafety roles and responsibilities \n2 = Facility personnel are educated on their biosafety roles and responsibilities\n3 = A biosafety officer is identified at this facility\n4 = Management at this facility ensures roles, responsibilities, and authorities are defined,  documented, and communicated",
-  "es": "0 = No existen identificación ni formación sobre los roles ni las responsabilidades para la bioseguridad.\n2 = Se formó al personal del centro para sus roles y responsabilidades con respecto la bioseguridad.\n3 = Se identificó a un responsable de bioseguridad en este centro.\n4 = La dirección de este centro asegura la definición, documentación y comunicación de roles, responsabilidades y autoridades."
+  "es": "0 = No existen identificación ni formación sobre los roles ni las responsabilidades para la bioseguridad.\n2 = Se formó al personal de la instalación para sus roles y responsabilidades con respecto la bioseguridad.\n3 = Se identificó a un responsable de bioseguridad en esta instalación.\n4 = La dirección de esta instalación asegura la definición, documentación y comunicación de roles, responsabilidades y autoridades."
  },
  {
   "id": "b0491732-d10e-4988-9249-64e3886b8e08:1/0/3/1/3/1/3/1/2:title",
@@ -302,37 +302,37 @@
  {
   "id": "b0491732-d10e-4988-9249-64e3886b8e08:1/0/3/1/3/1/3/1/4:detailText",
   "en": "0 = Management at this facility is not aware, or interested in, biosafety concerns\n1 = Management at this facility is aware of biosafety concerns, but has not implemented  a biosafety policy or devoted resources to address the issue\n2 = Management at this facility have made some efforts to improve biosafety at the  facility, but they are not comprehensive and/or are not fully implemented\n3 = This facility has a comprehensive biosafety policy in place, which was developed,  authorized, and signed by top management.  The policy is appropriate to the nature and  scale of the risk. Management establishes the commitment and objectives of the  biosafety system, and communicates this to all stakeholders.\n4 = Management at this facility identifies and prioritizes program needs and allocates  funds as necessary",
-  "es": "0 = La dirección de este centro no conoce ni está interesada en los problemas de bioseguridad.\n1 = La dirección de este centro conoce los problemas de bioseguridad, pero no implementó una política al respecto ni designó recursos para abordar la problemática.\n2 = La dirección de este centro realizó esfuerzos para mejorar la bioseguridad del centro, pero no son integrales o no están implementados completamente.\n3 = En este centro existe una política integral de bioseguridad que desarrolló, autorizó y firmó la dirección superior. La política es adecuada a la naturaleza y grado de riesgo. La dirección establece el compromiso y los objetivos del sistema de bioseguridad y los comunica a todos sus accionarios.\n4 = La dirección de este centro identifica y prioriza las necesidades del programa y asigna los fondos según resulta necesario."
+  "es": "0 = La dirección de esta instalación no conoce ni está interesada en los problemas de bioseguridad.\n1 = La dirección de esta instalación conoce los problemas de bioseguridad, pero no implementó una política al respecto ni designó recursos para abordar la problemática.\n2 = La dirección de esta instalación realizó esfuerzos para mejorar la bioseguridad de la instalación, pero no son integrales o no están implementados completamente.\n3 = En esta instalación existe una política integral de bioseguridad que desarrolló, autorizó y firmó la dirección superior. La política es adecuada a la naturaleza y grado de riesgo. La dirección establece el compromiso y los objetivos del sistema de bioseguridad y los comunica a todos sus accionarios.\n4 = La dirección de esta instalación identifica y prioriza las necesidades del programa y asigna los fondos según resulta necesario."
  },
  {
   "id": "ac784e99-40b2-4887-b51c-75e0cb027081:1/0/3/1/3/1/3/2/2:title",
   "en": "Does the institution have comprehensive biosafety documentation?",
-  "es": "¿El centro tiene documentación integral con relación a la bioseguridad?"
+  "es": "¿La instalación tiene documentación integral con relación a la bioseguridad?"
  },
  {
   "id": "ac784e99-40b2-4887-b51c-75e0cb027081:1/0/3/1/3/1/3/2/4:detailText",
   "en": "0 = This facility has no biosafety policies, manuals, or SOPs\n1 = This facility has no specific biosafety documentation\n2 = This facility has some biosafety documentation, but they are not comprehensive and  / or not fully implemented\n3 = This facility has biosafety policies, manuals, and SOPs\n4 = This facility's biosafety documentation also includes risk assessment and incident  response information",
-  "es": "0 = Este centro no tiene políticas, manuales ni procedimiento operativo estándar de bioseguridad.\n1 = Este centro no tiene documentación específica sobre bioseguridad.\n2 = Este centro tiene cierta documentación sobre bioseguridad, pero no es integral o no se implementó completamente.\n3 = Este centro tiene políticas, manuales y procedimientos operativos estándares de bioseguridad.\n4 = Esta documentación de bioseguridad del centro también incluye evaluación de riesgos e información sobre respuesta ante incidentes."
+  "es": "0 = Esta instalación no tiene políticas, manuales ni procedimiento operativo estándar de bioseguridad.\n1 = Esta instalación no tiene documentación específica sobre bioseguridad.\n2 = Esta instalación tiene cierta documentación sobre bioseguridad, pero no es integral o no se implementó completamente.\n3 = Esta instalación tiene políticas, manuales y procedimientos operativos estándares de bioseguridad.\n4 = Esta documentación de bioseguridad de la instalación también incluye evaluación de riesgos e información sobre respuesta ante incidentes."
  },
  {
   "id": "08f9a6f4-39d8-4f4c-ace9-42f8cd8ab590:1/0/3/1/3/1/3/3/2:title",
   "en": "Does the institution conduct biosafety drills or exercises?",
-  "es": "¿El centro realiza simulacros o ejercicios de bioseguridad?"
+  "es": "¿La instalación realiza simulacros o ejercicios de bioseguridad?"
  },
  {
   "id": "08f9a6f4-39d8-4f4c-ace9-42f8cd8ab590:1/0/3/1/3/1/3/3/4:detailText",
   "en": "0 = This facility does not conduct any biosafety exercises\n1 = This facility conducts tabletops or other exercises on an ad hoc basis\n2 = This facility conducts annual exercises \n4 = This facility includes external responders in their exercises",
-  "es": "0 = Este centro no realiza ningún ejercicio de bioseguridad.\n1 = Este centro realiza pruebas u otros ejercicios de manera ad hoc.\n2 = Este centro realiza ejercicios anuales.\n4 = Este centro incluye personas externas con capacidad de respuesta para estos ejercicios."
+  "es": "0 = Esta instalación no realiza ningún ejercicio de bioseguridad.\n1 = Esta instalación realiza pruebas u otros ejercicios de manera ad hoc.\n2 = Esta instalación realiza ejercicios anuales.\n4 = Esta instalación incluye personas externas con capacidad de respuesta para estos ejercicios."
  },
  {
   "id": "bd1f2883-eaf8-497d-a32a-743903c016d3:1/0/3/1/3/1/3/4/2:title",
   "en": "Does the institution periodically review the biosafety program? ",
-  "es": "¿El centro realiza revisiones periódicas al programa de bioseguridad?"
+  "es": "¿La instalación realiza revisiones periódicas al programa de bioseguridad?"
  },
  {
   "id": "bd1f2883-eaf8-497d-a32a-743903c016d3:1/0/3/1/3/1/3/4/4:detailText",
   "en": "0 = There is no review of the biosafety program \n1 = The biosafety program is reviewed and revised as necessary after any incidents or  near-incidents\n3 = The biosafety program is subject to internal self-assessments\n4 = Management at the facility ensures continual improvement, conducts routine self- assessments, and ensures corrective and preventive actions. Reviews include assessing  opportunities for improvement and any needs for changes to the system, procedures,  policies, and objectives.",
-  "es": "0 = No se realizan revisiones al programa de bioseguridad.\n1 = El programa de bioseguridad se revisa y se analiza según sea necesario después de incidentes o cuasiincidentes.\n3 = El programa de bioseguridad está sujeto a autoevaluaciones internas.\n4 = La dirección del centro asegura la mejora continua, realiza autoevaluaciones de rutina y asegura medidas correctivas y preventivas. Las revisiones incluyen oportunidades de evaluación para la mejora y cualquier necesidad de cambios en el sistema, procedimientos, políticas y objetivos."
+  "es": "0 = No se realizan revisiones al programa de bioseguridad.\n1 = El programa de bioseguridad se revisa y se analiza según sea necesario después de incidentes o cuasiincidentes.\n3 = El programa de bioseguridad está sujeto a autoevaluaciones internas.\n4 = La dirección de la instalación asegura la mejora continua, realiza autoevaluaciones de rutina y asegura medidas correctivas y preventivas. Las revisiones incluyen oportunidades de evaluación para la mejora y cualquier necesidad de cambios en el sistema, procedimientos, políticas y objetivos."
  },
  {
   "id": "b10170a8-1588-4f3b-8c7c-956a06757b25:1/0/3/1/3/2/2:title",
@@ -552,7 +552,7 @@
  {
   "id": "60c397de-d216-4b63-9640-06275f83566a:1/0/3/1/3/3/3/4/4:detailText",
   "en": "4 = No sharp material ever leaves this laboratory\n3 = Sharp waste is first decontaminated and then leaves the facility in puncture-resistant  containers\n1 = Sharp waste is first decontaminated and leaves the facility in non-puncture-resistant  waste containers (e.g. plastic bags)\n0 = Sharp waste is removed from the facility prior to decontamination",
-  "es": "4 = Ningún material punzocortante sale nunca de este laboratorio\n3 = Los residuos punzocortantes primero se descontaminan y luego salen del centro en recipientes a prueba de pinchazos\n1 = Los residuos punzocortantes primero se descontaminan y luego salen del centro en recipientes que no son a prueba de pinchazos (ej. bolsas plásticas).\n0 = Los residuos punzocortantes se retiran del centro antes de descontaminarlos"
+  "es": "4 = Ningún material punzocortante sale nunca de este laboratorio\n3 = Los residuos punzocortantes primero se descontaminan y luego salen de la instalación en recipientes a prueba de pinchazos\n1 = Los residuos punzocortantes primero se descontaminan y luego salen de la instalación en recipientes que no son a prueba de pinchazos (ej. bolsas plásticas).\n0 = Los residuos punzocortantes se retiran de la instalación antes de descontaminarlos"
  },
  {
   "id": "33c1f3ba-c29f-491e-b765-09b356373c8e:1/0/3/1/3/4/2:title",

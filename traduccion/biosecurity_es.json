@@ -7,7 +7,7 @@
  {
   "id": "576988d3-4795-4710-9ac9-966ee6c0fba7:1/0/2:title",
   "en": "Facility",
-  "es": "Centro"
+  "es": "Instalación"
  },
  {
   "id": "585cc747-5fde-47f5-bb5e-ca52ed733a46:1/0/3/0/2:title",
@@ -17,12 +17,12 @@
  {
   "id": "add2ee64-942d-47a2-88d6-3cae6f8e15e2:1/0/3/0/3/0/2:title",
   "en": "Likelihood of theft from facility",
-  "es": "Probabilidad de robo del centro"
+  "es": "Probabilidad de robo de la instalación"
  },
  {
   "id": "e0c72058-ebf5-400e-92fc-41cd8df5b934:1/0/3/0/3/0/3/0/2:title",
   "en": "Potential of Facility to be Targeted",
-  "es": "Posibilidad de que el centro se convierta en objetivo"
+  "es": "Posibilidad de que la instalación se convierta en objetivo"
  },
  {
   "id": "5cf5bf86-39e4-4a22-b35e-a4ac059c50f9:1/0/3/0/3/0/3/0/3/0/2:title",
@@ -72,7 +72,7 @@
  {
   "id": "b46a7fcd-c35b-4882-8c92-894d9b2f6858:1/0/3/0/3/0/3/0/3/4/4:detailText",
   "en": "4 = Synthetic creation requires ground breaking techniques  \n2 = Synthetic creation is feasible\n0 = Synthetic creation is ",
-  "es": "4 = La creación sintética requiere técnicas innovadoras.\n2 = La creación sintética es posible.\n0 = La creación sintética es\n(incomplete sentence )"
+  "es": "4 = La creación sintética requiere técnicas innovadoras.\n2 = La creación sintética es posible.\n0 = La creación sintética es\n(frase incompleta en el modelo original)"
  },
  {
   "id": "a0f498c7-ff8d-4beb-88c2-a91d2174648f:1/0/3/0/3/0/3/1/2:title",
@@ -82,7 +82,7 @@
  {
   "id": "68ac15ec-7be4-4873-ad9b-fe3dc3de58d7:1/0/3/0/3/0/3/1/3/0/2:title",
   "en": "What is the level of knowledge and skills regarding the facility of the adversary in this assessment? ",
-  "es": "¿Cuál es el nivel de conocimiento y capacidades del centro del adversario con respecto a esta evaluación?"
+  "es": "¿Cuál es el nivel de conocimiento y capacidades de la instalación del adversario con respecto a esta evaluación?"
  },
  {
   "id": "68ac15ec-7be4-4873-ad9b-fe3dc3de58d7:1/0/3/0/3/0/3/1/3/0/4:detailText",
@@ -92,17 +92,17 @@
  {
   "id": "8033596b-e84b-4687-9953-6f240150793f:1/0/3/0/3/0/3/1/3/1/2:title",
   "en": "What is the level of opportunity the adversary has to execute a theft from this facility?",
-  "es": "¿Cuál es el nivel de oportunidad que tiene el adversario para ejecutar un robo en este centro?"
+  "es": "¿Cuál es el nivel de oportunidad que tiene el adversario para ejecutar un robo en esta instalación?"
  },
  {
   "id": "8033596b-e84b-4687-9953-6f240150793f:1/0/3/0/3/0/3/1/3/1/4:detailText",
   "en": "4 = Adversary has authorized access to the facility\n0 = Adversary does not have authorized access to the facility",
-  "es": "4 = El adversario tiene autorizado el acceso al centro.\n0 = El adversario no tiene autorizado el acceso al centro."
+  "es": "4 = El adversario tiene autorizado el acceso a la instalación.\n0 = El adversario no tiene autorizado el acceso a la instalación."
  },
  {
   "id": "2e3cf910-9ab9-4aa4-8bd0-9f7626b6c1d6:1/0/3/0/3/0/3/2/2:title",
   "en": "Facility Attributes",
-  "es": "Atributos del centro"
+  "es": "Atributos de la instalación"
  },
  {
   "id": "19091151-c567-46f2-9803-e4108f6a0db4:1/0/3/0/3/0/3/2/3/0/2:title",
@@ -112,12 +112,12 @@
  {
   "id": "2c51ebea-894e-41c0-aaab-4543d0a304ff:1/0/3/0/3/0/3/2/3/0/3/0/2:title",
   "en": "What type (if any) of a facility or campus perimeter exists?",
-  "es": "¿Qué tipo (si corresponde) de perímetro existe en el centro o campo?"
+  "es": "¿Qué tipo (si corresponde) de perímetro existe en la instalación o campo?"
  },
  {
   "id": "2c51ebea-894e-41c0-aaab-4543d0a304ff:1/0/3/0/3/0/3/2/3/0/3/0/4:detailText",
   "en": "4 = Facility has no perimeter\n3 = Facility has a partial perimeter\n0 = Facility has a clearly defined perimeter (natural or man-made)",
-  "es": "4 = El centro no tiene perímetro.\n3 = El centro tiene un perímetro parcial.\n0 = El centro tiene un perímetro claramente definido (natural o artificial)."
+  "es": "4 = La instalación no tiene perímetro.\n3 = La instalación tiene un perímetro parcial.\n0 = La instalación tiene un perímetro claramente definido (natural o artificial)."
  },
  {
   "id": "e7b5589b-22f9-4d9b-81fb-1df1bf94e92e:1/0/3/0/3/0/3/2/3/0/3/1/2:title",
@@ -212,7 +212,7 @@
  {
   "id": "bf861d29-ff68-4a1f-83df-34f2bed594e8:1/0/3/0/3/0/3/2/3/1/3/1/4:detailText",
   "en": "4 = No vetting of personnel prior to facility access\n3 = Vetting includes only verification of credentials (education, prior employment) and references\n2 = Vetting includes verification of credentials, references, and criminal history\n1 = Vetting includes verification of credentials, references, criminal history, and additional checks for derogatory information (e.g. financial checks, drug screening, interviews of contacts, personality tests)\n0 = Vetting includes all of above and regular reevaluation intervals are established",
-  "es": "4 = No se examina al personal antes del acceso al centro.\n3 = La examinación incluye solo la verificación de las credenciales (educación, empleo anterior) y referencias.\n2 = La examinación incluye la verificación de las credenciales y antecedentes penales.\n1 = La examinación incluye la verificación de las credenciales, las referencias, los antecedentes penales y las verificaciones adicionales de información desfavorable (p. ej., verificaciones financieras, evaluación de abuso de drogas, entrevistas de contactos, pruebas de personalidad).\n0 = La examinación incluye todo lo anterior y para ello se establecen intervalos de reiteración regulares."
+  "es": "4 = No se examina al personal antes del acceso a la instalación.\n3 = La examinación incluye solo la verificación de las credenciales (educación, empleo anterior) y referencias.\n2 = La examinación incluye la verificación de las credenciales y antecedentes penales.\n1 = La examinación incluye la verificación de las credenciales, las referencias, los antecedentes penales y las verificaciones adicionales de información desfavorable (p. ej., verificaciones financieras, evaluación de abuso de drogas, entrevistas de contactos, pruebas de personalidad).\n0 = La examinación incluye todo lo anterior y para ello se establecen intervalos de reiteración regulares."
  },
  {
   "id": "19c47723-fc8a-4aaf-bdd5-dfd42875e8e7:1/0/3/0/3/0/3/2/3/1/3/2/2:title",
@@ -292,7 +292,7 @@
  {
   "id": "9db619e0-0730-4703-87d7-d34490d1d59c:1/0/3/0/3/0/3/2/3/2/3/0/2:title",
   "en": "What is the level of control at a facility of materials moving between laboratories or while in shipping/receiving areas?",
-  "es": "¿Cuál es el nivel de control en el centro de los materiales móviles entre los laboratorios o en las áreas de envío/recepción?"
+  "es": "¿Cuál es el nivel de control en la instalación de los materiales móviles entre los laboratorios o en las áreas de envío/recepción?"
  },
  {
   "id": "9db619e0-0730-4703-87d7-d34490d1d59c:1/0/3/0/3/0/3/2/3/2/3/0/4:detailText",
@@ -302,12 +302,12 @@
  {
   "id": "887a3c3b-17aa-4e5f-85eb-081170d7fb7c:1/0/3/0/3/0/3/2/3/2/3/1/2:title",
   "en": "What type of vetting is required for personnel transporting material within the facility?",
-  "es": "¿Qué tipo de examinación se requiere para el personal que transporta el material dentro del centro?"
+  "es": "¿Qué tipo de examinación se requiere para el personal que transporta el material dentro de la instalación?"
  },
  {
   "id": "887a3c3b-17aa-4e5f-85eb-081170d7fb7c:1/0/3/0/3/0/3/2/3/2/3/1/4:detailText",
   "en": "4 = Facility personnel who have access to materials during internal transport are not vetted\n2 = Facility personnel who have access to the materials during internal transport are vetted but to a lower degree than those who handle the agent in the laboratory \n0 = Facility personnel who have access to materials during internal transport are vetted to the same degree or better as personnel who handle the agent in the laboratory",
-  "es": "4 = No existe examinación del personal del centro que tiene acceso a los materiales durante el transporte interno.\n2 = Se examina al personal del centro que tiene acceso a los materiales durante el transporte interno, pero a un nivel inferior a aquellos que manipulan el agente en el laboratorio.\n0 = Se examina al personal del centro que tiene acceso a los materiales durante el transporte interno, pero a un nivel igual o mejor que al personal que manipula el agente en el laboratorio."
+  "es": "4 = No existe examinación del personal de la instalación que tiene acceso a los materiales durante el transporte interno.\n2 = Se examina al personal de la instalación que tiene acceso a los materiales durante el transporte interno, pero a un nivel inferior a aquellos que manipulan el agente en el laboratorio.\n0 = Se examina al personal de la instalación que tiene acceso a los materiales durante el transporte interno, pero a un nivel igual o mejor que al personal que manipula el agente en el laboratorio."
  },
  {
   "id": "a04454d8-01a3-4848-8e7e-fbe763d02c1c:1/0/3/0/3/0/3/2/3/2/3/2/2:title",
@@ -327,17 +327,17 @@
  {
   "id": "8252b44f-0c2a-47fe-91e0-ffaa6ab39e76:1/0/3/0/3/0/3/2/3/2/3/3/4:detailText",
   "en": "4 = No approvals or documentation required for external transport\n3 = Pre-approval not required for external transport but transfer is documented in laboratory records\n1 = Pre-approval by a responsible individual at the facility required prior to shipping to external recipient\n0 = And a material transfer agreement is required prior to final approval or an external regulatory body must approve the transfer prior to shipment",
-  "es": "4 = No se requieren aprobaciones ni documentación para el transporte externo.\n3 = No se requiere la aprobación previa para el transporte externo, pero se documenta en los registros del laboratorio.\n1 = Se requiere la aprobación previa de una persona responsable del centro antes de enviarse a un receptor externo.\n0 = Se requiere un acuerdo de transporte del material antes de la aprobación final o un organismo regulador externo debe aprobar el transporte antes del envío."
+  "es": "4 = No se requieren aprobaciones ni documentación para el transporte externo.\n3 = No se requiere la aprobación previa para el transporte externo, pero se documenta en los registros del laboratorio.\n1 = Se requiere la aprobación previa de una persona responsable de la instalación antes de enviarse a un receptor externo.\n0 = Se requiere un acuerdo de transporte del material antes de la aprobación final o un organismo regulador externo debe aprobar el transporte antes del envío."
  },
  {
   "id": "c67a5014-773a-44e2-81ae-130584207fd9:1/0/3/0/3/0/3/2/3/2/3/4/2:title",
   "en": "What is the required security level for the receiving facility when sharing this agent?",
-  "es": "¿Qué nivel de seguridad se requiere para el centro receptor cuando se comparte este agente?"
+  "es": "¿Qué nivel de seguridad se requiere para la instalación receptora cuando se comparte este agente?"
  },
  {
   "id": "c67a5014-773a-44e2-81ae-130584207fd9:1/0/3/0/3/0/3/2/3/2/3/4/4:detailText",
   "en": "4 = No biosecurity (or biosecurity status is unknown) at receiving facility\n2 = Receiving facility has biosecurity but their level of security is lower than at shipping facility\n1 = Receiving facility has equivalent or better biosecurity\n0 = And notifications between shipping and receiving facility at time of dispatch and receipt, respectively",
-  "es": "4 = No existe bioprotección (o se desconoce el estado de bioprotección) del centro receptor.\n2 = El centro receptor cuenta con bioprotección, pero su nivel de seguridad es inferior al del centro de envío.\n1 = El centro receptor tiene una bioprotección equivalente o mejor.\n0 = Se realizan notificaciones entre el centro de envío y receptor en el momento del despacho y recepción, respectivamente."
+  "es": "4 = No existe bioprotección (o se desconoce el estado de bioprotección) de la instalación receptora.\n2 = La instalación receptora cuenta con bioprotección, pero su nivel de seguridad es inferior al de la instalación de envío.\n1 = La instalación receptora tiene una bioprotección equivalente o mejor.\n0 = Se realizan notificaciones entre la instalación de envío y receptor en el momento del despacho y recepción, respectivamente."
  },
  {
   "id": "3a1838d4-6eef-4643-8509-d053cd887af1:1/0/3/0/3/0/3/2/3/2/3/5/2:title",
@@ -367,12 +367,12 @@
  {
   "id": "32127186-84dc-4f1f-aea5-0f4f37e096b7:1/0/3/0/3/0/3/2/3/3/3/0/2:title",
   "en": "How does the facility determine which materials are subject to material control and accountability (MC&A) measures?",
-  "es": "¿Cómo determina el centro qué materiales están sujetos al control de materiales y las medidas de responsabilidad (de aquí en adelante, medidas de control)?"
+  "es": "¿Cómo determina la instalación qué materiales están sujetos al control de materiales y las medidas de responsabilidad (de aquí en adelante, medidas de control)?"
  },
  {
   "id": "32127186-84dc-4f1f-aea5-0f4f37e096b7:1/0/3/0/3/0/3/2/3/3/3/0/4:detailText",
   "en": "4 = No materials are subject to MC&A measures\n3 = Individual PIs/lab owners make decisions about which materials require MC&A measures\n2 = Facility just relies on regulatory or international lists (e.g Select agent list, Australia Group list) to determine which materials at their facility need MC&A measures\n1 = Facility risk assessment to identify and categorize those materials and forms of materials that require MC&A measures\n0 = And, where applicable, proactive measures towards the reduction of risk through elimination, substitution or minimization of volumes/quantities of agents, and the type and number of manipulations conducted.",
-  "es": "4 = Los materiales no están sujetos a las medidas de control.\n3 = Los propietarios de plantas/laboratorios toman decisiones sobre qué materiales requieren medidas de control.\n2 = El centro solo depende de las listas internacionales o regulatorias (p. ej., lista de agentes selectos, lista de grupo australiano) para determinar qué materiales de su centro necesitan medidas de control.\n1 = La evaluación de riesgos del centro identifica y categoriza esos materiales y formas de materiales que requieren medidas de control.\n0 = Y, si corresponde, medidas proactivas en pos de la reducción del riesgo a través de la eliminación, substitución o minimización de los volúmenes/cantidades de agentes, el tipo y cantidad de manipulaciones realizadas."
+  "es": "4 = Los materiales no están sujetos a las medidas de control.\n3 = Los propietarios de plantas/laboratorios toman decisiones sobre qué materiales requieren medidas de control.\n2 = La instalación solo depende de las listas internacionales o regulatorias (p. ej., lista de agentes selectos, lista de grupo australiano) para determinar qué materiales de su instalación necesitan medidas de control.\n1 = La evaluación de riesgos de la instalación identifica y categoriza esos materiales y formas de materiales que requieren medidas de control.\n0 = Y, si corresponde, medidas proactivas en pos de la reducción del riesgo a través de la eliminación, substitución o minimización de los volúmenes/cantidades de agentes, el tipo y cantidad de manipulaciones realizadas."
  },
  {
   "id": "06ebf63e-0899-416e-b54b-6994eea977e6:1/0/3/0/3/0/3/2/3/3/3/1/2:title",
@@ -427,7 +427,7 @@
  {
   "id": "f37f0233-948b-4608-85b7-b13cd2d31b1b:1/0/3/0/3/0/3/2/3/4/3/0/4:detailText",
   "en": "4 = No identification and classification of information in place\n1 = Sensitive (security-related) information is identified, marked, and classified at a level equivalent to the risk",
-  "es": "4 = No se realizó identificación ni clasificación de la información.\n1 = La información confidencial (relacionada con la seguridad) se identificó, clasificó y protegió a un nivel equivalente al riesgo\n[incomplete sentence]."
+  "es": "4 = No se realizó identificación ni clasificación de la información.\n1 = La información confidencial (relacionada con la seguridad) se identificó, clasificó y protegió a un nivel equivalente al riesgo\n(frase incompleta en el modelo original)"
  },
  {
   "id": "56d81279-e0d9-4079-bb0c-b2964c6b141c:1/0/3/0/3/0/3/2/3/4/3/1/2:title",
@@ -482,7 +482,7 @@
  {
   "id": "1ebd25b4-b877-46c0-9dc6-48108c997efa:1/0/3/0/3/0/3/2/3/5/3/0/4:detailText",
   "en": "4 = There is no identification of, or education on, biosecurity roles and responsibilities\n3 = Facility personnel are educated on their biosecurity roles and responsibilities\n2 = A biosafety officer is identified at this facility\n0 = Management at this facility ensures roles, responsibilities, and authorities are defined, documented, and communicated",
-  "es": "4 = No existen identificación ni formación sobre los roles y las responsabilidades para la bioprotección.\n3 = Se formó al personal del centro con respecto a sus roles y responsabilidades para la bioprotección.\n2 = Se identificó a un responsable de bioprotección en este centro.\n0 = La dirección de este centro asegura la definición, documentación y comunicación de roles, responsabilidades y autoridades."
+  "es": "4 = No existen identificación ni formación sobre los roles y las responsabilidades para la bioprotección.\n3 = Se formó al personal de la instalación con respecto a sus roles y responsabilidades para la bioprotección.\n2 = Se identificó a un responsable de bioprotección en esta instalación.\n0 = La dirección de esta instalación asegura la definición, documentación y comunicación de roles, responsabilidades y autoridades."
  },
  {
   "id": "76bb92d2-c985-47ef-ae6a-899611214229:1/0/3/0/3/0/3/2/3/5/3/1/2:title",
@@ -492,37 +492,37 @@
  {
   "id": "76bb92d2-c985-47ef-ae6a-899611214229:1/0/3/0/3/0/3/2/3/5/3/1/4:detailText",
   "en": "4 = Management at this facility is not aware, or interested in, biosecurity concerns\n3 = Management at this facility is aware of biosecurity concerns, but has not implemented a biosecurity policy or devoted resources to address the issue\n2 = Management at this facility have made some efforts to improve biosafety at the facility, but they are not comprehensive and/or are not fully implemented\n1 = This facility has a comprehensive biosecurity policy in place, which was developed, authorized, and signed by top management.  The policy is appropriate to the nature and scale of the risk. Management establishes the commitment and objectives of the biosecurity system, and communicates this to all stakeholders.\n0 = Management at this facility identifies and prioritizes program needs and allocates funds as necessary",
-  "es": "4 = La dirección de este centro no conoce ni está interesada en los problemas de bioprotección.\n3 = La dirección de este centro conoce los problemas de bioprotección, pero no implementó una política al respecto ni designó recursos para abordar la problemática.\n2 = La dirección de este centro realizó esfuerzos para mejorar la bioprotección del centro, pero no son integrales o no están implementados completamente.\n1 = En este centro existe una política integral de bioprotección que desarrolló, autorizó y firmó la dirección superior. La política es adecuada a la naturaleza y grado de riesgo. La dirección establece el compromiso y los objetivos del sistema de bioprotección y los comunica a todos sus accionarios.\n0 = La dirección de este centro identifica y prioriza las necesidades del programa y asigna los fondos necesarios."
+  "es": "4 = La dirección de esta instalación no conoce ni está interesada en los problemas de bioprotección.\n3 = La dirección de esta instalación conoce los problemas de bioprotección, pero no implementó una política al respecto ni designó recursos para abordar la problemática.\n2 = La dirección de esta instalación realizó esfuerzos para mejorar la bioprotección de la instalación, pero no son integrales o no están implementados completamente.\n1 = En esta instalación existe una política integral de bioprotección que desarrolló, autorizó y firmó la dirección superior. La política es adecuada a la naturaleza y grado de riesgo. La dirección establece el compromiso y los objetivos del sistema de bioprotección y los comunica a todos sus accionarios.\n0 = La dirección de esta instalación identifica y prioriza las necesidades del programa y asigna los fondos necesarios."
  },
  {
   "id": "b897936f-bfb6-40a5-a601-29588bbac979:1/0/3/0/3/0/3/2/3/5/3/2/2:title",
   "en": "Does the institution have comprehensive biosecurity documentation?",
-  "es": "¿El centro tiene documentación integral de la bioprotección?"
+  "es": "¿La instalación tiene documentación integral de la bioprotección?"
  },
  {
   "id": "b897936f-bfb6-40a5-a601-29588bbac979:1/0/3/0/3/0/3/2/3/5/3/2/4:detailText",
   "en": "4 = This facility has no biosecurity policies, manuals, or SOPs\n3 = This facility has no specific biosecurity documentation\n2 = This facility has some biosecurity documentation, but they are not comprehensive and / or not fully implemented\n1 = This facility has biosecurity policies, manuals, and SOPs\n0 = This facility’s biosecurity documentation also includes risk assessment and incident response information",
-  "es": "4 = Este centro no tiene políticas, manuales ni procedimiento operativo estándar de bioprotección.\n3 = Este centro no tiene documentación específica sobre bioprotección.\n2 = Este centro tiene poca documentación sobre bioprotección, pero no es integral o no se implementó completamente.\n1 = Este centro tiene políticas, manuales y procedimientos operativos estándar de bioprotección.\n0 = Esta documentación de bioprotección del centro también incluye la evaluación de riesgos e información sobre respuesta ante incidentes."
+  "es": "4 = Esta instalación no tiene políticas, manuales ni procedimiento operativo estándar de bioprotección.\n3 = Esta instalación no tiene documentación específica sobre bioprotección.\n2 = Esta instalación tiene poca documentación sobre bioprotección, pero no es integral o no se implementó completamente.\n1 = Esta instalación tiene políticas, manuales y procedimientos operativos estándar de bioprotección.\n0 = Esta documentación de bioprotección de la instalación también incluye la evaluación de riesgos e información sobre respuesta ante incidentes."
  },
  {
   "id": "59a52f08-c64e-49b3-88ec-b807867bdde7:1/0/3/0/3/0/3/2/3/5/3/3/2:title",
   "en": "Does the institution conduct biosecurity drills or exercises?",
-  "es": "¿El centro realiza simulacros o ejercicios de bioprotección?"
+  "es": "¿La instalación realiza simulacros o ejercicios de bioprotección?"
  },
  {
   "id": "59a52f08-c64e-49b3-88ec-b807867bdde7:1/0/3/0/3/0/3/2/3/5/3/3/4:detailText",
   "en": "4 = This facility does not conduct any biosecurity exercises\n2 = This facility conducts tabletops or other exercises on an ad hoc basis\n1 = This facility conducts annual exercises\n0 = This facility includes external responders in their exercises",
-  "es": "4 = Este centro no realiza ningún ejercicio de bioprotección.\n2 = Este centro realiza pruebas u otros ejercicios de manera ad hoc.\n1 = Este centro realiza ejercicios anuales.\n0 = Este centro incluye personas con capacidad de respuesta externos para estos ejercicios."
+  "es": "4 = Esta instalación no realiza ningún ejercicio de bioprotección.\n2 = Esta instalación realiza pruebas u otros ejercicios de manera ad hoc.\n1 = Esta instalación realiza ejercicios anuales.\n0 = Esta instalación incluye personas con capacidad de respuesta externos para estos ejercicios."
  },
  {
   "id": "d9ffb002-5709-4363-8a56-c99f4ab66350:1/0/3/0/3/0/3/2/3/5/3/4/2:title",
   "en": "Does the institution periodically review the biosecurity program?",
-  "es": "¿El centro realiza revisiones periódicas al programa de bioprotección?"
+  "es": "¿La instalación realiza revisiones periódicas al programa de bioprotección?"
  },
  {
   "id": "d9ffb002-5709-4363-8a56-c99f4ab66350:1/0/3/0/3/0/3/2/3/5/3/4/4:detailText",
   "en": "4 = There is no review of the biosecurity program \n3 = The biosecurity program is reviewed and revised as necessary after any incidents or near-incidents\n1 = The bioecurity program is subject to internal self-assessments\n0 = Management at the facility ensures continual improvement, conducts routine self-assessments, and ensures corrective and preventive actions. Reviews include assessing opportunities for improvement and any needs for changes to the system, procedures, policies, and objectives.",
-  "es": "4 = No se realizan revisiones del programa de bioprotección.\n3 = El programa de bioprotección se revisa y se analiza según sea necesario después de incidentes o cuasiincidentes.\n1 = El programa de bioprotección está sujeto a autoevaluaciones internas.\n0 = La dirección del centro asegura la mejora continua, realiza autoevaluaciones de rutina y asegura medidas correctivas y preventivas. Las revisiones incluyen oportunidades de evaluación para la mejora y cualquier necesidad de cambios en el sistema, procedimientos, políticas y objetivos."
+  "es": "4 = No se realizan revisiones del programa de bioprotección.\n3 = El programa de bioprotección se revisa y se analiza según sea necesario después de incidentes o cuasiincidentes.\n1 = El programa de bioprotección está sujeto a autoevaluaciones internas.\n0 = La dirección de la instalación asegura la mejora continua, realiza autoevaluaciones de rutina y asegura medidas correctivas y preventivas. Las revisiones incluyen oportunidades de evaluación para la mejora y cualquier necesidad de cambios en el sistema, procedimientos, políticas y objetivos."
  },
  {
   "id": "576988d3-4795-4710-9ac9-966ee6c0fba7:2/0/2:title",
@@ -602,7 +602,7 @@
  {
   "id": "f9dbe085-5792-4fe0-a763-ff1bed97b530:2/0/3/0/3/0/3/3/3/1/2:title",
   "en": "What is the potential to produce this agent in a covert facility?",
-  "es": "¿Cuáles son las posibilidades de producir este agente en un centro encubierto?"
+  "es": "¿Cuáles son las posibilidades de producir este agente en una instalación encubierta?"
  },
  {
   "id": "f9dbe085-5792-4fe0-a763-ff1bed97b530:2/0/3/0/3/0/3/3/3/1/4:detailText",
@@ -1007,7 +1007,7 @@
  {
   "id": "f26890e3-7825-4920-b079-08ea138dcfb5:2/0/3/1/3/2/3/1/4:detailText",
   "en": "4 = The economic impact of an agent release from the facility would be catastrophic\n2 = The economic impact of an agent release from the facility would be moderate\n0 = The economic impact of an agent release from the facility would be negligible",
-  "es": "4 = Si se liberara el agente del centro, sería catastrófico cómo afectaría la economía.\n2 = Si se liberara el agente del centro, sería moderado cómo afectaría la economía.\n0 = Si se liberara el agente del centro, sería insignificante cómo afectaría la economía."
+  "es": "4 = Si se liberara el agente de la instalación, sería catastrófico cómo afectaría la economía.\n2 = Si se liberara el agente de la instalación, sería moderado cómo afectaría la economía.\n0 = Si se liberara el agente de la instalación, sería insignificante cómo afectaría la economía."
  },
  {
   "id": "60ea73fe-188f-4855-9e16-574f59cd1d90:2/0/3/1/3/2/3/2/2:title",
@@ -1037,7 +1037,7 @@
  {
   "id": "38334253-db45-4bc8-a29f-4c64b83fca38:2/0/3/1/3/2/3/4/4:detailText",
   "en": "4 = The social impact of an agent release from the facility would be catastrophic\n2 = The social impact of an agent release from the facility would be moderate\n0 = The social impact of an agent release from the facility would be negligible",
-  "es": "4 = Si se liberara el agente del centro, sería catastrófico cómo afectaría socialmente.\n2 = Si se liberara el agente del centro, sería moderado cómo afectaría socialmente.\n0 = Si se liberara el agente del centro, sería insignificante cómo afectaría socialmente."
+  "es": "4 = Si se liberara el agente de la instalación, sería catastrófico cómo afectaría socialmente.\n2 = Si se liberara el agente de la instalación, sería moderado cómo afectaría socialmente.\n0 = Si se liberara el agente de la instalación, sería insignificante cómo afectaría socialmente."
  },
  {
   "id": "7fc2e05c-bf3f-4e50-84df-af88d9c57509:2/0/3/1/3/3/2:title",

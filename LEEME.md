@@ -85,21 +85,24 @@ python raml_es.py extraer ../Biosecurity.raml biosecurity_es.json
 python reusar.py biosecurity_es.json ../BiosecurityRAM_es.raml
 python reusar_biosafety.py <plantilla_en.raml>
 
-# 3. Generar los modelos en español
+# 3. Cambiar "centro" por "instalación", con su concordancia
+python termino_instalacion.py biosafety_es.json biosecurity_es.json
+
+# 4. Generar los modelos en español
 cd ..
 python traduccion/raml_es.py construir Biosafety.raml   traduccion/biosafety_es.json   Biosafety_es.raml
 python traduccion/raml_es.py construir Biosecurity.raml traduccion/biosecurity_es.json Biosecurity_es.raml
 
-# 4. Comprobar que solo cambiaron los textos
+# 5. Comprobar que solo cambiaron los textos
 python traduccion/raml_es.py verificar Biosafety.raml   Biosafety_es.raml
 python traduccion/raml_es.py verificar Biosecurity.raml Biosecurity_es.raml
 
-# 5. Generar los .jar
+# 6. Generar los .jar
 cd traduccion
 python empacar.py ../bioram-4.0.5.jar ../bioram-4.0.5-es.jar
 python empacar.py ../bioram-4.0.5.jar ../bioram-4.0.5-es-java-actual.jar libs_jaxb/
 
-# 6. Generar el .exe (necesita Launch4j: https://launch4j.sourceforge.net)
+# 7. Generar el .exe (necesita Launch4j: https://launch4j.sourceforge.net)
 launch4j launch4j.xml
 ```
 
@@ -108,8 +111,8 @@ La plantilla inglesa del paso 2 es
 `Java source.zip`. Es la versión del modelo que corresponde a la traducción
 antigua y sirve de puente para emparejar las preguntas (ver `emparejar.py`).
 
-Para corregir un texto, edite el JSON correspondiente y repita los pasos 3 y 4.
-Para corregir la interfaz, edite `FormStrings_es.utf8.properties` y repita el 5.
+Para corregir un texto, edite el JSON correspondiente y repita los pasos 4 y 5.
+Para corregir la interfaz, edite `FormStrings_es.utf8.properties` y repita el 6.
 
 ## Cómo se verificó
 

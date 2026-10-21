@@ -20,9 +20,7 @@ import raml_es
 # Etiquetas de perfiles de resultados y de gráficas, que la traducción
 # publicada dejó en inglés.
 ETIQUETAS = {
-    # "Centro" (y no "Instalación") para seguir el término que ya usa el cuerpo
-    # de la traducción publicada.
-    'Facility': 'Centro',
+    'Facility': 'Instalación',
     'Agent': 'Agente',
     'Risk to Humans': 'Riesgo para los seres humanos',
     'Risk to Animals': 'Riesgo para los animales',
@@ -49,8 +47,14 @@ ETIQUETAS = {
 }
 
 
+# En dos opciones el modelo original en inglés viene truncado y el traductor lo
+# marcó con una nota en inglés. La nota se conserva, pero en español.
+NOTA_INCOMPLETA = re.compile(r'[\(\[]\s*incomplete sentence\s*[\)\]]\.?')
+
+
 def normalizar(texto):
     texto = texto.replace('\xa0', ' ').replace('‑', '-')
+    texto = NOTA_INCOMPLETA.sub('(frase incompleta en el modelo original)', texto)
     lineas = []
     for linea in texto.split('\n'):
         linea = re.sub(r' {2,}', ' ', linea).strip()
