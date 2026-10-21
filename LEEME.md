@@ -17,8 +17,9 @@ instálelo desde <https://adoptium.net>.
 | `Biosafety_es.raml` | Modelo de evaluación de riesgos de bioseguridad. |
 | `Biosecurity_es.raml` | Modelo de evaluación de riesgos de bioprotección. |
 
-El `.exe`, el `.bat` y el `.jar` tienen que estar en la misma carpeta que los
-dos `.raml`.
+El `.exe` se basta solo: lleva el programa adentro. El `.bat`, en cambio,
+necesita que `bioram-4.0.5-es-java-actual.jar` esté en la misma carpeta. Lo más
+simple es poner todo junto en una carpeta, junto con los dos `.raml`.
 
 Ya dentro del programa, use *Archivo > Abrir perfil* y seleccione
 `Biosafety_es.raml` o `Biosecurity_es.raml`.
