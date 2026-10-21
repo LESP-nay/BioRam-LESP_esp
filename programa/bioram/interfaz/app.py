@@ -10,6 +10,7 @@ from pathlib import Path
 from PySide6.QtWidgets import QApplication
 
 from ..datos import Almacen
+from . import estilo
 from .ventana import Ventana
 
 POR_OMISION = 'bioram.db'
@@ -21,6 +22,7 @@ def main(argv=None):
 
     app = QApplication(argv[:1])
     app.setApplicationName('BioRAM LESP')
+    estilo.aplicar(app)
     almacen = Almacen(ruta)
     ventana = Ventana(almacen)
     ventana.show()

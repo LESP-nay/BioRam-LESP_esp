@@ -1,60 +1,85 @@
-"""La ventana principal de BioRAM LESP.
+"""La ventana de BioRAM LESP.
 
-A la izquierda, el laboratorio: áreas, sus cepas y, por cepa, sus dos
-evaluaciones. A la derecha, la evaluación seleccionada.
+Dos pantallas, no más: la del laboratorio (áreas y cepas) y la de una
+evaluación. Se va y se vuelve con un botón grande, como en un navegador.
 """
 from __future__ import annotations
 
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QAction, QFont
-from PySide6.QtWidgets import (QHBoxLayout, QHeaderView, QInputDialog, QLabel, QMainWindow,
-                               QMessageBox, QPushButton, QSplitter, QStackedWidget,
-                               QTabWidget, QTreeWidget, QTreeWidgetItem, QVBoxLayout,
-                               QWidget)
+from PySide6.QtGui import QAction
+from PySide6.QtWidgets import (QHBoxLayout, QMainWindow, QMessageBox, QStackedWidget,
+                               QTabWidget, QVBoxLayout, QWidget)
 
 from .. import modelo
 from ..datos import Almacen
 from .captura import PanelCaptura
+from .estilo import (Ayuda, BotonGrande, COLOR_TIPO, INICIAL_TIPO, NOMBRE_TIPO,
+                     Titulo, insignia)
+from .ficha import PanelFicha
+from .inicio import PantallaInicio
 from .portada import PanelPortada
 from .resultados import PanelResultados
 
-NOMBRE = {'bioseguridad': 'Bioseguridad', 'bioproteccion': 'Bioprotección'}
-# Qué guarda cada elemento del árbol: ('area'|'cepa'|'evaluacion', id)
-CLASE, ID = Qt.UserRole, Qt.UserRole + 1
 
+class PaginaEvaluacion(QWidget):
+    """Una evaluación abierta: encabezado de color y sus pestañas."""
 
-class PanelEvaluacion(QWidget):
-    """Las pestañas de una evaluación: preguntas y resultados."""
-
-    def __init__(self, almacen: Almacen, evaluacion_id: int, parent=None):
+    def __init__(self, almacen: Almacen, evaluacion_id: int, volver, parent=None):
         super().__init__(parent)
         self.almacen = almacen
         self.evaluacion_id = evaluacion_id
         evaluacion = almacen.evaluacion(evaluacion_id)
         cepa = almacen.cepa(evaluacion.cepa_id)
         area = almacen.area(cepa.area_id)
+        color = COLOR_TIPO[evaluacion.tipo]
         cuestionario = modelo.incluido(evaluacion.tipo)
 
         disposicion = QVBoxLayout(self)
-        encabezado = QLabel(
-            f'<b>{NOMBRE[evaluacion.tipo]}</b> — {cepa.nombre}'
-            f'<br><span style="color:#555">{area.nombre}</span>')
-        encabezado.setTextFormat(Qt.RichText)
-        disposicion.addWidget(encabezado)
+        disposicion.setContentsMargins(18, 14, 18, 18)
+        disposicion.setSpacing(12)
+
+        encabezado = QHBoxLayout()
+        encabezado.setSpacing(12)
+        atras = BotonGrande(f'←  Volver a {area.nombre}')
+        atras.clicked.connect(volver)
+        encabezado.addWidget(atras)
+
+        marca = QWidget()
+        fila = QHBoxLayout(marca)
+        fila.setContentsMargins(0, 0, 0, 0)
+        fila.setSpacing(10)
+        sello = QWidget()
+        sello.setFixedSize(38, 38)
+        sello.setStyleSheet(
+            f'background-image: url();')
+        from PySide6.QtWidgets import QLabel
+        etiqueta_sello = QLabel()
+        etiqueta_sello.setPixmap(insignia(INICIAL_TIPO[evaluacion.tipo], color, 38))
+        fila.addWidget(etiqueta_sello)
+        textos = QVBoxLayout()
+        textos.setSpacing(0)
+        textos.addWidget(Titulo(f'{NOMBRE_TIPO[evaluacion.tipo]} — {cepa.nombre}',
+                                tamano=14, color=color))
+        textos.addWidget(Ayuda(area.nombre))
+        fila.addLayout(textos)
+        encabezado.addWidget(marca, 1)
+        disposicion.addLayout(encabezado)
 
         self.portada = PanelPortada(cuestionario)
-        self.captura = PanelCaptura(cuestionario)
+        self.captura = PanelCaptura(cuestionario, color)
         self.resultados = PanelResultados(cuestionario)
+        self.ficha = PanelFicha(almacen, evaluacion_id)
         self.captura.cambiada.connect(self._guardar)
         self.portada.cambiada.connect(self._guardar_cabecera)
+        self.ficha.respuestas_cambiadas.connect(self._recargar_respuestas)
 
-        pestanas = QTabWidget()
-        pestanas.addTab(self.portada, 'Información preliminar')
-        pestanas.addTab(self.captura, 'Preguntas')
-        pestanas.addTab(self.resultados, 'Resultados')
-        pestanas.setCurrentIndex(1)
-        pestanas.currentChanged.connect(self._cambio_de_pestana)
-        disposicion.addWidget(pestanas, 1)
+        self.pestanas = QTabWidget()
+        self.pestanas.addTab(self.captura, '1 · Contestar')
+        self.pestanas.addTab(self.resultados, '2 · Resultados')
+        self.pestanas.addTab(self.portada, 'Portada')
+        self.pestanas.addTab(self.ficha, 'Datos y respaldo')
+        self.pestanas.currentChanged.connect(self._cambio_de_pestana)
+        disposicion.addWidget(self.pestanas, 1)
 
         self.portada.mostrar(evaluacion.responsables, evaluacion.procedimiento)
         self.captura.mostrar(almacen.respuestas(evaluacion_id))
@@ -71,152 +96,67 @@ class PanelEvaluacion(QWidget):
                                            responsables=responsables,
                                            procedimiento=procedimiento)
 
+    def _recargar_respuestas(self):
+        self.captura.mostrar(self.almacen.respuestas(self.evaluacion_id))
+        self.resultados.mostrar(self.almacen.puntajes(self.evaluacion_id))
+
     def _cambio_de_pestana(self, indice):
-        if indice == 2:      # al entrar a Resultados, recalcular
+        if self.pestanas.widget(indice) is self.resultados:
             self.resultados.mostrar(self.almacen.puntajes(self.evaluacion_id))
+        elif self.pestanas.widget(indice) is self.ficha:
+            self.ficha.recargar()
 
 
 class Ventana(QMainWindow):
     def __init__(self, almacen: Almacen):
         super().__init__()
         self.almacen = almacen
-        self.paneles: dict[int, PanelEvaluacion] = {}
-        self.setWindowTitle(f'BioRAM LESP — {almacen.ruta.name}')
-        self.resize(1180, 760)
+        self.setWindowTitle('BioRAM LESP — evaluación de riesgos del laboratorio')
+        self.resize(1240, 820)
 
-        self.arbol = QTreeWidget()
-        self.arbol.setHeaderLabels(['Laboratorio', 'Avance'])
-        self.arbol.header().setSectionResizeMode(0, QHeaderView.Stretch)
-        self.arbol.header().setSectionResizeMode(1, QHeaderView.ResizeToContents)
-        self.arbol.currentItemChanged.connect(self._seleccion)
-
-        botones = QHBoxLayout()
-        for texto, accion in (('Nueva área', self.nueva_area),
-                              ('Nueva cepa', self.nueva_cepa),
-                              ('Nueva evaluación', self.nueva_evaluacion)):
-            b = QPushButton(texto)
-            b.clicked.connect(accion)
-            botones.addWidget(b)
-
-        izquierda = QWidget()
-        columna = QVBoxLayout(izquierda)
-        columna.setContentsMargins(0, 0, 0, 0)
-        columna.addWidget(self.arbol, 1)
-        columna.addLayout(botones)
+        self.inicio = PantallaInicio(almacen)
+        self.inicio.abrir_evaluacion.connect(self.abrir_evaluacion)
 
         self.pila = QStackedWidget()
-        self.vacio = QLabel('Seleccione una evaluación en el árbol de la izquierda,\n'
-                            'o cree un área para empezar.')
-        self.vacio.setAlignment(Qt.AlignCenter)
-        self.vacio.setStyleSheet('color:#666;')
-        self.pila.addWidget(self.vacio)
-
-        division = QSplitter(Qt.Horizontal)
-        division.addWidget(izquierda)
-        division.addWidget(self.pila)
-        division.setStretchFactor(0, 1)
-        division.setStretchFactor(1, 4)
-        division.setSizes([300, 880])
-        self.setCentralWidget(division)
-
+        self.pila.addWidget(self.inicio)
+        self.setCentralWidget(self.pila)
         self._menus()
-        self.recargar_arbol()
 
     def _menus(self):
         archivo = self.menuBar().addMenu('&Archivo')
+        donde = QAction('¿Dónde se guarda mi trabajo?', self)
+        donde.triggered.connect(lambda: QMessageBox.information(
+            self, 'Dónde se guarda',
+            'Todo su trabajo está en este único archivo:\n\n'
+            f'{self.almacen.ruta.resolve()}\n\n'
+            'Para respaldarlo, cópielo a una memoria USB o a la nube. '
+            'Para llevárselo a otra computadora, copie ese archivo y abra el '
+            'programa junto a él.'))
+        archivo.addAction(donde)
+        archivo.addSeparator()
         salir = QAction('Salir', self)
         salir.triggered.connect(self.close)
         archivo.addAction(salir)
 
         ayuda = self.menuBar().addMenu('A&yuda')
-        acerca = QAction('Acerca de', self)
+        acerca = QAction('Acerca de BioRAM LESP', self)
         acerca.triggered.connect(lambda: QMessageBox.information(
             self, 'BioRAM LESP',
             'Evaluación de riesgos de bioseguridad y bioprotección.\n\n'
             'Los cuestionarios y el cálculo son los de BioRAM (Sandia National '
             'Laboratories), traducidos al español y comprobados contra el '
-            'programa original.'))
+            'programa original: los resultados son los mismos.'))
         ayuda.addAction(acerca)
 
-    # ------------------------------------------------------------------ árbol
-    def recargar_arbol(self, seleccionar=None):
-        self.arbol.clear()
-        for area in self.almacen.areas():
-            nodo_area = QTreeWidgetItem(self.arbol, [area.nombre, ''])
-            nodo_area.setData(0, CLASE, 'area')
-            nodo_area.setData(0, ID, area.id)
-            fuente = QFont(nodo_area.font(0)); fuente.setBold(True)
-            nodo_area.setFont(0, fuente)
+    def abrir_evaluacion(self, evaluacion_id: int):
+        pagina = PaginaEvaluacion(self.almacen, evaluacion_id, self.volver_al_inicio)
+        self.pila.addWidget(pagina)
+        self.pila.setCurrentWidget(pagina)
 
-            for cepa in self.almacen.cepas(area.id):
-                nodo_cepa = QTreeWidgetItem(nodo_area, [cepa.nombre, ''])
-                nodo_cepa.setData(0, CLASE, 'cepa')
-                nodo_cepa.setData(0, ID, cepa.id)
-
-                for evaluacion in self.almacen.evaluaciones(cepa.id):
-                    total = len(modelo.incluido(evaluacion.tipo).preguntas)
-                    hechas = len(self.almacen.respuestas(evaluacion.id))
-                    nodo = QTreeWidgetItem(nodo_cepa,
-                                           [NOMBRE[evaluacion.tipo], f'{hechas}/{total}'])
-                    nodo.setData(0, CLASE, 'evaluacion')
-                    nodo.setData(0, ID, evaluacion.id)
-                    if seleccionar == evaluacion.id:
-                        self.arbol.setCurrentItem(nodo)
-        self.arbol.expandAll()
-
-    def _elemento(self, clases):
-        actual = self.arbol.currentItem()
-        while actual is not None:
-            if actual.data(0, CLASE) in clases:
-                return actual.data(0, CLASE), actual.data(0, ID)
-            actual = actual.parent()
-        return None, None
-
-    def _seleccion(self, actual, _anterior):
-        if actual is None or actual.data(0, CLASE) != 'evaluacion':
-            self.pila.setCurrentWidget(self.vacio)
-            return
-        evaluacion_id = actual.data(0, ID)
-        if evaluacion_id not in self.paneles:
-            panel = PanelEvaluacion(self.almacen, evaluacion_id)
-            self.paneles[evaluacion_id] = panel
-            self.pila.addWidget(panel)
-        self.pila.setCurrentWidget(self.paneles[evaluacion_id])
-
-    # ------------------------------------------------------------------ altas
-    def nueva_area(self):
-        nombre, ok = QInputDialog.getText(self, 'Nueva área', 'Nombre del área:')
-        if ok and nombre.strip():
-            self.almacen.crear_area(nombre)
-            self.recargar_arbol()
-
-    def nueva_cepa(self):
-        clase, area_id = self._elemento({'area'})
-        if area_id is None:
-            QMessageBox.information(self, 'Nueva cepa',
-                                    'Seleccione primero el área a la que pertenece.')
-            return
-        nombre, ok = QInputDialog.getText(self, 'Nueva cepa', 'Nombre de la cepa o agente:')
-        if ok and nombre.strip():
-            self.almacen.crear_cepa(area_id, nombre)
-            self.recargar_arbol()
-
-    def nueva_evaluacion(self):
-        clase, cepa_id = self._elemento({'cepa'})
-        if cepa_id is None:
-            QMessageBox.information(self, 'Nueva evaluación',
-                                    'Seleccione primero la cepa que se va a evaluar.')
-            return
-        existentes = {e.tipo for e in self.almacen.evaluaciones(cepa_id)}
-        faltantes = [t for t in modelo.TIPOS if t not in existentes]
-        if not faltantes:
-            QMessageBox.information(self, 'Nueva evaluación',
-                                    'Esta cepa ya tiene sus dos evaluaciones.')
-            return
-        etiquetas = [NOMBRE[t] for t in faltantes]
-        etiqueta, ok = QInputDialog.getItem(self, 'Nueva evaluación', 'Tipo de evaluación:',
-                                            etiquetas, 0, False)
-        if ok:
-            tipo = faltantes[etiquetas.index(etiqueta)]
-            nueva = self.almacen.crear_evaluacion(cepa_id, tipo)
-            self.recargar_arbol(seleccionar=nueva)
+    def volver_al_inicio(self):
+        anterior = self.pila.currentWidget()
+        self.pila.setCurrentWidget(self.inicio)
+        if anterior is not self.inicio:
+            self.pila.removeWidget(anterior)
+            anterior.deleteLater()
+        self.inicio.recargar_cepas()

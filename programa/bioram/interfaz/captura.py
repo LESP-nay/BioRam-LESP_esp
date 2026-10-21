@@ -10,11 +10,14 @@ from __future__ import annotations
 import re
 
 from PySide6.QtCore import Qt, Signal
-from PySide6.QtWidgets import (QCheckBox, QComboBox, QFrame, QHBoxLayout, QInputDialog,
-                               QLabel, QLineEdit, QScrollArea, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QButtonGroup, QCheckBox, QComboBox, QHBoxLayout,
+                               QInputDialog, QLabel, QLineEdit, QProgressBar,
+                               QPushButton, QScrollArea, QVBoxLayout, QWidget)
 
 from ..datos import Respuesta
 from ..modelo import Cuestionario, Pregunta
+from .estilo import (Ayuda, BORDE, BotonGrande, COMPLETO, TARJETA, TEXTO_SUAVE,
+                     Tarjeta, insignia)
 
 SIN_RESPONDER = 'Sin responder'
 OTRO = 'Otro valor…'
@@ -27,6 +30,9 @@ INTERMEDIO = 'valor intermedio'
 # por opción. A veces el mismo puntaje aparece dos veces, con redacciones
 # distintas, y hay que conservar las dos.
 CRITERIO = re.compile(r'^\s*(\d+(?:\.\d+)?)\s*=\s*(.+)$')
+# El cuestionario de bioseguridad numera sus preguntas en el propio enunciado,
+# "(17) ¿Qué tipo de material…". Se usa ese número y no se repite en el texto.
+NUMERADA = re.compile(r'^\s*\((\d+)\)\s*')
 
 
 def opciones_de(pregunta: Pregunta) -> list[tuple[float, str]]:
@@ -39,22 +45,34 @@ def opciones_de(pregunta: Pregunta) -> list[tuple[float, str]]:
     return opciones
 
 
-class FilaPregunta(QFrame):
+class FilaPregunta(Tarjeta):
     """Una pregunta: su número, su texto, sus criterios y la respuesta."""
 
     cambiada = Signal(str, object)      # uuid, Respuesta | None
 
-    def __init__(self, numero: int, pregunta: Pregunta, parent=None):
+    def __init__(self, numero: int, pregunta: Pregunta, color: str, parent=None):
         super().__init__(parent)
         self.pregunta = pregunta
-        self.setFrameShape(QFrame.StyledPanel)
+        propia = NUMERADA.match(pregunta.titulo)
+        self.numero = int(propia.group(1)) if propia else numero
+        enunciado = NUMERADA.sub('', pregunta.titulo) if propia else pregunta.titulo
+        self.color = color
 
         disposicion = QVBoxLayout(self)
-        disposicion.setSpacing(6)
+        disposicion.setContentsMargins(14, 12, 14, 12)
+        disposicion.setSpacing(8)
 
-        titulo = QLabel(f'<b>{numero}.</b> {pregunta.titulo}')
+        arriba = QHBoxLayout()
+        arriba.setSpacing(12)
+        self.sello = QLabel()
+        self.sello.setPixmap(insignia(str(numero), TEXTO_SUAVE, 30))
+        self.sello.setFixedWidth(32)
+        arriba.addWidget(self.sello, 0, Qt.AlignTop)
+        titulo = QLabel(enunciado)
         titulo.setWordWrap(True)
-        disposicion.addWidget(titulo)
+        titulo.setStyleSheet('font-size: 11pt;')
+        arriba.addWidget(titulo, 1)
+        disposicion.addLayout(arriba)
 
         self.opciones = opciones_de(pregunta)
         fila = QHBoxLayout()
@@ -64,14 +82,15 @@ class FilaPregunta(QFrame):
             self.respuesta.addItem(f'{valor:g} — {texto}', valor)
         self.respuesta.addItem(OTRO, OTRO)
         self.respuesta.setMinimumWidth(420)
+        self.respuesta.setMinimumHeight(38)
         if not self.opciones:
             self.respuesta.setToolTip(
                 f'Esta pregunta no trae criterios; use «{OTRO}» para escribir un '
                 f'número entre {pregunta.minimo:g} y {pregunta.maximo:g}')
         fila.addWidget(self.respuesta, 1)
 
-        self.aproximada = QCheckBox('Aproximada')
-        self.aproximada.setToolTip('Marque si la respuesta es una estimación')
+        self.aproximada = QCheckBox('Es una estimación')
+        self.aproximada.setToolTip('Marque si no está seguro del dato')
         fila.addWidget(self.aproximada)
         disposicion.addLayout(fila)
 
@@ -83,6 +102,7 @@ class FilaPregunta(QFrame):
 
         self.respuesta.currentIndexChanged.connect(self._avisar)
         self.aproximada.toggled.connect(self._avisar)
+        self._pintar()
 
     def _valor(self):
         dato = self.respuesta.currentData()
@@ -114,8 +134,22 @@ class FilaPregunta(QFrame):
         self._ultimo_indice = self.respuesta.currentIndex()
         valor = self._valor()
         self.aproximada.setEnabled(valor is not None)
+        self._pintar()
         self.cambiada.emit(self.pregunta.uuid,
                            None if valor is None else Respuesta(valor, self.aproximada.isChecked()))
+
+    def _pintar(self):
+        """Verde y número en color cuando ya está contestada."""
+        contestada = self._valor() is not None
+        color = self.color if contestada else TEXTO_SUAVE
+        self.sello.setPixmap(insignia(str(self.numero), color, 30))
+        self.setStyleSheet(
+            f'#tarjeta {{ background: {TARJETA}; border-radius: 12px;'
+            f' border: 1px solid {COMPLETO if contestada else BORDE};'
+            f' border-left: 5px solid {color}; }}')
+
+    def contestada(self) -> bool:
+        return self._valor() is not None
 
     def mostrar(self, respuesta: Respuesta | None):
         """Pone la respuesta guardada, sin disparar avisos."""
@@ -131,6 +165,7 @@ class FilaPregunta(QFrame):
         self.aproximada.setEnabled(respuesta is not None)
         for control in (self.respuesta, self.aproximada):
             control.blockSignals(False)
+        self._pintar()
 
     def coincide_con(self, texto: str) -> bool:
         texto = texto.lower()
@@ -138,43 +173,79 @@ class FilaPregunta(QFrame):
 
 
 class PanelCaptura(QWidget):
-    """El cuestionario completo, con su buscador y el avance."""
+    """El cuestionario completo: avance arriba, preguntas abajo."""
 
     cambiada = Signal(str, object)
 
-    def __init__(self, cuestionario: Cuestionario, parent=None):
+    def __init__(self, cuestionario: Cuestionario, color: str = COMPLETO, parent=None):
         super().__init__(parent)
         self.cuestionario = cuestionario
+        self.color = color
         self.filas: dict[str, FilaPregunta] = {}
+        self.orden: list[FilaPregunta] = []
 
         disposicion = QVBoxLayout(self)
+        disposicion.setContentsMargins(14, 14, 14, 14)
+        disposicion.setSpacing(10)
 
+        # Avance, bien visible
+        self.barra = QProgressBar()
+        self.barra.setRange(0, len(cuestionario.preguntas))
+        self.barra.setStyleSheet(f'QProgressBar::chunk {{ background: {color}; }}')
+        disposicion.addWidget(self.barra)
+
+        # Buscar y filtrar
         barra = QHBoxLayout()
+        barra.setSpacing(8)
         self.buscador = QLineEdit()
-        self.buscador.setPlaceholderText('Buscar en las preguntas…')
+        self.buscador.setPlaceholderText('Buscar una palabra en las preguntas…')
         self.buscador.setClearButtonEnabled(True)
+        self.buscador.setMinimumHeight(38)
         self.buscador.textChanged.connect(self._filtrar)
         barra.addWidget(self.buscador, 1)
-        self.avance = QLabel()
-        barra.addWidget(self.avance)
+
+        self.grupo = QButtonGroup(self)
+        self.grupo.setExclusive(True)
+        for i, texto in enumerate(('Todas', 'Faltan', 'Contestadas')):
+            boton = QPushButton(texto)
+            boton.setCheckable(True)
+            boton.setChecked(i == 0)
+            boton.setMinimumHeight(38)
+            boton.setCursor(Qt.PointingHandCursor)
+            boton.setStyleSheet(
+                'QPushButton:checked { background: #dde7fb; border-color: #93b0ea;'
+                ' font-weight: 600; }')
+            self.grupo.addButton(boton, i)
+            barra.addWidget(boton)
+        self.grupo.idToggled.connect(lambda *_: self._filtrar())
+
+        self.siguiente = BotonGrande('Ir a la siguiente sin contestar')
+        self.siguiente.clicked.connect(self._ir_a_la_siguiente)
+        barra.addWidget(self.siguiente)
         disposicion.addLayout(barra)
 
         contenedor = QWidget()
+        contenedor.setStyleSheet('background: transparent;')
         self.lista = QVBoxLayout(contenedor)
-        self.lista.setSpacing(8)
+        self.lista.setSpacing(10)
         for numero, pregunta in enumerate(cuestionario.preguntas_en_orden(), 1):
-            fila = FilaPregunta(numero, pregunta)
+            fila = FilaPregunta(numero, pregunta, color)
             fila.cambiada.connect(self.cambiada)
             fila.cambiada.connect(lambda *_: self._actualizar_avance())
             self.filas[pregunta.uuid] = fila
+            self.orden.append(fila)
             self.lista.addWidget(fila)
         self.lista.addStretch(1)
 
-        area = QScrollArea()
-        area.setWidget(contenedor)
-        area.setWidgetResizable(True)
-        area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        disposicion.addWidget(area, 1)
+        self.area = QScrollArea()
+        self.area.setWidget(contenedor)
+        self.area.setWidgetResizable(True)
+        self.area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.area.viewport().setStyleSheet('background: transparent;')
+        disposicion.addWidget(self.area, 1)
+
+        self.aviso = Ayuda('')
+        disposicion.addWidget(self.aviso)
 
         self._actualizar_avance()
 
@@ -182,12 +253,36 @@ class PanelCaptura(QWidget):
         for uuid, fila in self.filas.items():
             fila.mostrar(respuestas.get(uuid))
         self._actualizar_avance()
+        self._filtrar()
 
     def _actualizar_avance(self):
-        contestadas = sum(1 for f in self.filas.values() if f._valor() is not None)
+        contestadas = sum(1 for f in self.filas.values() if f.contestada())
         total = len(self.filas)
-        self.avance.setText(f'<b>{contestadas}</b> de {total} respondidas')
+        self.barra.setValue(contestadas)
+        self.barra.setFormat(
+            f'{contestadas} de {total} preguntas contestadas  (%p%)'
+            if contestadas < total else '¡Cuestionario completo!')
+        faltan = total - contestadas
+        self.siguiente.setEnabled(bool(faltan))
+        self.aviso.setText(
+            'Las respuestas se guardan solas en cuanto las elige.'
+            if not faltan else
+            f'Faltan {faltan} preguntas. Las respuestas se guardan solas.')
 
-    def _filtrar(self, texto):
-        for fila in self.filas.values():
-            fila.setVisible(not texto or fila.coincide_con(texto))
+    def _filtrar(self, *_):
+        texto = self.buscador.text()
+        modo = self.grupo.checkedId()
+        for fila in self.orden:
+            visible = (not texto or fila.coincide_con(texto))
+            if modo == 1:
+                visible = visible and not fila.contestada()
+            elif modo == 2:
+                visible = visible and fila.contestada()
+            fila.setVisible(visible)
+
+    def _ir_a_la_siguiente(self):
+        for fila in self.orden:
+            if not fila.contestada() and not fila.isHidden():
+                self.area.ensureWidgetVisible(fila, 0, 60)
+                fila.respuesta.setFocus()
+                return

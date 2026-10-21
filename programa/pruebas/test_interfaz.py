@@ -37,7 +37,7 @@ def test_se_muestran_todas_las_respuestas_guardadas(app):
 
     mostradas = {u: f._valor() for u, f in panel.filas.items() if f._valor() is not None}
     assert mostradas == plantilla, 'la pantalla perdió respuestas'
-    assert f'{len(plantilla)}' in panel.avance.text()
+    assert panel.barra.value() == len(plantilla), 'el avance no cuadra con lo guardado'
 
 
 def test_los_valores_intermedios_existen_de_verdad():
@@ -55,6 +55,20 @@ def test_las_opciones_salen_de_los_criterios(app):
     opciones = opciones_de(pregunta)
     assert opciones, 'la primera pregunta debería traer criterios'
     assert all(isinstance(v, float) and texto for v, texto in opciones)
+
+
+def test_el_filtro_de_faltantes(app):
+    cuestionario = modelo.incluido('bioseguridad')
+    panel = PanelCaptura(cuestionario)
+    primera = cuestionario.preguntas_en_orden()[0]
+    panel.mostrar({primera.uuid: Respuesta(4.0)})
+
+    # isHidden() y no isVisible(): la ventana no está en pantalla durante la prueba.
+    panel.grupo.button(1).setChecked(True)      # «Faltan»
+    assert panel.filas[primera.uuid].isHidden()
+    panel.grupo.button(2).setChecked(True)      # «Contestadas»
+    assert not panel.filas[primera.uuid].isHidden()
+    assert sum(1 for f in panel.orden if not f.isHidden()) == 1
 
 
 def test_marcar_aproximada_se_refleja(app):

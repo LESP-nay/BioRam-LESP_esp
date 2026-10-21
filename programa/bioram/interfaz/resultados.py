@@ -7,15 +7,17 @@ from __future__ import annotations
 
 from PySide6.QtCore import QPointF, QRectF, Qt
 from PySide6.QtGui import QBrush, QColor, QFont, QImage, QPainter, QPen, QPixmap
-from PySide6.QtWidgets import (QHBoxLayout, QHeaderView, QLabel, QSizePolicy, QSplitter,
-                               QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QHBoxLayout, QHeaderView, QLabel, QScrollArea,
+                               QSizePolicy, QSplitter, QTableWidget, QTableWidgetItem,
+                               QVBoxLayout, QWidget)
 
 from .. import motor
 from ..modelo import Cuestionario, Grafica
 
 # Colores de los puntos, en el orden en que aparecen en la leyenda.
 COLORES = ['#1f4e79', '#c00000', '#2e7d32', '#e07b00', '#6a1b9a',
-           '#00838f', '#9e3d00', '#37474f']
+           '#00838f', '#9e3d00', '#37474f', '#ad1457', '#4e6b1f',
+           '#5d4037', '#0277bd']
 
 
 class LienzoGrafica(QWidget):
@@ -32,7 +34,7 @@ class LienzoGrafica(QWidget):
             imagen = QImage()
             imagen.loadFromData(grafica.fondo)
             self.fondo = QPixmap.fromImage(imagen)
-        self.setMinimumSize(360, 320)
+        self.setMinimumSize(320, 300)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
     def mostrar(self, puntos):
@@ -115,8 +117,10 @@ class PanelResultados(QWidget):
         self.tabla.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
         self.tabla.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeToContents)
 
-        derecha = QWidget()
-        columna = QVBoxLayout(derecha)
+        interior = QWidget()
+        interior.setStyleSheet('background: transparent;')
+        columna = QVBoxLayout(interior)
+        columna.setSpacing(6)
         self.lienzos = []
         for grafica in cuestionario.graficas:
             titulo = QLabel(f'<b>{grafica.titulo}</b>')
@@ -129,8 +133,16 @@ class PanelResultados(QWidget):
             leyenda = QLabel()
             leyenda.setWordWrap(True)
             leyenda.setTextFormat(Qt.RichText)
+            leyenda.setStyleSheet('font-size: 10pt;')
             columna.addWidget(leyenda)
+            columna.addSpacing(10)
             lienzo.leyenda = leyenda
+
+        # Con varias gráficas no caben de golpe: mejor desplazar que encimarlas.
+        derecha = QScrollArea()
+        derecha.setWidget(interior)
+        derecha.setWidgetResizable(True)
+        derecha.viewport().setStyleSheet('background: transparent;')
 
         division = QSplitter(Qt.Horizontal)
         division.addWidget(self.tabla)
@@ -157,6 +169,6 @@ class PanelResultados(QWidget):
         for lienzo, puntos in zip(self.lienzos,
                                   motor.puntos_de_grafica(self.cuestionario, respuestas)):
             lienzo.mostrar(puntos)
-            lienzo.leyenda.setText('&nbsp;&nbsp;'.join(
-                f'<span style="color:{COLORES[i % len(COLORES)]}">●</span> {leyenda}'
+            lienzo.leyenda.setText('<br>'.join(
+                f'<span style="color:{COLORES[i % len(COLORES)]}">●</span>&nbsp;{leyenda}'
                 for i, (leyenda, _, _) in enumerate(puntos)))

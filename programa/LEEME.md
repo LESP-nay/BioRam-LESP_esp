@@ -11,8 +11,26 @@ Los dos cuestionarios viajan **dentro** del programa (`bioram/cuestionarios/`),
 así que no hay archivos `.raml` sueltos que confundir. Todo el trabajo del
 laboratorio se guarda en **un solo archivo** SQLite: respaldarlo es copiarlo.
 
-Estado: **etapa 1 terminada** (motor de cálculo, almacén de datos, importación y
-línea de comandos). La ventana es la etapa 2.
+Estado: **etapas 1 y 2 terminadas**. Hay ventana:
+
+```
+cd programa
+python3 -m bioram.interfaz.app lab.db
+```
+
+La pantalla de inicio muestra las áreas y, de cada una, sus cepas como tarjetas
+con las dos evaluaciones a la vista y su avance. Se entra a un cuestionario
+haciendo clic en su botón de color: verde para bioseguridad, azul para
+bioprotección. Dentro hay cuatro pestañas: contestar, resultados, portada, y
+datos y respaldo.
+
+Está pensada para quien usa poco la computadora: letra grande, botones con
+texto, colores que siempre significan lo mismo (verde completo, ámbar
+empezado, gris sin empezar) y las respuestas se guardan solas.
+
+Al contestar, cada criterio del cuestionario es una opción de la lista: se
+elige la frase y el número lo pone el programa. Se guarda exactamente lo mismo
+que escribía el programa original.
 
 ## Probarlo
 
@@ -42,7 +60,8 @@ python3 -m bioram.cli --datos lab.db exportar 1 para_el_programa_viejo.raml
 | `bioram/motor.py` | El cálculo. Reproduce el motor Java original, casos raros incluidos. |
 | `bioram/datos.py` | El archivo del laboratorio: áreas, cepas, evaluaciones, respuestas e historial. |
 | `bioram/intercambio.py` | Importar y exportar `.raml`. |
-| `bioram/cli.py` | La línea de comandos de esta etapa. |
+| `bioram/cli.py` | La línea de comandos, útil para revisar y para pruebas. |
+| `bioram/interfaz/` | La ventana: inicio, captura, resultados, portada y respaldo. |
 
 ## Lo que ya hace mejor que el programa actual
 
@@ -79,6 +98,11 @@ Todos coinciden hasta el décimo decimal. Las referencias están en
 También se comprueba la compatibilidad en los dos sentidos: un archivo del
 programa original se importa completo, y lo que este programa exporta lo abre el
 programa original y da los mismos puntajes.
+
+## Lo que falta
+
+- **Etapa 3**: reporte por cepa y consolidado por área, y exportar a PDF y CSV.
+- **Etapa 4**: empaquetar en un solo `.exe`. En espera, como se acordó.
 
 ## Decisiones que quedan pendientes
 
