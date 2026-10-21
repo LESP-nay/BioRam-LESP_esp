@@ -1,0 +1,1342 @@
+[
+ {
+  "id": "root:0/1:frontHTML",
+  "en": "<html>\n  <head>\n    <style type=\"text/css\">\n.title {\n  text-align: center;\n  font-family: Arial,Helvetica,sans-serif;\n  font-size: 24pt;\n  color: purple;\n  padding-top: 30px;\n  padding-bottom: 30px;\n}\n\n.subtitle {\n  font-family: Arial,Helvetica,sans-serif;\n  text-align: center;\n  font-style: italic;\n  padding-top: 10px;\n  padding-bottom: 10px;\n}\n\n.copyright {\n  font-size: 80%;\n  text-align: center;\n  color: blue;\n  font-variant: small-caps;\n}\n    </style>\n  </head>\n  <body>\n    <p class=\"title\">2010 Biosecurity Risk Model (BioRAM 2.0)<br />\n    <span style=\"font-style: italic;\">Prototype</span></p>\n\n    <p class=\"copyright\"> Copyright 2007/2009 Sandia Corporation.<br/> Under the terms of Contract DE-AC04-94AL85000, <br/>\nthere is a non-exclusive license for use of this<br/>\nwork by or on behalf of the U.S. Government.<br/> Export of this program may require a license from<br/>\n the United States Government.</p>\n  </body>\n</html>",
+  "es": "<html>\n<head>\n<style type=\"text/css\">\n.title {\ntext-align: center;\nfont-family: Arial,Helvetica,sans-serif;\nfont-size: 24pt;\ncolor: purple;\npadding-top: 30px;\npadding-bottom: 30px;\n}\n.subtitle {\nfont-family: Arial,Helvetica,sans-serif;\ntext-align: center;\nfont-style: italic;\npadding-top: 10px;\npadding-bottom: 10px;\n}\n.copyright {\nfont-size: 80%;\ntext-align: center;\ncolor: blue;\nfont-variant: small-caps;\n}\n</style>\n</head>\n<body>\n<p class=\"title\">Modelo de riesgos relacionados con la<br/> bioprotección 2010 (BioRAM 2.0)<br />\n<span style=\"font-style: italic;\">Prototipo</span></p>\n<p class=\"copyright\"> Derecho de autor 2007/2009 Sandia<br/> Corporation. Conforme los términos del contrato DE-AC04-94AL85000, <br/>\nse emitió una licencia sin exclusividad con respecto al uso de este<br/>\ntrabajo a favor del Gobierno de los EE. UU. La exportación de este<br/> programa tal vez requiera una licencia del\nGobierno de los Estados Unidos.<br/>\n</p>\n</body>\n</html>"
+ },
+ {
+  "id": "576988d3-4795-4710-9ac9-966ee6c0fba7:1/0/2:title",
+  "en": "Facility",
+  "es": "Centro"
+ },
+ {
+  "id": "585cc747-5fde-47f5-bb5e-ca52ed733a46:1/0/3/0/2:title",
+  "en": "Agent Potential",
+  "es": "Agente potencial"
+ },
+ {
+  "id": "add2ee64-942d-47a2-88d6-3cae6f8e15e2:1/0/3/0/3/0/2:title",
+  "en": "Likelihood of theft from facility",
+  "es": "Probabilidad de robo del centro"
+ },
+ {
+  "id": "e0c72058-ebf5-400e-92fc-41cd8df5b934:1/0/3/0/3/0/3/0/2:title",
+  "en": "Potential of Facility to be Targeted",
+  "es": "Posibilidad de que el centro se convierta en objetivo"
+ },
+ {
+  "id": "5cf5bf86-39e4-4a22-b35e-a4ac059c50f9:1/0/3/0/3/0/3/0/3/0/2:title",
+  "en": "Does this agent exist in nature?",
+  "es": "¿El agente existe en la naturaleza?"
+ },
+ {
+  "id": "5cf5bf86-39e4-4a22-b35e-a4ac059c50f9:1/0/3/0/3/0/3/0/3/0/4:detailText",
+  "en": "4 = Agent does not exist in nature\n3 = Agent has very limited natural sources\n2 = Agent has limited natural sources\n1 = Agent exists in the environment in the country \n0 = Agent exists in the environment with a global distribution",
+  "es": "4 = El agente no existe en la naturaleza.\n3 = El agente tiene fuentes naturales muy limitadas.\n2 = El agente tiene fuentes naturales limitadas.\n1 = El agente existe en el ambiente en el país\n0 = El agente existe en el ambiente con distribución mundial"
+ },
+ {
+  "id": "62be928b-c07e-482c-bc92-fe84e4f0cb21:1/0/3/0/3/0/3/0/3/1/2:title",
+  "en": "Can this agent be isolated from the environment?",
+  "es": "¿Se puede aislar el agente del ambiente?"
+ },
+ {
+  "id": "62be928b-c07e-482c-bc92-fe84e4f0cb21:1/0/3/0/3/0/3/0/3/1/4:detailText",
+  "en": "4 = Isolation from nature is not feasible\n3 = Isolation from nature requires advanced technical skills\n1 = Experienced technician required for isolation  \n0 = Isolation of viable, virulent agent from nature is trivial ",
+  "es": "4 = No es posible el aislamiento de la naturaleza.\n3 = El aislamiento de la naturaleza requiere la capacidad de técnicas avanzadas.\n1 = Se necesitan técnicos experimentados para el aislamiento.\n0 = El aislamiento del agente virulento posible de su naturaleza es trivial"
+ },
+ {
+  "id": "38eab521-514d-481c-a5c8-abb247ec2e5a:1/0/3/0/3/0/3/0/3/2/2:title",
+  "en": "What is the level of availability of this agent in other laboratories?",
+  "es": "¿Cuál es el nivel de disponibilidad de este agente en otros laboratorios?"
+ },
+ {
+  "id": "38eab521-514d-481c-a5c8-abb247ec2e5a:1/0/3/0/3/0/3/0/3/2/4:detailText",
+  "en": "4 = Agent not in other labs in country and is only found in very few labs globally\n3 = Agent rarely found in laboratories within the country\n0 = Agent common in other laboratories within the country ",
+  "es": "4 = El agente no existe en otros laboratorios del país y solo se encuentra en pocos laboratorios del mundo\n3 = El agente se encuentra con poca frecuencia en laboratorios del país\n0 = El agente es común en otros laboratorios del país"
+ },
+ {
+  "id": "cb21d466-6a7c-4f11-a7e1-c1e841dd2399:1/0/3/0/3/0/3/0/3/3/2:title",
+  "en": "What is the level of required security imposed on laboratories with this agent?",
+  "es": "¿Qué nivel de protección se debería imponer en los laboratorios para este agente?"
+ },
+ {
+  "id": "cb21d466-6a7c-4f11-a7e1-c1e841dd2399:1/0/3/0/3/0/3/0/3/3/4:detailText",
+  "en": "4 = Agent is highly regulated \n2 = Agent rarely subject to biosecurity regulations anywhere\n1 = Agent not subject to biosecurity regulations in the country\n0 = Agent not subject to biosecurity regulations anywhere",
+  "es": "4 = El agente está muy regulado.\n2 = El agente rara vez está sujeto a reglamentaciones de bioprotección en algún lugar.\n1 = El agente no está sujeto a reglamentaciones de bioprotección en el país.\n0 = El agente no está sujeto a reglamentaciones de bioprotección en ningún lugar."
+ },
+ {
+  "id": "b46a7fcd-c35b-4882-8c92-894d9b2f6858:1/0/3/0/3/0/3/0/3/4/2:title",
+  "en": "Is this agent able to be created using de nova synthesis or created via modification from a less virulent agent?",
+  "es": "¿Este agente se puede crear a partir de una síntesis nueva o modificación de un agente menos virulento?"
+ },
+ {
+  "id": "b46a7fcd-c35b-4882-8c92-894d9b2f6858:1/0/3/0/3/0/3/0/3/4/4:detailText",
+  "en": "4 = Synthetic creation requires ground breaking techniques  \n2 = Synthetic creation is feasible\n0 = Synthetic creation is ",
+  "es": "4 = La creación sintética requiere técnicas innovadoras.\n2 = La creación sintética es posible.\n0 = La creación sintética es\n(incomplete sentence )"
+ },
+ {
+  "id": "a0f498c7-ff8d-4beb-88c2-a91d2174648f:1/0/3/0/3/0/3/1/2:title",
+  "en": "Adversary Attributes",
+  "es": "Atributos del adversario"
+ },
+ {
+  "id": "68ac15ec-7be4-4873-ad9b-fe3dc3de58d7:1/0/3/0/3/0/3/1/3/0/2:title",
+  "en": "What is the level of knowledge and skills regarding the facility of the adversary in this assessment? ",
+  "es": "¿Cuál es el nivel de conocimiento y capacidades del centro del adversario con respecto a esta evaluación?"
+ },
+ {
+  "id": "68ac15ec-7be4-4873-ad9b-fe3dc3de58d7:1/0/3/0/3/0/3/1/3/0/4:detailText",
+  "en": "4 = Adversary has extensive operational skills and knowledge and all of the necessary tools to execute a theft\n2 = Adversary has incomplete operational skills, knowledge, and tools necessary to execute a theft or the adversary means are unknown\n0 = Adversary has no means to execute a theft",
+  "es": "4 = El adversario tiene amplios conocimientos y capacidades operativas, y todas las herramientas necesarias para ejecutar un robo.\n2 = El adversario no tiene suficientes conocimientos, capacidades operativas, ni herramientas necesarias para ejecutar un robo o los medios del adversario se desconocen.\n0 = El adversario no tiene los medios para ejecutar un robo."
+ },
+ {
+  "id": "8033596b-e84b-4687-9953-6f240150793f:1/0/3/0/3/0/3/1/3/1/2:title",
+  "en": "What is the level of opportunity the adversary has to execute a theft from this facility?",
+  "es": "¿Cuál es el nivel de oportunidad que tiene el adversario para ejecutar un robo en este centro?"
+ },
+ {
+  "id": "8033596b-e84b-4687-9953-6f240150793f:1/0/3/0/3/0/3/1/3/1/4:detailText",
+  "en": "4 = Adversary has authorized access to the facility\n0 = Adversary does not have authorized access to the facility",
+  "es": "4 = El adversario tiene autorizado el acceso al centro.\n0 = El adversario no tiene autorizado el acceso al centro."
+ },
+ {
+  "id": "2e3cf910-9ab9-4aa4-8bd0-9f7626b6c1d6:1/0/3/0/3/0/3/2/2:title",
+  "en": "Facility Attributes",
+  "es": "Atributos del centro"
+ },
+ {
+  "id": "19091151-c567-46f2-9803-e4108f6a0db4:1/0/3/0/3/0/3/2/3/0/2:title",
+  "en": "Physical Security",
+  "es": "Protección física"
+ },
+ {
+  "id": "2c51ebea-894e-41c0-aaab-4543d0a304ff:1/0/3/0/3/0/3/2/3/0/3/0/2:title",
+  "en": "What type (if any) of a facility or campus perimeter exists?",
+  "es": "¿Qué tipo (si corresponde) de perímetro existe en el centro o campo?"
+ },
+ {
+  "id": "2c51ebea-894e-41c0-aaab-4543d0a304ff:1/0/3/0/3/0/3/2/3/0/3/0/4:detailText",
+  "en": "4 = Facility has no perimeter\n3 = Facility has a partial perimeter\n0 = Facility has a clearly defined perimeter (natural or man-made)",
+  "es": "4 = El centro no tiene perímetro.\n3 = El centro tiene un perímetro parcial.\n0 = El centro tiene un perímetro claramente definido (natural o artificial)."
+ },
+ {
+  "id": "e7b5589b-22f9-4d9b-81fb-1df1bf94e92e:1/0/3/0/3/0/3/2/3/0/3/1/2:title",
+  "en": "Does the building housing the agent limit access through a control system?",
+  "es": "¿El edificio que aloja el agente tiene acceso limitado mediante un sistema de control?"
+ },
+ {
+  "id": "e7b5589b-22f9-4d9b-81fb-1df1bf94e92e:1/0/3/0/3/0/3/2/3/0/3/1/4:detailText",
+  "en": "4 = Building has no access controls\n3 = Building has only procedural access controls\n2 = Building has manual access controls\n1 = Building has electronic access controls based on something person has (e.g. swipe card)\n0 = Building has electronic access controls tied to person, e.g. knowledge (e.g. PIN) or biometrics",
+  "es": "4 = El edificio no tiene controles de acceso.\n3 = El edificio solo tiene controles de acceso de procedimientos.\n2 = El edificio tiene controles de acceso manuales.\n1 = El edificio tiene controles de acceso electrónicos que se basan en objetos de las personas (p. ej., tarjetas magnéticas).\n0 = El edificio tiene controles de acceso electrónicos ligados a las personas, p. ej. conocimiento (p. ej., número de identificación PIN) o biometría."
+ },
+ {
+  "id": "f5b785cc-a025-4987-bb87-3fdf439dbcb6:1/0/3/0/3/0/3/2/3/0/3/2/2:title",
+  "en": "Does the room housing the agent limit access through a control system?",
+  "es": "¿La sala que aloja el agente tiene acceso limitado mediante un sistema de control?"
+ },
+ {
+  "id": "f5b785cc-a025-4987-bb87-3fdf439dbcb6:1/0/3/0/3/0/3/2/3/0/3/2/4:detailText",
+  "en": "4 = Room has no access controls\n3 = Room has only procedural access controls\n2 = Room has manual access controls\n1 = Room has electronic access controls based on something person has (e.g. swipe card)\n0 = Room has electronic access controls tied to person, e.g. knowledge (e.g. PIN) or biometrics",
+  "es": "4 = La sala no tiene controles de acceso.\n3 = La sala solo tiene controles de acceso de procedimientos.\n2 = La sala tiene controles de acceso manuales.\n1 = La sala tiene controles de acceso electrónicos que se basan en objetos de las personas (p. ej., tarjetas magnéticas).\n0 = La sala tiene controles de acceso electrónicos ligados a las personas, p. ej. conocimiento (p. ej., número de identificación PIN) o biometría."
+ },
+ {
+  "id": "7970b58f-002b-4995-bf4c-71f00421288c:1/0/3/0/3/0/3/2/3/0/3/3/2:title",
+  "en": "Do the agent storage areas (freezers, culture collection, etc) limit access through a control system?",
+  "es": "¿Las áreas de almacenamiento del agente (congeladores, bandejas de cultivo, etc.) tienen acceso limitado mediante un sistema de control?"
+ },
+ {
+  "id": "7970b58f-002b-4995-bf4c-71f00421288c:1/0/3/0/3/0/3/2/3/0/3/3/4:detailText",
+  "en": "4 = Asset has no access controls\n3 = Asset has only procedural access controls\n2 = Asset has manual access controls\n1 = Asset has electronic access controls based on something person has (e.g. swipe card)\n0 = Asset has electronic access controls tied to person, e.g. knowledge (e.g. PIN) or biometrics",
+  "es": "4 = No existen controles para acceder al recurso.\n3 = Solo tiene controles de procedimientos para acceder al recurso.\n2 = Existen controles de acceso manuales para el recurso.\n1 = Existen controles electrónicos que se basan en objetos de las personas (p. ej., tarjetas magnéticas) para acceder al recurso.\n0 = Existen controles electrónicos ligados a las personas, p. ej. conocimiento (p. ej., número de identificación PIN) o biometría para acceder al recurso."
+ },
+ {
+  "id": "4626803d-c6be-4de9-93a4-64298094138c:1/0/3/0/3/0/3/2/3/0/3/4/2:title",
+  "en": "Do intrusion detection systems exist in the areas where agents are used or stored?",
+  "es": "¿Existen sistemas de detección de intrusos en las áreas en las que se utilizan o se almacenan los agentes?"
+ },
+ {
+  "id": "4626803d-c6be-4de9-93a4-64298094138c:1/0/3/0/3/0/3/2/3/0/3/4/4:detailText",
+  "en": "4 = No intrusion detection\n3 = Only detection is staff trained to report anything unusual\n2 = Detection based on observations by personnel, including roving guard patrols\n1 = Local annunciation of alarms only\n0 = Alarms for intrusion detection are reported to a central alarm station",
+  "es": "4 = No existe detección de intrusos.\n3 = La única detección es el personal capacitado para informar algo inusual.\n2 = Detección basada en las observaciones del personal, incluso guardias ambulantes.\n1 = Solo avisos de alarmas locales.\n0 = Alarmas de detección de intrusos que informan a una estación central de alarmas."
+ },
+ {
+  "id": "061e6d76-0c3b-4a79-82f3-096df567216c:1/0/3/0/3/0/3/2/3/0/3/5/2:title",
+  "en": "Are all door and windows (or other potential entry points) alarmed?",
+  "es": "¿Todas las puertas y ventanas (u otro punto posible de acceso) tienen alarma?"
+ },
+ {
+  "id": "061e6d76-0c3b-4a79-82f3-096df567216c:1/0/3/0/3/0/3/2/3/0/3/5/4:detailText",
+  "en": "4 = No controls (access controls and/or intrusion detection) on any entry points\n1= Controls only on doors\n0 = Controls on all possible entry paths through barrier (e.g. glass break sensors on windows)",
+  "es": "4 = Sin controles (controles de acceso o detección de intrusos) en ningún punto de acceso.\n1 = Controles solo en las puertas.\n0 = Controles en todos los pasos de acceso posibles por medio de barreras (p. ej., sensores de rotura de vidrios en las ventanas)"
+ },
+ {
+  "id": "24bb0f3c-7b3c-4219-a49c-2aeef94cdbe1:1/0/3/0/3/0/3/2/3/0/3/6/2:title",
+  "en": "How are alarms assessed?",
+  "es": "¿Cómo se evalúan las alarmas?"
+ },
+ {
+  "id": "24bb0f3c-7b3c-4219-a49c-2aeef94cdbe1:1/0/3/0/3/0/3/2/3/0/3/6/4:detailText",
+  "en": "4 = No alarm assessment\n3= Only alarm assessment is staff trained to report\n2= Guards sent to assess alarms\n1 = Alarm assessed by camera\n0 = Alarm assessed by camera that records brief time before alarm and then afterwards",
+  "es": "4 = No existe evaluación de alarmas.\n3 = La única evaluación de las alarmas es el personal capacitado para informar.\n2 = Se envían guardias para evaluar las alarmas.\n1 = La alarma se evalúa por cámara.\n0 = La alarma se evalúa por cámara que registra por un breve lapso antes de la alarma y después."
+ },
+ {
+  "id": "a872c080-2e99-46dc-a404-ade698d58206:1/0/3/0/3/0/3/2/3/0/3/7/2:title",
+  "en": "How are alarms responded to?",
+  "es": "¿De qué manera se responde a las alarmas?"
+ },
+ {
+  "id": "a872c080-2e99-46dc-a404-ade698d58206:1/0/3/0/3/0/3/2/3/0/3/7/4:detailText",
+  "en": "4 = No plans for alarm response\n2= Local law enforcement is initial response and a MOU is in place for this\n1 = Local law enforcement is initial response, MOU in place, and this is exercised regularly OR Onsite guard response \n0 = Onsite guard response and LLE back-up with MOU and regular exercises",
+  "es": "4 = No existen planes de respuesta a las alarmas.\n2 = Las fuerzas de la ley locales son la respuesta inicial y existe un memorando de entendimiento para ello.\n1 = Las fuerzas de la ley locales son la respuesta inicial, existe un memorando de entendimiento y se ejecuta con regularidad o existe respuesta de guardias in situ.\n0 = La respuesta es de guardias in situ y LLE (simulación de nivel bajo) de refuerzo con memorando de entendimiento y ejercicios regulares."
+ },
+ {
+  "id": "17f77c9c-3fff-4278-84ea-b3e8715369bc:1/0/3/0/3/0/3/2/3/1/2:title",
+  "en": "Personnel Reliability",
+  "es": "Confiabilidad del personal"
+ },
+ {
+  "id": "0418f2fc-f76b-4860-99cb-bff8f88cc197:1/0/3/0/3/0/3/2/3/1/3/0/2:title",
+  "en": "How is personnel vetted prior to allowing them unescorted access to the agent?",
+  "es": "¿Cómo se examina al personal antes de permitirle acceder sin compañía al agente?"
+ },
+ {
+  "id": "0418f2fc-f76b-4860-99cb-bff8f88cc197:1/0/3/0/3/0/3/2/3/1/3/0/4:detailText",
+  "en": "4 = No vetting of personnel prior to granting access\n3 = Vetting includes only verification of credentials (education, prior employment) and references\n2 = Vetting includes verification of credentials, references, and criminal history\n1 = Vetting includes verification of credentials, references, criminal history, and additional checks for derogatory information (e.g. financial checks, drug screening, interviews of contacts, personality tests)\n0 = Vetting includes all of above and regular reevaluation intervals are established",
+  "es": "4 = No se examina al personal antes de otorgarle acceso.\n3 = La examinación incluye solo la verificación de las credenciales (educación, empleo anterior) y referencias.\n2 = La examinación incluye la verificación de las credenciales y antecedentes penales.\n1 = La examinación incluye la verificación de las credenciales, las referencias, los antecedentes penales y las verificaciones adicionales de información desfavorable (p. ej., verificaciones financieras, evaluación de abuso de drogas, entrevistas de contactos, pruebas de personalidad).\n0 = La examinación incluye todo lo anterior y para ello se establecen intervalos de reiteración regulares."
+ },
+ {
+  "id": "bf861d29-ff68-4a1f-83df-34f2bed594e8:1/0/3/0/3/0/3/2/3/1/3/1/2:title",
+  "en": "How is the personnel vetted who will not have direct access of the agent?",
+  "es": "¿Cómo se examina al personal que no tendrá acceso directo al agente?"
+ },
+ {
+  "id": "bf861d29-ff68-4a1f-83df-34f2bed594e8:1/0/3/0/3/0/3/2/3/1/3/1/4:detailText",
+  "en": "4 = No vetting of personnel prior to facility access\n3 = Vetting includes only verification of credentials (education, prior employment) and references\n2 = Vetting includes verification of credentials, references, and criminal history\n1 = Vetting includes verification of credentials, references, criminal history, and additional checks for derogatory information (e.g. financial checks, drug screening, interviews of contacts, personality tests)\n0 = Vetting includes all of above and regular reevaluation intervals are established",
+  "es": "4 = No se examina al personal antes del acceso al centro.\n3 = La examinación incluye solo la verificación de las credenciales (educación, empleo anterior) y referencias.\n2 = La examinación incluye la verificación de las credenciales y antecedentes penales.\n1 = La examinación incluye la verificación de las credenciales, las referencias, los antecedentes penales y las verificaciones adicionales de información desfavorable (p. ej., verificaciones financieras, evaluación de abuso de drogas, entrevistas de contactos, pruebas de personalidad).\n0 = La examinación incluye todo lo anterior y para ello se establecen intervalos de reiteración regulares."
+ },
+ {
+  "id": "19c47723-fc8a-4aaf-bdd5-dfd42875e8e7:1/0/3/0/3/0/3/2/3/1/3/2/2:title",
+  "en": "How are people escorted?",
+  "es": "¿Cómo se acompaña a las personas?"
+ },
+ {
+  "id": "19c47723-fc8a-4aaf-bdd5-dfd42875e8e7:1/0/3/0/3/0/3/2/3/1/3/2/4:detailText",
+  "en": "4 = Allowed unescorted access to room with asset\n3 = Administrative escorting to room with asset allowed\n2 = Escorting requirements in place but not defined escort ratios\n1 = Escort ratios defined\n0 = Escort ratios defined, dates/times of escorted visitors recorded",
+  "es": "4 = Se permite el acceso sin acompañamiento a la sala que aloja el recurso.\n3 = Se permite el acceso a la sala que aloja el recurso con acompañamiento administrativo.\n2 = Existen requisitos de acompañamiento, pero no se definen las proporciones.\n1 = Se definen las proporciones del acompañamiento.\n0 = Se definen las proporciones de acompañamiento, se registran las fechas y los horarios de los visitantes acompañados."
+ },
+ {
+  "id": "931b0c30-b060-4ae1-b4ba-25623e5fc6d3:1/0/3/0/3/0/3/2/3/1/3/3/2:title",
+  "en": "Are badges worn?",
+  "es": "¿Se usan identificaciones?"
+ },
+ {
+  "id": "931b0c30-b060-4ae1-b4ba-25623e5fc6d3:1/0/3/0/3/0/3/2/3/1/3/3/4:detailText",
+  "en": "4 = Not required or routinely worn\n0 = Badges required",
+  "es": "4 = No se requieren o no se usan en forma rutinaria.\n0 = Se requieren identificaciones."
+ },
+ {
+  "id": "27bd6552-7082-47f9-8281-7fc0fbc5f614:1/0/3/0/3/0/3/2/3/1/3/4/2:title",
+  "en": "Do badges indicate level of access allowed by the wearer?",
+  "es": "¿Las identificaciones indican el nivel de acceso permitido de quien las usa?"
+ },
+ {
+  "id": "27bd6552-7082-47f9-8281-7fc0fbc5f614:1/0/3/0/3/0/3/2/3/1/3/4/4:detailText",
+  "en": "4 = Badges not required or routinely worn\n4 = No indicators of the level of access by the wearer\n0 = Badges indicate level of access",
+  "es": "4 = No se requieren o no se usan en forma rutinaria.\n4 = No existen indicadores del nivel de acceso de quien las usa.\n0 = Las identificaciones indican el nivel de acceso."
+ },
+ {
+  "id": "6b289715-a1c5-480d-9553-9dd705f235f3:1/0/3/0/3/0/3/2/3/1/3/5/2:title",
+  "en": "Does badge include a photo of the wearer (owner) and a time interval for when it is valid?",
+  "es": "¿Las identificaciones incluyen una foto de quien las usa (propietario) y un intervalo de tiempo de validez?"
+ },
+ {
+  "id": "6b289715-a1c5-480d-9553-9dd705f235f3:1/0/3/0/3/0/3/2/3/1/3/5/4:detailText",
+  "en": "4 = Badges not required or routinely worn\n4 = No way to identify if badge belongs to person wearing it\n0 = Badges have a photo and expiration date",
+  "es": "4 = No se requieren o no se usan en forma rutinaria.\n4 = No hay manera de detectar si la identificación pertenece a la persona que la usa.\n0 = Las identificaciones tienen foto y fecha de vencimiento."
+ },
+ {
+  "id": "8fab198e-0906-417e-9498-9c9dd1f3efbe:1/0/3/0/3/0/3/2/3/1/3/6/2:title",
+  "en": "Are there procedures for returning badges or reporting lost badges?",
+  "es": "¿Existen procedimientos de devolución de identificaciones o para informar su extravío?"
+ },
+ {
+  "id": "8fab198e-0906-417e-9498-9c9dd1f3efbe:1/0/3/0/3/0/3/2/3/1/3/6/4:detailText",
+  "en": "4 = Badges not required or routinely worn\n4 = No badge procedures\n0 = Procedures are in place for lost badges and turning in badges when access in no longer needed",
+  "es": "4 = No se requieren o no se usan en forma rutinaria.\n4 = No existe procedimientos para las identificaciones.\n0 = Existen procedimientos para las identificaciones extraviadas y la devolución de identificaciones cuando el acceso ya no es necesario."
+ },
+ {
+  "id": "231ae02e-85c3-410e-ae45-bc8635e162c8:1/0/3/0/3/0/3/2/3/1/3/7/2:title",
+  "en": "What is the level of biosecurity training provided?",
+  "es": "¿Cuál es el nivel de capacitación en bioprotección que se proporciona?"
+ },
+ {
+  "id": "231ae02e-85c3-410e-ae45-bc8635e162c8:1/0/3/0/3/0/3/2/3/1/3/7/4:detailText",
+  "en": "4 = No biosecurity training provided\n2 = Biosecurity training provided to anyone with unescorted access\n1 = Biosecurity training provided to all employees\n0 = Biosecurity training provided to all employees and on-site contractors (e.g. guards)",
+  "es": "4 = No se proporciona capacitación en bioprotección.\n2 = La capacitación en bioprotección se proporciona a todo aquel que accede sin acompañamiento.\n1 = La capacitación en bioprotección se proporciona a todos los empleados.\n0 = La capacitación en bioprotección se proporciona a todos los empleados y los contratistas in situ (p. ej., guardias)."
+ },
+ {
+  "id": "12842d59-3784-41b8-b473-26f63650761a:1/0/3/0/3/0/3/2/3/1/3/8/2:title",
+  "en": "Do employee assistance programs exist?",
+  "es": "¿Existen programas de ayuda a los empleados?"
+ },
+ {
+  "id": "12842d59-3784-41b8-b473-26f63650761a:1/0/3/0/3/0/3/2/3/1/3/8/4:detailText",
+  "en": "4 = No support systems in place\n3 = Informal support network among personnel\n2 = Formal employee assistance program in place\n1 = And employees not penalized if access voluntarily suspended due to a temporary situation \n0 = And anonymous whistleblower / omsbuds mechanism in place",
+  "es": "4 = No existen sistemas de ayuda.\n3 = Existe una red de ayuda informal entre el personal.\n2 = Existe un programa de ayuda a los empleados formal.\n1 = No se sanciona a los empleados a quienes se les suspendió el acceso voluntariamente debido a una situación temporal.\n0 = Existen mecanismos de denunciante/defensor anónimos."
+ },
+ {
+  "id": "0500b053-7429-45ff-a3db-a16751f42406:1/0/3/0/3/0/3/2/3/2/2:title",
+  "en": "Transport",
+  "es": "Transporte"
+ },
+ {
+  "id": "9db619e0-0730-4703-87d7-d34490d1d59c:1/0/3/0/3/0/3/2/3/2/3/0/2:title",
+  "en": "What is the level of control at a facility of materials moving between laboratories or while in shipping/receiving areas?",
+  "es": "¿Cuál es el nivel de control en el centro de los materiales móviles entre los laboratorios o en las áreas de envío/recepción?"
+ },
+ {
+  "id": "9db619e0-0730-4703-87d7-d34490d1d59c:1/0/3/0/3/0/3/2/3/2/3/0/4:detailText",
+  "en": "4 = No controls during internal transport\n3 = Agent transported by authorized individual but may be left unattended in unsecured areas\n1 = Agent not left outside of custody of authorized individual during transit unless secured but level of security is lower than how it is secured in storage\n0 = Agent not left outside of custody of authorized individual during transit unless secured in a manner equivalent or better to how it is secured in storage",
+  "es": "4 = No existen controles durante el transporte interno.\n3 = El agente lo transporta una persona autorizada, pero puede quedar desatendido en áreas no aseguradas.\n1 = El agente no queda sin custodia de personas autorizadas durante su transporte, a menos que esté seguro, pero el nivel de seguridad es inferior al del almacenamiento.\n0 = El agente no queda sin custodia de personas autorizadas durante su transporte, a menos que esté seguro de una manera equivalente o superior al del almacenamiento."
+ },
+ {
+  "id": "887a3c3b-17aa-4e5f-85eb-081170d7fb7c:1/0/3/0/3/0/3/2/3/2/3/1/2:title",
+  "en": "What type of vetting is required for personnel transporting material within the facility?",
+  "es": "¿Qué tipo de examinación se requiere para el personal que transporta el material dentro del centro?"
+ },
+ {
+  "id": "887a3c3b-17aa-4e5f-85eb-081170d7fb7c:1/0/3/0/3/0/3/2/3/2/3/1/4:detailText",
+  "en": "4 = Facility personnel who have access to materials during internal transport are not vetted\n2 = Facility personnel who have access to the materials during internal transport are vetted but to a lower degree than those who handle the agent in the laboratory \n0 = Facility personnel who have access to materials during internal transport are vetted to the same degree or better as personnel who handle the agent in the laboratory",
+  "es": "4 = No existe examinación del personal del centro que tiene acceso a los materiales durante el transporte interno.\n2 = Se examina al personal del centro que tiene acceso a los materiales durante el transporte interno, pero a un nivel inferior a aquellos que manipulan el agente en el laboratorio.\n0 = Se examina al personal del centro que tiene acceso a los materiales durante el transporte interno, pero a un nivel igual o mejor que al personal que manipula el agente en el laboratorio."
+ },
+ {
+  "id": "a04454d8-01a3-4848-8e7e-fbe763d02c1c:1/0/3/0/3/0/3/2/3/2/3/2/2:title",
+  "en": "What type of administrative approvals is required for internal transport?",
+  "es": "¿Qué tipo de aprobaciones administrativas se requiere para el transporte interno?"
+ },
+ {
+  "id": "a04454d8-01a3-4848-8e7e-fbe763d02c1c:1/0/3/0/3/0/3/2/3/2/3/2/4:detailText",
+  "en": "4 = No approvals or documentation required for internal transport\n2 = Pre-approval not required for internal transport but transfer is documented in laboratory records\n0 = Pre-approval required for internal transport and the transfer is documented in laboratory records",
+  "es": "4 = No se requieren aprobaciones ni documentación para el transporte interno.\n2 = No se requiere la aprobación previa para el transporte interno, pero se documenta en los registros del laboratorio.\n0 = Se requiere la aprobación previa para el transporte interno, pero se documenta en los registros del laboratorio."
+ },
+ {
+  "id": "8252b44f-0c2a-47fe-91e0-ffaa6ab39e76:1/0/3/0/3/0/3/2/3/2/3/3/2:title",
+  "en": "What type of administrative approvals is required for external transport?",
+  "es": "¿Qué tipo de aprobaciones administrativas se requiere para el transporte externo?"
+ },
+ {
+  "id": "8252b44f-0c2a-47fe-91e0-ffaa6ab39e76:1/0/3/0/3/0/3/2/3/2/3/3/4:detailText",
+  "en": "4 = No approvals or documentation required for external transport\n3 = Pre-approval not required for external transport but transfer is documented in laboratory records\n1 = Pre-approval by a responsible individual at the facility required prior to shipping to external recipient\n0 = And a material transfer agreement is required prior to final approval or an external regulatory body must approve the transfer prior to shipment",
+  "es": "4 = No se requieren aprobaciones ni documentación para el transporte externo.\n3 = No se requiere la aprobación previa para el transporte externo, pero se documenta en los registros del laboratorio.\n1 = Se requiere la aprobación previa de una persona responsable del centro antes de enviarse a un receptor externo.\n0 = Se requiere un acuerdo de transporte del material antes de la aprobación final o un organismo regulador externo debe aprobar el transporte antes del envío."
+ },
+ {
+  "id": "c67a5014-773a-44e2-81ae-130584207fd9:1/0/3/0/3/0/3/2/3/2/3/4/2:title",
+  "en": "What is the required security level for the receiving facility when sharing this agent?",
+  "es": "¿Qué nivel de seguridad se requiere para el centro receptor cuando se comparte este agente?"
+ },
+ {
+  "id": "c67a5014-773a-44e2-81ae-130584207fd9:1/0/3/0/3/0/3/2/3/2/3/4/4:detailText",
+  "en": "4 = No biosecurity (or biosecurity status is unknown) at receiving facility\n2 = Receiving facility has biosecurity but their level of security is lower than at shipping facility\n1 = Receiving facility has equivalent or better biosecurity\n0 = And notifications between shipping and receiving facility at time of dispatch and receipt, respectively",
+  "es": "4 = No existe bioprotección (o se desconoce el estado de bioprotección) del centro receptor.\n2 = El centro receptor cuenta con bioprotección, pero su nivel de seguridad es inferior al del centro de envío.\n1 = El centro receptor tiene una bioprotección equivalente o mejor.\n0 = Se realizan notificaciones entre el centro de envío y receptor en el momento del despacho y recepción, respectivamente."
+ },
+ {
+  "id": "3a1838d4-6eef-4643-8509-d053cd887af1:1/0/3/0/3/0/3/2/3/2/3/5/2:title",
+  "en": "How are agents packaged for external transport?",
+  "es": "¿Cómo se envuelven los agentes para el transporte externo?"
+ },
+ {
+  "id": "3a1838d4-6eef-4643-8509-d053cd887af1:1/0/3/0/3/0/3/2/3/2/3/5/4:detailText",
+  "en": "4 = Agent can be identified by examining labels on outside of the package\n0 = Conforms to infectious substance shipping labeling requirements but does not identify the specific agent on the outside of the package. ",
+  "es": "4 = El agente se puede identificar al examinar las etiquetas en el exterior del envoltorio.\n0 = Conforme los requisitos de las etiquetas de envío de sustancias infecciosas, pero no se identifica el agente específico en el exterior del envoltorio."
+ },
+ {
+  "id": "4d03eec9-977b-4ef6-8cb8-e0fe66956838:1/0/3/0/3/0/3/2/3/2/3/6/2:title",
+  "en": "How are external carriers selected?",
+  "es": "¿De qué manera se selecciona a los transportistas externos?"
+ },
+ {
+  "id": "4d03eec9-977b-4ef6-8cb8-e0fe66956838:1/0/3/0/3/0/3/2/3/2/3/6/4:detailText",
+  "en": "4 = No thought is given to security in selection of carrier\n2 = External carrier chosen that has good reputation for security of commercial shipments (e.g. FedEx, DHL, Airborne Express)\n0 = And the carrier has a security plan in place that covers shipments of dangerous biological agents",
+  "es": "4 = No se considera la seguridad en la selección del transportista.\n2 = El transportista externo seleccionado tiene buena reputación con respecto a la seguridad en envíos comerciales (p. ej., FedEx, DHL, Airborne Express)\n0 = El transportista tiene un plan de seguridad que cubre los envíos de agentes biológicos peligrosos."
+ },
+ {
+  "id": "1c32773c-6148-4620-82b8-daa32dffd964:1/0/3/0/3/0/3/2/3/3/2:title",
+  "en": "Material Control and Accountability",
+  "es": "Control de material y responsabilidad"
+ },
+ {
+  "id": "32127186-84dc-4f1f-aea5-0f4f37e096b7:1/0/3/0/3/0/3/2/3/3/3/0/2:title",
+  "en": "How does the facility determine which materials are subject to material control and accountability (MC&A) measures?",
+  "es": "¿Cómo determina el centro qué materiales están sujetos al control de materiales y las medidas de responsabilidad (de aquí en adelante, medidas de control)?"
+ },
+ {
+  "id": "32127186-84dc-4f1f-aea5-0f4f37e096b7:1/0/3/0/3/0/3/2/3/3/3/0/4:detailText",
+  "en": "4 = No materials are subject to MC&A measures\n3 = Individual PIs/lab owners make decisions about which materials require MC&A measures\n2 = Facility just relies on regulatory or international lists (e.g Select agent list, Australia Group list) to determine which materials at their facility need MC&A measures\n1 = Facility risk assessment to identify and categorize those materials and forms of materials that require MC&A measures\n0 = And, where applicable, proactive measures towards the reduction of risk through elimination, substitution or minimization of volumes/quantities of agents, and the type and number of manipulations conducted.",
+  "es": "4 = Los materiales no están sujetos a las medidas de control.\n3 = Los propietarios de plantas/laboratorios toman decisiones sobre qué materiales requieren medidas de control.\n2 = El centro solo depende de las listas internacionales o regulatorias (p. ej., lista de agentes selectos, lista de grupo australiano) para determinar qué materiales de su centro necesitan medidas de control.\n1 = La evaluación de riesgos del centro identifica y categoriza esos materiales y formas de materiales que requieren medidas de control.\n0 = Y, si corresponde, medidas proactivas en pos de la reducción del riesgo a través de la eliminación, substitución o minimización de los volúmenes/cantidades de agentes, el tipo y cantidad de manipulaciones realizadas."
+ },
+ {
+  "id": "06ebf63e-0899-416e-b54b-6994eea977e6:1/0/3/0/3/0/3/2/3/3/3/1/2:title",
+  "en": "Which materials are inventoried?",
+  "es": "¿Para qué materiales se realiza inventarios?"
+ },
+ {
+  "id": "06ebf63e-0899-416e-b54b-6994eea977e6:1/0/3/0/3/0/3/2/3/3/3/1/4:detailText",
+  "en": "4 = No material cataloging \n3 = Seed stock inventory electronically managed\n2 = Seed stock inventory actively managed and working stocks, including infected animal status, tracked through laboratory notes \n1 = Seed stock inventory electronically managed using a secure system and includes tracking of samples that have been transferred into and out of the lab, source, strain, controlled substance identification, form, responsible individual, etc.\n0 = Seed and working stock containers bar coded or otherwise identified, marked and cataloged for inventory tracking purposes.",
+  "es": "4 = No se realizan catálogos de materiales.\n3 = El inventario de surtido de semillas se administra en forma electrónica.\n2 = El inventario de surtido de semillas se administra activamente y para las existencias de trabajo, inclusive el estado de animales infectados, se realizan seguimientos a través de notas de laboratorio.\n1 = El inventario de surtido de semillas se administra de manera electrónica mediante un sistema de seguridad e incluye un seguimiento de las muestras que se transfirieron al laboratorio y desde este, la fuente, la cepa, la identificación de la sustancia controlada, la forma, la persona a cargo, etc.\n0 = Los recipientes con semillas o el inventario de trabajo tienen códigos de barra o se identifican, marcan o catalogan de otra manera por motivos de seguimiento de inventario."
+ },
+ {
+  "id": "280391b3-bc14-49e3-a40c-f98d38f434f9:1/0/3/0/3/0/3/2/3/3/3/2/2:title",
+  "en": "What is the level of control of agents while in use (working stocks, infected animals, etc)?",
+  "es": "¿Cuál es el nivel de control de agentes cuando se utilizan (existencias de trabajo, animales infectados, etc.)?"
+ },
+ {
+  "id": "280391b3-bc14-49e3-a40c-f98d38f434f9:1/0/3/0/3/0/3/2/3/3/3/2/4:detailText",
+  "en": "4 = No controls in place when materials are in use\n2 = Controls in place when materials are in use (e.g. working tissue cultures, animals subjected to challenge experiments, in equipment such as incubators and centrifuges, etc.) but at lower level than controls for material in storage\n0 = Controls in place when materials are in use (e.g. working tissue cultures, animals subjected to challenge experiments, in equipment such as incubators and centrifuges, etc.) at equivalent level to controls for material in storage",
+  "es": "4 = No existen controles cuando se utilizan materiales.\n2 = Existen controles cuando se utilizan materiales (p. ej., cultivos de tejidos de trabajo, animales sujetos a experimentos que presentan inconvenientes, en equipos, como incubadoras y centrifugadoras, etc.) pero a un nivel inferior que los controles de los materiales almacenados.\n0 = Existen controles cuando se utilizan materiales (p. ej., cultivos de tejidos de trabajo, animales sujetos a experimentos que presentan inconvenientes, en equipos, como incubadoras y centrifugadoras, etc.) pero a un nivel equivalente a los controles de los materiales almacenados."
+ },
+ {
+  "id": "cf421395-4b42-43d1-99a2-0ebab21c97b3:1/0/3/0/3/0/3/2/3/3/3/3/2:title",
+  "en": "Are there clearly defined accountability roles and responsibilities?",
+  "es": "¿Existen roles de responsabilidad claramente definidos y responsabilidades?"
+ },
+ {
+  "id": "cf421395-4b42-43d1-99a2-0ebab21c97b3:1/0/3/0/3/0/3/2/3/3/3/3/4:detailText",
+  "en": "4 = No designation of responsibilities\n2 = PI aware of each agent used within their laboratory\n1 = A responsible individual is designated to oversee the control of protected agents\n0 = A qualified and vetted individual is designated to oversee the control of protected agents (agent-by-agent basis, on a per-laboratory basis, etc.)",
+  "es": "4 = No se designan responsabilidades.\n2 = El inspector de planta sabe qué agente se usa dentro del laboratorio.\n1 = Se designa responsable a una persona para que controle los agentes protegidos.\n0 = Se designa a una persona calificada y examinada para realizar controles de los agentes protegidos (sobre la base de agente por agente o laboratorio por laboratorio, etc.)."
+ },
+ {
+  "id": "31be226f-9c49-4365-b478-760a90c204ea:1/0/3/0/3/0/3/2/3/3/3/4/2:title",
+  "en": "Are there clearly defined procedures for material control and accountability (MC&A)?",
+  "es": "¿Existen procedimientos claramente definidos para el control y la responsabilidad de los materiales?"
+ },
+ {
+  "id": "31be226f-9c49-4365-b478-760a90c204ea:1/0/3/0/3/0/3/2/3/3/3/4/4:detailText",
+  "en": "4 = No procedures for MC&A exist\n2 = Some MC&A procedures are in place but they are not comprehensive and/or are not fully implemented\n0 = Written procedures are in place and implemented to ensure timely and accurate recording, reporting and auditing of materials subject to MC&A measures",
+  "es": "4 = No existen procedimientos para las medidas de control.\n2 = Existen algunos procedimientos de medidas de control, pero no son integrales ni se implementaron completamente.\n0 = No existen procedimientos escritos ni implementados para asegurar los registros oportunos y precisos, los informes y las auditorías de los materiales sujetos a medidas de control."
+ },
+ {
+  "id": "4488a824-2137-4d3b-b7ae-392a73914022:1/0/3/0/3/0/3/2/3/4/2:title",
+  "en": "Information Security",
+  "es": "Protección de la información"
+ },
+ {
+  "id": "f37f0233-948b-4608-85b7-b13cd2d31b1b:1/0/3/0/3/0/3/2/3/4/3/0/2:title",
+  "en": "Has information which is considered sensitive been clearly identified, marked, and protected at a level equivalent to the risk of loss or release?",
+  "es": "¿Se identificó, clasificó y protegió la información considerada confidencial a un nivel equivalente al riesgo de pérdida o divulgación?"
+ },
+ {
+  "id": "f37f0233-948b-4608-85b7-b13cd2d31b1b:1/0/3/0/3/0/3/2/3/4/3/0/4:detailText",
+  "en": "4 = No identification and classification of information in place\n1 = Sensitive (security-related) information is identified, marked, and classified at a level equivalent to the risk",
+  "es": "4 = No se realizó identificación ni clasificación de la información.\n1 = La información confidencial (relacionada con la seguridad) se identificó, clasificó y protegió a un nivel equivalente al riesgo\n[incomplete sentence]."
+ },
+ {
+  "id": "56d81279-e0d9-4079-bb0c-b2964c6b141c:1/0/3/0/3/0/3/2/3/4/3/1/2:title",
+  "en": "Is information which is considered sensitive protected from release or loss?",
+  "es": "¿La información que se considera confidencial, se protegió contra su divulgación o pérdida?"
+ },
+ {
+  "id": "56d81279-e0d9-4079-bb0c-b2964c6b141c:1/0/3/0/3/0/3/2/3/4/3/1/4:detailText",
+  "en": "4 = No protection of information\n2 = Some information protection procedures are in place but they are not comprehensive and/or are not fully implemented\n0 = Protecting sensitive (security-related) information at a level equivalent to the risk (e.g. information considered a valuable asset is held redundantly by the institution. Information is accessed on a need-to-know basis, by pre-approved/screened authorized individuals. Procedures for handling, storing, transmitting, and destroying sensitive information)",
+  "es": "4 = No existe protección de la información.\n2 = Existen algunos procedimientos de protección de la información, pero no son integrales ni se implementaron completamente.\n0 = Proteger información confidencial (relacionada con la seguridad) a un nivel equivalente al riesgo (p. ej., la institución almacena en forma redundante la información considerada como un recurso valioso.) La información se accede sobre la base de la necesidad de informarse por parte de personas autorizadas, previamente aprobadas/evaluadas. Existen procedimientos de manipulación, almacenamiento, transmisión y destrucción de información confidencial)."
+ },
+ {
+  "id": "7d405940-a029-4d8f-83ce-5d7ad0959704:1/0/3/0/3/0/3/2/3/4/3/2/2:title",
+  "en": "Are there clearly defined communication policies regarding sensitive information?",
+  "es": "¿Existen políticas de comunicación claramente definidas con respecto a la información confidencial?"
+ },
+ {
+  "id": "7d405940-a029-4d8f-83ce-5d7ad0959704:1/0/3/0/3/0/3/2/3/4/3/2/4:detailText",
+  "en": "4 = No communication policies\n2 = Staff is trained on communication policies\n0 = Means of communicating sensitive information is controlled (e.g. encryption for electronic transmission, no cellular discussions or communication/viewing sensitive materials).",
+  "es": "4 = No existen políticas de comunicación.\n2 = Se capacita al personal con respecto a las políticas de comunicación.\n0 = Se controlan los medios de comunicación de la información confidencial (p. ej., codificación de transmisión electrónica, no mantener conversaciones por celular o la comunicación/visualización de materiales confidenciales)."
+ },
+ {
+  "id": "b17754cf-7200-42dd-80c3-a88c682849d6:1/0/3/0/3/0/3/2/3/4/3/3/2:title",
+  "en": "Are electronic critical infrastructure systems (including inventory databases, alarm control stations, access control systems, building monitoring systems, etc) protected from attack?",
+  "es": "¿Se protegen los sistemas de infraestructura electrónica fundamentales (incluso las bases de datos de los inventarios, las estaciones de control de alarmas, los sistemas de control de acceso, los sistemas de control del edificio, etc.) de ataques?"
+ },
+ {
+  "id": "b17754cf-7200-42dd-80c3-a88c682849d6:1/0/3/0/3/0/3/2/3/4/3/3/4:detailText",
+  "en": "4 = No protection (e.g. adversary can access the systems through the internet)\n2 = Basic good practices are in place (e.g. firewalls, desktop security)\n0 = Comprehensive IT security infrastructure in place or not applicable because no sensitive information is stored ",
+  "es": "4 = No existe protección (p. ej., el adversario puede acceder a los sistemas a través de Internet).\n2 = Existen las buenas prácticas básicas (p. ej. firewalls, seguridad del escritorio, etc.).\n0 = Existe infraestructura de TI integral, tal vez no se aplica porque no existe información confidencial almacenada."
+ },
+ {
+  "id": "41338bb8-06cd-4706-880a-43c47b90ea5c:1/0/3/0/3/0/3/2/3/4/3/4/2:title",
+  "en": "Are there clearly defined policies for public disclosure of information?",
+  "es": "¿Existen políticas contra la divulgación pública de la información claramente definidas?"
+ },
+ {
+  "id": "41338bb8-06cd-4706-880a-43c47b90ea5c:1/0/3/0/3/0/3/2/3/4/3/4/4:detailText",
+  "en": "4 = No public disclosure procedures/policies in place\n2 = Some procedures/policies regarding public disclosure are in place but they are not comprehensive and/or are not fully implemented\n0 = Potentially sensitive (security-related) information is screened prior to public release, by an established review and approval process. Modification of information to make it appropriate for public release",
+  "es": "4 = No existen procedimientos ni políticas contra la divulgación pública.\n2 = Existen algunos procedimientos y políticas con respecto a la divulgación pública, pero no son integrales o no se implementaron completamente.\n0 = La información posiblemente confidencial (relacionada con la seguridad) se examina antes de su divulgación pública, a través de un proceso de revisión y aprobación establecido. Se modifica la información para que sea adecuada para la divulgación pública."
+ },
+ {
+  "id": "a89f0b3b-fcf5-495d-82a7-bd4ca4c005e2:1/0/3/0/3/0/3/2/3/5/2:title",
+  "en": "Program Management",
+  "es": "Gestión del programa"
+ },
+ {
+  "id": "1ebd25b4-b877-46c0-9dc6-48108c997efa:1/0/3/0/3/0/3/2/3/5/3/0/2:title",
+  "en": "Does the institution have defined roles and responsibilities for biosecurity?",
+  "es": "¿La institución tiene roles y responsabilidades definidos para la bioprotección?"
+ },
+ {
+  "id": "1ebd25b4-b877-46c0-9dc6-48108c997efa:1/0/3/0/3/0/3/2/3/5/3/0/4:detailText",
+  "en": "4 = There is no identification of, or education on, biosecurity roles and responsibilities\n3 = Facility personnel are educated on their biosecurity roles and responsibilities\n2 = A biosafety officer is identified at this facility\n0 = Management at this facility ensures roles, responsibilities, and authorities are defined, documented, and communicated",
+  "es": "4 = No existen identificación ni formación sobre los roles y las responsabilidades para la bioprotección.\n3 = Se formó al personal del centro con respecto a sus roles y responsabilidades para la bioprotección.\n2 = Se identificó a un responsable de bioprotección en este centro.\n0 = La dirección de este centro asegura la definición, documentación y comunicación de roles, responsabilidades y autoridades."
+ },
+ {
+  "id": "76bb92d2-c985-47ef-ae6a-899611214229:1/0/3/0/3/0/3/2/3/5/3/1/2:title",
+  "en": "Has the institution made a commitment to security?",
+  "es": "¿La institución asumió un compromiso con la seguridad?"
+ },
+ {
+  "id": "76bb92d2-c985-47ef-ae6a-899611214229:1/0/3/0/3/0/3/2/3/5/3/1/4:detailText",
+  "en": "4 = Management at this facility is not aware, or interested in, biosecurity concerns\n3 = Management at this facility is aware of biosecurity concerns, but has not implemented a biosecurity policy or devoted resources to address the issue\n2 = Management at this facility have made some efforts to improve biosafety at the facility, but they are not comprehensive and/or are not fully implemented\n1 = This facility has a comprehensive biosecurity policy in place, which was developed, authorized, and signed by top management.  The policy is appropriate to the nature and scale of the risk. Management establishes the commitment and objectives of the biosecurity system, and communicates this to all stakeholders.\n0 = Management at this facility identifies and prioritizes program needs and allocates funds as necessary",
+  "es": "4 = La dirección de este centro no conoce ni está interesada en los problemas de bioprotección.\n3 = La dirección de este centro conoce los problemas de bioprotección, pero no implementó una política al respecto ni designó recursos para abordar la problemática.\n2 = La dirección de este centro realizó esfuerzos para mejorar la bioprotección del centro, pero no son integrales o no están implementados completamente.\n1 = En este centro existe una política integral de bioprotección que desarrolló, autorizó y firmó la dirección superior. La política es adecuada a la naturaleza y grado de riesgo. La dirección establece el compromiso y los objetivos del sistema de bioprotección y los comunica a todos sus accionarios.\n0 = La dirección de este centro identifica y prioriza las necesidades del programa y asigna los fondos necesarios."
+ },
+ {
+  "id": "b897936f-bfb6-40a5-a601-29588bbac979:1/0/3/0/3/0/3/2/3/5/3/2/2:title",
+  "en": "Does the institution have comprehensive biosecurity documentation?",
+  "es": "¿El centro tiene documentación integral de la bioprotección?"
+ },
+ {
+  "id": "b897936f-bfb6-40a5-a601-29588bbac979:1/0/3/0/3/0/3/2/3/5/3/2/4:detailText",
+  "en": "4 = This facility has no biosecurity policies, manuals, or SOPs\n3 = This facility has no specific biosecurity documentation\n2 = This facility has some biosecurity documentation, but they are not comprehensive and / or not fully implemented\n1 = This facility has biosecurity policies, manuals, and SOPs\n0 = This facility’s biosecurity documentation also includes risk assessment and incident response information",
+  "es": "4 = Este centro no tiene políticas, manuales ni procedimiento operativo estándar de bioprotección.\n3 = Este centro no tiene documentación específica sobre bioprotección.\n2 = Este centro tiene poca documentación sobre bioprotección, pero no es integral o no se implementó completamente.\n1 = Este centro tiene políticas, manuales y procedimientos operativos estándar de bioprotección.\n0 = Esta documentación de bioprotección del centro también incluye la evaluación de riesgos e información sobre respuesta ante incidentes."
+ },
+ {
+  "id": "59a52f08-c64e-49b3-88ec-b807867bdde7:1/0/3/0/3/0/3/2/3/5/3/3/2:title",
+  "en": "Does the institution conduct biosecurity drills or exercises?",
+  "es": "¿El centro realiza simulacros o ejercicios de bioprotección?"
+ },
+ {
+  "id": "59a52f08-c64e-49b3-88ec-b807867bdde7:1/0/3/0/3/0/3/2/3/5/3/3/4:detailText",
+  "en": "4 = This facility does not conduct any biosecurity exercises\n2 = This facility conducts tabletops or other exercises on an ad hoc basis\n1 = This facility conducts annual exercises\n0 = This facility includes external responders in their exercises",
+  "es": "4 = Este centro no realiza ningún ejercicio de bioprotección.\n2 = Este centro realiza pruebas u otros ejercicios de manera ad hoc.\n1 = Este centro realiza ejercicios anuales.\n0 = Este centro incluye personas con capacidad de respuesta externos para estos ejercicios."
+ },
+ {
+  "id": "d9ffb002-5709-4363-8a56-c99f4ab66350:1/0/3/0/3/0/3/2/3/5/3/4/2:title",
+  "en": "Does the institution periodically review the biosecurity program?",
+  "es": "¿El centro realiza revisiones periódicas al programa de bioprotección?"
+ },
+ {
+  "id": "d9ffb002-5709-4363-8a56-c99f4ab66350:1/0/3/0/3/0/3/2/3/5/3/4/4:detailText",
+  "en": "4 = There is no review of the biosecurity program \n3 = The biosecurity program is reviewed and revised as necessary after any incidents or near-incidents\n1 = The bioecurity program is subject to internal self-assessments\n0 = Management at the facility ensures continual improvement, conducts routine self-assessments, and ensures corrective and preventive actions. Reviews include assessing opportunities for improvement and any needs for changes to the system, procedures, policies, and objectives.",
+  "es": "4 = No se realizan revisiones del programa de bioprotección.\n3 = El programa de bioprotección se revisa y se analiza según sea necesario después de incidentes o cuasiincidentes.\n1 = El programa de bioprotección está sujeto a autoevaluaciones internas.\n0 = La dirección del centro asegura la mejora continua, realiza autoevaluaciones de rutina y asegura medidas correctivas y preventivas. Las revisiones incluyen oportunidades de evaluación para la mejora y cualquier necesidad de cambios en el sistema, procedimientos, políticas y objetivos."
+ },
+ {
+  "id": "576988d3-4795-4710-9ac9-966ee6c0fba7:2/0/2:title",
+  "en": "Agent",
+  "es": "Agente"
+ },
+ {
+  "id": "7b3eaec5-460f-4ee5-bcb5-bd4ab9303cfa:2/0/3/0/2:title",
+  "en": "Likelihood agent can be used as a weapon",
+  "es": "Probabilidad de que el agente pueda utilizarse como arma."
+ },
+ {
+  "id": "d45c2ba9-c854-4bfd-a0a0-184cd198cb66:2/0/3/0/3/0/2:title",
+  "en": "Agent Potential for Biocrime/Bioweapon",
+  "es": "Potencial del agente para el delito biológico/uso como arma biológica."
+ },
+ {
+  "id": "e6206732-2770-4036-9b1f-a2e12dd44129:2/0/3/0/3/0/3/0/2:title",
+  "en": "What is this agent’s stability outside of a host?",
+  "es": "¿Qué estabilidad tiene el agente fuera del hospedador?"
+ },
+ {
+  "id": "e6206732-2770-4036-9b1f-a2e12dd44129:2/0/3/0/3/0/3/0/4:detailText",
+  "en": "1 = Agent not stable outside the host\n2 = Agent stable on interior surfaces for days to weeks\n3 = Agent stable in the exterior environment for days to weeks\n4 = Agent stable in the environment for months",
+  "es": "1 = El agente no es estable fuera del hospedador\n2 = El agente es estable entre días y semanas sobre superficies interiores\n3 = El agente es estable entre días y semanas en el ambiente exterior\n4 = El agente es estable durante meses en el ambiente"
+ },
+ {
+  "id": "35796f27-0fc5-40dc-b4ef-ed41875b7884:2/0/3/0/3/0/3/1/2:title",
+  "en": "What is general population’s knowledge or awareness of this agent as related to biological weapons or bio-crime?  ",
+  "es": "¿Cuál es el conocimiento general de la población sobre este agente en lo que respecta a armas biológicas o delitos biológicos?"
+ },
+ {
+  "id": "35796f27-0fc5-40dc-b4ef-ed41875b7884:2/0/3/0/3/0/3/1/4:detailText",
+  "en": "0 = No history of this agent in biowarfare or bioterrorism and no evidence of terrorist interest in this agent\n2 = Agent has no history of use but there is evidence of terrorist interest \n4 = Agent has a history of use in bioterrorism or biowarfare",
+  "es": "0 = No se ha utilizado antes este agente en la guerra biológica o el bioterrorismo y no existen pruebas de que los terroristas tengan interés en este agente.\n2 = El agente no se ha utilizado anteriormente, pero hay pruebas de que interesa a terroristas\n4 = El agente se ha utilizado anteriormente en el bioterrorismo o la guerra biológica"
+ },
+ {
+  "id": "bcb6d349-12e4-4f87-a381-30719ac7900a:2/0/3/0/3/0/3/2/2:title",
+  "en": "Dissemination",
+  "es": "Diseminación"
+ },
+ {
+  "id": "78fad78d-598c-4850-9a71-c0fb945a6fb6:2/0/3/0/3/0/3/2/3/0/2:title",
+  "en": "Can host to host transmission be used as a dissemination pathway to execute an attack?",
+  "es": "¿Se puede usar la transmisión de hospedador a hospedador como una vía de diseminación para ejecutar un ataque?"
+ },
+ {
+  "id": "78fad78d-598c-4850-9a71-c0fb945a6fb6:2/0/3/0/3/0/3/2/3/0/4:detailText",
+  "en": "4 = Yes, host to host transmission is possible\n0 = No, host to host transmission is not possible",
+  "es": "4 = Sí, es posible la transmisión de un hospedador a otro.\n0 = No, no es posible la transmisión de un hospedador a otro."
+ },
+ {
+  "id": "fcf3f441-d672-4861-b828-44a3ef43c8a2:2/0/3/0/3/0/3/2/3/1/2:title",
+  "en": "Can this agent be disseminated both overtly and covertly?",
+  "es": "¿Se puede diseminar este agente encubierta o abiertamente?"
+ },
+ {
+  "id": "fcf3f441-d672-4861-b828-44a3ef43c8a2:2/0/3/0/3/0/3/2/3/1/4:detailText",
+  "en": "4 = Yes, Agent can be disseminated both overtly and covertly\n0 = No, Covert dissemination would be very difficult or nearly impossible",
+  "es": "4 = Sí, se puede diseminar este agente encubierta y abiertamente.\n0 = No, la diseminación encubierta sería muy difícil o prácticamente imposible."
+ },
+ {
+  "id": "c11f8239-1a9f-4cd4-aa30-514f561f72d3:2/0/3/0/3/0/3/3/2:title",
+  "en": "Production and Dissemination",
+  "es": "Producción y diseminación"
+ },
+ {
+  "id": "aef2cd00-a1fb-42f1-bdcf-6759b7c65ee6:2/0/3/0/3/0/3/3/3/0/2:title",
+  "en": "What is the level of microbiological skill required to grow a suitable quantity (to meet the malicious objective) of this agent?",
+  "es": "¿Cuál es el nivel de conocimiento microbiológico necesario para multiplicar la cantidad adecuada (para cumplir con un objetivo malintencionado) de este agente?"
+ },
+ {
+  "id": "aef2cd00-a1fb-42f1-bdcf-6759b7c65ee6:2/0/3/0/3/0/3/3/3/0/4:detailText",
+  "en": "4 = Suitable quantity of this agent could be produced easily with limited microbiological skills\n2 = Production of a suitable quantity of this agent is straightforward for an individual with undergraduate level microbiological skills\n1 = Production of a suitable quantity of this agent requires advanced technical skills\n0 = Groundbreaking techniques would be required to grow a suitable quantity of this agent",
+  "es": "4 = Es fácil producir una cantidad adecuada de este agente con conocimientos microbiológicos limitados.\n2 = Producir una cantidad adecuada de este agente es sencillo para una persona con competencias microbiológicas universitarias.\n1 = La producción de una cantidad adecuada de este agente exige capacidades técnicas avanzadas.\n0 = Se necesitarían técnicas innovadoras para producir una cantidad adecuada de este agente"
+ },
+ {
+  "id": "f9dbe085-5792-4fe0-a763-ff1bed97b530:2/0/3/0/3/0/3/3/3/1/2:title",
+  "en": "What is the potential to produce this agent in a covert facility?",
+  "es": "¿Cuáles son las posibilidades de producir este agente en un centro encubierto?"
+ },
+ {
+  "id": "f9dbe085-5792-4fe0-a763-ff1bed97b530:2/0/3/0/3/0/3/3/3/1/4:detailText",
+  "en": "4 = Production could easily be done covertly\n2 = Covert production feasible but some infrastructure required\n1 = Production would require sophisticated infrastructure\n0 = Facility for producing this agent would be nearly impossible to make covert",
+  "es": "4 = Sería fácil producirlo de manera encubierta\n2 = Se podría producir de manera encubierta, pero se necesitaría cierta infraestructura\n1 = Para producirlo haría falta una infraestructura compleja\n0 = Sería casi imposible encubrir la instalación necesaria para producir este agente"
+ },
+ {
+  "id": "f0fbc8a3-6194-44b1-9746-491b15de70dc:2/0/3/0/3/0/3/3/3/2/2:title",
+  "en": "What are the storage requirements for this agent post production?",
+  "es": "¿Cuáles son los requisitos de almacenamiento de este agente después de la producción?"
+ },
+ {
+  "id": "f0fbc8a3-6194-44b1-9746-491b15de70dc:2/0/3/0/3/0/3/3/3/2/4:detailText",
+  "en": "4 = Agent is stable long-term without cold storage\n3 = Agent is stable long term but cold storage required\n2 = Agent is stable for days - weeks\n0 = Agent is not stable",
+  "es": "4 = El agente es estable a largo plazo sin almacenamiento en frío.\n3 = El agente es estable a largo plazo pero se requiere almacenamiento en frío.\n2 = El agente es estable por días o semanas.\n0 = El agente no es estable."
+ },
+ {
+  "id": "bb91baa0-d248-4c64-b850-1519726b3840:2/0/3/0/3/0/3/3/3/3/2:title",
+  "en": "What types of processing are required before this agent can be disseminated as a biological weapon or used in a biocrime?",
+  "es": "¿Qué tipos de procesamiento se requieren antes de que se pueda diseminar este agente como arma biológica o usar en un delito biológico?"
+ },
+ {
+  "id": "bb91baa0-d248-4c64-b850-1519726b3840:2/0/3/0/3/0/3/3/3/3/4:detailText",
+  "en": "4 = Agent does not require processing prior to dissemination\n3 = Agent can easily be processed into a dry form for dissemination\n2 = Processing into a dry form for dissemination is difficult but processing for a liquid dissemination is less challenging\n1 = Processing into a form suitable for dissemination requires advanced techniques\n0 = Groundbreaking techniques are required to process the agent into a form suitable for dissemination",
+  "es": "4 = El agente no requiere procesamiento antes de la diseminación.\n3 = El agente se puede procesar con facilidad en forma seca para su diseminación.\n2 = El procesamiento en forma seca para la diseminación es difícil, procesarlo para una diseminación líquida es menos complejo.\n1 = Procesarlo en una forma adecuada para la diseminación requiere de técnicas avanzadas.\n0 = Se requieren técnicas innovadoras para procesar el agente en una forma adecuada para la diseminación."
+ },
+ {
+  "id": "317c51d8-6ebf-4308-a1c4-098dd2f67f9f:2/0/3/0/3/1/2:title",
+  "en": "Transmission",
+  "es": "Transmisión"
+ },
+ {
+  "id": "ce40e78c-9ea0-4abc-bc4f-efdaa6f20d63:2/0/3/0/3/1/3/0/2:title",
+  "en": "Humans",
+  "es": "Seres humanos"
+ },
+ {
+  "id": "8562df35-c5df-4268-b037-21162b0e2b50:2/0/3/0/3/1/3/0/3/0/2:title",
+  "en": "Inhalation",
+  "es": "Inhalación"
+ },
+ {
+  "id": "cc81e87e-21e4-4b7b-b40e-0ed4ca6585ce:2/0/3/0/3/1/3/0/3/0/3/0/2:title",
+  "en": "Is this agent known to cause infection via inhalation (to cause infection via droplets or droplet nuclei that have entered the upper or lower respiratory tract) in a laboratory setting?",
+  "es": "¿Se sabe si este agente causa infección por la inhalación (causar infecciones a través de gotículas o núcleos de gotículas que penetran en las vías respiratorias superiores e inferiores) en un entorno de laboratorio?"
+ },
+ {
+  "id": "cc81e87e-21e4-4b7b-b40e-0ed4ca6585ce:2/0/3/0/3/1/3/0/3/0/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "f424fc6a-3a2e-4d89-9c76-422713169e68:2/0/3/0/3/1/3/0/3/0/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce?"
+ },
+ {
+  "id": "f424fc6a-3a2e-4d89-9c76-422713169e68:2/0/3/0/3/1/3/0/3/0/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "a486906a-9ee4-4d90-b95b-4d6e1db9bac4:2/0/3/0/3/1/3/0/3/1/2:title",
+  "en": "Percutaneous",
+  "es": "Percutánea"
+ },
+ {
+  "id": "4cbb50dc-e4a6-483f-9de3-a02c1fa3c85a:2/0/3/0/3/1/3/0/3/1/3/0/2:title",
+  "en": "Is this agent known to cause infection via percutaneous exposure (to cause infection through compromised skin or direct injection into the blood stream) in a laboratory setting? ",
+  "es": "¿Se sabe si este agente causa infección por la exposición percutánea (causar infecciones a través de lesiones de la piel o inyección directa en el torrente sanguíneo) en un entorno de laboratorio?"
+ },
+ {
+  "id": "4cbb50dc-e4a6-483f-9de3-a02c1fa3c85a:2/0/3/0/3/1/3/0/3/1/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "e51fba96-fad3-49e1-b3bc-162e03889fd6:2/0/3/0/3/1/3/0/3/1/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce?"
+ },
+ {
+  "id": "e51fba96-fad3-49e1-b3bc-162e03889fd6:2/0/3/0/3/1/3/0/3/1/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route\n",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "064a0da5-4571-44ca-b5f8-a4d336c2dfdf:2/0/3/0/3/1/3/0/3/2/2:title",
+  "en": "Direct Contact",
+  "es": "Contacto directo"
+ },
+ {
+  "id": "b116b526-6525-455a-ba5b-f055d0a34809:2/0/3/0/3/1/3/0/3/2/3/0/2:title",
+  "en": "Is this agent known to cause infection via direct contact (to cause infection through the mucosal membranes) in a laboratory setting? ",
+  "es": "¿Se sabe si este agente causa infección por el contacto directo (causar infecciones a través de las mucosas) en un entorno de laboratorio?"
+ },
+ {
+  "id": "b116b526-6525-455a-ba5b-f055d0a34809:2/0/3/0/3/1/3/0/3/2/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "27ac97a5-b336-4961-81e1-a72ff6d094c7:2/0/3/0/3/1/3/0/3/2/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce?"
+ },
+ {
+  "id": "27ac97a5-b336-4961-81e1-a72ff6d094c7:2/0/3/0/3/1/3/0/3/2/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "930d06b6-800f-44df-bcc9-1252a641fc57:2/0/3/0/3/1/3/0/3/3/2:title",
+  "en": "Ingestion",
+  "es": "Ingestión"
+ },
+ {
+  "id": "cc6aac65-1361-47ce-ae1f-638a0cbd4d1f:2/0/3/0/3/1/3/0/3/3/3/0/2:title",
+  "en": "Is this agent known to cause infection via ingestion (to cause infection via contact with the gastrointestinal tract) in a laboratory setting?",
+  "es": "¿Se sabe si este agente causa infección por ingestión (causar infecciones por contacto a través del tubo digestivo) en un entorno de laboratorio?"
+ },
+ {
+  "id": "cc6aac65-1361-47ce-ae1f-638a0cbd4d1f:2/0/3/0/3/1/3/0/3/3/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "cbbf433e-c87c-44ba-9c94-58f87ba62d55:2/0/3/0/3/1/3/0/3/3/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce?"
+ },
+ {
+  "id": "cbbf433e-c87c-44ba-9c94-58f87ba62d55:2/0/3/0/3/1/3/0/3/3/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "c3f7a5db-66fc-47bb-bcbb-eb001a025409:2/0/3/0/3/1/3/0/3/4/2:title",
+  "en": "Vector-Borne",
+  "es": "Transmisión vectorial"
+ },
+ {
+  "id": "8ea5c33a-383c-4793-a698-0b66d6970a4f:2/0/3/0/3/1/3/0/3/4/3/0/2:title",
+  "en": "Is this agent known to cause infection via vector-borne transmission (to cause infection by direct mucosal membrane contact or percutaneous exposure from a vector (e.g. arthropod))? ",
+  "es": "¿Se sabe si este agente causa infección por la transmisión vectorial (causar infecciones por contacto directo a través de las mucosas o exposición percutánea de un vector [p. ej., artrópodo])?"
+ },
+ {
+  "id": "8ea5c33a-383c-4793-a698-0b66d6970a4f:2/0/3/0/3/1/3/0/3/4/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "0e75d47f-e987-4570-b2e8-6c972e1ce32d:2/0/3/0/3/1/3/0/3/4/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce?"
+ },
+ {
+  "id": "0e75d47f-e987-4570-b2e8-6c972e1ce32d:2/0/3/0/3/1/3/0/3/4/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "17d5986e-a249-48a0-80a1-af99aa39fb0a:2/0/3/0/3/1/3/1/2:title",
+  "en": "Animals",
+  "es": "Animales"
+ },
+ {
+  "id": "8dddcead-136d-4583-a3bb-c8b9a4216674:2/0/3/0/3/1/3/1/3/0/2:title",
+  "en": "Inhalation",
+  "es": "Inhalación"
+ },
+ {
+  "id": "ae97223c-cdc0-4d0d-9eae-d7481cfdc3b0:2/0/3/0/3/1/3/1/3/0/3/0/2:title",
+  "en": "Is this agent known to cause infection via inhalation (to cause infection via droplets or droplet nuclei that have entered the upper or lower respiratory tract) in a laboratory setting?",
+  "es": "¿Se sabe si este agente causa infección por la inhalación (causar infecciones a través de gotículas o núcleos de gotículas que penetran en las vías respiratorias superiores e inferiores) en un entorno de laboratorio?"
+ },
+ {
+  "id": "ae97223c-cdc0-4d0d-9eae-d7481cfdc3b0:2/0/3/0/3/1/3/1/3/0/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "77f07de7-4544-413a-acdc-1ad9dc978b12:2/0/3/0/3/1/3/1/3/0/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce?"
+ },
+ {
+  "id": "77f07de7-4544-413a-acdc-1ad9dc978b12:2/0/3/0/3/1/3/1/3/0/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "e6033f5a-4f52-450f-a882-818b08400954:2/0/3/0/3/1/3/1/3/1/2:title",
+  "en": "Percutaneous",
+  "es": "Percutánea"
+ },
+ {
+  "id": "0a0164ae-b7e2-4903-ad16-f3e16b226304:2/0/3/0/3/1/3/1/3/1/3/0/2:title",
+  "en": "Is this agent known to cause infection via percutaneous exposure (to cause infection through compromised skin or direct injection into the blood stream) in a laboratory setting? ",
+  "es": "¿Se sabe si este agente causa infección por la exposición percutánea (causar infecciones a través de lesiones de la piel o inyección directa en el torrente sanguíneo) en un entorno de laboratorio?"
+ },
+ {
+  "id": "0a0164ae-b7e2-4903-ad16-f3e16b226304:2/0/3/0/3/1/3/1/3/1/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "2d532dbc-b494-40d6-b420-786847cedcff:2/0/3/0/3/1/3/1/3/1/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce?"
+ },
+ {
+  "id": "2d532dbc-b494-40d6-b420-786847cedcff:2/0/3/0/3/1/3/1/3/1/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "18148de2-5590-4319-b918-f2b08df50564:2/0/3/0/3/1/3/1/3/2/2:title",
+  "en": "Direct Contact",
+  "es": "Contacto directo"
+ },
+ {
+  "id": "ada8232d-39f0-4776-8c8b-3efc622818ef:2/0/3/0/3/1/3/1/3/2/3/0/2:title",
+  "en": "Is this agent known to cause infection via direct contact (to cause infection through the mucosal membranes) in a laboratory setting? ",
+  "es": "¿Se sabe si este agente causa infección por el contacto directo (causar infecciones a través de las mucosas) en un entorno de laboratorio?"
+ },
+ {
+  "id": "ada8232d-39f0-4776-8c8b-3efc622818ef:2/0/3/0/3/1/3/1/3/2/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "af23c5d4-99a2-4f73-9fa6-5016ee7b0aa2:2/0/3/0/3/1/3/1/3/2/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce?"
+ },
+ {
+  "id": "af23c5d4-99a2-4f73-9fa6-5016ee7b0aa2:2/0/3/0/3/1/3/1/3/2/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "3052300a-e1b6-400a-a39d-ea4bbe92b9a8:2/0/3/0/3/1/3/1/3/3/2:title",
+  "en": "Ingestion",
+  "es": "Ingestión"
+ },
+ {
+  "id": "54476768-460f-40af-9121-fd43980843c8:2/0/3/0/3/1/3/1/3/3/3/0/2:title",
+  "en": "Is this agent known to cause infection via ingestion (to cause infection via contact with the gastrointestinal tract) in a laboratory setting? ",
+  "es": "¿Se sabe si este agente causa infección por ingestión (causar infecciones por contacto a través del tubo digestivo) en un entorno de laboratorio?"
+ },
+ {
+  "id": "54476768-460f-40af-9121-fd43980843c8:2/0/3/0/3/1/3/1/3/3/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "0f6efe36-4f8f-4632-8166-67639caaa769:2/0/3/0/3/1/3/1/3/3/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce?"
+ },
+ {
+  "id": "0f6efe36-4f8f-4632-8166-67639caaa769:2/0/3/0/3/1/3/1/3/3/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "b7926b31-a7ea-4abf-9953-7248fd94dab1:2/0/3/0/3/1/3/1/3/4/2:title",
+  "en": "Vector-Borne",
+  "es": "Transmisión vectorial"
+ },
+ {
+  "id": "fcaa8ec8-553e-4dfb-bb68-e9145ecfd564:2/0/3/0/3/1/3/1/3/4/3/0/2:title",
+  "en": "Is this agent known to cause infection via vector-borne transmission (to cause infection by direct mucosal membrane contact or percutaneous exposure from a vector (e.g. arthropod))? ",
+  "es": "¿Se sabe si este agente causa infección por la transmisión vectorial (causar infecciones por contacto directo a través de las mucosas o exposición percutánea de un vector [p. ej., artrópodo])?"
+ },
+ {
+  "id": "fcaa8ec8-553e-4dfb-bb68-e9145ecfd564:2/0/3/0/3/1/3/1/3/4/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "2c1a695b-04fe-4e51-9ecf-97ba8424a41c:2/0/3/0/3/1/3/1/3/4/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce?"
+ },
+ {
+  "id": "2c1a695b-04fe-4e51-9ecf-97ba8424a41c:2/0/3/0/3/1/3/1/3/4/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "8aaa2697-5268-4040-b542-1fb43d38a8ce:2/0/3/1/2:title",
+  "en": "Consequences of Bioattack with Agent",
+  "es": "Consecuencias de un ataque biológico con este agente"
+ },
+ {
+  "id": "de92c486-d2bf-434f-934b-fe6569ad6bee:2/0/3/1/3/0/2:title",
+  "en": "Human",
+  "es": "Seres humanos"
+ },
+ {
+  "id": "41c498ef-1bd2-46d3-871b-596eee355a42:2/0/3/1/3/0/3/0/2:title",
+  "en": "Morbidity",
+  "es": "Morbilidad"
+ },
+ {
+  "id": "a4ada8c0-9207-454c-9d1f-80fcb789d094:2/0/3/1/3/0/3/0/3/0/2:title",
+  "en": "What is the duration of illness (the average length of time of clinical signs of infection) in a normally healthy human host?",
+  "es": "¿Cuánto dura la enfermedad (duración media de los signos clínicos de infección) en un hospedador humano normal y sano?"
+ },
+ {
+  "id": "a4ada8c0-9207-454c-9d1f-80fcb789d094:2/0/3/1/3/0/3/0/3/0/4:detailText",
+  "en": "4 = long duration (months or more) \n3 = moderate duration (week(s)) \n1 = short duration (days) \n0 = No signs of infection",
+  "es": "4 = Larga duración (meses o más)\n3 = Duración moderada (semana/s)\n1 = Corta duración (día/s)\n0 = Sin signos de infección"
+ },
+ {
+  "id": "8c0a23fc-5be6-4a63-9a61-3bc9ae0b5ff9:2/0/3/1/3/0/3/0/3/1/2:title",
+  "en": "What is the severity of illness (the average severity of illness, ranging from no signs of illness to hospitalized in critical condition) in a normal health human host?",
+  "es": "¿Qué gravedad tiene la enfermedad (gravedad media, que puede ir desde la ausencia de signos de enfermedad a la hospitalización en estado crítico) en un hospedador humano normal y sano?"
+ },
+ {
+  "id": "8c0a23fc-5be6-4a63-9a61-3bc9ae0b5ff9:2/0/3/1/3/0/3/0/3/1/4:detailText",
+  "en": "4 = Extreme sign of disease (mechanical assistance required to sustain life or death imminent) \n3 = High sign of disease (not able to function (hospitalized)) \n2 = Moderate sign of disease (able to function in a limited manner (bed rest)) \n1 = Low sign of disease (able to function but showing symptoms) \n0 = No sign of disease",
+  "es": "4 = Signos extremos de enfermedad (se requiere asistencia mecánica para mantenerlo con vida o evitar la muerte inminente)\n3 = Signos importantes de enfermedad (no puede funcionar [hospitalizado])\n2 = Signos moderados de enfermedad (puede funcionar de manera limitada [reposo en cama])\n1 = Signos leves de enfermedad (puede funcionar, pero tiene síntomas)\n0 = Sin signos de enfermedad"
+ },
+ {
+  "id": "e88e1fa3-78c2-426a-b7c6-1d03105fb6b6:2/0/3/1/3/0/3/0/3/2/2:title",
+  "en": "What is the duration of infection (the length of time the host is infected with the organism) in a normal healthy human host?",
+  "es": "¿Cuánto dura la infección (tiempo que el hospedador está infectado por el organismo) en el ser humano normal y sano?"
+ },
+ {
+  "id": "e88e1fa3-78c2-426a-b7c6-1d03105fb6b6:2/0/3/1/3/0/3/0/3/2/4:detailText",
+  "en": "4 = Infection present for life of host \n3 = Infection present post clinical signs for months \n2 = Infection present post clinical signs for weeks \n1 = Infection present if clinical signs \n0 = No sign of disease",
+  "es": "4 = Infección presente durante toda la vida del hospedador\n3 = Infección presente durante meses después de los signos clínicos\n2 = Infección presente durante semanas después de los signos clínicos\n1 = Infección presente si hay signos clínicos\n0 = Sin signos de enfermedad"
+ },
+ {
+  "id": "dd964e14-03e9-42e2-9078-0b94901f4232:2/0/3/1/3/0/3/0/3/3/2:title",
+  "en": "Does this disease cause any long-term conditions (sequelae) in a normal healthy human host?",
+  "es": "¿Causa esta enfermedad trastornos a largo plazo (secuelas) en un hospedador humano normal y sano?"
+ },
+ {
+  "id": "dd964e14-03e9-42e2-9078-0b94901f4232:2/0/3/1/3/0/3/0/3/3/4:detailText",
+  "en": "4 = High long-term impact which renders the host unable to function normally \n2 = Moderate long-term impact which hinders the hosts ability to function normally\n1 = Mild long-term impacts do not impede the hosts ability to function normally \n0 = No long term impact",
+  "es": "4 = Tiene repercusiones importantes a largo plazo que impiden al hospedador funcionar con normalidad\n2 = Tiene repercusiones moderadas a largo plazo que reducen la capacidad del hospedador de funcionar con normalidad\n1 = Tiene repercusiones leves a largo plazo que impiden la capacidad del hospedador de funcionar con normalidad\n0 = Sin repercusiones a largo plazo"
+ },
+ {
+  "id": "5bca8982-f489-47a6-a2a2-2fad449f85d7:2/0/3/1/3/0/3/1/2:title",
+  "en": "What is the frequency of death in humans caused by this disease in a defined population during a specified interval of time (Mortality Rate)? ",
+  "es": "¿Con qué frecuencia causa esta enfermedad la muerte en seres humanos en una población definida durante un periodo de tiempo determinado (tasa de mortalidad)?"
+ },
+ {
+  "id": "5bca8982-f489-47a6-a2a2-2fad449f85d7:2/0/3/1/3/0/3/1/4:detailText",
+  "en": "4 = High mortality (75% or more) \n2 = Medium mortality (15% to 74%) \n1 = Low mortality (1% to 14%) \n0 = No Mortality (0%)",
+  "es": "4 = Mortalidad alta (75% o más)\n2 = Mortalidad media (15% a 74%)\n1 = Mortalidad baja (entre el 1% y el 14%)\n0 = Sin mortalidad (0%)"
+ },
+ {
+  "id": "9bb268fb-260f-4bab-9884-353b6ede3142:2/0/3/1/3/1/2:title",
+  "en": "Animal",
+  "es": "Animales"
+ },
+ {
+  "id": "086a3b09-64ed-47df-ba1c-ab4ba4de192f:2/0/3/1/3/1/3/0/2:title",
+  "en": "If the agent infects animals, what is the expected morbidity rate to a naïve but otherwise healthy animal population?",
+  "es": "Si el agente infecta a un animal, ¿cuál es la tasa de morbilidad prevista en una población animal sin antecedentes de contacto con el agente y por lo demás sana?"
+ },
+ {
+  "id": "086a3b09-64ed-47df-ba1c-ab4ba4de192f:2/0/3/1/3/1/3/0/4:detailText",
+  "en": "4 = High Morbidity (> 75%)\n3 = Moderate Morbidity (25% to 75%)\n1 = Low Morbidity (1% to 25%)\n0 = Very Low Morbidity ( < 1%)\n",
+  "es": "4 = Morbilidad alta (> 75%)\n3 = Mortalidad moderada (entre el 25% y el 75%)\n1 = Mortalidad baja (entre el 1% y el 25%)\n0 = Morbilidad muy baja (< 1%)"
+ },
+ {
+  "id": "33aba1ab-ec2e-4278-93dc-e6aedb4f5bf2:2/0/3/1/3/1/3/1/2:title",
+  "en": "What species of animals can this agent infect? ",
+  "es": "¿Qué especies de animales puede infectar este agente?"
+ },
+ {
+  "id": "33aba1ab-ec2e-4278-93dc-e6aedb4f5bf2:2/0/3/1/3/1/3/1/4:detailText",
+  "en": "4 = Affects multiple, significant agricultural species which are used for export and/or the by-products are a major source of protein for our country\n3 = Affects a single but significant livestock species which is used for export and/or the by-products are a major source of protein for our country\n2 = Affects a less significant livestock species which is used for export and/or the by-products are a source of protein for our country\n0 = Affect a livestock species which has no economic impact in our country",
+  "es": "4 = Afecta a múltiples y significativas especies agrícolas que se utilizan para exportar o cuyos subproductos son fuentes principales de proteína para nuestro país.\n3 = Afecta una sola especie ganadera, pero significativa que se utiliza para exportar o cuyos subproductos son fuentes principales de proteína para nuestro país.\n2 = Afecta una especie ganadera menos significativa que se utiliza para exportar o cuyos subproductos son fuentes de proteína para nuestro país.\n0 = Afecta a especies ganaderas que no afectan económicamente nuestro país."
+ },
+ {
+  "id": "4296731d-fcfc-47ca-9102-209dba5f52e7:2/0/3/1/3/2/2:title",
+  "en": "Socioeconomic Consequences",
+  "es": "Consecuencias socioeconómicas"
+ },
+ {
+  "id": "4214e9fa-053b-4f27-bc58-78e3831d47e3:2/0/3/1/3/2/3/0/2:title",
+  "en": "What is the disease impact on the general population?  Consider herd immunity/levels of vaccination, immunocompromised population, etc",
+  "es": "¿Cómo afecta la enfermedad la población general? Tener en cuenta la inmunidad colectiva/los niveles de vacunación, la población inmunodeprimida, etc."
+ },
+ {
+  "id": "4214e9fa-053b-4f27-bc58-78e3831d47e3:2/0/3/1/3/2/3/0/4:detailText",
+  "en": "4 = Impacts a diverse population, including healthy adults \n2 = Impacts only segments of the population (e.g. elderly, children, immunocompromised) \n0 = No expected population impact",
+  "es": "4 = Afecta a una población diversa, incluso adultos saludables.\n2 = Afecta solo a segmentos de la población (p. ej., ancianos, niños, inmunodeprimidos)\n0 = Sin repercusiones previstas en la población."
+ },
+ {
+  "id": "f26890e3-7825-4920-b079-08ea138dcfb5:2/0/3/1/3/2/3/1/2:title",
+  "en": "What is the economic impact of an outbreak of this agent to the country? ",
+  "es": "¿Cómo afectaría económicamente un brote de este agente al país?"
+ },
+ {
+  "id": "f26890e3-7825-4920-b079-08ea138dcfb5:2/0/3/1/3/2/3/1/4:detailText",
+  "en": "4 = The economic impact of an agent release from the facility would be catastrophic\n2 = The economic impact of an agent release from the facility would be moderate\n0 = The economic impact of an agent release from the facility would be negligible",
+  "es": "4 = Si se liberara el agente del centro, sería catastrófico cómo afectaría la economía.\n2 = Si se liberara el agente del centro, sería moderado cómo afectaría la economía.\n0 = Si se liberara el agente del centro, sería insignificante cómo afectaría la economía."
+ },
+ {
+  "id": "60ea73fe-188f-4855-9e16-574f59cd1d90:2/0/3/1/3/2/3/2/2:title",
+  "en": "Is this agent endemic in the country?",
+  "es": "¿Este agente es endémico en el país?"
+ },
+ {
+  "id": "60ea73fe-188f-4855-9e16-574f59cd1d90:2/0/3/1/3/2/3/2/4:detailText",
+  "en": "4 = The agent is absent in the environment of the country \n3 = The agent is not endemic in the country, but outbreaks may occur\n0 = The agent is endemic in the country",
+  "es": "4 = El agente no existe en el ambiente en el país.\n3 = El agente no es endémico en el país, pero pueden producirse brotes.\n0 = El agente es endémico en el país."
+ },
+ {
+  "id": "4d5b3200-b164-42d9-bab5-48aca8c81866:2/0/3/1/3/2/3/3/2:title",
+  "en": "Are there active eradication programs of this agent in the country?  ",
+  "es": "¿Existen programas de erradicación de este agente activos en el país?"
+ },
+ {
+  "id": "4d5b3200-b164-42d9-bab5-48aca8c81866:2/0/3/1/3/2/3/3/4:detailText",
+  "en": "4 = The country is in the process of eradicating this agent\n0 = The country does not have an active eradication program for this agent",
+  "es": "4 = El país está en vías de erradicar este agente.\n0 = El país no tiene un programa de erradicación activo para este agente."
+ },
+ {
+  "id": "38334253-db45-4bc8-a29f-4c64b83fca38:2/0/3/1/3/2/3/4/2:title",
+  "en": "What will the level of social impact (public panic, rioting, people being unwilling to go out and work, fear of additional agents or of more incidents or multiple incidents) of a malicious release of this agent in the country?",
+  "es": "¿En qué grado afectaría socialmente (pánico público, disturbios, personas que no desean salir ni trabajar, miedo a otros agentes, a más incidentes o múltiples incidentes) en caso de una liberación malintencionada de este agente en el país?"
+ },
+ {
+  "id": "38334253-db45-4bc8-a29f-4c64b83fca38:2/0/3/1/3/2/3/4/4:detailText",
+  "en": "4 = The social impact of an agent release from the facility would be catastrophic\n2 = The social impact of an agent release from the facility would be moderate\n0 = The social impact of an agent release from the facility would be negligible",
+  "es": "4 = Si se liberara el agente del centro, sería catastrófico cómo afectaría socialmente.\n2 = Si se liberara el agente del centro, sería moderado cómo afectaría socialmente.\n0 = Si se liberara el agente del centro, sería insignificante cómo afectaría socialmente."
+ },
+ {
+  "id": "7fc2e05c-bf3f-4e50-84df-af88d9c57509:2/0/3/1/3/3/2:title",
+  "en": "Secondary Exposure",
+  "es": "Exposición secundaria"
+ },
+ {
+  "id": "5acc27ab-8de5-4aff-8a4b-338df113ff8d:2/0/3/1/3/3/3/0/2:title",
+  "en": "What is this agent's stability outside of a host?  ",
+  "es": "¿Qué estabilidad tiene el agente fuera del hospedador?"
+ },
+ {
+  "id": "5acc27ab-8de5-4aff-8a4b-338df113ff8d:2/0/3/1/3/3/3/0/4:detailText",
+  "en": "1 = Agent not stable outside the host \n2 = Agent stable on interior surfaces for days to weeks\n3 = Agent stable in the exterior environment for days to weeks\n4 = Agent stable in the environment for months",
+  "es": "1 = El agente no es estable fuera del hospedador\n2 = El agente es estable entre días y semanas sobre superficies interiores\n3 = El agente es estable entre días y semanas en el ambiente exterior\n4 = El agente es estable durante meses en el ambiente"
+ },
+ {
+  "id": "a8dca3c5-ab95-406a-b4b2-b526858a30ca:2/0/3/1/3/3/3/1/2:title",
+  "en": "Communicability",
+  "es": "Transmisibilidad"
+ },
+ {
+  "id": "46bd93d6-f983-49d7-abcf-df41986710ae:2/0/3/1/3/3/3/1/3/0/2:title",
+  "en": "How easily does this agent transmit between human hosts?  ",
+  "es": "¿Con qué facilidad se transmite este agente entre hospedadores humanos?"
+ },
+ {
+  "id": "46bd93d6-f983-49d7-abcf-df41986710ae:2/0/3/1/3/3/3/1/3/0/4:detailText",
+  "en": "4 = Agent can easily transmit between human hosts \n2 = Agent is transmissible between human hosts via close contact only (direct fluid transmission between hosts)\n2 = Human to human transmission suspected\n0 = Human to human transmission has never been demonstrated",
+  "es": "4 = El agente se transmite fácilmente entre hospedadores humanos\n2 = El agente solo se transmite entre hospedadores humanos mediante contacto estrecho (transmisión directa entre hospedadores por líquidos corporales)\n2 = Se sospecha la transmisión entre seres humanos\n0 = Nunca se demostró la transmisión entre seres humanos"
+ },
+ {
+  "id": "b525ccb1-4833-4316-a445-9a1c23ef27d2:2/0/3/1/3/3/3/1/3/1/2:title",
+  "en": "How easily does this agent transmit from animal to human hosts?  ",
+  "es": "¿Con qué facilidad se transmite este agente de hospedadores animales a humanos?"
+ },
+ {
+  "id": "b525ccb1-4833-4316-a445-9a1c23ef27d2:2/0/3/1/3/3/3/1/3/1/4:detailText",
+  "en": "4 = Agent can easily transmit from animals to humans \n2 = Agent is transmissible from animals to human hosts via close contact only (direct fluid transmission between hosts)\n2 = Animal to human transmission suspected\n0 = Animal to human transmission has never been demonstrated",
+  "es": "4 = El agente se transmite fácilmente de animales a seres humanos\n2 = El agente solo se transmite de hospedadores animales a humanos mediante contacto estrecho (transmisión directa entre hospedadores por líquidos corporales)\n2 = Se sospecha la transmisión de animales a seres humanos\n0 = Nunca se demostró la transmisión de animales a seres humanos"
+ },
+ {
+  "id": "617cca88-c5da-4f9f-8d3c-2428b252184e:2/0/3/1/3/3/3/1/3/2/2:title",
+  "en": "How easily does this agent transmit from human to animal hosts?  ",
+  "es": "¿Con qué facilidad se transmite este agente de hospedadores humanos a animales?"
+ },
+ {
+  "id": "617cca88-c5da-4f9f-8d3c-2428b252184e:2/0/3/1/3/3/3/1/3/2/4:detailText",
+  "en": "4 = Agent can easily transmit from humans to animals \n2 = Agent is transmissible from humans to animals via close contact only (direct fluid transmission between hosts)\n2 = Human to animal transmission suspected\n0 = Human to animal transmission has never been demonstrated",
+  "es": "4 = El agente se transmite fácilmente de seres humanos a animales\n2 = El agente solo se transmite de seres humanos a animales mediante contacto estrecho (transmisión directa entre hospedadores por líquidos corporales)\n2 = Se sospecha la transmisión de seres humanos a animales\n0 = Nunca se demostró la transmisión de seres humanos a animales"
+ },
+ {
+  "id": "d5540815-f84e-474c-89bb-67f6a12a8ea6:2/0/3/1/3/3/3/1/3/3/2:title",
+  "en": "How easily does this agent transmit between animal hosts?  ",
+  "es": "¿Con qué facilidad se transmite este agente entre hospedadores animales?"
+ },
+ {
+  "id": "d5540815-f84e-474c-89bb-67f6a12a8ea6:2/0/3/1/3/3/3/1/3/3/4:detailText",
+  "en": "4 = Agent can easily transmit between animal hosts \n2 = Agent is transmissible between animal hosts via close contact only (direct fluid transmission between hosts)\n2 = Animal to animal transmission suspected\n0 = Animal to animal transmission has never been demonstrated",
+  "es": "4 = El agente se transmite fácilmente entre hospedadores animales\n2 = El agente solo se transmite entre hospedadores animales mediante contacto estrecho (transmisión directa entre hospedadores por líquidos corporales)\n2 = Se sospecha la transmisión entre animales\n0 = Nunca se demostró la transmisión entre animales"
+ },
+ {
+  "id": "59d00ca3-6385-4018-b087-52b43b528572:2/0/3/1/3/3/3/2/2:title",
+  "en": "Natural Routes of Exposure",
+  "es": "Vías naturales de exposición"
+ },
+ {
+  "id": "9a7431b0-b372-4c6a-97cb-1471d11633a9:2/0/3/1/3/3/3/2/3/0/2:title",
+  "en": "Is this agent known to cause infection via inhalation (to cause infection via droplets or droplet nuclei that have entered the upper or lower respiratory tract) in the natural environment?",
+  "es": "¿Se sabe si este agente causa infección por la inhalación (causar infecciones a través de gotículas o núcleos de gotículas que penetran en las vías respiratorias superiores e inferiores) en un entorno natural?"
+ },
+ {
+  "id": "9a7431b0-b372-4c6a-97cb-1471d11633a9:2/0/3/1/3/3/3/2/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "205211f0-5461-40a6-b93f-419ccac396c4:2/0/3/1/3/3/3/2/3/1/2:title",
+  "en": "Is this agent known to cause infection via percutaneous exposure (to cause infection through compromised skin or direct injection into the blood stream) in the natural environment? ",
+  "es": "¿Se sabe si este agente causa infección por la exposición percutánea (causar infecciones a través de lesiones de la piel o inyección directa en el torrente sanguíneo) en un entorno natural?"
+ },
+ {
+  "id": "205211f0-5461-40a6-b93f-419ccac396c4:2/0/3/1/3/3/3/2/3/1/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "88058385-69ea-420b-9218-9b81d666f840:2/0/3/1/3/3/3/2/3/2/2:title",
+  "en": "Is this agent known to cause infection via direct contact (to cause infection through the mucosal membranes) in the natural environment? ",
+  "es": "¿Se sabe si este agente causa infección por el contacto directo (causar infecciones a través de las mucosas) en un entorno natural?"
+ },
+ {
+  "id": "88058385-69ea-420b-9218-9b81d666f840:2/0/3/1/3/3/3/2/3/2/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "5170e4ab-d2ef-46e6-8bd6-29be714c8025:2/0/3/1/3/3/3/2/3/3/2:title",
+  "en": "Is this agent known to cause infection via ingestion (to cause infection via contact with the gastrointestinal tract) in the natural environment? ",
+  "es": "¿Se sabe si este agente causa infección por ingestión (causar infecciones por contacto a través del tubo digestivo) en un entorno natural?"
+ },
+ {
+  "id": "5170e4ab-d2ef-46e6-8bd6-29be714c8025:2/0/3/1/3/3/3/2/3/3/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1= Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "030c2f82-2dac-44aa-859a-087d152c79b3:2/0/3/1/3/3/3/2/3/4/2:title",
+  "en": "Is this agent known to cause infection via vector-borne transmission (to cause infection by direct mucosal membrane contact or percutaneous exposure from a vector (e.g. arthropod))? ",
+  "es": "¿Se sabe si este agente causa infección por la transmisión vectorial (causar infecciones por contacto directo a través de las mucosas o exposición percutánea de un vector [p. ej., artrópodo])?"
+ },
+ {
+  "id": "030c2f82-2dac-44aa-859a-087d152c79b3:2/0/3/1/3/3/3/2/3/4/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1= Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "2ce36a8b-786d-449b-80f1-0c115ab45332:2/0/3/1/3/3/3/2/3/5/2:title",
+  "en": "Is this agent known to cause infection via vertical transmission (to cause infection from mother to fetus in the womb or via ingestion of infected breast milk)? ",
+  "es": "¿Se sabe si este agente causa infección por transmisión vertical (causar infecciones de madre a feto en el útero o por ingestión de leche materna infectada)?"
+ },
+ {
+  "id": "2ce36a8b-786d-449b-80f1-0c115ab45332:2/0/3/1/3/3/3/2/3/5/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "7aba5f3c-f261-45c3-90c4-e80fc7fd5bc4:2/0/3/1/3/3/3/2/3/6/2:title",
+  "en": "Is this agent known to cause infection via sexual transmission (to cause infection through sexual contact including intercourse)?",
+  "es": "¿Se sabe si este agente causa infección por transmisión sexual (causar infecciones a través del contacto sexual, incluyendo el coito)?"
+ },
+ {
+  "id": "7aba5f3c-f261-45c3-90c4-e80fc7fd5bc4:2/0/3/1/3/3/3/2/3/6/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "d75da0a3-18b0-4a7c-b2b0-3787851ce8c5:2/0/3/1/3/4/2:title",
+  "en": "Consequence Mitigation Measures",
+  "es": "Medidas de mitigación de las consecuencias"
+ },
+ {
+  "id": "ea4fe0fd-0775-4a49-a0db-46922687bb23:2/0/3/1/3/4/3/0/2:title",
+  "en": "Do effective diagnostic tests exist for humans?",
+  "es": "¿Existen pruebas de diagnóstico efectivas para los seres humanos?"
+ },
+ {
+  "id": "ea4fe0fd-0775-4a49-a0db-46922687bb23:2/0/3/1/3/4/3/0/4:detailText",
+  "en": "0 = Yes\n2 = Unknown\n4 = No",
+  "es": "0 = Sí\n2 = Se desconoce\n4 = No"
+ },
+ {
+  "id": "4d7c62ce-6688-43f3-938c-fd9c0eb3bf50:2/0/3/1/3/4/3/1/2:title",
+  "en": "Do post exposure treatments (including immuno-globulin, vaccines and anti-microbials) exist for humans?",
+  "es": "¿Existen tratamientos posteriores a la exposición (incluso inmunoglobulina, vacunas y antimicrobianos) para los seres humanos?"
+ },
+ {
+  "id": "4d7c62ce-6688-43f3-938c-fd9c0eb3bf50:2/0/3/1/3/4/3/1/4:detailText",
+  "en": "0 = Effective post exposure treatments exist\n2 = Exist, but are only considered partially effective \n4 = None exist",
+  "es": "0 = Existen tratamientos posteriores a la exposición efectivos.\n2 = Existen, pero se consideran solo parcialmente efectivos.\n4 = No existen."
+ },
+ {
+  "id": "14782d43-63f3-4837-b871-ca78f769df63:2/0/3/1/3/4/3/2/2:title",
+  "en": "Do preventative measures (vaccines) exist for humans?",
+  "es": "¿Existen medidas preventivas (vacunas) para los seres humanos?"
+ },
+ {
+  "id": "14782d43-63f3-4837-b871-ca78f769df63:2/0/3/1/3/4/3/2/4:detailText",
+  "en": "0 = Effective preventative measures exits\n2 = Exist, but are only considered partially effective (will not prevent but will limit the impact of the disease) or (are only effective in a small population)\n4 = None exist",
+  "es": "0 = Existen medidas preventivas efectivas.\n2 = Existen, pero se consideran parcialmente efectivas (no evitarán, pero limitarán la manera en la que afectará la enfermedad) o (son solo efectivas en poblaciones pequeñas).\n4 = No existen."
+ },
+ {
+  "id": "c9a091ef-1e19-4f64-be68-85ca8b73f582:2/0/3/1/3/4/3/3/2:title",
+  "en": "Do effective diagnostic tests exist for animals?",
+  "es": "¿Existen pruebas de diagnóstico efectivas para los animales?"
+ },
+ {
+  "id": "c9a091ef-1e19-4f64-be68-85ca8b73f582:2/0/3/1/3/4/3/3/4:detailText",
+  "en": "0 = Yes\n2 = Unknown\n4 = No\n",
+  "es": "0 = Sí\n2 = Se desconoce\n4 = No"
+ },
+ {
+  "id": "9e295e35-766b-4285-bac8-1609d3b16529:2/0/3/1/3/4/3/4/2:title",
+  "en": "Do post exposure treatments (including immuno-globulin, vaccines and anti-microbials) exist for animals?",
+  "es": "¿Existen tratamientos posteriores a la exposición (incluso inmunoglobulina, vacunas y antimicrobianos) para los animales?"
+ },
+ {
+  "id": "9e295e35-766b-4285-bac8-1609d3b16529:2/0/3/1/3/4/3/4/4:detailText",
+  "en": "0 = Effective post exposure treatments exist\n2 = Exist, but are only considered partially effective \n4 = None exist",
+  "es": "0 = Existen tratamientos posteriores a la exposición efectivos.\n2 = Existen, pero se consideran solo parcialmente efectivos.\n4 = No existen."
+ },
+ {
+  "id": "4da2c78a-64a9-4f61-b993-7c3e3d2d5ce8:2/0/3/1/3/4/3/5/2:title",
+  "en": "Do preventative measures (vaccines) exist for animals?",
+  "es": "¿Existen medidas preventivas (vacunas) para los animales?"
+ },
+ {
+  "id": "4da2c78a-64a9-4f61-b993-7c3e3d2d5ce8:2/0/3/1/3/4/3/5/4:detailText",
+  "en": "0 = Effective preventative measures exits\n2 = Exist, but are only considered partially effective (will not prevent but will limit the impact of the disease) or (are only effective in a small population)\n4 = None exist",
+  "es": "0 = Existen medidas preventivas efectivas.\n2 = Existen, pero se consideran parcialmente efectivas (no evitarán, pero limitarán la manera en la que afectará la enfermedad) o (son solo efectivas en poblaciones pequeñas).\n4 = No existen."
+ },
+ {
+  "id": "af1d37fb-5a4c-4eba-88fb-351ca7108ed9:2/0/3/1/3/4/3/6/2:title",
+  "en": "Do secondary consequence measures exist for animal popultions?",
+  "es": "¿Existen medidas secundarias para las consecuencias para las poblaciones de animales?"
+ },
+ {
+  "id": "af1d37fb-5a4c-4eba-88fb-351ca7108ed9:2/0/3/1/3/4/3/6/4:detailText",
+  "en": "4 = Isolation/ quarantine/ culling is not feasible\n0 = Isolation/ quarantine/ culling animal population feasible",
+  "es": "4 = No son posibles el aislamiento, la cuarentena ni la eliminación.\n0 = Son posibles el aislamiento, la cuarentena o la eliminación en poblaciones de animales."
+ },
+ {
+  "id": "eec5ba0c-06d9-4104-8cf1-c9e8eaf52d01:3/1/0:title",
+  "en": "Agent Potential - Risk to Human From Adversary With Access",
+  "es": "Potencial del agente: riesgo para los seres humanos por un adversario con acceso"
+ },
+ {
+  "id": "fe79b3fe-d495-4e57-bc74-582f29f6ecae:4/1/0:title",
+  "en": "Agent Potential - Risk to Human From Adversary Without Access",
+  "es": "Potencial del agente: riesgo para los seres humanos por un adversario sin acceso"
+ },
+ {
+  "id": "0c00f08b-eeb2-4a23-97f3-efa47b8ae3c1:5/1/0:title",
+  "en": "Agent Potential - Risk to Animals From Adversary With Access",
+  "es": "Potencial del agente: riesgo para los animales por un adversario con acceso"
+ },
+ {
+  "id": "0810ca80-0f1d-40c9-aeec-4635cfe91b7b:6/1/0:title",
+  "en": "Agent Potential - Risk to Animals From Adversary Without Access",
+  "es": "Potencial del agente: riesgo para los animales por un adversario sin acceso"
+ },
+ {
+  "id": "413bebe1-537c-459b-8202-209f25a0fa2f:7/1/0:title",
+  "en": "Consequence - Risk to Human From Adversary With Access",
+  "es": "Consecuencia: riesgo para los seres humanos por un adversario con acceso"
+ },
+ {
+  "id": "ba82fbbb-aa1d-4275-995a-ec61e0662154:8/1/0:title",
+  "en": "Consequence - Risk to Human From Adversary Without Access",
+  "es": "Consecuencia: riesgo para los seres humanos por un adversario sin acceso"
+ },
+ {
+  "id": "ff757c3e-3bcf-4ad6-acf8-d5c12718939f:9/1/0:title",
+  "en": "Consequence - Risk to Animals From Adversary With Access",
+  "es": "Consecuencia: riesgo para los animales por un adversario con acceso"
+ },
+ {
+  "id": "a02aae96-4467-4202-96b3-cf3ee39637fb:10/1/0:title",
+  "en": "Consequence - Risk to Animals From Adversary Without Access",
+  "es": "Consecuencia: riesgo para los animales por un adversario sin acceso"
+ },
+ {
+  "id": "root:11/0:chartTitle",
+  "en": "Risk to Humans",
+  "es": "Riesgo para los seres humanos"
+ },
+ {
+  "id": "root:11/1/2:title",
+  "en": "Consequence",
+  "es": "Consecuencia"
+ },
+ {
+  "id": "root:11/2/2:title",
+  "en": "Likelihood",
+  "es": "Probabilidad"
+ },
+ {
+  "id": "root:11/4/0:legendTitle",
+  "en": "Adversary With Access",
+  "es": "Adversario con acceso"
+ },
+ {
+  "id": "root:11/5/0:legendTitle",
+  "en": "Adversary Without Access",
+  "es": "Adversario sin acceso"
+ },
+ {
+  "id": "root:12/0:chartTitle",
+  "en": "Risk to Animals",
+  "es": "Riesgo para los animales"
+ },
+ {
+  "id": "root:12/1/2:title",
+  "en": "Consequence",
+  "es": "Consecuencia"
+ },
+ {
+  "id": "root:12/2/2:title",
+  "en": "Likelihood",
+  "es": "Probabilidad"
+ },
+ {
+  "id": "root:12/4/0:legendTitle",
+  "en": "Adversary With Access",
+  "es": "Adversario con acceso"
+ },
+ {
+  "id": "root:12/5/0:legendTitle",
+  "en": "Adversary Without Access",
+  "es": "Adversario sin acceso"
+ }
+]

@@ -1,0 +1,1887 @@
+[
+ {
+  "id": "root:0/1:frontHTML",
+  "en": "<html>\n  <head>\n    <style type=\"text/css\">\n.title {\n  text-align: center;\n  font-family: Arial,Helvetica,sans-serif;\n  font-size: 24pt;\n  color: purple;\n  padding-top: 30px;\n  padding-bottom: 30px;\n}\n\n.subtitle {\n  font-family: Arial,Helvetica,sans-serif;\n  text-align: center;\n  font-style: italic;\n  padding-top: 10px;\n  padding-bottom: 10px;\n}\n\n.copyright {\n  font-size: 80%;\n  text-align: center;\n  color: blue;\n  font-variant: small-caps;\n}\n    </style>\n  </head>\n  <body>\n    <p class=\"title\">Biosafety Risk Assessment Model<br />\n    <span style=\"font-style: italic;\">(Biosafety RAM)</span></p>\n\n    <p class=\"subtitle\">Version 1.0 <br/>\nSeptember 2010 <br/>\nThis software will continue to be updated and enhanced.<br/>\nIf you have any questions, comments\nor suggestions please email: sacaske@sandia.gov.</p>\n\n    <p class=\"copyright\">SAND No. 2010-6487<br/>\nSandia is a multiprogram laboratory operated by Sandia Corporation, a Lockheed Martin Company,<br/>\nfor the United States Department of Energy’s National Nuclear Security Administration<br/>\nunder contract DE-AC04-94AL85000. <br/><br/>\n\n\n\nThis model provides a structured and systematic process for conducting <br/>\nlaboratory biosafety risk assessments, however, this model should not\n<br/>\n be the only source of information when making risk management decisions.</p>\n  </body>\n</html>",
+  "es": "<html>\n  <head>\n    <style type=\"text/css\">\n.title {\n  text-align: center;\n  font-family: Arial,Helvetica,sans-serif;\n  font-size: 24pt;\n  color: purple;\n  padding-top: 30px;\n  padding-bottom: 30px;\n}\n\n.subtitle {\n  font-family: Arial,Helvetica,sans-serif;\n  text-align: center;\n  font-style: italic;\n  padding-top: 10px;\n  padding-bottom: 10px;\n}\n\n.copyright {\n  font-size: 80%;\n  text-align: center;\n  color: blue;\n  font-variant: small-caps;\n}\n    </style>\n  </head>\n  <body>\n    <p class=\"title\">Modelo de evaluación de riesgos relacionados con la bioseguridad<br />\n    <span style=\"font-style: italic;\">(RAM de Bioseguridad)</span></p>\n\n    <p class=\"subtitle\">Versión 1.0<br/>\nSeptiembre de 2010<br/>\nEste software se seguirá actualizando y mejorando. Si tiene alguna<br/> pregunta, comentario\no sugerencia, envíe un correo electrónico a:<br/>sacaske@sandia.gov.\n</p>\n\n    <p class=\"copyright\">SAND No: 2010-6487<br/>\nSandia es un laboratorio multiprograma operado por Sandia<br/> Corporation, una empresa de Lockheed Martin Company,<br/>\npara el Departamento de Administración de la Seguridad Nuclear de los Estados Unidos<br/>\nconforme al contrato DE-AC04-94AL85000. <br/>\n<br/><br/>\nEste modelo brinda un proceso estructurado y sistemático para realizar <br/>\nevaluaciones de riesgos relacionados con la bioseguridad en<br/> laboratorios, sin embargo, este modelo no debería<br/>\n ser la única fuente de información cuando tome decisiones relativas al<br/> manejo de riesgos.\n</p>\n  </body>\n</html>"
+ },
+ {
+  "id": "bdf4bb10-475b-4fcc-8df7-7719ea8bcc68:1/0/2:title",
+  "en": "Facility",
+  "es": "Centro"
+ },
+ {
+  "id": "1b9cc647-9a51-424b-b6f9-834a225c4760:1/0/3/0/2:title",
+  "en": "*********Likelihood of Exposure**********",
+  "es": "*********Probabilidad de exposición**********"
+ },
+ {
+  "id": "acd76f83-8443-439d-8d4b-eba0f70e2a98:1/0/3/0/3/0/2:title",
+  "en": "-Potential of Exposure from Laboratory Processes-",
+  "es": "-Posible exposición por los procesos del laboratorio-"
+ },
+ {
+  "id": "7b4affd8-f143-4794-9052-12f760372849:1/0/3/0/3/0/3/0/2:title",
+  "en": "* Type of Material",
+  "es": "* Tipo de material"
+ },
+ {
+  "id": "7da13b77-bf0b-4db8-bf7b-2a0f60265ab4:1/0/3/0/3/0/3/0/3/0/2:title",
+  "en": "What type of material will be used in this procedure?(If the procedure will have both purified material and diagnostic samples, select the purified material option)",
+  "es": "¿Qué tipo de material se utilizará en este procedimiento? (Si para el procedimiento se utilizará tanto material purificado como muestras diagnosticadas, seleccione la opción material purificado)"
+ },
+ {
+  "id": "7da13b77-bf0b-4db8-bf7b-2a0f60265ab4:1/0/3/0/3/0/3/0/3/0/4:detailText",
+  "en": " 4 = Purified biological materials\n 2 = Diagnostic samples (e.g. blood, urine, tissue, saliva, etc)\n 1 = Environmental samples (e.g. soil, water, etc)",
+  "es": "4 = Materiales biológicos purificados\n2 = Muestras diagnósticas (p. ej., sangre, orina, tejido, saliva, etc.)\n1 = Muestras ambientales (p. ej., suelo, agua, etc.)"
+ },
+ {
+  "id": "c401c478-b223-4168-a381-bab9664c0869:1/0/3/0/3/0/3/0/3/1/2:title",
+  "en": "What is the greatest volume of material existing at one time in the procedure?",
+  "es": "¿Cuál es el mayor volumen de material utilizado en un momento dado en el procedimiento?"
+ },
+ {
+  "id": "c401c478-b223-4168-a381-bab9664c0869:1/0/3/0/3/0/3/0/3/1/4:detailText",
+  "en": " 4 = Over 10 liters\n 2 = Up to 10 liters\n 1 = Milliliter volume",
+  "es": "4 = Más de 10 litros\n2 = Hasta 10 litros\n1 = Del orden de los mililitros"
+ },
+ {
+  "id": "834bf03d-e01e-4f07-88ed-6b8973caa8ae:1/0/3/0/3/0/3/1/2:title",
+  "en": "* Inhalation Exposure",
+  "es": "* Exposición por inhalación"
+ },
+ {
+  "id": "e95fa5fc-0bff-4485-a703-5e9db2e73ccb:1/0/3/0/3/0/3/1/3/0/2:title",
+  "en": "What is the potential for aerosols to be generated as a byproduct of this procedure? (e.g. pipetting, sonication, etc)?",
+  "es": "¿Qué posibilidades hay de que se generen aerosoles al llevar a cabo este procedimiento (p. ej., al pipetear u homogeneizar con ultrasonidos)?"
+ },
+ {
+  "id": "e95fa5fc-0bff-4485-a703-5e9db2e73ccb:1/0/3/0/3/0/3/1/3/0/4:detailText",
+  "en": " 4 = A notable potential for the generation of aerosols may be produced\n 1 = A limited quantity of aerosols may be produced\n 0 = No procedures in use which may generate an aerosol",
+  "es": "4 = Hay muchas posibilidades de que se generen aerosoles\n1 = Puede producirse una cantidad limitada de aerosoles\n0 = Ningún procedimiento en uso puede generar aerosoles"
+ },
+ {
+  "id": "1a01f040-e5d5-46fe-9de7-d28937c2202d:1/0/3/0/3/0/3/1/3/1/2:title",
+  "en": "Are aerosolization experiments being conducted as part of this procedure?",
+  "es": "¿Se realizan experimentos con aerosoles como parte del procedimiento?"
+ },
+ {
+  "id": "1a01f040-e5d5-46fe-9de7-d28937c2202d:1/0/3/0/3/0/3/1/3/1/4:detailText",
+  "en": " 4 = Large scale aerosolization experiments are being performed\n 3 = Small scale aerosolization experiments are being performed\n 0 = No aerosol experiments are being performed",
+  "es": "4 = Se realizan experimentos con aerosoles a gran escala.\n3 = Se realizan experimentos con aerosoles a pequeña escala.\n0 = No se realizan experimentos con aerosoles."
+ },
+ {
+  "id": "e479ee63-bf8d-44e3-96b6-1a07a6104df9:1/0/3/0/3/0/3/2/2:title",
+  "en": "* Percutaneous Exposure",
+  "es": "* Exposición percutánea"
+ },
+ {
+  "id": "892c355a-96ab-4e45-a2d3-a35223733e81:1/0/3/0/3/0/3/2/3/0/2:title",
+  "en": "What is the amount of sharps used in the procedure?",
+  "es": "¿Qué cantidad de material punzocortante se utiliza en este procedimiento?"
+ },
+ {
+  "id": "892c355a-96ab-4e45-a2d3-a35223733e81:1/0/3/0/3/0/3/2/3/0/4:detailText",
+  "en": "4 = A large volume of sharps in use (e.g. scalpels or needles in use at least daily in this  procedure)\n3 = A small volume of sharps in use (e.g. scalpels or needles rarely used for this  procedure)\n0 = There are no sharps in use",
+  "es": "4 = Se usa un gran volumen de material punzocortante (p. ej., se usan bisturí o agujas al menos una vez por día en este procedimiento).\n3 = Se usa un pequeño volumen de material punzocortante (p. ej., rara vez se usan bisturí o agujas en este procedimiento).\n0 = No se usa material punzocortante"
+ },
+ {
+  "id": "08747635-84f9-4e02-8b56-61a9213e32ff:1/0/3/0/3/0/3/2/3/1/2:title",
+  "en": "What is the amount of breakable material or items with sharp edges in this laboratory?",
+  "es": "¿Qué cantidad de material rompible o de objetos con bordes cortantes hay en este laboratorio?"
+ },
+ {
+  "id": "08747635-84f9-4e02-8b56-61a9213e32ff:1/0/3/0/3/0/3/2/3/1/4:detailText",
+  "en": " 4 = A large amount of breakable material (e.g. glassware common in laboratory) \n 3 = A small amount of breakable material \n 0 = There is no breakable material in the laboratory",
+  "es": "4 = Una gran cantidad de material rompible (p. ej., cristalería típica de laboratorio).\n3 = Una pequeña cantidad de material rompible\n0 = No hay material rompible en el laboratorio."
+ },
+ {
+  "id": "fc141340-556f-4a9f-bdea-985b7b35f90e:1/0/3/0/3/0/3/3/2:title",
+  "en": "* Decontamination",
+  "es": "* Descontaminación"
+ },
+ {
+  "id": "8539f112-6624-4ed7-98aa-1e4a2b99296c:1/0/3/0/3/0/3/3/3/0/2:title",
+  "en": "what is the implemented process for the decontamination of equipment prior to maintenance?",
+  "es": "¿Qué procedimiento se implementa para la descontaminación del equipo antes de su mantenimiento?"
+ },
+ {
+  "id": "8539f112-6624-4ed7-98aa-1e4a2b99296c:1/0/3/0/3/0/3/3/3/0/4:detailText",
+  "en": " 4 = There is no decontamination of equipment prior to maintenance or repair\n 3 = Decontamination of equipment prior to maintenance or repair is performed, but not  validated\n 0 = No equipment is maintained or repaired without decontamination, and the process is  documented and validated",
+  "es": "4 = No se descontamina el equipo antes del mantenimiento o reparación.\n3 = Se descontamina el equipo antes del mantenimiento o reparación, pero no se valida.\n0 = No se realiza mantenimiento ni reparación del equipo sin descontaminarlo, cuyo proceso se documenta y se valida."
+ },
+ {
+  "id": "057cac44-7cac-4ae4-8c1e-9ec33d150547:1/0/3/0/3/0/3/3/3/1/2:title",
+  "en": "How easy are the surfaces in the laboratory to decontaminate? ",
+  "es": "¿Con qué facilidad se descontaminan las superficies del laboratorio?"
+ },
+ {
+  "id": "057cac44-7cac-4ae4-8c1e-9ec33d150547:1/0/3/0/3/0/3/3/3/1/4:detailText",
+  "en": "4 = Surfaces are very difficult to decontaminate (e.g. wood, grout, etc) \n2 = Some surfaces are difficult to decontaminate (e.g. edges)\n0 = All surfaces can be decontaminated",
+  "es": "4 = Las superficies son muy difíciles de descontaminar (p. ej., madera, lechada, etcétera)\n2 = Algunas superficies son difíciles de descontaminar (p. ej., bordes)\n0 = Todas las superficies pueden descontaminarse"
+ },
+ {
+  "id": "3cba8632-db9c-4b42-911f-32b76cc13e79:1/0/3/0/3/0/3/4/2:title",
+  "en": "* Contact Exposure",
+  "es": "* Exposición por contacto"
+ },
+ {
+  "id": "974e29f7-d411-44c6-aab4-35970e6bcc1c:1/0/3/0/3/0/3/4/3/0/2:title",
+  "en": "How is contaminated waste stored in the laboratory?",
+  "es": "¿Cómo se almacenan en el laboratorio los residuos contaminados?"
+ },
+ {
+  "id": "974e29f7-d411-44c6-aab4-35970e6bcc1c:1/0/3/0/3/0/3/4/3/0/4:detailText",
+  "en": "4 = Contaminated waste is not stored properly (using standard containers) and is not handled according to best practices. \n1 = Contaminated waste is stored properly and handled according to best practices \n0 = There is no contaminated waste in laboratory",
+  "es": "4 = Los residuos contaminados no se almacenan adecuadamente (en recipientes estándares) y no se manipulan de acuerdo con las prácticas óptimas.\n1 = Los residuos contaminados se almacenan adecuadamente y se manipulan de acuerdo con las prácticas óptimas\n0 = No hay residuos contaminados en el laboratorio"
+ },
+ {
+  "id": "271b794d-5b92-4a3a-b56c-d5f338245854:1/0/3/0/3/0/3/4/3/1/2:title",
+  "en": "What is the potential and extent of a splash or spill in this procedure?",
+  "es": "¿Qué posibilidades hay de que se produzca un derrame o una salpicadura en este procedimiento y de qué magnitud sería?"
+ },
+ {
+  "id": "271b794d-5b92-4a3a-b56c-d5f338245854:1/0/3/0/3/0/3/4/3/1/4:detailText",
+  "en": " 4 = There is a potential for a high pressure sustained release of infectious material\n 3 = There is a potential for a spill or splash of infectious material\n 0 = Material does not exist in a spill-able form in the laboratory",
+  "es": "4 = Existe la posibilidad de que se libere material infeccioso de forma sostenida y a alta presión\n3 = Existe la posibilidad de un derrame o una salpicadura de material infeccioso.\n0 = El material no existe en una forma que pueda derramarse en el laboratorio"
+ },
+ {
+  "id": "7c738ea4-62ec-4d18-b3ce-e864d0f06836:1/0/3/0/3/1/2:title",
+  "en": "-Potential of Exposure from Animals-",
+  "es": "-Posible exposición por los animales-"
+ },
+ {
+  "id": "4c95ad21-ee38-467b-a8f9-4d991f541b91:1/0/3/0/3/1/3/0/2:title",
+  "en": "* Q-Animals",
+  "es": "* Q-Animales"
+ },
+ {
+  "id": "7d9862b3-a751-4f52-bbfa-3ad1ea6507c6:1/0/3/0/3/1/3/0/3/0/2:title",
+  "en": "How many animals are in use in this procedure?",
+  "es": "¿Cuántos animales se usan en este procedimiento?"
+ },
+ {
+  "id": "7d9862b3-a751-4f52-bbfa-3ad1ea6507c6:1/0/3/0/3/1/3/0/3/0/4:detailText",
+  "en": " 4 = A large number of animals exist in the laboratory (e.g. more than 50 small animals  or rodents, or more than 5 larger animals)\n 3 = A small number of animals exist in the laboratory (e.g. less than 50 small animals or  rodents, or less than 5 larger animals)\n 0 = There are no animals in the laboratory",
+  "es": "4 = En el laboratorio existe una gran cantidad de animales (p. ej., más de 50 animales pequeños o roedores o más de 5 animales grandes).\n3 = En el laboratorio existe una pequeña cantidad de animales (p. ej., menos de 50 animales pequeños o roedores o menos de 5 animales grandes).\n0 = No se usan animales en el laboratorio."
+ },
+ {
+  "id": "06b78b78-a894-461b-9321-59d57c58a369:1/0/3/0/3/1/3/0/3/1/2:title",
+  "en": "What is the typical size of these animals?",
+  "es": "¿Cuál es el tamaño típico de estos animales?"
+ },
+ {
+  "id": "06b78b78-a894-461b-9321-59d57c58a369:1/0/3/0/3/1/3/0/3/1/4:detailText",
+  "en": " 4 = Large animals (> 15 lbs) \n 3 = Medium animals (5 to 15 lbs) \n 3 = Arthropods\n 1 = Small animals (< 5lbs)\n 0 = There are no animals in the laboratory",
+  "es": "4 = Animales grandes (> 15 lb)\n3 = Animales medianos (5 a 15 lb)\n3 = Artrópodos\n1 = Animales pequeños (< 5lb)\n0 = No se usan animales en el laboratorio."
+ },
+ {
+  "id": "d9e79b13-2aae-4e77-ad79-f0484ae1fab6:1/0/3/0/3/1/3/1/2:title",
+  "en": "* General Animals",
+  "es": "* Animales en general"
+ },
+ {
+  "id": "824f0157-f012-4acc-b057-ee2d17db0049:1/0/3/0/3/1/3/1/3/0/2:title",
+  "en": "Are there more than one species of animal in use in the laboratory?              ",
+  "es": "¿Se usa más de una especie de animal en el laboratorio?"
+ },
+ {
+  "id": "824f0157-f012-4acc-b057-ee2d17db0049:1/0/3/0/3/1/3/1/3/0/4:detailText",
+  "en": "4 = More than 2 different species in use                 \n2 = Only 2 species of animals in use                 \n1 = Only 1 species of animal in use this laboratory during the duration of this procedure                                                          \n0 = There are no animals in the laboratory",
+  "es": "4 = Se usan más de 2 especies diferentes.\n2 = Solo se usan 2 especies de animales.\n1 = Solo se usa 1 especie de animal en este laboratorio durante este procedimiento.\n0 = No se usan animales en el laboratorio."
+ },
+ {
+  "id": "c79e70f7-dcb8-476c-8c8b-63be5b8b8914:1/0/3/0/3/1/3/1/3/1/2:title",
+  "en": "Are animals which have the potential to shed infectious particles used in this procedure?               ",
+  "es": "¿Se utilizan en este procedimiento animales que pueden excretar partículas infecciosas?"
+ },
+ {
+  "id": "c79e70f7-dcb8-476c-8c8b-63be5b8b8914:1/0/3/0/3/1/3/1/3/1/4:detailText",
+  "en": "0 = There are no animals in this laboratory\n3 = Animals are used, but not expected to shed infectious particles  \n4 = Animals are used and can shed infectious particles (via sneezing, coughing, in saliva,  in skin lesions, in urine, in feces, etc.)",
+  "es": "0 = No se usan animales en este laboratorio.\n3 = Se utilizan animales, pero no se prevé que excreten partículas infecciosas.\n4 = Se usan animales y pueden excretar partículas infecciosas (a través del estornudo, la tos, la saliva, en lesiones cutáneas, en la orina, en las heces, etc.)."
+ },
+ {
+  "id": "a5bc6325-1833-4692-aac4-ade5bbf45ef9:1/0/3/0/3/1/3/1/3/2/2:title",
+  "en": "How much waste do the laboratory animals used in this procedure generate?",
+  "es": "¿Cuánto residuo generan los animales del laboratorio que se usan en este procedimiento?"
+ },
+ {
+  "id": "a5bc6325-1833-4692-aac4-ade5bbf45ef9:1/0/3/0/3/1/3/1/3/2/4:detailText",
+  "en": "4 = The animals generate large quantities of animal by-products/waste\n3 = The animals generate  small quantities of animal by-products/waste \n0 = There are no animal by-products in the laboratory",
+  "es": "4 = Los animales generan grandes cantidades de subproductos/residuos.\n3 = Los animales generan pequeñas cantidades de subproductos/residuos.\n0 = No se usan subproductos de animales en el laboratorio."
+ },
+ {
+  "id": "a6df0f4c-1d7c-4898-93cc-a6f739f4aae1:1/0/3/1/2:title",
+  "en": "**********Main Category: Mitigations**********",
+  "es": "**********Categoría principal: Mitigaciones**********"
+ },
+ {
+  "id": "fd9f0b13-7185-4f9e-9368-da6c234b9ba8:1/0/3/1/3/0/2:title",
+  "en": "* Standard Procedures",
+  "es": "* Procedimientos estándar"
+ },
+ {
+  "id": "a3bf59f8-535e-4081-896f-784799dc332a:1/0/3/1/3/0/3/0/2:title",
+  "en": "Are all biological agents in this laboratory inventoried?",
+  "es": "¿Todos los agentes biológicos de este laboratorio figuran en los inventarios?"
+ },
+ {
+  "id": "a3bf59f8-535e-4081-896f-784799dc332a:1/0/3/1/3/0/3/0/4:detailText",
+  "en": "0 = There is no inventory system at this laboratory \n1 = This laboratory has a limited inventory system\n4 = This laboratory has a complete and well-maintained inventory system",
+  "es": "0 = No se usan sistemas de inventarios en este laboratorio.\n1 = Este laboratorio tiene un sistema de inventario limitado.\n4 = Este laboratorio tiene un sistema de inventario completo y mantenido correctamente."
+ },
+ {
+  "id": "4a6eef98-c648-4912-94af-daaf0fede0d1:1/0/3/1/3/0/3/1/2:title",
+  "en": "Is there a shipping and receiving program in place at this laboratory?",
+  "es": "¿Existe un programa de envío y recepción en este laboratorio?"
+ },
+ {
+  "id": "4a6eef98-c648-4912-94af-daaf0fede0d1:1/0/3/1/3/0/3/1/4:detailText",
+  "en": "0 = There is no shipping and receiving program at this laboratory \n1 = This laboratory has limited procedures in place for shipping and receiving\n2 = This laboratory has some procedures in place for shipping and receiving, but lacks  oversight in implementation \n4 = This laboratory has an active shipping and receiving program, and well-defined  procedures and plans in place",
+  "es": "0 = No se usa un programa de envío y recepción en este laboratorio.\n1 = Este laboratorio tiene procedimientos limitados para el envío y la recepción.\n2 = Este laboratorio tiene algunos procedimientos para el envío y la recepción, pero falta control en la implementación.\n4 = Este laboratorio tiene un programa de envío y recepción activo, y procedimientos y planes bien definidos."
+ },
+ {
+  "id": "7a152a0e-0596-4702-8c2e-a9e224e14517:1/0/3/1/3/0/3/2/2:title",
+  "en": "Are there procedures in place for preventative equipment maintenance to reduce/eliminate accidents or equipment failure, which meet defined best practices?  These would include equipment calibration, validation, certification, etc. ",
+  "es": "¿Existen procedimientos para el mantenimiento de equipo preventivo para reducir/eliminar accidentes y fallas de equipo que cumplan con las prácticas óptimas definidas? Entre ellos estarían la calibración, la validación, la certificación del equipo, etc."
+ },
+ {
+  "id": "7a152a0e-0596-4702-8c2e-a9e224e14517:1/0/3/1/3/0/3/2/4:detailText",
+  "en": "0 = There is no equipment maintenance program at this laboratory \n1 = This laboratory has limited procedures in place for equipment maintenance, but  maintenance is generally reactive rather than preventative\n2 = This laboratory has some procedures in place for maintenance, but lacks oversight in  implementation \n4 = This laboratory has an active preventative equipment maintenance program, and  well-defined procedures and plans in place",
+  "es": "0 = No existe un programa de mantenimiento de equipo en este laboratorio.\n1 = Este laboratorio tiene procedimientos limitados para el mantenimiento de equipo, pero el mantenimiento es más reactivo que preventivo.\n2 = Este laboratorio tiene algunos procedimientos para el mantenimiento, pero falta control en la implementación.\n4 = Este laboratorio tiene un programa de mantenimiento de equipo preventivo activo y procedimientos y planes bien definidos."
+ },
+ {
+  "id": "67b746bb-e309-41df-9435-db573df48b10:1/0/3/1/3/0/3/3/2:title",
+  "en": "Are there standard operating procedures in place for unexpected or catastrophic incidents, including the release of or exposure to an infectious agent (e.g. Incident response plans)?",
+  "es": "¿Existen procedimientos operativos estándar para incidentes catastróficos o inesperados, inclusive para la liberación o la exposición de un agente infeccioso (p. ej., planes de respuesta de incidentes)?"
+ },
+ {
+  "id": "67b746bb-e309-41df-9435-db573df48b10:1/0/3/1/3/0/3/3/4:detailText",
+  "en": "0 = There is no incident response program at this laboratory \n1 = This laboratory has limited procedures in place for incident response, but  maintenance is  generally reactive rather than preventative\n2 = This laboratory has some procedures in place for incident respons, but lacks  oversight in implementation \n4 = This laboratory has an active incident response program, and well-defined  procedures and plans in place",
+  "es": "0 = No existe un programa de respuesta de incidentes en este laboratorio.\n1 = Este laboratorio tiene procedimientos limitados para la respuesta de incidentes, pero el mantenimiento es más reactivo que preventivo.\n2 = Este laboratorio tiene algunos procedimientos para la respuesta de incidentes, pero falta control en la implementación.\n4 = Este laboratorio tiene un programa de respuesta de incidentes activo, y procedimientos y planes bien definidos."
+ },
+ {
+  "id": "0f9a86ad-bbc2-4200-91ca-6426908417f2:1/0/3/1/3/0/3/4/2:title",
+  "en": "Is there a formal personal protective equipment (PPE) program in place?",
+  "es": "¿Existe un programa de equipo de protección personal (PPE) formal?"
+ },
+ {
+  "id": "0f9a86ad-bbc2-4200-91ca-6426908417f2:1/0/3/1/3/0/3/4/4:detailText",
+  "en": "0 = There is no PPE program at this laboratory \n1 = This laboratory has a limited PPE program in place\n2 = This laboratory has some procedures in place for PPE, but lacks oversight in  implementation \n4 = This laboratory has an active PPE program which includes, well-defined procedures  for donning, doffing, storing, and maintaining PPE",
+  "es": "0 = No existe un programa de PPE en este laboratorio.\n1 = Este laboratorio tiene un sistema de PPE limitado.\n2 = Este laboratorio tiene algunos procedimientos de PPE, pero falta control en la implementación.\n4 = Este laboratorio tiene un programa de PPE activo, que incluye procedimientos bien definidos para colocación, retiro, almacenamiento y mantenimiento de PPE."
+ },
+ {
+  "id": "8fe2fcad-7775-41cc-9ad3-9107342da4f8:1/0/3/1/3/0/3/5/2:title",
+  "en": "Does this laboratory implement standard good laboratory practices  for safety? ",
+  "es": "¿Este laboratorio implementa prácticas óptimas estándar de seguridad?"
+ },
+ {
+  "id": "8fe2fcad-7775-41cc-9ad3-9107342da4f8:1/0/3/1/3/0/3/5/4:detailText",
+  "en": "0 = This laboratory does not have established procedures in place which includes standard good laboratory practices \n1 = This laboratory has limited established procedures in place which include standard  good laboratory practices\n2 = This laboratory has some procedures in place which include standard good  laboratory practices, but lacks oversight in implementation \n4 = This laboratory has an active good laboratory practice program and well-defined  procedures that employees are familiar with and implement",
+  "es": "0 = Este laboratorio no tiene procedimientos establecidos que incluyan prácticas óptimas de laboratorio estándar.\n1 = Este laboratorio tiene procedimientos limitados establecidos que incluyen prácticas de laboratorio óptimas y estándares.\n2 = Este laboratorio tiene algunos procedimientos que incluyen prácticas de laboratorio óptimas y estándar, pero falta control en la implementación.\n4 = Este laboratorio tiene un programa activo de prácticas óptimas de laboratorio, y procedimientos bien definidos que los empleados conocen e implementan."
+ },
+ {
+  "id": "3cf71257-699a-4dda-bf7b-ac53d0814dd2:1/0/3/1/3/1/2:title",
+  "en": "* Management",
+  "es": "* Gestión"
+ },
+ {
+  "id": "c52d2609-e9c6-4fed-ac55-98b9019181ae:1/0/3/1/3/1/3/0/2:title",
+  "en": "Does the institution have defined roles and responsibilities for biosafety?",
+  "es": "¿La institución tiene roles y responsabilidades definidos para la bioseguridad?"
+ },
+ {
+  "id": "c52d2609-e9c6-4fed-ac55-98b9019181ae:1/0/3/1/3/1/3/0/4:detailText",
+  "en": "0 = There is no identification of, or education on, biosafety roles and responsibilities \n2 = Facility personnel are educated on their biosafety roles and responsibilities\n3 = A biosafety officer is identified at this facility\n4 = Management at this facility ensures roles, responsibilities, and authorities are defined,  documented, and communicated",
+  "es": "0 = No existen identificación ni formación sobre los roles ni las responsabilidades para la bioseguridad.\n2 = Se formó al personal del centro para sus roles y responsabilidades con respecto la bioseguridad.\n3 = Se identificó a un responsable de bioseguridad en este centro.\n4 = La dirección de este centro asegura la definición, documentación y comunicación de roles, responsabilidades y autoridades."
+ },
+ {
+  "id": "b0491732-d10e-4988-9249-64e3886b8e08:1/0/3/1/3/1/3/1/2:title",
+  "en": "Has the institution made a commitment to safety?",
+  "es": "¿La institución asumió un compromiso con la seguridad?"
+ },
+ {
+  "id": "b0491732-d10e-4988-9249-64e3886b8e08:1/0/3/1/3/1/3/1/4:detailText",
+  "en": "0 = Management at this facility is not aware, or interested in, biosafety concerns\n1 = Management at this facility is aware of biosafety concerns, but has not implemented  a biosafety policy or devoted resources to address the issue\n2 = Management at this facility have made some efforts to improve biosafety at the  facility, but they are not comprehensive and/or are not fully implemented\n3 = This facility has a comprehensive biosafety policy in place, which was developed,  authorized, and signed by top management.  The policy is appropriate to the nature and  scale of the risk. Management establishes the commitment and objectives of the  biosafety system, and communicates this to all stakeholders.\n4 = Management at this facility identifies and prioritizes program needs and allocates  funds as necessary",
+  "es": "0 = La dirección de este centro no conoce ni está interesada en los problemas de bioseguridad.\n1 = La dirección de este centro conoce los problemas de bioseguridad, pero no implementó una política al respecto ni designó recursos para abordar la problemática.\n2 = La dirección de este centro realizó esfuerzos para mejorar la bioseguridad del centro, pero no son integrales o no están implementados completamente.\n3 = En este centro existe una política integral de bioseguridad que desarrolló, autorizó y firmó la dirección superior. La política es adecuada a la naturaleza y grado de riesgo. La dirección establece el compromiso y los objetivos del sistema de bioseguridad y los comunica a todos sus accionarios.\n4 = La dirección de este centro identifica y prioriza las necesidades del programa y asigna los fondos según resulta necesario."
+ },
+ {
+  "id": "ac784e99-40b2-4887-b51c-75e0cb027081:1/0/3/1/3/1/3/2/2:title",
+  "en": "Does the institution have comprehensive biosafety documentation?",
+  "es": "¿El centro tiene documentación integral con relación a la bioseguridad?"
+ },
+ {
+  "id": "ac784e99-40b2-4887-b51c-75e0cb027081:1/0/3/1/3/1/3/2/4:detailText",
+  "en": "0 = This facility has no biosafety policies, manuals, or SOPs\n1 = This facility has no specific biosafety documentation\n2 = This facility has some biosafety documentation, but they are not comprehensive and  / or not fully implemented\n3 = This facility has biosafety policies, manuals, and SOPs\n4 = This facility's biosafety documentation also includes risk assessment and incident  response information",
+  "es": "0 = Este centro no tiene políticas, manuales ni procedimiento operativo estándar de bioseguridad.\n1 = Este centro no tiene documentación específica sobre bioseguridad.\n2 = Este centro tiene cierta documentación sobre bioseguridad, pero no es integral o no se implementó completamente.\n3 = Este centro tiene políticas, manuales y procedimientos operativos estándares de bioseguridad.\n4 = Esta documentación de bioseguridad del centro también incluye evaluación de riesgos e información sobre respuesta ante incidentes."
+ },
+ {
+  "id": "08f9a6f4-39d8-4f4c-ace9-42f8cd8ab590:1/0/3/1/3/1/3/3/2:title",
+  "en": "Does the institution conduct biosafety drills or exercises?",
+  "es": "¿El centro realiza simulacros o ejercicios de bioseguridad?"
+ },
+ {
+  "id": "08f9a6f4-39d8-4f4c-ace9-42f8cd8ab590:1/0/3/1/3/1/3/3/4:detailText",
+  "en": "0 = This facility does not conduct any biosafety exercises\n1 = This facility conducts tabletops or other exercises on an ad hoc basis\n2 = This facility conducts annual exercises \n4 = This facility includes external responders in their exercises",
+  "es": "0 = Este centro no realiza ningún ejercicio de bioseguridad.\n1 = Este centro realiza pruebas u otros ejercicios de manera ad hoc.\n2 = Este centro realiza ejercicios anuales.\n4 = Este centro incluye personas externas con capacidad de respuesta para estos ejercicios."
+ },
+ {
+  "id": "bd1f2883-eaf8-497d-a32a-743903c016d3:1/0/3/1/3/1/3/4/2:title",
+  "en": "Does the institution periodically review the biosafety program? ",
+  "es": "¿El centro realiza revisiones periódicas al programa de bioseguridad?"
+ },
+ {
+  "id": "bd1f2883-eaf8-497d-a32a-743903c016d3:1/0/3/1/3/1/3/4/4:detailText",
+  "en": "0 = There is no review of the biosafety program \n1 = The biosafety program is reviewed and revised as necessary after any incidents or  near-incidents\n3 = The biosafety program is subject to internal self-assessments\n4 = Management at the facility ensures continual improvement, conducts routine self- assessments, and ensures corrective and preventive actions. Reviews include assessing  opportunities for improvement and any needs for changes to the system, procedures,  policies, and objectives.",
+  "es": "0 = No se realizan revisiones al programa de bioseguridad.\n1 = El programa de bioseguridad se revisa y se analiza según sea necesario después de incidentes o cuasiincidentes.\n3 = El programa de bioseguridad está sujeto a autoevaluaciones internas.\n4 = La dirección del centro asegura la mejora continua, realiza autoevaluaciones de rutina y asegura medidas correctivas y preventivas. Las revisiones incluyen oportunidades de evaluación para la mejora y cualquier necesidad de cambios en el sistema, procedimientos, políticas y objetivos."
+ },
+ {
+  "id": "b10170a8-1588-4f3b-8c7c-956a06757b25:1/0/3/1/3/2/2:title",
+  "en": "* General Procedures",
+  "es": "* Procedimientos generales"
+ },
+ {
+  "id": "643ac7b8-8d43-4049-a2f3-e4be3c8c2b74:1/0/3/1/3/2/3/0/2:title",
+  "en": "-Animals",
+  "es": "-Animales"
+ },
+ {
+  "id": "adabf3a8-d02d-4c35-9272-df322abc6778:1/0/3/1/3/2/3/0/3/0/2:title",
+  "en": "Are animals housed in a manner that is isolated or sealed to prevent aerosol escape (e.g. isolator cages or cages inside a biobubble)?  ",
+  "es": "¿Los animales están alojados de manera aislada o hermética para evitar escapes de aerosoles (p. ej., cajas de aislamiento o cajas dentro de burbujas biológicas)?"
+ },
+ {
+  "id": "adabf3a8-d02d-4c35-9272-df322abc6778:1/0/3/1/3/2/3/0/3/0/4:detailText",
+  "en": "0 = Animals are housed in cages which are located in an open area and have no internal  sealing/air filtering mechanism\n1 = Animals are housed in some form of isolator, but there are no formal procedures in  place for its use\n1 = Animals are housed in some form of isolator, but the isolator is not regularly  validated/certified.\n4 = Animals are housed in isolated or self-contained air-isolating devices which are  validated/certified and well-maintained\n(Please leave blank if there are no animals in use for this procedure/laboratory)",
+  "es": "0 = Los animales están alojados en jaulas que están ubicadas en áreas abiertas y no tienen mecanismos internos de cierre hermético/filtro de aire.\n1 = Los animales están alojados en algún tipo de aislamiento, pero no existen procedimientos formales para su uso.\n1 = Los animales están alojados en algún tipo de aislamiento, pero el aislamiento, con frecuencia, no está validado o certificado.\n4 = Los animales están alojados o contenidos en dispositivos de aislamiento de aire, que están validados o certificados y mantenidos correctamente.\n(Deje en blanco si no se utilizan animales para este procedimiento o laboratorio)."
+ },
+ {
+  "id": "5b1436af-88c7-4ac7-bfa3-282c5b32a32a:1/0/3/1/3/2/3/0/3/1/2:title",
+  "en": "Are animals handled in isolation to prevent aerosol escape (e.g. in a BSC or handled inside a biobubble)?  ",
+  "es": "¿Los animales están manejados de manera aislada para evitar escapes de aerosoles (p. ej., gabinetes de seguridad biológica o dentro de burbujas biológicas)?"
+ },
+ {
+  "id": "5b1436af-88c7-4ac7-bfa3-282c5b32a32a:1/0/3/1/3/2/3/0/3/1/4:detailText",
+  "en": "0 = Animals are handled in an open area\n1 = Animals are handled in some form of isolator, but there are no formal procedures in  place for its use\n1 = Animals are handled in some form of isolator, but the isolator is not regularly  validated/certified.\n4 = Animals are always handled in an air-isolating device (e.g. BSC) which is  validated/certified and well-maintained\n(Please leave blank if there are no animals in use for this procedure/laboratory)",
+  "es": "0 = Los animales se manejan en áreas abiertas.\n1 = Los animales se manejan en algún tipo de aislamiento, pero no existen procedimientos formales para su uso.\n1 = Los animales se manejan en algún tipo de aislamiento, pero el aislamiento, con frecuencia, no está validado o certificado.\n4 = Los animales siempre se manejan en dispositivos de aislamiento de aire (p. ej., gabinetes de seguridad biológica), que están validados o certificados y mantenidos correctamente.\n(Deje en blanco si no se utilizan animales para este procedimiento o laboratorio)."
+ },
+ {
+  "id": "50b69d70-b355-4b00-920a-aad4fa5caae9:1/0/3/1/3/2/3/0/3/2/2:title",
+  "en": "Are animals transported in a manner that prevents aerosol escape (e.g. isolator cages)?  ",
+  "es": "¿Los animales se transportan de manera que se eviten escapes de aerosoles (p. ej., cajas de aislamiento)?"
+ },
+ {
+  "id": "50b69d70-b355-4b00-920a-aad4fa5caae9:1/0/3/1/3/2/3/0/3/2/4:detailText",
+  "en": "0 = Animals are transported in open cages or no cages \n1 = Animals are transported in some form of isolator, but there are no formal procedures  in place for its use\n1 = Animals are transported in some form of isolator, but the isolator is not regularly  validated/certified.\n4 = Animals are transported in isolated or self-contained air-isolating devices which are  validated/certified and well-maintained\nPlease leave blank if there are no animals in use for this procedure/laboratory)",
+  "es": "0 = Los animales se manejan en cajas abiertas o sin cajas.\n1 = Los animales se transportan en algún tipo de aislamiento, pero no existen procedimientos formales para su uso.\n1 = Los animales se transportan en algún tipo de aislamiento, pero el aislamiento, con frecuencia, no está validado o certificado.\n4 = Los animales se transportan o están contenidos en dispositivos de aislamiento de aire, que están validados o certificados y mantenidos correctamente.\n(Deje en blanco si no se utilizan animales para este procedimiento o laboratorio)."
+ },
+ {
+  "id": "97cf12a8-06f6-4e6a-8ab7-7162d05a687a:1/0/3/1/3/2/3/0/3/3/2:title",
+  "en": "Does this laboratory have animal handling procedures in place to reduce/eliminate exposures, which meet defined best practices? ",
+  "es": "¿Este laboratorio tiene procedimientos de manejo de animales para reducir o eliminar las exposiciones, que cumplen con las prácticas óptimas definidas?"
+ },
+ {
+  "id": "97cf12a8-06f6-4e6a-8ab7-7162d05a687a:1/0/3/1/3/2/3/0/3/3/4:detailText",
+  "en": "0 = Personnel are not specifically trained/taught how to minimize animal handling  exposures\n1 = Proper practices for animal handling exist, but they are not taught, enforced, verified  or documented\n4 = Proper practices for animal handling are identified in the laboratory procedures,  are taught, and verified on a regular basis \nPlease leave blank if there are no animals in use for this procedure/laboratory)",
+  "es": "0 = El personal no está específicamente formado para minimizar las exposiciones del manejo de animales.\n1 = Existen prácticas adecuadas para el manejo de animales, pero no se enseñan, no se cumplen, no se verifican ni se documentan.\n4 = Se identificaron prácticas adecuadas para el manejo de animales en los procedimientos del laboratorio, las cuales se enseñaron y se verificaron con regularidad.\n(Deje en blanco si no se utilizan animales para este procedimiento o laboratorio)."
+ },
+ {
+  "id": "8f890101-c195-4f0b-8440-1d5aa254855e:1/0/3/1/3/2/3/1/2:title",
+  "en": "-Procedures",
+  "es": "-Procedimientos"
+ },
+ {
+  "id": "d16b96f4-d912-44d2-bae1-c6983d10f66a:1/0/3/1/3/2/3/1/3/0/2:title",
+  "en": "What types of gloves are in use while using sharps (e.g. needles, scalpels, etc) in this procedure?",
+  "es": "¿Qué tipos de guantes se utilizan cuando se usa material punzocortante (p. ej., agujas, bisturí, etc.) en este procedimiento?"
+ },
+ {
+  "id": "d16b96f4-d912-44d2-bae1-c6983d10f66a:1/0/3/1/3/2/3/1/3/0/4:detailText",
+  "en": "0 = No gloves are typically worn while handling sharps\n0 = A single pair of latex or nitrile type gloves are typically worn while handling sharps\n1 = Two pairs of latex or nitrile type gloves are typically worn while handling sharps\n4 = Heavy gloves (e.g. leather or thick rubber gloves) are typically worn while handling  sharps",
+  "es": "0 = Por lo general, no se usan guantes para manipular con las manos material punzocortante.\n0 = Por lo general, se usa un solo par de guantes de látex o nitrilo cuando se manipula con las manos material punzocortante.\n1 = Por lo general, se usan dos pares de guantes de látex o nitrilo cuando se manipula con las manos material punzocortante.\n4 = Por lo general, se usan guantes de trabajo resistentes, (p. ej., de cuero o de caucho grueso) cuando se maneja con las manos material punzocortante."
+ },
+ {
+  "id": "18683332-2ea3-4fd4-b9d8-def732e89af9:1/0/3/1/3/2/3/1/3/1/2:title",
+  "en": "How are sharps handled in the laboratory?",
+  "es": "¿Cómo se maneja el material punzocortante en el laboratorio?"
+ },
+ {
+  "id": "18683332-2ea3-4fd4-b9d8-def732e89af9:1/0/3/1/3/2/3/1/3/1/4:detailText",
+  "en": "0 = Sharps are always handled by hand\n2 = Sharps are rarely handled by hand \n4 = Sharps are never handled by hand directly (e.g. needles are not recapped, a  mechanical system like forceps are used to remove needles and/or scalpel blades, etc)",
+  "es": "0 = El material punzocortante siempre se maneja con las manos.\n2 = El material punzocortante rara vez se maneja con las manos\n4 = El material punzocortante nunca se maneja con las manos directamente (p. ej., las agujas no se vuelven a tapar, un sistema mecánico como fórceps se usa para eliminar agujas o cuchillas de bisturí, etc.)."
+ },
+ {
+  "id": "5f40b53a-423a-49b1-9785-9bf78d26a576:1/0/3/1/3/2/3/1/3/2/2:title",
+  "en": "Does this laboratory have procedures in place for sharps handling to reduce/eliminate percutaneous exposure that meet defined best practices?",
+  "es": "¿Este laboratorio tiene procedimientos de manipulación de material punzocortante para reducir o eliminar las exposiciones percutáneas, los cuales cumplen con las prácticas óptimas definidas?"
+ },
+ {
+  "id": "5f40b53a-423a-49b1-9785-9bf78d26a576:1/0/3/1/3/2/3/1/3/2/4:detailText",
+  "en": "0 = Personnel are not specifically trained how to minimize percutaneous exposures\n1 = Proper practices for reducing percutaneous exposure exist. but are not taught,  enforced, verified or documented\n4 = Proper practices for reducing percutaneous exposure are identified in the laboratory  procedures, are taught, and verified on a regular schedule ",
+  "es": "0 = El personal no está específicamente formado para minimizar las exposiciones percutáneas.\n1 = Existen prácticas adecuadas para reducir la exposición percutánea, pero no se enseñan, no se cumplen, no se verifican ni se documentan.\n4 = Se identificaron prácticas adecuadas para reducir la exposición percutánea en los procedimientos del laboratorio, las cuales se enseñaron y se verificaron con regularidad."
+ },
+ {
+  "id": "a6726426-876f-42b1-8690-ce125c085e81:1/0/3/1/3/2/3/1/3/3/2:title",
+  "en": "Does this laboratory have procedures in place for agent handling to reduce/eliminate aerosols? These procedures should meet defined best practices",
+  "es": "¿Este laboratorio tiene procedimientos de manipulación del agente para reducir o eliminar aerosoles? Estos procedimientos deben cumplir con las prácticas óptimas definidas."
+ },
+ {
+  "id": "a6726426-876f-42b1-8690-ce125c085e81:1/0/3/1/3/2/3/1/3/3/4:detailText",
+  "en": "0 = Personnel are not specifically trained how to minimize the production of aerosols\n1 = Proper practices for reducing/eliminating aerosols exist, but are not taught, enforced,  verified, or documented\n4 = Proper practices for reducing/eliminating aerosols are identified in the laboratory  procedures, are taught, and verified on a regular schedule",
+  "es": "0 = El personal no está específicamente formado para minimizar la producción de aerosoles.\n1 = Existen prácticas adecuadas para reducir o eliminar los aerosoles, pero no se enseñan, no se cumplen, no se verifican ni se documentan.\n4 = Se identificaron prácticas adecuadas para reducir o eliminar los aerosoles identificados en los procedimientos del laboratorio, las cuales se enseñaron y se verificaron con regularidad."
+ },
+ {
+  "id": "eb7fb54c-41a5-4185-864d-c615f5d7d5b1:1/0/3/1/3/2/3/1/3/4/2:title",
+  "en": "Are absorbent materials used on the bench or BSC to contain spills and reduce splashing?",
+  "es": "¿Se utilizan materiales absorbentes en el banco o gabinetes de seguridad biológica para contener derrames y reducir salpicaduras?"
+ },
+ {
+  "id": "eb7fb54c-41a5-4185-864d-c615f5d7d5b1:1/0/3/1/3/2/3/1/3/4/4:detailText",
+  "en": "0 = Absorbent material is never used \n0 = Absorbent material is used on the bench or BSC but only replaced periodically\n1 = Absorbent material is sometimes used \n4 = Absorbent material is used for all procedures (on the bench or BSC) and disposed of  after each use",
+  "es": "0 = Nunca se usa material absorbente.\n0 = Se usa material absorbente en el banco o gabinetes de seguridad biológica, pero solo se reemplaza periódicamente.\n1 = A veces se usa material absorbente.\n4 = Se usa material absorbente para todos los procedimientos (en el banco o gabinetes de seguridad biológica) y se desecha después de cada uso."
+ },
+ {
+  "id": "f2723dbd-90c8-45d0-9c57-b75e3af04496:1/0/3/1/3/2/3/1/3/5/2:title",
+  "en": "After working with potentially contaminated material (cultures, infectious waste), how are objects that should not become contaminated (door handles, computer keyboards) handled?   ",
+  "es": "Después de trabajar con material posiblemente contaminado (cultivos, residuos infecciosos), ¿cómo se manejan los objetos que no deberían contaminarse (picaportes de puertas, teclados de computadora)?"
+ },
+ {
+  "id": "f2723dbd-90c8-45d0-9c57-b75e3af04496:1/0/3/1/3/2/3/1/3/5/4:detailText",
+  "en": "0 = Hands are never decontaminated prior to handling \"Clean\" objects\n4 = Hands are always decontaminated prior to handling \"Clean\" objects",
+  "es": "0 = No se descontaminan nunca las manos antes de manipular objetos “limpios”.\n4 = Siempre se descontaminan las manos antes de manipular objetos “limpios”."
+ },
+ {
+  "id": "790f29f4-74e5-43ed-b69d-fa5b90892622:1/0/3/1/3/2/3/1/3/6/2:title",
+  "en": "Does this laboratory have procedures in place for spill response that meet defined best practices? ",
+  "es": "¿Este laboratorio tiene procedimientos de respuesta ante derrames que cumplen con las prácticas óptimas definidas?"
+ },
+ {
+  "id": "790f29f4-74e5-43ed-b69d-fa5b90892622:1/0/3/1/3/2/3/1/3/6/4:detailText",
+  "en": "0 = The laboratory does not have spill response procedures in place\n2 = The lab has basic spill response procedures in place, but does not conduct validation  exercises on these procedures\n4 = The lab has validated and exercised spill response procedures, including spill  response kits (which contain appropriate PPE, cleaning items, and other  required items),  training on spill response, plans for validation of spill cleanup, spill response SOPs, and  spill response decontamination mechanisms including waste validation.",
+  "es": "0 = El laboratorio no tiene procedimientos de respuesta ante derrames.\n2 = El laboratorio tiene procedimientos básicos de respuesta ante derrames, pero no realiza ejercicios de validación con respecto a estos procedimientos.\n4 = El laboratorio tiene procedimientos de respuesta ante derrames, incluso kits de respuesta ante derrames (que contienen el PPE adecuado, artículos de limpieza y otros artículos necesarios) formación sobre respuesta ante derrames, planes para la validación de la limpieza de derrames, SOP de respuesta ante derrames, mecanismos de descontaminación de respuesta ante derrames que incluyen la validación de los residuos."
+ },
+ {
+  "id": "9ec1a49d-ec77-4dd8-bb5e-fead74a1f287:1/0/3/1/3/2/3/1/3/7/2:title",
+  "en": "Does this laboratory have procedures in place for lab workers to reduce/eliminate contact exposure through broken skin, that meet defined best practices? ",
+  "es": "¿Este laboratorio tiene procedimientos para que los empleados del laboratorio reduzcan o eliminen las exposiciones por contacto a través de una herida abierta en la piel, los cuales cumplen con las prácticas óptimas definidas?"
+ },
+ {
+  "id": "9ec1a49d-ec77-4dd8-bb5e-fead74a1f287:1/0/3/1/3/2/3/1/3/7/4:detailText",
+  "en": "0 = No procedures exist to reduce/eliminate contact exposure through broken skin\n1 = Proper practices for reducing/eliminating contact exposure through broken skin exist,  but are not taught, enforced, verified or documented\n4 = Proper practices for reducing/eliminating contact exposure through broken skin are  identified in the laboratory procedures and are taught and verified on a regular basis",
+  "es": "0 = No existen procedimientos para reducir o eliminar la exposición por contacto a través de una herida abierta en la piel.\n1 = Existen prácticas adecuadas para reducir o eliminar la exposición por contacto si existe una herida abierta en la piel, pero no se enseñan, no se cumplen, no se verifican ni se documentan.\n4 = En los procedimientos del laboratorio se identifican prácticas adecuadas para reducir o eliminar la exposición por contacto si existe una herida abierta en la piel, las cuales se enseñan y se verifican con regularidad."
+ },
+ {
+  "id": "fe4a90a1-0ec5-4314-9dfa-a74f83c76c65:1/0/3/1/3/2/3/1/3/8/2:title",
+  "en": "How frequently are hands washed? ",
+  "es": "¿Con qué frecuencia se lava las manos el personal?"
+ },
+ {
+  "id": "fe4a90a1-0ec5-4314-9dfa-a74f83c76c65:1/0/3/1/3/2/3/1/3/8/4:detailText",
+  "en": "0 = No formal hand washing policies exist\n2 = Hands are washed only when leaving the lab\n4 = Hands are always washed frequently during the procedure (e.g. hands are washed  between each procedure step)",
+  "es": "0 = No hay políticas formales para el lavado de manos.\n2 = El personal solo se lava las manos al salir del laboratorio\n4 = Las manos siempre se lavan con frecuencia durante el procedimiento (p. ej., las manos se lavan entre cada paso del procedimiento)."
+ },
+ {
+  "id": "65dc02ea-a5f1-43df-a917-647bf7187c78:1/0/3/1/3/2/3/1/3/9/2:title",
+  "en": "How is contaminated waste handled? ",
+  "es": "¿Cómo se tratan los residuos contaminados?"
+ },
+ {
+  "id": "65dc02ea-a5f1-43df-a917-647bf7187c78:1/0/3/1/3/2/3/1/3/9/4:detailText",
+  "en": "0 = Contaminated waste is safely and efficiently treated within lab\n1 = Contaminated waste leaves lab for external treatment \n4 = Contaminated waste is removed from lab and not treated",
+  "es": "0 = Los residuos contaminados se tratan de manera segura y eficiente en el laboratorio\n1 = Los residuos contaminados salen del laboratorio para ser tratados externamente\n4 = Los residuos contaminados se retiran del laboratorio y no se tratan"
+ },
+ {
+  "id": "1e869f01-8e2a-4656-b1e2-032bda841d71:1/0/3/1/3/2/3/1/3/10/2:title",
+  "en": "How is liquid waste (effluent) handled?",
+  "es": "¿Cómo se tratan los residuos líquidos (efluentes)?"
+ },
+ {
+  "id": "1e869f01-8e2a-4656-b1e2-032bda841d71:1/0/3/1/3/2/3/1/3/10/4:detailText",
+  "en": "0 = Liquid waste is safely and efficiently treated within lab\n1 = Liquid waste leaves lab for external treatment \n4 = Liquid waste is removed from lab and not treated",
+  "es": "0 = Los residuos líquidos se tratan de manera segura y eficiente en el laboratorio\n1 = Los residuos líquidos salen del laboratorio para ser tratados externamente\n4 = Los residuos líquidos se retiran del laboratorio y no se tratan"
+ },
+ {
+  "id": "1778e246-b19d-417e-99d6-8f4ea44327b8:1/0/3/1/3/3/2:title",
+  "en": "* Containment",
+  "es": "* Contención"
+ },
+ {
+  "id": "57373173-7474-4e1b-9848-f8e07e06ad09:1/0/3/1/3/3/3/0/2:title",
+  "en": "Are Biosafety cabinets used in this procedure?  ",
+  "es": "¿Se usan gabinetes de bioseguridad en este procedimiento?"
+ },
+ {
+  "id": "57373173-7474-4e1b-9848-f8e07e06ad09:1/0/3/1/3/3/3/0/4:detailText",
+  "en": "0 = Biosafety cabinets are not in use or not in existence \n1 = Biosafety cabinets exist, but are used only periodically - and/or\n1 = Biosafety cabinets exist, but no formal training programs or procedures are in place  for their use - and/or\n1 = Biosafety cabinets exist, but they are not validated/certified on a regular basis  (ideally, annually)\n4 = Biosafety cabinets are always used, they are routinely validated/certified, well- maintained, and there are procedures in place for proper use",
+  "es": "0 = No se usan ni existen los gabinetes de bioseguridad.\n1 = Los gabinetes de bioseguridad existen, pero solo se usan de vez en cuando o\n1 = Los gabinetes de bioseguridad existen pero no existen programas de capacitación ni procedimientos formales para su uso o\n1 = Los gabinetes de bioseguridad existen, pero no se validan ni se certifican en forma regular (sería ideal que fuera anualmente).\n4 = Los gabinetes de bioseguridad siempre se usan, pero se validan o certifican en forma rutinaria, se mantienen correctamente y existen procedimientos para su uso adecuado."
+ },
+ {
+  "id": "5d87dbfc-6f39-49d8-8343-60d013a91480:1/0/3/1/3/3/3/1/2:title",
+  "en": "Is all the equipment used in this procedure with a potential to generate infectious aerosols (e.g. centrifuge, vortexer, sonicator) isolated or sealed in a manner to prevent aerosol escape (e.g. sealed rotor cups, equipment in BSC or in a biobubble, etc) prior to use? ",
+  "es": "¿Todo el equipo que se usa en este procedimiento con posibilidad a que genere aerosoles infecciosos (p. ej. centrifugadoras, vibrador, ultrasonido) se aísla o se cierra herméticamente de manera de evitar un escape de aerosoles (p. ej. tapas de rotores cerradas herméticamente, equipo en gabinetes de seguridad biológica o burbuja biológica, etc.) antes de su uso?"
+ },
+ {
+  "id": "5d87dbfc-6f39-49d8-8343-60d013a91480:1/0/3/1/3/3/3/1/4:detailText",
+  "en": "0 = Equipment is located and used on an open bench or in an open area and has no  internal sealing mechanisms\n1 = Equipment is used in isolation or is internally sealed (e.g. used in a BSC,  equipment uses sealed rotor cups, etc), but there are no formal procedures for use  - and/or\n1 = Equipment is used in isolation (e.g. used in a BSC) or is internally sealed, but the  mechanism has not been validated or certified\n4 = Equipment is always isolated/sealed and devices are validated/certified and well- maintained\n(Please leave blank if there is no aerosol-generating equipment in use for this procedure/laboratory)",
+  "es": "0 = El equipo se coloca y se usa en un banco abierto o en área abierta y no tiene mecanismos de cierre hermético internos.\n1 = El equipo se usa aislado o está cerrado herméticamente desde el interior (p. ej., se usa en gabinetes de seguridad biológica, equipos con tapas de rotores cerradas herméticamente, etc.), pero no existen procedimientos formales para su uso o\n1 = El equipo se usa aislado (p. ej., se usa en un gabinete de seguridad biológica) o se cierra herméticamente desde el interior, pero el mecanismo no se validó ni se certificó.\n4 = Se utiliza siempre aislado/cerrado herméticamente y los dispositivos están validados/certificados y correctamente mantenidos.\n(Deje en blanco si no se usa equipo que genere aerosoles para este procedimiento o laboratorio)."
+ },
+ {
+  "id": "00af8266-e2e6-44e2-aeb3-06e62d56b66a:1/0/3/1/3/3/3/2/2:title",
+  "en": "Are other forms of Primary Containment used in this procedure?",
+  "es": "¿Se usan otras formas de contención primaria en este procedimiento?"
+ },
+ {
+  "id": "00af8266-e2e6-44e2-aeb3-06e62d56b66a:1/0/3/1/3/3/3/2/4:detailText",
+  "en": "0 = No primary containment devices are used for this procedure \n1 = Primary containment devices exist, but are used only periodically - and/or\n1 = Primary containment devices exist, but there is no formal training program or  procedures in place for their use - and/or\n1 = Primary containment devices exist, but they are not validated/certified on a regular  basis \n4 = Primary containment devices are always used in this procedure, are  validated/certified, well-maintained, and there are procedures in place for proper use",
+  "es": "0 = No se utilizan dispositivos de contención primaria para este procedimiento\n1 = Existen dispositivos de contención primaria, pero solo se usan de vez en cuando, o\n1 = Existen dispositivos de contención primaria pero no existen programas de formación ni procedimientos formales para su uso o\n1 = Existen dispositivos de contención primaria, pero no se validan ni se certifican en forma regular.\n4 = Los dispositivos de contención primaria siempre se usan en este procedimiento, se validan o certifican y se mantienen correctamente y existen procedimientos para su uso adecuado."
+ },
+ {
+  "id": "24de76c5-aebd-401e-a718-4d6aaf3bfbd0:1/0/3/1/3/3/3/3/2:title",
+  "en": "Are measures in place to reduce infectious aerosols exiting the laboratory?  ",
+  "es": "¿Hay medidas instauradas para reducir la salida de aerosoles infecciosos del laboratorio?"
+ },
+ {
+  "id": "24de76c5-aebd-401e-a718-4d6aaf3bfbd0:1/0/3/1/3/3/3/3/4:detailText",
+  "en": "4 = All air exhausted from this laboratory is via well-maintained HEPA filters\n3 = All air exhausted from this laboratory is via duct work which is not recirculated into  other space\n2 = All laboratory air is not recirculated, but not specifically exhausted via ducts \n0 = Laboratory air is potentially circulated into other facility or community space",
+  "es": "4 = Se evacua todo el aire de este laboratorio a través de unos filtros HEPA correctamente mantenidos\n3 = Se evacua todo el aire de este laboratorio a través de un conducto que no lo recircula a otro espacio.\n2 = No hay recirculación de todo el aire del laboratorio, pero este no se evacua específicamente a través de conductos\n0 = Podría haber circulación de aire del laboratorio a otras instalaciones o al espacio comunitario"
+ },
+ {
+  "id": "60c397de-d216-4b63-9640-06275f83566a:1/0/3/1/3/3/3/4/2:title",
+  "en": "How is sharp waste handled? ",
+  "es": "¿Cómo se tratan los residuos punzocortantes?"
+ },
+ {
+  "id": "60c397de-d216-4b63-9640-06275f83566a:1/0/3/1/3/3/3/4/4:detailText",
+  "en": "4 = No sharp material ever leaves this laboratory\n3 = Sharp waste is first decontaminated and then leaves the facility in puncture-resistant  containers\n1 = Sharp waste is first decontaminated and leaves the facility in non-puncture-resistant  waste containers (e.g. plastic bags)\n0 = Sharp waste is removed from the facility prior to decontamination",
+  "es": "4 = Ningún material punzocortante sale nunca de este laboratorio\n3 = Los residuos punzocortantes primero se descontaminan y luego salen del centro en recipientes a prueba de pinchazos\n1 = Los residuos punzocortantes primero se descontaminan y luego salen del centro en recipientes que no son a prueba de pinchazos (ej. bolsas plásticas).\n0 = Los residuos punzocortantes se retiran del centro antes de descontaminarlos"
+ },
+ {
+  "id": "33c1f3ba-c29f-491e-b765-09b356373c8e:1/0/3/1/3/4/2:title",
+  "en": "* PPE",
+  "es": "* EPP"
+ },
+ {
+  "id": "a8d788e5-431c-46c4-8fca-bf01ac386b4e:1/0/3/1/3/4/3/0/2:title",
+  "en": "What types of gloves are used for this procedure?  ",
+  "es": "¿Qué tipos de guantes se utilizan para este procedimiento?"
+ },
+ {
+  "id": "a8d788e5-431c-46c4-8fca-bf01ac386b4e:1/0/3/1/3/4/3/0/4:detailText",
+  "en": " 0 = Gloves are not typically worn \n 3 = A single or double pair of latex or nitrile type gloves are worn during the duration of  the procedure \n 4 = A single or double pairs of latex or nitrile type gloves are worn and the outer most  pair is changed after handing contaminated or potentially contaminated objects",
+  "es": "0 = Por lo general, no se usan guantes.\n3 = Por lo general, se usa uno o dos pares de guantes de látex o nitrilo durante el procedimiento.\n4 = Por lo general, se usa uno o dos pares de guantes de látex o nitrilo, y el par exterior se cambia después de manipular objetos contaminados o posiblemente contaminados."
+ },
+ {
+  "id": "e6ef76bb-1607-4588-9702-950cf402e547:1/0/3/1/3/4/3/1/2:title",
+  "en": "What type of protective clothing (PPE) is used in this laboratory? ",
+  "es": "¿Qué tipo de prendas de protección (PPE) se utilizan en este laboratorio?"
+ },
+ {
+  "id": "e6ef76bb-1607-4588-9702-950cf402e547:1/0/3/1/3/4/3/1/4:detailText",
+  "en": " 0 = Personnel wear street clothes in the laboratory and typically do not use gowns or lab  coats.   \n 3 = Gowns or lab coats are always worn over street clothes \n 4 = Personnel wear dedicated laboratory clothing (e.g. scrubs) which is not worn outside  the laboratory, anteroom, or change room",
+  "es": "0 = Prendas de calle de uso personal en el laboratorio y, por lo general, no se usan batas de laboratorio.\n3 = Siempre se usan batas de laboratorio sobre la ropa de calle.\n4 = Prendas especialmente del laboratorio personales (p. ej., ropa desechable) que no se usa fuera del laboratorio, antesala ni vestuario."
+ },
+ {
+  "id": "7a0baa8a-8e9c-49c6-8596-293deae2b29e:1/0/3/1/3/4/3/2/2:title",
+  "en": "What type of protective eyewear is used in this laboratory? ",
+  "es": "¿Qué tipo de protección ocular se utiliza en este laboratorio?"
+ },
+ {
+  "id": "7a0baa8a-8e9c-49c6-8596-293deae2b29e:1/0/3/1/3/4/3/2/4:detailText",
+  "en": " 0 = No eyewear protection is typically used\n 1 = Personnel wear safety glasses \n 3 = Personnel wear goggles or a face shield\n 4 = Personnel wear goggles and a face shield",
+  "es": "0 = Por lo general, no se utiliza ninguna protección ocular\n1 = El personal lleva gafas de seguridad\n3 = El personal lleva gafas de protección o una careta\n4 = El personal lleva gafas de protección y una careta"
+ },
+ {
+  "id": "f0e4c68a-479b-4fe2-b70b-8d9aa13d2128:1/0/3/1/3/4/3/3/2:title",
+  "en": "What types of shoes are worn in the laboratory? ",
+  "es": "¿Qué tipo de calzado se usa en el laboratorio?"
+ },
+ {
+  "id": "f0e4c68a-479b-4fe2-b70b-8d9aa13d2128:1/0/3/1/3/4/3/3/4:detailText",
+  "en": " 0 = Persons can wear open-toe shoes in the laboratory\n 1 = Persons must wear closed-toed shoes \n 2 = Solid shoes are worn \n 3 = Shoe covers are worn over solid shoes, shoe covers are not worn outside laboratory,  anteroom, or change room\n 4 = Laboratory-dedicated solid shoes are worn, shoes are never worn outside laboratory,  anteroom, or change room",
+  "es": "0 = Las personas pueden utilizar en el laboratorio calzado que deje al descubierto los dedos del pie\n1 = Las personas deben utilizar calzado que no deje al descubierto los dedos del pie\n2 = Se utiliza calzado resistente\n3 = Se usan fundas sobre el calzado cerrado, las cuales no se deben usar fuera del laboratorio, antesala ni vestuario.\n4 = Calzado cerrado especial para laboratorio, el cual nunca se debe usar fuera del laboratorio, antesala ni vestuario."
+ },
+ {
+  "id": "0c257fda-109f-44b9-8785-b60f81e6b2e6:1/0/3/1/3/4/3/4/2:title",
+  "en": "Is respiratory protection used in this procedure? (surgical masks are not considered respiratory protection)",
+  "es": "¿Se utiliza una protección respiratoria en este procedimiento? (las mascarillas quirúrgicas no se consideran protección respiratoria)"
+ },
+ {
+  "id": "0c257fda-109f-44b9-8785-b60f81e6b2e6:1/0/3/1/3/4/3/4/4:detailText",
+  "en": "0= No respiratory protection exists or is in use \n1 = Respirators (e.g. N95, N100, PAPR, Positive Pressure Suit, etc) are used (sometimes,  often?) but there is no formal respiratory protection program (standardized fit testing or  training) in place prior to use \n4 = Respirators are (always?) used and there is a formal respiratory protection/training  program in place prior to use",
+  "es": "0 = No existe ni se usa ninguna protección respiratoria\n1 = Se utilizan (¿a veces, a menudo?) respiradores (p. ej., N95, N100,purificadoras de aire eléctricas, trajes de presión positiva, etc.), pero no hay un programa formal de protección respiratoria (una prueba normalizada de ajuste correcto de los respiradores o capacitación) instaurado previo al uso de estos.\n4 = Se utilizan (¿siempre?) respiradores y existe un programa formal de protección respiratoria/capacitación instaurado previo al uso de estos."
+ },
+ {
+  "id": "7aa897ad-e619-46ce-b516-22b4d4386194:1/0/3/1/3/4/3/5/2:title",
+  "en": "Are face shields or masks worn for this procedure?  ",
+  "es": "¿Se utilizan caretas o mascarillas para este procedimiento?"
+ },
+ {
+  "id": "7aa897ad-e619-46ce-b516-22b4d4386194:1/0/3/1/3/4/3/5/4:detailText",
+  "en": "0 = Personnel do not wear any face protection\n3 = Surgical masks are used to protect mouth/nose from contact \n4 = Face shields are always used to protect the eyes/mouth/nose from contact ",
+  "es": "0 = El personal no usa ninguna protección facial\n3 = Se utilizan mascarillas quirúrgicas para proteger la boca y la nariz del contacto\n4 = Se utilizan siempre caretas para proteger los ojos, la boca y la nariz del contacto"
+ },
+ {
+  "id": "1c50eee4-a188-4956-b425-a02d13503aa9:2/0/2:title",
+  "en": "Agent",
+  "es": "Agente"
+ },
+ {
+  "id": "2ed4aa29-938a-4f09-8927-9d9c3f5c63e6:2/0/3/0/2:title",
+  "en": "********** Main Category: Consequences **********",
+  "es": "********** Categoría principal: Consecuencias **********"
+ },
+ {
+  "id": "9cafebb9-a888-44e5-8ed0-3ed14ec5cd74:2/0/3/0/3/0/2:title",
+  "en": "-Consequences of Diseases to Humans-",
+  "es": "-Consecuencias de la enfermedad para los seres humanos-"
+ },
+ {
+  "id": "7a4c95da-2fd1-4254-b892-142011fa3293:2/0/3/0/3/0/3/0/2:title",
+  "en": "* Mortality",
+  "es": "* Mortalidad"
+ },
+ {
+  "id": "d1d96f0d-f98b-4f24-9c2d-ad63862dac1c:2/0/3/0/3/0/3/0/3/0/2:title",
+  "en": "What is the frequency of death in humans caused by this desease in a defined population during a specified interval of time (Mortaliy Rate)?",
+  "es": "¿Con qué frecuencia causa esta enfermedad la muerte en seres humanos en una población definida durante un periodo de tiempo determinado (tasa de mortalidad)?"
+ },
+ {
+  "id": "d1d96f0d-f98b-4f24-9c2d-ad63862dac1c:2/0/3/0/3/0/3/0/3/0/4:detailText",
+  "en": "4 = High mortality (75% or more) \n2 = Medium mortality (15% to 74%) \n1 = Low mortality (1% to 14%) \n0 = No Mortality (0%)",
+  "es": "4 = Mortalidad alta (75% o más)\n2 = Mortalidad media (15% a 74%)\n1 = Mortalidad baja (entre el 1% y el 14%)\n0 = Sin mortalidad (0%)"
+ },
+ {
+  "id": "e5e8cf14-9b4f-484f-a9c4-1274ef63f1e9:2/0/3/0/3/0/3/1/2:title",
+  "en": "* Morbidity",
+  "es": "* Morbilidad"
+ },
+ {
+  "id": "ec1eb593-af8e-41a7-af27-501aeefacb71:2/0/3/0/3/0/3/1/3/0/2:title",
+  "en": "What is the duration of illness (the average length of time of clinical signs of infection) in a normally healthy human host?",
+  "es": "¿Cuánto dura la enfermedad (duración media de los signos clínicos de infección) en un hospedador humano normal y sano?"
+ },
+ {
+  "id": "ec1eb593-af8e-41a7-af27-501aeefacb71:2/0/3/0/3/0/3/1/3/0/4:detailText",
+  "en": "4 = long duration (months or more) \n3 = moderate duration (week(s)) \n1 = short duration (days) \n0 = No signs of infection",
+  "es": "4 = Larga duración (meses o más)\n3 = Duración moderada (semana/s)\n1 = Corta duración (día/s)\n0 = Sin signos de infección"
+ },
+ {
+  "id": "99ffcc09-1479-4cfb-a226-ac36e00964c7:2/0/3/0/3/0/3/1/3/1/2:title",
+  "en": "What is the severity of illness(the average severity of illness, ranging from no signs of illness to hospitalized in critical condition) in a normal health human host?",
+  "es": "¿Qué gravedad tiene la enfermedad (la gravedad usual, que puede ir desde la ausencia de signos de enfermedad a la hospitalización en estado crítico) en un hospedador humano normal y sano?"
+ },
+ {
+  "id": "99ffcc09-1479-4cfb-a226-ac36e00964c7:2/0/3/0/3/0/3/1/3/1/4:detailText",
+  "en": "4 = Extreme sign of disease (mechanical assistance required to sustain life or death imminent) \n3 = High sign of disease (not able to function (hospitalized)) \n2 = Moderate sign of disease (able to function in a limited manner (bed rest)) \n1 = Low sign of disease (able to function but showing symptoms) \n0 = No sign of disease",
+  "es": "4 = Signos extremos de enfermedad (se requiere asistencia mecánica para mantenerlo con vida o evitar la muerte inminente)\n3 = Signos importantes de enfermedad (no puede funcionar [hospitalizado])\n2 = Signos moderados de enfermedad (puede funcionar de manera limitada [reposo en cama])\n1 = Signos leves de enfermedad (puede funcionar, pero tiene síntomas)\n0 = Sin signos de enfermedad"
+ },
+ {
+  "id": "37b0461c-819b-4ec7-9df8-60e04e310ea5:2/0/3/0/3/0/3/1/3/2/2:title",
+  "en": "What is the duration of infection (the length of time the host is infected with the organism) in a normal healthy human host?",
+  "es": "¿Cuánto dura la infección (tiempo que el hospedador está infectado por el organismo) en el ser humano normal y sano?"
+ },
+ {
+  "id": "37b0461c-819b-4ec7-9df8-60e04e310ea5:2/0/3/0/3/0/3/1/3/2/4:detailText",
+  "en": "4 = Infection present for life of host \n3 = Infection present post clinical signs for months \n2 = Infection present post clinical signs for weeks \n1 = Infection present if clinical signs \n0 = No sign of disease",
+  "es": "4 = Infección presente durante toda la vida del hospedador\n3 = Infección presente durante meses después de los signos clínicos\n2 = Infección presente durante semanas después de los signos clínicos\n1 = Infección presente si hay signos clínicos\n0 = Sin signos de enfermedad"
+ },
+ {
+  "id": "bce1d6c3-ebfb-43d9-930f-fb141948e000:2/0/3/0/3/0/3/1/3/3/2:title",
+  "en": "Does the disease cause any long-term conditions(sequelae) in a normal healthy human host?",
+  "es": "¿Causa esta enfermedad trastornos a largo plazo (secuelas) en un hospedador humano normal y sano?"
+ },
+ {
+  "id": "bce1d6c3-ebfb-43d9-930f-fb141948e000:2/0/3/0/3/0/3/1/3/3/4:detailText",
+  "en": "4 = High long-term impact which renders the host unable to function normally \n2 = Moderate long-term impact which hinders the hosts ability to function normally\n1 = Mild long-term impacts do not impede the hosts ability to function normally \n0 = No long term impact",
+  "es": "4 = Tiene repercusiones importantes a largo plazo que impiden al hospedador funcionar con normalidad\n2 = Tiene repercusiones moderadas a largo plazo que reducen la capacidad del hospedador de funcionar con normalidad\n1 = Tiene repercusiones leves a largo plazo que impiden la capacidad del hospedador de funcionar con normalidad\n0 = Sin repercusiones a largo plazo"
+ },
+ {
+  "id": "f83c4c33-274c-47b5-a478-7f60fdcd9c2c:2/0/3/0/3/0/3/2/2:title",
+  "en": "* Agent Characteristics",
+  "es": "* Características del agente"
+ },
+ {
+  "id": "d3cf6f99-f4da-4604-b007-08937243e317:2/0/3/0/3/0/3/2/3/0/2:title",
+  "en": "Does this agent or one of its by-products cause a carcinogenic or mutagenic reaction in a human host?",
+  "es": "¿Este agente o alguno de sus subproductos causan una reacción cancerígena o mutágena en el hospedador humano?"
+ },
+ {
+  "id": "d3cf6f99-f4da-4604-b007-08937243e317:2/0/3/0/3/0/3/2/3/0/4:detailText",
+  "en": "4 = Yes\n2 = Unknown\n0 = No",
+  "es": "4 = Sí\n2 = Se desconoce\n0 = No"
+ },
+ {
+  "id": "c4aebf8b-c2b8-485a-871a-e1d5de3f94af:2/0/3/0/3/0/3/2/3/1/2:title",
+  "en": "Does this agent have toxin or enzyme production which has a negative impact in a healthy human host?",
+  "es": "¿Produce este agente toxinas o enzimas que repercuten negativamente en el hospedador humano sano?"
+ },
+ {
+  "id": "c4aebf8b-c2b8-485a-871a-e1d5de3f94af:2/0/3/0/3/0/3/2/3/1/4:detailText",
+  "en": "4 = Yes\n2 = Unknown\n0 = No",
+  "es": "4 = Sí\n2 = Se desconoce\n0 = No"
+ },
+ {
+  "id": "3cd78e64-05e8-4b89-868e-8422b5eb7840:2/0/3/0/3/0/3/2/3/2/2:title",
+  "en": "Does this agent suppress a human host's immunie system? (E.g. cause dramatic suppression which renders the host unable to respond to other infections)",
+  "es": "¿Deprime este agente el sistema inmunitario del hospedador humano? (p. ej., causa una inmunodepresión muy intensa que impide al hospedador responder a otras infecciones)"
+ },
+ {
+  "id": "3cd78e64-05e8-4b89-868e-8422b5eb7840:2/0/3/0/3/0/3/2/3/2/4:detailText",
+  "en": "4 = Yes\n2 = Unknown\n0 = No",
+  "es": "4 = Sí\n2 = Se desconoce\n0 = No"
+ },
+ {
+  "id": "0651f870-465e-48a7-9ca0-d70e53220f1b:2/0/3/0/3/0/3/2/3/3/2:title",
+  "en": "Does this agent have the ability to alter once in a host or in the natural environment to become infectious through new route or new hosts, or to cause increased consequences?",
+  "es": "¿Tiene este agente capacidad de cambiar una vez en el hospedador o en el medio natural para volverse infeccioso a través de una nueva vía o nuevos hospedadores, o causar consecuencias más importantes?"
+ },
+ {
+  "id": "0651f870-465e-48a7-9ca0-d70e53220f1b:2/0/3/0/3/0/3/2/3/3/4:detailText",
+  "en": "4 = Yes\n2 = Unknown\n0 = No",
+  "es": "4 = Sí\n2 = Se desconoce\n0 = No"
+ },
+ {
+  "id": "e4b47b94-c89a-4a22-9f15-8eaf5be03c84:2/0/3/0/3/0/3/3/2:title",
+  "en": "Mitigation",
+  "es": "Mitigación"
+ },
+ {
+  "id": "a5d88fb3-2e3d-4a55-8edf-1b847fd47edb:2/0/3/0/3/0/3/3/3/0/2:title",
+  "en": "Do effective diagnostic tests exist for humans?",
+  "es": "¿Existen pruebas de diagnóstico efectivas para los seres humanos?"
+ },
+ {
+  "id": "a5d88fb3-2e3d-4a55-8edf-1b847fd47edb:2/0/3/0/3/0/3/3/3/0/4:detailText",
+  "en": "0 = No\n2 = Unknown\n4 = Yes",
+  "es": "0 = No\n2 = Se desconoce\n4 = Sí"
+ },
+ {
+  "id": "5fdfd8bb-d80a-4e6c-92d1-7de2e044b9a6:2/0/3/0/3/0/3/3/3/1/2:title",
+  "en": "Do post exposure treatments (including immuno-globulin, vaccines and anti-microbials) exist for humans?",
+  "es": "¿Existen tratamientos posteriores a la exposición (incluso inmunoglobulina, vacunas y antimicrobianos) para los seres humanos?"
+ },
+ {
+  "id": "5fdfd8bb-d80a-4e6c-92d1-7de2e044b9a6:2/0/3/0/3/0/3/3/3/1/4:detailText",
+  "en": "0 = None exist\n2 = Exist, but are only considered partially effective \n4 = Effective post exposure treatments exist",
+  "es": "0 = No existen.\n2 = Existen, pero se consideran solo parcialmente efectivos.\n4 = Existen tratamientos efectivos posteriores a la exposición."
+ },
+ {
+  "id": "538a1572-8ef9-4fb7-9ec7-35e367cbf8a8:2/0/3/0/3/0/3/3/3/2/2:title",
+  "en": "Do preventative measures (vaccines) exist for humans?",
+  "es": "¿Existen medidas preventivas (vacunas) para los seres humanos?"
+ },
+ {
+  "id": "538a1572-8ef9-4fb7-9ec7-35e367cbf8a8:2/0/3/0/3/0/3/3/3/2/4:detailText",
+  "en": "0 = No preventative measures exist \n2 = Exist, but are only considered partially effective (will not prevent but will limit the impact of the disease) or (are only effective in a small population)\n4 = Effective preventative measures exits",
+  "es": "0 = No existen medidas preventivas.\n2 = Existen, pero se consideran parcialmente efectivas (no evitarán, pero limitarán la manera en la que afectará la enfermedad) o (son solo efectivas en poblaciones pequeñas).\n4 = Existen medidas preventivas efectivas."
+ },
+ {
+  "id": "3a08b91b-424b-47d6-83ed-f2d047d5e09d:2/0/3/0/3/0/3/4/2:title",
+  "en": "-Secondary Consequences-",
+  "es": "-Consecuencias secundarias-"
+ },
+ {
+  "id": "9390a4c9-0d11-4887-97f8-1addec8640a9:2/0/3/0/3/0/3/4/3/0/2:title",
+  "en": "Humans",
+  "es": "Seres humanos"
+ },
+ {
+  "id": "efd87957-03c6-4565-a947-33511550d3fe:2/0/3/0/3/0/3/4/3/0/3/0/2:title",
+  "en": "* Routes",
+  "es": "* Vías"
+ },
+ {
+  "id": "42721b56-7684-4bb2-87ff-2f07a5215571:2/0/3/0/3/0/3/4/3/0/3/0/3/0/2:title",
+  "en": "Is this agent known to cause infection via inhalation to humans (to cause infection via droplets or droplet nuclei that have entered the upper or lower respiratory tract) in the natural environment?",
+  "es": "¿Se sabe si este agente causa infección por la inhalación en seres humanos (causar infecciones a través de gotículas o núcleos de gotículas que penetran en las vías respiratorias superiores e inferiores) en un entorno natural?"
+ },
+ {
+  "id": "42721b56-7684-4bb2-87ff-2f07a5215571:2/0/3/0/3/0/3/4/3/0/3/0/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "06467a8f-82d6-4dd5-a894-110902fb9054:2/0/3/0/3/0/3/4/3/0/3/0/3/1/2:title",
+  "en": "Is the agent known to cause infection via percutaneous exposure in humans (to cause infection through compramised skin or direct skin or direct injection into the blood stream) in the natural environment?",
+  "es": "¿Se sabe si este agente causa infección por la exposición percutánea en seres humanos (causar infecciones a través de lesiones de la piel o inyección directa en el torrente sanguíneo) en un entorno natural?"
+ },
+ {
+  "id": "06467a8f-82d6-4dd5-a894-110902fb9054:2/0/3/0/3/0/3/4/3/0/3/0/3/1/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "f2c7d6e1-70c3-4bc5-a163-604714d31efa:2/0/3/0/3/0/3/4/3/0/3/0/3/2/2:title",
+  "en": "Is this agent known to cause infection via direct contact in humans (to cause infection through the mucosal membranes) int he natural environment?",
+  "es": "¿Se sabe si este agente causa infección por el contacto directo en seres humanos (causar infecciones a través de las mucosas) en un entorno natural?"
+ },
+ {
+  "id": "f2c7d6e1-70c3-4bc5-a163-604714d31efa:2/0/3/0/3/0/3/4/3/0/3/0/3/2/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "b17c63b0-e1f0-405e-9be8-cd931a7bddf9:2/0/3/0/3/0/3/4/3/0/3/0/3/3/2:title",
+  "en": "Is this agent known to cause infection via ingestion in humans (to cause infection via contact with the gastrointestinal tract) in the natrual environment?",
+  "es": "¿Se sabe si este agente causa infección por ingestión en seres humanos (causar infecciones por contacto a través del tubo digestivo) en un entorno natural?"
+ },
+ {
+  "id": "b17c63b0-e1f0-405e-9be8-cd931a7bddf9:2/0/3/0/3/0/3/4/3/0/3/0/3/3/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "4fc670e2-2df9-4e39-adc3-f8471d81e23b:2/0/3/0/3/0/3/4/3/0/3/0/3/4/2:title",
+  "en": "Is this agent known to cause infection via vector-borne transmission in humans (to cause infection by direct mucosal membrane contact or percutaneous exposure from a vector (e.g. arthropod))? ",
+  "es": "¿Se sabe si este agente causa infección por la transmisión vectorial en seres humanos (causar infecciones por contacto directo a través de las mucosas o exposición percutánea de un vector [p. ej., artrópodo])?"
+ },
+ {
+  "id": "4fc670e2-2df9-4e39-adc3-f8471d81e23b:2/0/3/0/3/0/3/4/3/0/3/0/3/4/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "923514a1-24b2-4af3-8bda-da44eefe9c6e:2/0/3/0/3/0/3/4/3/0/3/0/3/5/2:title",
+  "en": "Is this agent known to cause infection via vertical transmission in humans (to cause infection from mother to fetus in the womb or via ingestion of infected breast milk)? ",
+  "es": "¿Se sabe si este agente causa infección por transmisión vertical en seres humanos (causar infecciones de madre a feto en el útero o por ingestión de leche materna infectada)?"
+ },
+ {
+  "id": "923514a1-24b2-4af3-8bda-da44eefe9c6e:2/0/3/0/3/0/3/4/3/0/3/0/3/5/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "a2c334e5-76d0-475d-8dc7-6f989875326f:2/0/3/0/3/0/3/4/3/0/3/0/3/6/2:title",
+  "en": "Is this agent known to cause infection via sexual transmission in humans (to cause infection through sexual contact including intercourse)?",
+  "es": "¿Se sabe si este agente causa infección por transmisión sexual en seres humanos (causar infecciones a través del contacto sexual, incluyendo el coito)?"
+ },
+ {
+  "id": "a2c334e5-76d0-475d-8dc7-6f989875326f:2/0/3/0/3/0/3/4/3/0/3/0/3/6/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "325a5cdb-e68c-4bf1-9263-b2bbb5ec8394:2/0/3/0/3/0/3/4/3/0/3/1/2:title",
+  "en": "* Transmission",
+  "es": "* Transmisión"
+ },
+ {
+  "id": "2439d827-5fc6-46aa-aedb-0b8ae7e647bd:2/0/3/0/3/0/3/4/3/0/3/1/3/0/2:title",
+  "en": "How easily does this agent transmit between human hosts?",
+  "es": "¿Con qué facilidad se transmite este agente entre hospedadores humanos?"
+ },
+ {
+  "id": "2439d827-5fc6-46aa-aedb-0b8ae7e647bd:2/0/3/0/3/0/3/4/3/0/3/1/3/0/4:detailText",
+  "en": "4 = Agent can easily transmit between human hosts \n2 = Agent is transmissible between human hosts via close contact only (direct fluid transmission between hosts)\n2 = Human to human transmission suspected\n0 = Human to human transmission has never been demonstrated",
+  "es": "4 = El agente se transmite fácilmente entre hospedadores humanos\n2 = El agente solo se transmite entre hospedadores humanos mediante contacto estrecho (transmisión directa entre hospedadores por líquidos corporales)\n2 = Se sospecha la transmisión entre seres humanos\n0 = Nunca se demostró la transmisión entre seres humanos"
+ },
+ {
+  "id": "b38f8d82-0e2a-4460-a418-074b78a6189c:2/0/3/0/3/0/3/4/3/0/3/1/3/1/2:title",
+  "en": "How easily does this agent transmit from animal to human hosts?",
+  "es": "¿Con qué facilidad se transmite este agente de hospedadores animales a humanos?"
+ },
+ {
+  "id": "b38f8d82-0e2a-4460-a418-074b78a6189c:2/0/3/0/3/0/3/4/3/0/3/1/3/1/4:detailText",
+  "en": "4 = Agent can easily transmit from animals to humans \n2 = Agent is transmissible from animals to human hosts via close contact only (direct fluid transmission between hosts)\n2 = Animal to human transmission suspected\n0 = Animal to human transmission has never been demonstrated",
+  "es": "4 = El agente se transmite fácilmente de animales a seres humanos\n2 = El agente solo se transmite de hospedadores animales a humanos mediante contacto estrecho (transmisión directa entre hospedadores por líquidos corporales)\n2 = Se sospecha la transmisión de animales a seres humanos\n0 = Nunca se demostró la transmisión de animales a seres humanos"
+ },
+ {
+  "id": "63cc2ede-8eb8-4dae-871b-189308636385:2/0/3/0/3/0/3/4/3/0/3/1/3/2/2:title",
+  "en": "How easily does this agent transmit from human to animal hosts?",
+  "es": "¿Con qué facilidad se transmite este agente de seres humanos a hospedadores animales?"
+ },
+ {
+  "id": "63cc2ede-8eb8-4dae-871b-189308636385:2/0/3/0/3/0/3/4/3/0/3/1/3/2/4:detailText",
+  "en": "4 = Agent can easily transmit from humans to animals \n2 = Agent is transmissible from humans to animals via close contact only (direct fluid transmission between hosts)\n2 = Human to animal transmission suspected\n0 = Human to animal transmission has never been demonstrate",
+  "es": "4 = El agente se transmite fácilmente de seres humanos a animales\n2 = El agente solo se transmite de seres humanos a animales mediante contacto estrecho (transmisión directa entre hospedadores por líquidos corporales)\n2 = Se sospecha la transmisión de seres humanos a animales\n0 = Nunca se demostró la transmisión de seres humanos a animales"
+ },
+ {
+  "id": "2d2d0d2a-d87f-4984-9b83-93173c519157:2/0/3/0/3/0/3/4/3/0/3/2/2:title",
+  "en": "* Stability",
+  "es": "* Estabilidad"
+ },
+ {
+  "id": "a15b9354-af65-483d-9225-386638cd518c:2/0/3/0/3/0/3/4/3/0/3/2/3/0/2:title",
+  "en": "What is this agent's stability outside of a host?",
+  "es": "¿Qué estabilidad tiene el agente fuera del hospedador?"
+ },
+ {
+  "id": "a15b9354-af65-483d-9225-386638cd518c:2/0/3/0/3/0/3/4/3/0/3/2/3/0/4:detailText",
+  "en": "1 = Agent not stable outside the host \n2 = Agent stable on interior surfaces for days to weeks\n3 = Agent stable in the exterior environment for days to weeks\n4 = Agent stable in the environment for months",
+  "es": "1 = El agente no es estable fuera del hospedador\n2 = El agente es estable entre días y semanas sobre superficies interiores\n3 = El agente es estable entre días y semanas en el ambiente exterior\n4 = El agente es estable durante meses en el ambiente"
+ },
+ {
+  "id": "24fc5309-5fa0-45a4-a873-0701955906d8:2/0/3/0/3/0/3/4/3/0/3/3/2:title",
+  "en": "* Reportability",
+  "es": "* Notificación"
+ },
+ {
+  "id": "4171a36e-0ac7-4760-aa0b-b4f9eade4225:2/0/3/0/3/0/3/4/3/0/3/3/3/0/2:title",
+  "en": "What level of national or international reporting is required for outbreaks of this disease?",
+  "es": "¿Qué nivel de notificación nacional o internacional se requiere en caso de un brote de esta enfermedad?"
+ },
+ {
+  "id": "4171a36e-0ac7-4760-aa0b-b4f9eade4225:2/0/3/0/3/0/3/4/3/0/3/3/3/0/4:detailText",
+  "en": "4 = Internationally Reportable\n2 = Nationally Reportable\n0 = Not Reportable",
+  "es": "4 = Se debe notificar internacionalmente.\n2 = Se debe notificar nacionalmente.\n0 = No se debe notificar."
+ },
+ {
+  "id": "2d48c4f3-4903-4625-b634-67c8bf5211a8:2/0/3/0/3/0/3/4/3/1/2:title",
+  "en": "Animals",
+  "es": "Animales"
+ },
+ {
+  "id": "d4e51c55-ac13-444b-8d7f-c5aa79c19e6a:2/0/3/0/3/1/2:title",
+  "en": "-Consequences of Diseases to Animals-",
+  "es": "-Consecuencias de la enfermedad para los animales-"
+ },
+ {
+  "id": "e47d0ad8-a8b2-47eb-bfbd-4ee41ad7776f:2/0/3/0/3/1/3/0/2:title",
+  "en": "* Morbidity",
+  "es": "* Morbilidad"
+ },
+ {
+  "id": "57722dd0-6242-4b5c-beff-0d09dca6c965:2/0/3/0/3/1/3/0/3/0/2:title",
+  "en": "If the agent infects animals, what is the expected morbidity rate to a naive but otherwise healthy animal population?",
+  "es": "Si el agente infecta a un animal, ¿cuál es la tasa de morbilidad prevista en una población animal sin antecedentes de contacto con el agente y por lo demás sana?"
+ },
+ {
+  "id": "57722dd0-6242-4b5c-beff-0d09dca6c965:2/0/3/0/3/1/3/0/3/0/4:detailText",
+  "en": "4 = High Morbidity (> 75%)\n3 = Moderate Morbidity (25% to 75%)\n1 = Low Morbidity (1% to 25%)\n0 = Very Low Morbidity ( < 1%)",
+  "es": "4 = Morbilidad alta (> 75%)\n3 = Mortalidad moderada (entre el 25% y el 75%)\n1 = Mortalidad baja (entre el 1% y el 25%)\n0 = Morbilidad muy baja (< 1%)"
+ },
+ {
+  "id": "d038b477-6517-49c5-8844-69abb3c2ab51:2/0/3/0/3/1/3/1/2:title",
+  "en": "* Species",
+  "es": "* Especies"
+ },
+ {
+  "id": "9ccb913e-9386-4814-bb69-1d9f771d090e:2/0/3/0/3/1/3/1/3/0/2:title",
+  "en": "What species of animals can this agent infect?",
+  "es": "¿Qué especies de animales puede infectar este agente?"
+ },
+ {
+  "id": "9ccb913e-9386-4814-bb69-1d9f771d090e:2/0/3/0/3/1/3/1/3/0/4:detailText",
+  "en": "4 = Affects multiple, significant agricultural species which are used for export and/or the by-products are a major source of protein for our country\n3 = Affects a single but significant livestock species which is used for export and/or the by-products are a major source of protein for our country\n2 = Affects a less significant livestock species which is used for export and/or the by-products are a source of protein for our country\n0 = Affect a livestock species which has no economic impact in our country",
+  "es": "4 = Afecta a múltiples y significativas especies agrícolas que se utilizan para exportar o cuyos subproductos son fuentes principales de proteína para nuestro país.\n3 = Afecta una sola especie ganadera, pero significativa que se utiliza para exportar o cuyos subproductos son fuentes principales de proteína para nuestro país.\n2 = Afecta una especie ganadera menos significativa que se utiliza para exportar o cuyos subproductos son fuentes de proteína para nuestro país.\n0 = Afecta a especies ganaderas que no afectan económicamente nuestro país."
+ },
+ {
+  "id": "9d9d0b01-9843-4176-8645-f65d64f0a860:2/0/3/0/3/1/3/2/2:title",
+  "en": "Mitigation",
+  "es": "Mitigación"
+ },
+ {
+  "id": "21c6885d-4d1b-4b8a-a1c5-20c9e48453a6:2/0/3/0/3/1/3/2/3/0/2:title",
+  "en": "Do effective diagnostic tests exist for animals?",
+  "es": "¿Existen pruebas de diagnóstico efectivas para los animales?"
+ },
+ {
+  "id": "21c6885d-4d1b-4b8a-a1c5-20c9e48453a6:2/0/3/0/3/1/3/2/3/0/4:detailText",
+  "en": "0 = No\n2 = Unknown\n4 = Yes",
+  "es": "0 = No\n2 = Se desconoce\n4 = Sí"
+ },
+ {
+  "id": "11937407-e38f-49a1-9874-1ef7da447eb3:2/0/3/0/3/1/3/2/3/1/2:title",
+  "en": "Do post exposure treatments (including immuno-globulin, vaccines and anti-microbials) exist for animals?",
+  "es": "¿Existen tratamientos posteriores a la exposición (incluso inmunoglobulina, vacunas y antimicrobianos) para los animales?"
+ },
+ {
+  "id": "11937407-e38f-49a1-9874-1ef7da447eb3:2/0/3/0/3/1/3/2/3/1/4:detailText",
+  "en": "0 = None exist\n2 = Exist, but are only considered partially effective \n4 = Effective post exposure treatments exist",
+  "es": "0 = No existen.\n2 = Existen, pero se consideran solo parcialmente efectivos.\n4 = Existen tratamientos efectivos posteriores a la exposición."
+ },
+ {
+  "id": "5e8813bd-1720-4f2b-9c18-689da1471bf2:2/0/3/0/3/1/3/2/3/2/2:title",
+  "en": "Do preventative measures (vaccines) exist for animals?",
+  "es": "¿Existen medidas preventivas (vacunas) para los animales?"
+ },
+ {
+  "id": "5e8813bd-1720-4f2b-9c18-689da1471bf2:2/0/3/0/3/1/3/2/3/2/4:detailText",
+  "en": "0 = No preventative measures exist \n2 = Exist, but are only considered partially effective (will not prevent but will limit the impact of the disease) or (are only effective in a small population)\n4 = Effective preventative measures exist",
+  "es": "0 = No existen medidas preventivas.\n2 = Existen, pero se consideran parcialmente efectivas (no evitarán, pero limitarán la manera en la que afectará la enfermedad) o (son solo efectivas en poblaciones pequeñas).\n4 = Existen medidas preventivas efectivas."
+ },
+ {
+  "id": "f12725e6-60a2-48ea-a88f-6427de495ae9:2/0/3/0/3/1/3/3/2:title",
+  "en": "-Secondary Consequences-",
+  "es": "-Consecuencias secundarias-"
+ },
+ {
+  "id": "fa471bc4-6eb4-4377-94a2-69cf83e7923c:2/0/3/0/3/1/3/3/3/0/2:title",
+  "en": "* Routes",
+  "es": "* Vías"
+ },
+ {
+  "id": "4cd3e48f-c1e1-4be7-9dcf-cd2355c5f8b4:2/0/3/0/3/1/3/3/3/0/3/0/2:title",
+  "en": "Is this agent known to cause infection via vector-borne transmission (to cause infection by direct mucosal membrane contact or percutaneous exposure from a vector (e.g. arthropod))? ",
+  "es": "¿Se sabe si este agente causa infección por la transmisión vectorial (causar infecciones por contacto directo a través de las mucosas o exposición percutánea de un vector [p. ej., artrópodo])?"
+ },
+ {
+  "id": "4cd3e48f-c1e1-4be7-9dcf-cd2355c5f8b4:2/0/3/0/3/1/3/3/3/0/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "21b2cb2b-eaef-4683-9b2c-7cae20b12682:2/0/3/0/3/1/3/3/3/0/3/1/2:title",
+  "en": "Is this agent known to cause infection via vertical transmission in an animal host (to cause infection from mother to fetus in the womb or via ingestion of infected breast milk)? ",
+  "es": "¿Se sabe si este agente causa infección en un hospedador animal por transmisión vertical (causar infecciones de madre a feto en el útero o por ingestión de leche materna infectada)?"
+ },
+ {
+  "id": "21b2cb2b-eaef-4683-9b2c-7cae20b12682:2/0/3/0/3/1/3/3/3/0/3/1/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "bda1b171-02a7-4282-8de4-d679ea502f4d:2/0/3/0/3/1/3/3/3/0/3/2/2:title",
+  "en": "Is this agent known to cause infection via sexual transmission in an animal host (to cause infection through sexual contact including intercourse)?",
+  "es": "¿Se sabe si este agente causa infección en un hospedador animal por transmisión sexual (causar infecciones a través del contacto sexual, incluyendo el coito)?"
+ },
+ {
+  "id": "bda1b171-02a7-4282-8de4-d679ea502f4d:2/0/3/0/3/1/3/3/3/0/3/2/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "fb263999-9b24-4470-abe3-a7fb3391ebc5:2/0/3/0/3/1/3/3/3/1/2:title",
+  "en": "* Transmission",
+  "es": "* Transmisión"
+ },
+ {
+  "id": "a7dbc22a-3593-44b8-91c2-dba984545438:2/0/3/0/3/1/3/3/3/1/3/0/2:title",
+  "en": "How easily does this agent transmit from animal to human hosts?",
+  "es": "¿Con qué facilidad se transmite este agente de hospedadores animales a humanos?"
+ },
+ {
+  "id": "a7dbc22a-3593-44b8-91c2-dba984545438:2/0/3/0/3/1/3/3/3/1/3/0/4:detailText",
+  "en": "4 = Agent can easily transmit from animals to humans \n2 = Agent is transmissible from animals to human hosts via close contact only (direct fluid transmission between hosts)\n2 = Animal to human transmission suspected\n0 = Animal to human transmission has never been demonstrated",
+  "es": "4 = El agente se transmite fácilmente de animales a seres humanos\n2 = El agente solo se transmite de hospedadores animales a humanos mediante contacto estrecho (transmisión directa entre hospedadores por líquidos corporales)\n2 = Se sospecha la transmisión de animales a seres humanos\n0 = Nunca se demostró la transmisión de animales a seres humanos"
+ },
+ {
+  "id": "e2e189b3-4a96-42cc-9262-b2445363647b:2/0/3/0/3/1/3/3/3/1/3/1/2:title",
+  "en": "How easily does this agent transmit from human to animal hosts?",
+  "es": "¿Con qué facilidad se transmite este agente de hospedadores humanos a animales?"
+ },
+ {
+  "id": "e2e189b3-4a96-42cc-9262-b2445363647b:2/0/3/0/3/1/3/3/3/1/3/1/4:detailText",
+  "en": "4 = Agent can easily transmit from humans to animals \n2 = Agent is transmissible from humans to animals via close contact only (direct fluid transmission between hosts)\n2 = Human to animal transmission suspected\n0 = Human to animal transmission has never been demonstrated",
+  "es": "4 = El agente se transmite fácilmente de seres humanos a animales\n2 = El agente solo se transmite de seres humanos a animales mediante contacto estrecho (transmisión directa entre hospedadores por líquidos corporales)\n2 = Se sospecha la transmisión de seres humanos a animales\n0 = Nunca se demostró la transmisión de seres humanos a animales"
+ },
+ {
+  "id": "67b9ac1c-d284-41fd-b4ba-91f0247874fc:2/0/3/0/3/1/3/3/3/1/3/2/2:title",
+  "en": "How easily does this agent transmit between animal hosts?",
+  "es": "¿Con qué facilidad se transmite este agente entre hospedadores animales?"
+ },
+ {
+  "id": "67b9ac1c-d284-41fd-b4ba-91f0247874fc:2/0/3/0/3/1/3/3/3/1/3/2/4:detailText",
+  "en": "4 = Agent can easily transmit between animal hosts \n2 = Agent is transmissible between animal hosts via close contact only (direct fluid transmission between hosts)\n2 = Animal to animal transmission suspected\n0 = Animal to animal transmission has never been demonstrated",
+  "es": "4 = El agente se transmite fácilmente entre hospedadores animales\n2 = El agente solo se transmite entre hospedadores animales mediante contacto estrecho (transmisión directa entre hospedadores por líquidos corporales)\n2 = Se sospecha la transmisión entre animales\n0 = Nunca se demostró la transmisión entre animales"
+ },
+ {
+  "id": "44c6410b-6f35-49f1-b109-6709f7dd2fc0:2/0/3/0/3/1/3/3/3/2/2:title",
+  "en": "* Stability",
+  "es": "* Estabilidad"
+ },
+ {
+  "id": "490274c9-12db-4df7-b93a-72b389af837b:2/0/3/0/3/1/3/3/3/2/3/0/2:title",
+  "en": "What is this agent's stability outside of a host?",
+  "es": "¿Qué estabilidad tiene el agente fuera de un hospedador?"
+ },
+ {
+  "id": "490274c9-12db-4df7-b93a-72b389af837b:2/0/3/0/3/1/3/3/3/2/3/0/4:detailText",
+  "en": "1 = Agent not stable outside the host \n2 = Agent stable on interior surfaces for days to weeks\n3 = Agent stable in the exterior environment for days to weeks\n4 = Agent stable in the environment for months",
+  "es": "1 = El agente no es estable fuera del hospedador\n2 = El agente es estable entre días y semanas sobre superficies interiores\n3 = El agente es estable entre días y semanas en el ambiente exterior\n4 = El agente es estable durante meses en el ambiente"
+ },
+ {
+  "id": "4d829799-e6cd-41db-95cc-66d11ff0de81:2/0/3/0/3/1/3/3/3/3/2:title",
+  "en": "* Reportability",
+  "es": "* Notificación"
+ },
+ {
+  "id": "f219aa6d-ce15-4560-9454-ca80d68623a0:2/0/3/0/3/1/3/3/3/3/3/0/2:title",
+  "en": "What level of national or international reporting is required for outbreaks of this disease?",
+  "es": "¿Qué nivel de notificación nacional o internacional se requiere en caso de un brote de esta enfermedad?"
+ },
+ {
+  "id": "f219aa6d-ce15-4560-9454-ca80d68623a0:2/0/3/0/3/1/3/3/3/3/3/0/4:detailText",
+  "en": "4 = Internationally Reportable\n2 = Nationally Reportable\n0 = Not Reportable",
+  "es": "4 = Se debe notificar internacionalmente.\n2 = Se debe notificar nacionalmente.\n0 = No se debe notificar."
+ },
+ {
+  "id": "33ba170e-649d-4e09-89c4-09a6196cc7ae:2/0/3/1/2:title",
+  "en": "-Individual likelihood of Infection-",
+  "es": "-Probabilidad de infección individual-"
+ },
+ {
+  "id": "f0376132-e922-427e-9778-0d8da771958b:2/0/3/1/3/0/2:title",
+  "en": "Humans",
+  "es": "Seres humanos"
+ },
+ {
+  "id": "44813d85-fd42-4272-a085-3c9186b4f2a0:2/0/3/1/3/0/3/0/2:title",
+  "en": "* Ingestion",
+  "es": "* Ingestión"
+ },
+ {
+  "id": "c809ac8e-f182-47cc-854b-5a01884441fa:2/0/3/1/3/0/3/0/3/0/2:title",
+  "en": "Is the agent known to cause infection via ingestion in humans (to cause infection via contact with the gastrointestinal tract) in a laboratory setting?",
+  "es": "¿Se sabe si este agente causa infección por ingestión en seres humanos (causar infecciones por contacto a través del tubo digestivo) en un entorno de laboratorio?"
+ },
+ {
+  "id": "c809ac8e-f182-47cc-854b-5a01884441fa:2/0/3/1/3/0/3/0/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "85ad7fa8-1a26-48a9-bb04-e19cd9caf246:2/0/3/1/3/0/3/0/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown in humans?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce en los seres humanos?"
+ },
+ {
+  "id": "85ad7fa8-1a26-48a9-bb04-e19cd9caf246:2/0/3/1/3/0/3/0/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "d8b8615e-0b7a-4500-8920-7a8b3add0252:2/0/3/1/3/0/3/1/2:title",
+  "en": "* Inhalation",
+  "es": "* Inhalación"
+ },
+ {
+  "id": "cb8342f6-bd18-4844-a99b-09ceea46a0e4:2/0/3/1/3/0/3/1/3/0/2:title",
+  "en": "Is this agent known to cause infection via inhalation in humans (to cause infection via droplets or droplet nuclei that have entered the upper or lower respiratory tract) in a laboratory setting?",
+  "es": "¿Se sabe si este agente causa infección por la inhalación en seres humanos (causar infecciones a través de gotículas o núcleos de gotículas que penetran en las vías respiratorias superiores e inferiores) en un entorno de laboratorio?"
+ },
+ {
+  "id": "cb8342f6-bd18-4844-a99b-09ceea46a0e4:2/0/3/1/3/0/3/1/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "a48a0fa7-b1d2-4f0f-a632-029470443faa:2/0/3/1/3/0/3/1/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown in humans? ",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce en los seres humanos?"
+ },
+ {
+  "id": "a48a0fa7-b1d2-4f0f-a632-029470443faa:2/0/3/1/3/0/3/1/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "c2892265-4342-4641-a6e8-c1ce30b14b38:2/0/3/1/3/0/3/2/2:title",
+  "en": "* Percutaneous",
+  "es": "* Percutánea"
+ },
+ {
+  "id": "c206b17a-803f-472e-89cd-05eb71c9bc7a:2/0/3/1/3/0/3/2/3/0/2:title",
+  "en": "Is this agent known to cause infection via percutaneous exposure in humans (to cause infection through compromised skin or direct injection into the blood stream) in a laboratory setting? ",
+  "es": "¿Se sabe si este agente causa infección por la exposición percutánea en seres humanos (causar infecciones a través de lesiones de la piel o inyección directa en el torrente sanguíneo) en un entorno de laboratorio?"
+ },
+ {
+  "id": "c206b17a-803f-472e-89cd-05eb71c9bc7a:2/0/3/1/3/0/3/2/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "f3a4e433-8387-4040-85ae-79dcadb02d0f:2/0/3/1/3/0/3/2/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown in humans? ",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce en los seres humanos?"
+ },
+ {
+  "id": "f3a4e433-8387-4040-85ae-79dcadb02d0f:2/0/3/1/3/0/3/2/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "d18b4ce8-5083-4902-addb-2ca21eb93588:2/0/3/1/3/0/3/3/2:title",
+  "en": "* Direct Contact",
+  "es": "* Contacto directo"
+ },
+ {
+  "id": "5e317ef3-d46b-4083-9436-9d9e957ea74a:2/0/3/1/3/0/3/3/3/0/2:title",
+  "en": "Is this agent known to cause infection via direct contact in humans (to cause infection through the mucosal membranes) in a laboratory setting? ",
+  "es": "¿Se sabe si este agente causa infección por el contacto directo en seres humanos (causar infecciones a través de las mucosas) en un entorno de laboratorio?"
+ },
+ {
+  "id": "5e317ef3-d46b-4083-9436-9d9e957ea74a:2/0/3/1/3/0/3/3/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "05cf9346-951f-4ffa-94fc-2855577e4986:2/0/3/1/3/0/3/3/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown in humans? ",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce en los seres humanos?"
+ },
+ {
+  "id": "05cf9346-951f-4ffa-94fc-2855577e4986:2/0/3/1/3/0/3/3/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "e2b343c2-5a67-45f4-8015-5cf303bd5b2e:2/0/3/1/3/1/2:title",
+  "en": "Animals",
+  "es": "Animales"
+ },
+ {
+  "id": "4733819c-4020-4cd9-93d2-8a350db6ddf3:2/0/3/1/3/1/3/0/2:title",
+  "en": "* Ingestion",
+  "es": "* Ingestión"
+ },
+ {
+  "id": "357f3bc8-d51b-4d13-a513-d5d711eedcc8:2/0/3/1/3/1/3/0/3/0/2:title",
+  "en": "Is this agent known to cause infection via ingestion in an animal host (to cause infection via contact with the gastrointestinal tract)?",
+  "es": "¿Se sabe si este agente causa infección por ingestión en hospedadores animales (causar infecciones por contacto a través del tubo digestivo)?"
+ },
+ {
+  "id": "357f3bc8-d51b-4d13-a513-d5d711eedcc8:2/0/3/1/3/1/3/0/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "21c0370e-633f-47b0-9230-6c8c177e285c:2/0/3/1/3/1/3/0/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown in the animal host?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce en los hospedadores animales?"
+ },
+ {
+  "id": "21c0370e-633f-47b0-9230-6c8c177e285c:2/0/3/1/3/1/3/0/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "c3b09006-cc6c-4d83-95ba-b2e6572442c2:2/0/3/1/3/1/3/1/2:title",
+  "en": "* Inhalation",
+  "es": "* Inhalación"
+ },
+ {
+  "id": "508e6b30-3952-48df-bbdf-6d261093099b:2/0/3/1/3/1/3/1/3/0/2:title",
+  "en": "Is this agent known to cause infection via inhalation to animal hosts (to cause infection via droplets or droplet nuclei that have entered the upper or lower respiratory tract)?",
+  "es": "¿Se sabe si este agente causa infección en hospedadores animales por la inhalación (causar infecciones a través de gotículas o núcleos de gotículas que penetran en las vías respiratorias superiores e inferiores)?"
+ },
+ {
+  "id": "508e6b30-3952-48df-bbdf-6d261093099b:2/0/3/1/3/1/3/1/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "2e0425f4-8b2e-4beb-919d-bebbcbcc460a:2/0/3/1/3/1/3/1/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown in the animal host?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce en un hospedador animal?"
+ },
+ {
+  "id": "2e0425f4-8b2e-4beb-919d-bebbcbcc460a:2/0/3/1/3/1/3/1/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "02db67fd-4928-4699-bf52-447e22f42274:2/0/3/1/3/1/3/2/2:title",
+  "en": "* Percutaneous",
+  "es": "* Percutánea"
+ },
+ {
+  "id": "3ba7df97-ffe3-4b55-9167-f133c20f0baa:2/0/3/1/3/1/3/2/3/0/2:title",
+  "en": "Is this agent known to cause infection via percutaneous exposure in an animal host (to cause infection through compromised skin or direct injection into the blood stream)? ",
+  "es": "¿Se sabe si este agente causa infección en hospedadores animales por la exposición percutánea (causar infecciones a través de lesiones de la piel o inyección directa en el torrente sanguíneo)?"
+ },
+ {
+  "id": "3ba7df97-ffe3-4b55-9167-f133c20f0baa:2/0/3/1/3/1/3/2/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "1edf4db7-ef97-4249-aef5-e5812ea7e1a2:2/0/3/1/3/1/3/2/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown in the animal host?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce en un hospedador animal?"
+ },
+ {
+  "id": "1edf4db7-ef97-4249-aef5-e5812ea7e1a2:2/0/3/1/3/1/3/2/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "7f2a58ea-d868-46e3-a3b3-ea3dfa07558e:2/0/3/1/3/1/3/3/2:title",
+  "en": "* Direct Contact",
+  "es": "* Contacto directo"
+ },
+ {
+  "id": "9911a699-6f7e-4756-8c3f-b68a34bc994a:2/0/3/1/3/1/3/3/3/0/2:title",
+  "en": "Is this agent known to cause infection via direct contact in an animal host (to cause infection through the mucosal membranes)? ",
+  "es": "¿Se sabe si este agente causa infección en hospedadores animales por el contacto directo (causar infecciones a través de las mucosas)?"
+ },
+ {
+  "id": "9911a699-6f7e-4756-8c3f-b68a34bc994a:2/0/3/1/3/1/3/3/3/0/4:detailText",
+  "en": "4 = Preferred Route\n2 = A possible route\n1 = Unknown\n0 = Not a route",
+  "es": "4 = Es la vía preferente\n2 = Es una vía posible\n1 = Se desconoce\n0 = No es una vía de infección"
+ },
+ {
+  "id": "ced022f0-bb34-4d17-9093-6055658cca99:2/0/3/1/3/1/3/3/3/1/2:title",
+  "en": "Is the infectious dose (ID50) of this agent for this route less than 1000 or unknown in the animal host?",
+  "es": "¿La dosis infecciosa (ID50) de este agente por esta vía es inferior a 1000 o no se conoce en un hospedador animal?"
+ },
+ {
+  "id": "ced022f0-bb34-4d17-9093-6055658cca99:2/0/3/1/3/1/3/3/3/1/4:detailText",
+  "en": "4 = Yes\n2 = No\n0 = If this is not an infectious route",
+  "es": "4 = Sí\n2 = No\n0 = Si esta no es una vía de infección"
+ },
+ {
+  "id": "d7a30d71-0edf-40e4-a0e2-ce85715f02e8:3/1/0:title",
+  "en": "Likelihood Ingestion Individual",
+  "es": "Probabilidad por ingestión (individuo)"
+ },
+ {
+  "id": "d7a30d71-0edf-40e4-a0e2-ce85715f02e8:3/1/3/0/1:title",
+  "en": "Square Root",
+  "es": "Raíz cuadrada"
+ },
+ {
+  "id": "d7a30d71-0edf-40e4-a0e2-ce85715f02e8:3/1/3/0/4/0/3/2/3/1/0:title",
+  "en": "Normalize",
+  "es": "Normalizar"
+ },
+ {
+  "id": "d7a30d71-0edf-40e4-a0e2-ce85715f02e8:3/1/3/0/4/0/3/2/3/1/3/1/1:title",
+  "en": "Normalization Constant",
+  "es": "Constante de normalización"
+ },
+ {
+  "id": "cd40dd55-b342-4dcf-8f30-662d6a22fa8f:4/1/0:title",
+  "en": "Likelihood Inhalation Individual",
+  "es": "Probabilidad por inhalación (individuo)"
+ },
+ {
+  "id": "cd40dd55-b342-4dcf-8f30-662d6a22fa8f:4/1/3/0/1:title",
+  "en": "Square Root",
+  "es": "Raíz cuadrada"
+ },
+ {
+  "id": "cd40dd55-b342-4dcf-8f30-662d6a22fa8f:4/1/3/0/4/0/3/2/0:title",
+  "en": "Obtain RRF",
+  "es": "Obtener el RRF"
+ },
+ {
+  "id": "cd40dd55-b342-4dcf-8f30-662d6a22fa8f:4/1/3/0/4/0/3/2/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "cd40dd55-b342-4dcf-8f30-662d6a22fa8f:4/1/3/0/4/0/3/2/3/1/0:title",
+  "en": "Normalization Op",
+  "es": "Operación de normalización"
+ },
+ {
+  "id": "cd40dd55-b342-4dcf-8f30-662d6a22fa8f:4/1/3/0/4/0/3/2/3/1/3/1/1:title",
+  "en": "Normalization Constant",
+  "es": "Constante de normalización"
+ },
+ {
+  "id": "5dbfdd90-899c-40fe-857d-91a7c5bf19ab:5/1/0:title",
+  "en": "Likelihood Percutaneous Individual",
+  "es": "Probabilidad percutánea (individuo)"
+ },
+ {
+  "id": "5dbfdd90-899c-40fe-857d-91a7c5bf19ab:5/1/3/0/1:title",
+  "en": "Square Root",
+  "es": "Raíz cuadrada"
+ },
+ {
+  "id": "5dbfdd90-899c-40fe-857d-91a7c5bf19ab:5/1/3/0/4/0/3/2/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "5dbfdd90-899c-40fe-857d-91a7c5bf19ab:5/1/3/0/4/0/3/2/3/1/0:title",
+  "en": "Normalization Divide",
+  "es": "División de normalización"
+ },
+ {
+  "id": "5dbfdd90-899c-40fe-857d-91a7c5bf19ab:5/1/3/0/4/0/3/2/3/1/3/1/1:title",
+  "en": "Normalization Constant",
+  "es": "Constante de normalización"
+ },
+ {
+  "id": "8cedae3f-7473-4b6f-8d5d-52f356774a4f:6/1/0:title",
+  "en": "Likelihood Contact Individual",
+  "es": "Probabilidad por contacto (individuo)"
+ },
+ {
+  "id": "8cedae3f-7473-4b6f-8d5d-52f356774a4f:6/1/3/0/1:title",
+  "en": "Square Root",
+  "es": "Raíz cuadrada"
+ },
+ {
+  "id": "8cedae3f-7473-4b6f-8d5d-52f356774a4f:6/1/3/0/4/0/3/2/0:title",
+  "en": "Obtaining the RRF",
+  "es": "Obtención del RRF"
+ },
+ {
+  "id": "8cedae3f-7473-4b6f-8d5d-52f356774a4f:6/1/3/0/4/0/3/2/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "8cedae3f-7473-4b6f-8d5d-52f356774a4f:6/1/3/0/4/0/3/2/3/1/0:title",
+  "en": "Normalization",
+  "es": "Normalización"
+ },
+ {
+  "id": "8cedae3f-7473-4b6f-8d5d-52f356774a4f:6/1/3/0/4/0/3/2/3/1/3/0/3/2/3/1/0:title",
+  "en": "Apply weight to cross-normalized category compination",
+  "es": "Aplicar el peso a la combinación de categorías normalizadas de forma cruzada"
+ },
+ {
+  "id": "8cedae3f-7473-4b6f-8d5d-52f356774a4f:6/1/3/0/4/0/3/2/3/1/3/1/1:title",
+  "en": "Normalization Constant",
+  "es": "Constante de normalización"
+ },
+ {
+  "id": "48cfcafd-b36e-4255-b9de-ededdcfcb482:7/1/0:title",
+  "en": "Likelihood Ingestion Community",
+  "es": "Probabilidad por ingestión (comunidad)"
+ },
+ {
+  "id": "48cfcafd-b36e-4255-b9de-ededdcfcb482:7/1/3/0/1:title",
+  "en": "Square Root",
+  "es": "Raíz cuadrada"
+ },
+ {
+  "id": "48cfcafd-b36e-4255-b9de-ededdcfcb482:7/1/3/0/4/0/3/2/0:title",
+  "en": "RRF",
+  "es": "RRF"
+ },
+ {
+  "id": "48cfcafd-b36e-4255-b9de-ededdcfcb482:7/1/3/0/4/0/3/2/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "48cfcafd-b36e-4255-b9de-ededdcfcb482:7/1/3/0/4/0/3/2/3/1/0:title",
+  "en": "Normalize",
+  "es": "Normalizar"
+ },
+ {
+  "id": "48cfcafd-b36e-4255-b9de-ededdcfcb482:7/1/3/0/4/0/3/2/3/1/3/1/1:title",
+  "en": "Norm Const",
+  "es": "Const. de norm."
+ },
+ {
+  "id": "a9e182d0-9ba8-49c2-acc2-8ab8445eaa12:8/1/0:title",
+  "en": "Likelihood Inhalation Community",
+  "es": "Probabilidad por inhalación (comunidad)"
+ },
+ {
+  "id": "a9e182d0-9ba8-49c2-acc2-8ab8445eaa12:8/1/3/0/1:title",
+  "en": "Square Root",
+  "es": "Raíz cuadrada"
+ },
+ {
+  "id": "a9e182d0-9ba8-49c2-acc2-8ab8445eaa12:8/1/3/0/4/0/3/2/0:title",
+  "en": "RRF",
+  "es": "RRF"
+ },
+ {
+  "id": "a9e182d0-9ba8-49c2-acc2-8ab8445eaa12:8/1/3/0/4/0/3/2/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "a9e182d0-9ba8-49c2-acc2-8ab8445eaa12:8/1/3/0/4/0/3/2/3/1/0:title",
+  "en": "Normalize",
+  "es": "Normalizar"
+ },
+ {
+  "id": "a9e182d0-9ba8-49c2-acc2-8ab8445eaa12:8/1/3/0/4/0/3/2/3/1/3/1/1:title",
+  "en": "Norm Const",
+  "es": "Const. de norm."
+ },
+ {
+  "id": "8e1d0816-24b2-4e5e-89ac-992c66380b28:9/1/0:title",
+  "en": "Likelihood Percutaneous Community",
+  "es": "Probabilidad percutánea (comunidad)"
+ },
+ {
+  "id": "8e1d0816-24b2-4e5e-89ac-992c66380b28:9/1/3/0/1:title",
+  "en": "Square Root",
+  "es": "Raíz cuadrada"
+ },
+ {
+  "id": "8e1d0816-24b2-4e5e-89ac-992c66380b28:9/1/3/0/4/0/3/2/0:title",
+  "en": "RRF",
+  "es": "RRF"
+ },
+ {
+  "id": "8e1d0816-24b2-4e5e-89ac-992c66380b28:9/1/3/0/4/0/3/2/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "8e1d0816-24b2-4e5e-89ac-992c66380b28:9/1/3/0/4/0/3/2/3/1/0:title",
+  "en": "Nomalize",
+  "es": "Normalizar"
+ },
+ {
+  "id": "8e1d0816-24b2-4e5e-89ac-992c66380b28:9/1/3/0/4/0/3/2/3/1/3/1/1:title",
+  "en": "Norm Const",
+  "es": "Const. de norm."
+ },
+ {
+  "id": "a3995f8c-f112-4394-bfa9-3deb3b38c562:10/1/0:title",
+  "en": "Likelihood Contact Community",
+  "es": "Probabilidad por contacto (comunidad)"
+ },
+ {
+  "id": "a3995f8c-f112-4394-bfa9-3deb3b38c562:10/1/3/0/1:title",
+  "en": "Square Root",
+  "es": "Raíz cuadrada"
+ },
+ {
+  "id": "a3995f8c-f112-4394-bfa9-3deb3b38c562:10/1/3/0/4/0/3/2/0:title",
+  "en": "RRF",
+  "es": "RRF"
+ },
+ {
+  "id": "a3995f8c-f112-4394-bfa9-3deb3b38c562:10/1/3/0/4/0/3/2/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "a3995f8c-f112-4394-bfa9-3deb3b38c562:10/1/3/0/4/0/3/2/3/1/0:title",
+  "en": "Normalize",
+  "es": "Normalizar"
+ },
+ {
+  "id": "a3995f8c-f112-4394-bfa9-3deb3b38c562:10/1/3/0/4/0/3/2/3/1/3/1/1:title",
+  "en": "Norm Const",
+  "es": "Const. de norm."
+ },
+ {
+  "id": "e14b4cf2-b15f-4f5f-845d-45550b07b57d:11/1/0:title",
+  "en": "Likelihood Ingestion Animal",
+  "es": "Probabilidad por ingestión (animales)"
+ },
+ {
+  "id": "e14b4cf2-b15f-4f5f-845d-45550b07b57d:11/1/3/0/1:title",
+  "en": "Square Root",
+  "es": "Raíz cuadrada"
+ },
+ {
+  "id": "e14b4cf2-b15f-4f5f-845d-45550b07b57d:11/1/3/0/4/0/3/2/0:title",
+  "en": "RRF",
+  "es": "RRF"
+ },
+ {
+  "id": "e14b4cf2-b15f-4f5f-845d-45550b07b57d:11/1/3/0/4/0/3/2/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "e14b4cf2-b15f-4f5f-845d-45550b07b57d:11/1/3/0/4/0/3/2/3/1/0:title",
+  "en": "Normalize",
+  "es": "Normalizar"
+ },
+ {
+  "id": "e14b4cf2-b15f-4f5f-845d-45550b07b57d:11/1/3/0/4/0/3/2/3/1/3/1/1:title",
+  "en": "Norm Const",
+  "es": "Const. de norm."
+ },
+ {
+  "id": "3cd68139-c552-4d1f-8b9f-565b5265df8d:12/1/0:title",
+  "en": "Likelihood Inhalation Animal",
+  "es": "Probabilidad por inhalación (animales)"
+ },
+ {
+  "id": "3cd68139-c552-4d1f-8b9f-565b5265df8d:12/1/3/0/1:title",
+  "en": "Square Root",
+  "es": "Raíz cuadrada"
+ },
+ {
+  "id": "3cd68139-c552-4d1f-8b9f-565b5265df8d:12/1/3/0/4/0/3/2/0:title",
+  "en": "RRF",
+  "es": "RRF"
+ },
+ {
+  "id": "3cd68139-c552-4d1f-8b9f-565b5265df8d:12/1/3/0/4/0/3/2/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "3cd68139-c552-4d1f-8b9f-565b5265df8d:12/1/3/0/4/0/3/2/3/1/0:title",
+  "en": "Normalize",
+  "es": "Normalizar"
+ },
+ {
+  "id": "3cd68139-c552-4d1f-8b9f-565b5265df8d:12/1/3/0/4/0/3/2/3/1/3/1/1:title",
+  "en": "Norm Const",
+  "es": "Const. de norm."
+ },
+ {
+  "id": "affafcba-11c9-489f-a583-8570c308763e:13/1/0:title",
+  "en": "Likelihood Percutaneous Animal",
+  "es": "Probabilidad percutánea (animales)"
+ },
+ {
+  "id": "affafcba-11c9-489f-a583-8570c308763e:13/1/3/0/1:title",
+  "en": "Square Root",
+  "es": "Raíz cuadrada"
+ },
+ {
+  "id": "affafcba-11c9-489f-a583-8570c308763e:13/1/3/0/4/0/3/2/0:title",
+  "en": "RRF",
+  "es": "RRF"
+ },
+ {
+  "id": "affafcba-11c9-489f-a583-8570c308763e:13/1/3/0/4/0/3/2/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "affafcba-11c9-489f-a583-8570c308763e:13/1/3/0/4/0/3/2/3/1/0:title",
+  "en": "Normalize",
+  "es": "Normalizar"
+ },
+ {
+  "id": "affafcba-11c9-489f-a583-8570c308763e:13/1/3/0/4/0/3/2/3/1/3/1/1:title",
+  "en": "Norm Const",
+  "es": "Const. de norm."
+ },
+ {
+  "id": "c4a51719-ca78-4b09-a40a-34f52a7915a9:14/1/0:title",
+  "en": "Likelihood Contact Animal",
+  "es": "Probabilidad por contacto (animales)"
+ },
+ {
+  "id": "c4a51719-ca78-4b09-a40a-34f52a7915a9:14/1/3/0/1:title",
+  "en": "Square Root",
+  "es": "Raíz cuadrada"
+ },
+ {
+  "id": "c4a51719-ca78-4b09-a40a-34f52a7915a9:14/1/3/0/4/0/3/2/0:title",
+  "en": "RRF",
+  "es": "RRF"
+ },
+ {
+  "id": "c4a51719-ca78-4b09-a40a-34f52a7915a9:14/1/3/0/4/0/3/2/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "c4a51719-ca78-4b09-a40a-34f52a7915a9:14/1/3/0/4/0/3/2/3/1/0:title",
+  "en": "Normalize",
+  "es": "Normalizar"
+ },
+ {
+  "id": "c4a51719-ca78-4b09-a40a-34f52a7915a9:14/1/3/0/4/0/3/2/3/1/3/1/1:title",
+  "en": "Norm Const",
+  "es": "Const. de norm."
+ },
+ {
+  "id": "cf2daae5-211c-4af3-aeb7-7d4593711387:15/1/0:title",
+  "en": "Consequence of Disease to Humans",
+  "es": "Consecuencia de la enfermedad para los seres humanos"
+ },
+ {
+  "id": "cf2daae5-211c-4af3-aeb7-7d4593711387:15/1/3/0/3/0/3/1/0:title",
+  "en": "RRF",
+  "es": "RRF"
+ },
+ {
+  "id": "cf2daae5-211c-4af3-aeb7-7d4593711387:15/1/3/0/3/0/3/1/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "cf2daae5-211c-4af3-aeb7-7d4593711387:15/1/3/0/3/0/3/1/3/1/0:title",
+  "en": "Normalize",
+  "es": "Normalizar"
+ },
+ {
+  "id": "cf2daae5-211c-4af3-aeb7-7d4593711387:15/1/3/0/3/0/3/1/3/1/3/1/1:title",
+  "en": "Norm Const",
+  "es": "Const. de norm."
+ },
+ {
+  "id": "e3ffd0cf-21fe-4338-8ec1-eb9d3f90ae58:16/1/0:title",
+  "en": "Secondary Consequence of Disease to Humans",
+  "es": "Consecuencia secundaria de la enfermedad para los seres humanos"
+ },
+ {
+  "id": "e3ffd0cf-21fe-4338-8ec1-eb9d3f90ae58:16/1/3/0/3/0/3/1/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "e3ffd0cf-21fe-4338-8ec1-eb9d3f90ae58:16/1/3/0/3/0/3/1/3/1/0:title",
+  "en": "Normalize",
+  "es": "Normalizar"
+ },
+ {
+  "id": "e3ffd0cf-21fe-4338-8ec1-eb9d3f90ae58:16/1/3/0/3/0/3/1/3/1/3/1/1:title",
+  "en": "Norm Const",
+  "es": "Const. de norm."
+ },
+ {
+  "id": "92d4d616-8360-4997-8ee4-615c32309d4f:17/1/0:title",
+  "en": "Consequence of Disease to Animals",
+  "es": "Consecuencia de la enfermedad para los animales"
+ },
+ {
+  "id": "92d4d616-8360-4997-8ee4-615c32309d4f:17/1/3/0/3/0/3/1/0:title",
+  "en": "RRF",
+  "es": "RRF"
+ },
+ {
+  "id": "92d4d616-8360-4997-8ee4-615c32309d4f:17/1/3/0/3/0/3/1/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "92d4d616-8360-4997-8ee4-615c32309d4f:17/1/3/0/3/0/3/1/3/1/0:title",
+  "en": "Normalize",
+  "es": "Normalizar"
+ },
+ {
+  "id": "92d4d616-8360-4997-8ee4-615c32309d4f:17/1/3/0/3/0/3/1/3/1/3/1/1:title",
+  "en": "Norm Const",
+  "es": "Const. de norm."
+ },
+ {
+  "id": "745845ef-9fdd-429c-92d9-8e2cb0d1fccf:18/1/0:title",
+  "en": "Secondary Consequence of Disease to Animals",
+  "es": "Consecuencia secundaria de la enfermedad para los animales"
+ },
+ {
+  "id": "745845ef-9fdd-429c-92d9-8e2cb0d1fccf:18/1/3/0/3/0/3/1/0:title",
+  "en": "RRF",
+  "es": "RRF"
+ },
+ {
+  "id": "745845ef-9fdd-429c-92d9-8e2cb0d1fccf:18/1/3/0/3/0/3/1/3/0/1:title",
+  "en": "1",
+  "es": "1"
+ },
+ {
+  "id": "745845ef-9fdd-429c-92d9-8e2cb0d1fccf:18/1/3/0/3/0/3/1/3/1/0:title",
+  "en": "Normalize",
+  "es": "Normalizar"
+ },
+ {
+  "id": "745845ef-9fdd-429c-92d9-8e2cb0d1fccf:18/1/3/0/3/0/3/1/3/1/3/1/1:title",
+  "en": "Norm Const",
+  "es": "Const. de norm."
+ },
+ {
+  "id": "cdc23ba9-ffd1-41c6-a346-0e1919a88d21:19/1/0:title",
+  "en": "Consequence of Disease to the Community",
+  "es": "Consecuencia de la enfermedad para la comunidad"
+ },
+ {
+  "id": "cdc23ba9-ffd1-41c6-a346-0e1919a88d21:19/1/3/0/3/1/1:title",
+  "en": "Community Disease Multiplier (Add 5%)",
+  "es": "Multiplicador de enfermedad en la comunidad (suma 5 %)"
+ },
+ {
+  "id": "a4bb015d-ded0-4104-88a4-113046172df2:20/1/0:title",
+  "en": "Likelihood of Secondary Transmission Human",
+  "es": "Probabilidad de transmisión secundaria (seres humanos)"
+ },
+ {
+  "id": "f0e68282-9292-4e4f-a73a-bbc48968340c:21/1/0:title",
+  "en": "Likelihood of Secondary Transmission Animal",
+  "es": "Probabilidad de transmisión secundaria (animales)"
+ },
+ {
+  "id": "root:22/0:chartTitle",
+  "en": "Biosafety Risk to Individuals in the Laboratory and to the Community",
+  "es": "Riesgo de bioseguridad para las personas del laboratorio y para la comunidad"
+ },
+ {
+  "id": "root:22/1/2:title",
+  "en": "Consequence",
+  "es": "Consecuencia"
+ },
+ {
+  "id": "root:22/2/2:title",
+  "en": "Likelihood",
+  "es": "Probabilidad"
+ },
+ {
+  "id": "root:22/4/0:legendTitle",
+  "en": "Inhalation Risk to Individual",
+  "es": "Riesgo por inhalación para el individuo"
+ },
+ {
+  "id": "root:22/5/0:legendTitle",
+  "en": "Percutaneous Risk to Individual",
+  "es": "Riesgo percutáneo para el individuo"
+ },
+ {
+  "id": "root:22/6/0:legendTitle",
+  "en": "Contact Risk to Individual",
+  "es": "Riesgo por contacto para el individuo"
+ },
+ {
+  "id": "root:22/7/0:legendTitle",
+  "en": "Ingestion Risk to Individual",
+  "es": "Riesgo por ingestión para el individuo"
+ },
+ {
+  "id": "root:22/8/0:legendTitle",
+  "en": "Inhalation Risk to Community",
+  "es": "Riesgo por inhalación para la comunidad"
+ },
+ {
+  "id": "root:22/9/0:legendTitle",
+  "en": "Percutaneous Risk to Community",
+  "es": "Riesgo percutáneo para la comunidad"
+ },
+ {
+  "id": "root:22/10/0:legendTitle",
+  "en": "Contact Risk to Community",
+  "es": "Riesgo por contacto para la comunidad"
+ },
+ {
+  "id": "root:22/11/0:legendTitle",
+  "en": "Ingestion Risk to Community",
+  "es": "Riesgo por ingestión para la comunidad"
+ },
+ {
+  "id": "root:22/12/0:legendTitle",
+  "en": "Secondary Transmission Risk",
+  "es": "Riesgo de transmisión secundaria"
+ },
+ {
+  "id": "root:23/0:chartTitle",
+  "en": "Biosafety Risk to Animals in the Community",
+  "es": "Riesgo de bioseguridad para los animales de la comunidad"
+ },
+ {
+  "id": "root:23/1/2:title",
+  "en": "Consequence",
+  "es": "Consecuencia"
+ },
+ {
+  "id": "root:23/2/2:title",
+  "en": "Likelihood",
+  "es": "Probabilidad"
+ },
+ {
+  "id": "root:23/4/0:legendTitle",
+  "en": "Inhalation Risk to Animal Community",
+  "es": "Riesgo por inhalación para la comunidad animal"
+ },
+ {
+  "id": "root:23/5/0:legendTitle",
+  "en": "Percutaneous Risk to Animal Community",
+  "es": "Riesgo percutáneo para la comunidad animal"
+ },
+ {
+  "id": "root:23/6/0:legendTitle",
+  "en": "Contact Risk to Animal Community",
+  "es": "Riesgo por contacto para la comunidad animal"
+ },
+ {
+  "id": "root:23/7/0:legendTitle",
+  "en": "Ingestion Risk to Animal Community",
+  "es": "Riesgo por ingestión para la comunidad animal"
+ },
+ {
+  "id": "root:23/8/0:legendTitle",
+  "en": "Secondary Transmission Risk",
+  "es": "Riesgo de transmisión secundaria"
+ }
+]
