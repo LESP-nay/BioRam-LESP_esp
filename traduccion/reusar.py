@@ -8,8 +8,8 @@ que quedó con artefactos de la conversión desde MS Word (espacios dobles,
 espacios duros, líneas en blanco entre opciones y numeración "(N)" en los
 títulos que el modelo inglés no tiene).
 
-Uso:
-  python reusar.py traduccion/biosecurity_es.json BiosecurityRAM_es.raml
+Uso (desde traduccion/):
+  python reusar.py biosecurity_es.json fuente/BiosecurityRAM_es.raml
 """
 import json
 import re

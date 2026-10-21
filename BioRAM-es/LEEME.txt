@@ -1,0 +1,47 @@
+BioRAM en espanol - Laboratorio Estatal de Salud Publica
+=========================================================
+
+PARA USARLO
+
+  1. Copie esta carpeta completa a su equipo (por ejemplo al Escritorio).
+  2. Doble clic en el programa que necesite:
+
+       BioRAM Bioseguridad.exe    evaluacion de riesgos de bioseguridad
+       BioRAM Bioproteccion.exe   evaluacion de riesgos de bioproteccion
+
+  Cada uno abre ya cargado su cuestionario en espanol. No hay que elegir
+  ningun archivo.
+
+  Hace falta tener Java instalado (version 8 o cualquiera posterior). Si no
+  lo tiene, descarguelo gratis de https://adoptium.net
+
+SI WINDOWS O EL ANTIVIRUS BLOQUEAN EL PROGRAMA
+
+  Es normal con programas sin firma digital. Si sale "Windows protegio tu PC",
+  elija "Mas informacion" y luego "Ejecutar de todas formas".
+  Si no lo permite, use BioRAM.bat, que hace lo mismo.
+
+QUE HAY EN ESTA CARPETA
+
+  BioRAM Bioseguridad.exe           abre el cuestionario de bioseguridad
+  BioRAM Bioproteccion.exe          abre el cuestionario de bioproteccion
+  BioRAM.bat                        alternativa si el antivirus bloquea los .exe
+  bioram-4.0.5-es-java-actual.jar   el programa (lo usan los tres de arriba)
+  Biosafety_es.raml                 cuestionario de bioseguridad en espanol
+  Biosecurity_es.raml               cuestionario de bioproteccion en espanol
+
+  No borre ni renombre el archivo .jar ni los .raml: los .exe los necesitan
+  en esta misma carpeta.
+
+IMPORTANTE: NO MEZCLE LOS CUESTIONARIOS EN INGLES
+
+  No copie a esta carpeta los archivos Biosafety.raml ni Biosecurity.raml
+  (los originales en ingles). El programa abre el cuestionario que se le
+  indica, pero si usa Archivo > Abrir perfil y escoge uno en ingles, las
+  preguntas apareceran en ingles.
+
+PARA GUARDAR SU TRABAJO
+
+  Archivo > Guardar las respuestas  crea un archivo con sus respuestas.
+  Guardelo con un nombre distinto al del cuestionario, por ejemplo
+  respuestas-laboratorio-A.raml, y NO encima de Biosafety_es.raml.

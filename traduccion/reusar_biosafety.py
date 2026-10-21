@@ -48,7 +48,7 @@ def main(plantilla_en):
     # Emparejamiento uno a uno con el modelo antiguo, vía su plantilla inglesa.
     nuevas = list(root.iter('QuestionSetQuestion'))
     antiguas_en = preguntas(plantilla_en)
-    es_por_uuid = {u: (t, d) for t, d, u in preguntas('../BiosafetyRAM_es.raml')}
+    es_por_uuid = {u: (t, d) for t, d, u in preguntas('fuente/BiosafetyRAM_es.raml')}
     pares = emparejar.emparejar([(q.findtext('title') or '', q.findtext('detailText') or '')
                                  for q in nuevas],
                                 [(t, d) for t, d, _ in antiguas_en])
@@ -65,7 +65,7 @@ def main(plantilla_en):
             dudosos.append((sim, nuevas[i].findtext('title') or '', es_t))
 
     # La portada se toma de la traducción publicada.
-    portada = raml_es.read_model('../BiosafetyRAM_es.raml').findtext('ModelInformation/frontHTML')
+    portada = raml_es.read_model('fuente/BiosafetyRAM_es.raml').findtext('ModelInformation/frontHTML')
 
     elementos = {k: el for k, el in raml_es.iter_texts(root)}
     rellenos, pendientes = 0, []

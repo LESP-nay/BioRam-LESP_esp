@@ -1,0 +1,17 @@
+<launch4jConfig>
+  <dontWrapJar>true</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>bioram-4.0.5-es-java-actual.jar</jar>
+  <outfile>../../BioRAM-es/BioRAM Bioseguridad.exe</outfile>
+  <errTitle>BioRAM Bioseguridad</errTitle>
+  <chdir>.</chdir>
+  <cmdLine>Biosafety_es.raml</cmdLine>
+  <icon>../icono.ico</icon>
+  <jre><path>%JAVA_HOME%</path><minVersion>1.8.0</minVersion><requires64Bit>false</requires64Bit></jre>
+  <messages>
+    <startupErr>No se pudo iniciar BioRAM.</startupErr>
+    <jreNotFoundErr>BioRAM necesita Java. Instale Java 8 o una version posterior desde https://adoptium.net y vuelva a intentarlo.</jreNotFoundErr>
+    <jreVersionErr>La version de Java instalada es demasiado antigua para BioRAM.</jreVersionErr>
+    <launcherErr>No se pudo iniciar Java. Verifique que bioram-4.0.5-es-java-actual.jar este en esta misma carpeta.</launcherErr>
+  </messages>
+</launch4jConfig>

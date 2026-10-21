@@ -1,16 +1,12 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>../bioram-4.0.5-es-java-actual.jar</jar>
-  <outfile>../BioRAM-4.0.5-es.exe</outfile>
+  <jar>../../BioRAM-es/bioram-4.0.5-es-java-actual.jar</jar>
+  <outfile>../../BioRAM-4.0.5-es-portable.exe</outfile>
   <errTitle>BioRAM</errTitle>
-  <icon>icono.ico</icon>
-  <classPath><mainClass>gov.sandia.bioram.Main</mainClass></classPath>
-  <jre>
-    <path>%JAVA_HOME%</path>
-    <minVersion>1.8.0</minVersion>
-    <requires64Bit>false</requires64Bit>
-  </jre>
+  <chdir>.</chdir>
+  <icon>../icono.ico</icon>
+  <jre><path>%JAVA_HOME%</path><minVersion>1.8.0</minVersion><requires64Bit>false</requires64Bit></jre>
   <messages>
     <startupErr>No se pudo iniciar BioRAM.</startupErr>
     <jreNotFoundErr>BioRAM necesita Java. Instale Java 8 o una version posterior desde https://adoptium.net y vuelva a intentarlo.</jreNotFoundErr>

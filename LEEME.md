@@ -3,46 +3,66 @@
 Traducción completa al español (México) de la versión Java de BioRAM, para las
 evaluaciones de bioseguridad (*biosafety*) y bioprotección (*biosecurity*).
 
-## Qué usar en Windows 11
+## Qué usar
 
-Necesita Java instalado (Java 8 o cualquier versión posterior). Si no lo tiene,
-instálelo desde <https://adoptium.net>.
+Descargue la carpeta **`BioRAM-es/`** completa y dé doble clic al programa que
+necesite:
 
 | Archivo | Para qué |
 |---|---|
-| `BioRAM-4.0.5-es.exe` | **Recomendado.** Ejecutable: doble clic y listo. Lleva el programa adentro. |
-| `BioRAM-es.bat` | Respaldo, por si el antivirus bloquea el `.exe`. Hace lo mismo. |
-| `bioram-4.0.5-es-java-actual.jar` | El programa. Funciona con el Java que se instala hoy (probado en Java 21). |
-| `bioram-4.0.5-es.jar` | Solo si ya tiene Java 8. Es el programa original con la interfaz traducida, sin ningún otro cambio. |
-| `Biosafety_es.raml` | Modelo de evaluación de riesgos de bioseguridad. |
-| `Biosecurity_es.raml` | Modelo de evaluación de riesgos de bioprotección. |
+| `BioRAM Bioseguridad.exe` | Abre el cuestionario de bioseguridad, ya en español. |
+| `BioRAM Bioproteccion.exe` | Abre el cuestionario de bioprotección, ya en español. |
+| `BioRAM.bat` | Respaldo, por si el antivirus bloquea los `.exe`. |
 
-El `.exe` se basta solo: lleva el programa adentro. El `.bat`, en cambio,
-necesita que `bioram-4.0.5-es-java-actual.jar` esté en la misma carpeta. Lo más
-simple es poner todo junto en una carpeta, junto con los dos `.raml`.
+No hay que elegir ningún archivo: cada ejecutable abre su propio cuestionario.
+Hace falta Java instalado (versión 8 o cualquiera posterior); si no lo tiene,
+<https://adoptium.net>.
 
-Ya dentro del programa, use *Archivo > Abrir perfil* y seleccione
-`Biosafety_es.raml` o `Biosecurity_es.raml`.
+En la raíz hay además dos alternativas:
 
-El programa toma el idioma del sistema. Si aparece en inglés, cámbielo en
-*Configuración > Seleccionar idioma... > Español*.
+| Archivo | Para qué |
+|---|---|
+| `BioRAM-4.0.5-es-portable.exe` | Un solo archivo que lleva el programa adentro. Necesita un `.raml` en español a su lado. Útil para una memoria USB. |
+| `bioram-4.0.5-es.jar` | Para quien tenga Java 8 y no quiera el programa con JAXB incluido. |
 
 ### Si Windows o el antivirus bloquean el .exe
 
-Es normal con ejecutables sin firma digital: Windows muestra "Windows protegió
-tu PC" (SmartScreen). Elija *Más información > Ejecutar de todas formas*, o use
-`BioRAM-es.bat`, que no tiene ese problema. Para firmarlo haría falta un
-certificado de firma de código.
+Es normal con ejecutables sin firma digital: aparece "Windows protegió tu PC"
+(SmartScreen). Elija *Más información > Ejecutar de todas formas*, o use
+`BioRAM.bat`. Firmarlos requeriría un certificado de firma de código.
 
-### Por qué hay dos .jar
+## Por qué antes salían las preguntas en inglés
 
-El BioRAM original usa JAXB, una biblioteca que venía incluida en Java hasta la
-versión 8 y que Java eliminó a partir de la 11. Con un Java actual, el programa
-original abre su ventana pero falla al cargar cualquier modelo con el error
-`NoClassDefFoundError: javax/xml/bind/JAXB`. La variante
-`-es-java-actual.jar` trae JAXB adentro y por eso funciona sin instalar nada
-más. El `.exe` original no sirve para esto: es solo un envoltorio que busca el
-Java del sistema, no incluye Java.
+El arranque original de BioRAM (`gov.sandia.bioram.Main`) ignora los argumentos
+y deja que la ventana busque un modelo por su cuenta. En
+`ResponseForm.java:56-62` recorre la carpeta y carga **el primer archivo `.raml`
+que encuentra**, sin avisar:
+
+```java
+if (model == null) {
+  for (File f : new File(".").listFiles()) {
+    if (f.getName().endsWith(".raml")) { model = this.loadModelFromFile(f); break; }
+  }
+}
+```
+
+En una carpeta con `Biosafety.raml` y `Biosafety_es.raml` gana el inglés, porque
+al ordenar `.` va antes que `_`. El resultado es exactamente el síntoma que se
+ve: interfaz en español y cuestionario en inglés, sin haber elegido nada.
+
+Se corrigió de tres formas, para que no vuelva a pasar:
+
+1. **Arranque propio** (`traduccion/java/MainEs.java`): abre el modelo que se le
+   indica como argumento o, si no viene ninguno, busca `Biosafety_es.raml` o
+   `Biosecurity_es.raml` **por nombre exacto** junto al programa. Si no lo
+   encuentra, abre vacío y lo dice, en vez de cargar otro idioma en silencio.
+2. **Un ejecutable por evaluación**, cada uno con su modelo fijado.
+3. **La carpeta `BioRAM-es/` no contiene ningún modelo en inglés.**
+
+También fija el idioma en **es-MX**. La interfaz se tomaba del idioma de
+Windows, así que en un Windows en inglés salía en inglés; y se usa `es_MX`, no
+`es` a secas, porque el español de España escribe los decimales con coma y los
+puntajes se leerían mal ("2,488" en vez de "2.488").
 
 ## Qué se tradujo
 
@@ -59,61 +79,51 @@ son nombres científicos en latín y se usan igual en español.
 
 ## De dónde viene la traducción
 
-De las traducciones al español que Sandia ya había publicado en este mismo
-repositorio (`BiosafetyRAM_es.raml` y `BiosecurityRAM_es.raml`), no de una
-traducción nueva. Son las preguntas oficiales y se reutilizan tal cual; solo se
-corrigió el formato, que traía espacios dobles y espacios duros de la conversión
-desde MS Word, y se quitó la numeración "(17)" que el modelo en inglés no tiene.
+De las traducciones al español que Sandia ya había publicado en este
+repositorio, no de una traducción nueva. Son las preguntas oficiales y se
+reutilizan tal cual; solo se corrigió el formato, que traía espacios dobles y
+espacios duros de la conversión desde MS Word, y se quitó la numeración "(17)"
+que el modelo en inglés no tiene.
 
-Esos dos archivos se conservan porque son la fuente de la traducción. El de
-bioprotección ya traducía el modelo vigente. El de bioseguridad traducía una
-versión anterior, con otros identificadores y otro orden, así que **no** se puede
-usar con el modelo actual: ahí está la diferencia con `Biosafety_es.raml`.
+Esos archivos se conservan en `traduccion/fuente/`, porque son la fuente de la
+traducción. Se movieron ahí para que no estorben: también acaban en `_es.raml` y
+competían por la carga automática. El de bioprotección ya traducía el modelo
+vigente; el de bioseguridad traducía una versión anterior, con otros
+identificadores y otro orden, así que **no** sirve con el modelo actual.
 
 ## Cómo se regenera
 
-Todo está en `traduccion/`. Las traducciones viven en dos archivos JSON, una
-entrada por texto, y los `.raml` se generan a partir de ellos:
+Todo con un comando, desde la raíz del repositorio:
 
 ```
-cd traduccion
-
-# 1. Extraer los textos del modelo en inglés (solo si cambia el modelo original)
-python raml_es.py extraer ../Biosafety.raml   biosafety_es.json
-python raml_es.py extraer ../Biosecurity.raml biosecurity_es.json
-
-# 2. Rellenar con la traducción publicada
-python reusar.py biosecurity_es.json ../BiosecurityRAM_es.raml
-python reusar_biosafety.py <plantilla_en.raml>
-
-# 3. Cambiar "centro" por "instalación", con su concordancia
-python termino_instalacion.py biosafety_es.json biosecurity_es.json
-
-# 4. Generar los modelos en español
-cd ..
-python traduccion/raml_es.py construir Biosafety.raml   traduccion/biosafety_es.json   Biosafety_es.raml
-python traduccion/raml_es.py construir Biosecurity.raml traduccion/biosecurity_es.json Biosecurity_es.raml
-
-# 5. Comprobar que solo cambiaron los textos
-python traduccion/raml_es.py verificar Biosafety.raml   Biosafety_es.raml
-python traduccion/raml_es.py verificar Biosecurity.raml Biosecurity_es.raml
-
-# 6. Generar los .jar
-cd traduccion
-python empacar.py ../bioram-4.0.5.jar ../bioram-4.0.5-es.jar
-python empacar.py ../bioram-4.0.5.jar ../bioram-4.0.5-es-java-actual.jar libs_jaxb/
-
-# 7. Generar el .exe (necesita Launch4j: https://launch4j.sourceforge.net)
-launch4j launch4j.xml
+LAUNCH4J=/ruta/a/launch4j ./traduccion/construir.sh
 ```
 
-La plantilla inglesa del paso 2 es
-`util/translatedQuestionMover/modelTemplates/Biosafety.raml`, que viene dentro de
-`Java source.zip`. Es la versión del modelo que corresponde a la traducción
-antigua y sirve de puente para emparejar las preguntas (ver `emparejar.py`).
+Hace los modelos, los comprueba, compila la clase de arranque, arma los `.jar` y
+genera los `.exe`. Sin `LAUNCH4J` hace todo menos los `.exe`
+(Launch4j: <https://launch4j.sourceforge.net>).
 
-Para corregir un texto, edite el JSON correspondiente y repita los pasos 4 y 5.
-Para corregir la interfaz, edite `FormStrings_es.utf8.properties` y repita el 6.
+Para **corregir un texto del cuestionario**, edite el JSON correspondiente en
+`traduccion/` y vuelva a correr `construir.sh`. Para **corregir la interfaz**,
+edite `traduccion/FormStrings_es.utf8.properties` y vuelva a correrlo.
+
+Para rehacer la traducción desde cero (solo si cambia el modelo original en
+inglés):
+
+```
+python3 traduccion/raml_es.py extraer Biosafety.raml   traduccion/biosafety_es.json
+python3 traduccion/raml_es.py extraer Biosecurity.raml traduccion/biosecurity_es.json
+cd traduccion
+python3 reusar.py biosecurity_es.json fuente/BiosecurityRAM_es.raml
+python3 reusar_biosafety.py <plantilla_en.raml>
+python3 termino_instalacion.py biosafety_es.json biosecurity_es.json
+cd .. && ./traduccion/construir.sh
+```
+
+La plantilla inglesa es `util/translatedQuestionMover/modelTemplates/Biosafety.raml`,
+que viene dentro de `Java source.zip`. Es la versión del modelo que corresponde a
+la traducción antigua y sirve de puente para emparejar las preguntas (ver
+`traduccion/emparejar.py`).
 
 ## Cómo se verificó
 
@@ -122,23 +132,22 @@ por elemento y falla si cambió cualquier cosa que no sea un texto visible:
 identificadores, pesos, fórmulas, imágenes. Los dos modelos pasan, así que
 **calculan exactamente igual que la versión en inglés**.
 
-Además se comprobó que:
+Además se comprobó, con el motor real del programa y no leyendo el XML:
 
-- No queda ningún texto sin traducir (377 de 377 en bioseguridad, 268 de 268 en
-  bioprotección).
-- Cada pregunta conserva su patrón de puntajes (`4 =`, `2 =`, `0 =`...), idéntico
-  al del inglés en las 105 preguntas de cada modelo.
+- Las 105 preguntas de cada modelo están en español, y las 51 y 37 categorías
+  también. Ningún título quedó idéntico al inglés (cruce exacto de conjuntos).
+- Cada pregunta conserva su patrón de puntajes (`4 =`, `2 =`, `0 =`...), igual al
+  del inglés.
 - Dos preguntas distintas nunca recibieron la misma traducción, que era el riesgo
   real al emparejar el modelo de bioseguridad.
-- BioRAM abre los dos modelos y muestra los nombres en español. Se probó
-  cargándolos con el propio motor del programa, con Java 21.
-- El `.jar` que se incrusta en el `.exe` es válido y su clase principal arranca.
+- El programa abre el modelo correcto aunque en la misma carpeta estén el modelo
+  en inglés y la traducción antigua.
+- La interfaz sale en español aunque el sistema esté en inglés o en alemán, con
+  punto decimal.
 
 Lo que **no** se pudo probar aquí, porque este entorno es Linux y sin pantalla:
 
-- La ventana del programa. La revisión visual de la interfaz queda pendiente en
-  Windows.
-- Que el `.exe` encuentre el Java instalado. Eso solo se comprueba en Windows; si
-  falla, `BioRAM-es.bat` es la alternativa.
-- `bioram-4.0.5-es.jar` con Java 8, porque aquí solo hay Java 21. De ese archivo
-  sí se verificó que es idéntico al original salvo el archivo de idioma.
+- La ventana del programa. La revisión visual queda pendiente en Windows.
+- Que los `.exe` encuentren el Java instalado. Eso solo se comprueba en Windows;
+  si falla, `BioRAM.bat` es la alternativa.
+- `bioram-4.0.5-es.jar` con Java 8, porque aquí solo hay Java 21.
