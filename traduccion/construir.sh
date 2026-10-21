@@ -24,15 +24,17 @@ echo "== 2. Comprobacion: solo cambiaron los textos"
 python3 traduccion/raml_es.py verificar Biosafety.raml   "$ENTREGA/Biosafety_es.raml"
 python3 traduccion/raml_es.py verificar Biosecurity.raml "$ENTREGA/Biosecurity_es.raml"
 
-echo "== 3. Clase de arranque en espanol"
-javac --release 8 -nowarn -cp "$JAR_ORIGINAL" -d "$CLASES" traduccion/java/MainEs.java
+echo "== 3. Clases propias (arranque y textos que estaban en el codigo)"
+javac --release 8 -nowarn -cp "$JAR_ORIGINAL" -d "$CLASES" traduccion/java/*.java
 
 echo "== 4. Programas .jar"
 cd traduccion
 python3 empacar.py "../$JAR_ORIGINAL" ../bioram-4.0.5-es.jar \
-  --clases "$CLASES" --main-class gov.sandia.bioram.MainEs
+  --clases "$CLASES" --main-class gov.sandia.bioram.MainEs \
+  --solo-espanol --reemplazar Resources/reportTemplate.vm=reportTemplate.vm
 python3 empacar.py "../$JAR_ORIGINAL" "../$ENTREGA/bioram-4.0.5-es-java-actual.jar" \
-  --clases "$CLASES" --jaxb libs_jaxb/ --main-class gov.sandia.bioram.MainEs
+  --clases "$CLASES" --jaxb libs_jaxb/ --main-class gov.sandia.bioram.MainEs \
+  --solo-espanol --reemplazar Resources/reportTemplate.vm=reportTemplate.vm
 cd ..
 
 if [ -z "$LAUNCH4J" ] || [ ! -f "$LAUNCH4J/launch4j.jar" ]; then

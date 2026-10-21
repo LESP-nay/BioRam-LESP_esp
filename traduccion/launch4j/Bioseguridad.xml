@@ -7,7 +7,7 @@
   <chdir>.</chdir>
   <cmdLine>Biosafety_es.raml</cmdLine>
   <icon>../icono.ico</icon>
-  <jre><path>%JAVA_HOME%</path><minVersion>1.8.0</minVersion><requires64Bit>false</requires64Bit></jre>
+  <jre><path>%JAVA_HOME%</path><minVersion>1.8.0</minVersion><opt>-Dfile.encoding=UTF-8</opt><requires64Bit>false</requires64Bit></jre>
   <messages>
     <startupErr>No se pudo iniciar BioRAM.</startupErr>
     <jreNotFoundErr>BioRAM necesita Java. Instale Java 8 o una version posterior desde https://adoptium.net y vuelva a intentarlo.</jreNotFoundErr>

@@ -14,8 +14,14 @@ Opciones:
                      Java 11 y posteriores, que ya no traen JAXB: sin eso BioRAM
                      falla al abrir cualquier modelo con
                      NoClassDefFoundError: javax/xml/bind/JAXB.
-  --clases DIR       incluye los .class compilados de ese directorio.
+  --clases DIR       incluye los .class compilados de ese directorio. Si una
+                     clase ya existe en el .jar, la sustituye y lo informa.
   --main-class NOMBRE  cambia el Main-Class del manifiesto.
+  --solo-espanol     quita los paquetes de idioma de otros idiomas (francés,
+                     alemán, árabe...). Se queda el español y el inglés, que es
+                     el que el programa usa como último recurso: sin ninguno,
+                     ResourceBundle lanzaría MissingResourceException.
+  --reemplazar R=A   sustituye el recurso R del .jar por el archivo A. Repetible.
 
 Uso:
   python empacar.py ../bioram-4.0.5.jar ../bioram-4.0.5-es.jar
@@ -38,6 +44,9 @@ MANIFIESTO = 'META-INF/MANIFEST.MF'
 EXCLUIR = (MANIFIESTO, 'module-info.class')
 EXCLUIR_PREFIJOS = ('META-INF/versions/', 'META-INF/maven/')
 EXCLUIR_SUFIJOS = ('.SF', '.RSA', '.DSA')
+
+# Paquetes de idioma que no son ni el español ni el inglés de respaldo.
+OTROS_IDIOMAS = re.compile(r'^lang/FormStrings_(?!es[._])\w+\.properties$')
 
 
 def escapar(texto):
@@ -77,11 +86,20 @@ def main():
     p.add_argument('--jaxb')
     p.add_argument('--clases')
     p.add_argument('--main-class', dest='main_class')
+    p.add_argument('--solo-espanol', action='store_true', dest='solo_espanol')
+    p.add_argument('--reemplazar', action='append', default=[], metavar='RUTA=ARCHIVO')
     args = p.parse_args()
 
     with open(FUENTE, encoding='utf-8') as f:
         fuente = f.read()
     idioma = escapar(fuente).encode('ascii')
+
+    reemplazos = {}
+    for par in args.reemplazar:
+        ruta, _, archivo = par.partition('=')
+        if not archivo:
+            sys.exit(f'--reemplazar espera RUTA=ARCHIVO, se recibió: {par}')
+        reemplazos[ruta] = pathlib.Path(archivo).read_bytes()
 
     with zipfile.ZipFile(args.origen) as z:
         if RUTA_EN_JAR not in z.namelist():
@@ -90,9 +108,26 @@ def main():
         if faltantes:
             sys.exit(f'faltan claves respecto al inglés: {sorted(faltantes)}')
 
+        raiz = pathlib.Path(args.clases) if args.clases else None
+        nuevas = {ruta.relative_to(raiz).as_posix(): ruta.read_bytes()
+                  for ruta in archivos_de(args.clases, '*.class')}
+        sustituidas = sorted(set(nuevas) & set(z.namelist()))
+
+        faltan = [r for r in reemplazos if r not in z.namelist()]
+        if faltan:
+            sys.exit(f'{args.origen} no contiene: {faltan}')
+
+        quitados = 0
         with zipfile.ZipFile(args.destino, 'w', zipfile.ZIP_DEFLATED) as out:
             for info in z.infolist():
-                if info.filename == RUTA_EN_JAR:
+                if args.solo_espanol and OTROS_IDIOMAS.match(info.filename):
+                    quitados += 1
+                    continue
+                if info.filename in nuevas:
+                    contenido = nuevas.pop(info.filename)
+                elif info.filename in reemplazos:
+                    contenido = reemplazos[info.filename]
+                elif info.filename == RUTA_EN_JAR:
                     contenido = idioma
                 elif info.filename == MANIFIESTO and args.main_class:
                     contenido = cambiar_main_class(z.read(info.filename), args.main_class)
@@ -102,15 +137,11 @@ def main():
 
             puestos = set(z.namelist())
 
-            clases = 0
-            raiz = pathlib.Path(args.clases) if args.clases else None
-            for ruta in archivos_de(args.clases, '*.class'):
-                nombre = ruta.relative_to(raiz).as_posix()
-                if nombre in puestos:
-                    sys.exit(f'la clase {nombre} ya existe en {args.origen}')
-                out.writestr(nombre, ruta.read_bytes())
+            # Lo que quede en `nuevas` son clases que el .jar no traía.
+            for nombre, contenido in sorted(nuevas.items()):
+                out.writestr(nombre, contenido)
                 puestos.add(nombre)
-                clases += 1
+            clases = len(nuevas)
 
             jaxb = 0
             for extra in archivos_de(args.jaxb, '*.jar'):
@@ -125,8 +156,15 @@ def main():
     partes = [f'{len(claves(fuente))} cadenas de interfaz en español']
     if clases:
         partes.append(f'{clases} clases propias')
+    if sustituidas:
+        partes.append(f'{len(sustituidas)} clases sustituidas ('
+                      + ', '.join(n.rsplit('/', 1)[-1] for n in sustituidas) + ')')
     if jaxb:
         partes.append(f'{jaxb} clases de JAXB')
+    if quitados:
+        partes.append(f'{quitados} idiomas ajenos quitados')
+    if reemplazos:
+        partes.append(f'{len(reemplazos)} recursos reemplazados')
     if args.main_class:
         partes.append(f'arranque en {args.main_class}')
     print(f'{args.destino}: ' + ', '.join(partes))

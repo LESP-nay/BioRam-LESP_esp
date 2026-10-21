@@ -12,4 +12,4 @@ if errorlevel 1 (
   pause
   exit /b 1
 )
-start "BioRAM" javaw -jar "%JAR%" "%~dp0%MODELO%"
+start "BioRAM" javaw -Dfile.encoding=UTF-8 -jar "%JAR%" "%~dp0%MODELO%"

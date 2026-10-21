@@ -71,11 +71,41 @@ puntajes se leerían mal ("2,488" en vez de "2.488").
 - Los nombres de categorías, módulos, perfiles de resultados, gráficas, ejes y
   leyendas.
 - La portada de cada modelo.
-- Las 185 cadenas de la interfaz: menús, botones, pestañas, avisos y el reporte.
+- Las 188 cadenas de la interfaz: menús, botones, pestañas, avisos y el reporte.
+- **Los rótulos dibujados dentro de la imagen de fondo de la gráfica de riesgo**
+  ("Very Low ... Very High" pasan a "Muy bajo ... Muy alto"). No son texto del
+  programa: están pintados en el PNG, así que se rehízo la imagen respetando
+  posición, color y tipografía.
+- **Los filtros de los diálogos de abrir y guardar** ("RAM Files (*.raml)").
+  Estaban escritos directo en el código; ahora salen del archivo de idioma
+  (`traduccion/java/RamFileFilter.java`).
+
+Además se corrigieron dos cosas que estropeaban el español:
+
+- **El reporte salía con los acentos rotos** ("evaluaciÃ³n"). La plantilla
+  declaraba `iso-8859-1` pero el programa escribe en la codificación del
+  sistema, que en Java 18 y posteriores es UTF-8. Ahora la plantilla declara
+  `utf-8` y los lanzadores fuerzan `-Dfile.encoding=UTF-8`, así que coincide en
+  cualquier versión de Java.
+- **Se quitaron del programa los nueve paquetes de idioma ajenos** (alemán,
+  árabe, chino, francés, italiano, japonés, neerlandés, portugués y ruso), como
+  se pidió. Se conserva el inglés porque es el que Java usa como último recurso:
+  sin ninguno, el programa fallaría con `MissingResourceException`.
 
 Lo que **no** se tradujo, a propósito: los 80 nombres de agentes biológicos del
 modelo de bioprotección (*Bacillus anthracis*, *Yersinia pestis*, etc.), porque
 son nombres científicos en latín y se usan igual en español.
+
+## Qué sigue en inglés
+
+Poco, y nada que impida trabajar:
+
+| Dónde | Qué | Por qué no se cambió |
+|---|---|---|
+| Exportar resultados a CSV | Los encabezados `Module` y `Result` | Están dentro de una clase grande de la interfaz; reemplazarla es más riesgo que beneficio para dos palabras de un archivo intermedio. |
+| Crear un conjunto de respuestas | El nombre que se propone, "New response set" | Igual que el anterior, y de todos modos se escribe encima al nombrarlo. |
+| Logotipo de la portada | La imagen dice "International Biological Threat Reduction" | Es el logotipo del programa original, no texto traducible. |
+| Menú *Configuración > Seleccionar idioma* | Siguen apareciendo los once idiomas | La lista está fija en el código. Al quitar los paquetes, elegir otro idioma ya solo lleva al inglés; el español sigue funcionando. |
 
 ## De dónde viene la traducción
 
@@ -143,7 +173,13 @@ Además se comprobó, con el motor real del programa y no leyendo el XML:
 - El programa abre el modelo correcto aunque en la misma carpeta estén el modelo
   en inglés y la traducción antigua.
 - La interfaz sale en español aunque el sistema esté en inglés o en alemán, con
-  punto decimal.
+  punto decimal, incluidos los filtros de los diálogos de archivo.
+- El reporte se generó de verdad y sale con los acentos correctos: declara
+  `utf-8`, sus bytes son UTF-8 y no queda ni un carácter mal ("Reporte de
+  evaluación RAM", no "evaluaciÃ³n").
+- La imagen de la gráfica traducida está en los dos modelos, en sus dos
+  gráficas, y la comprobación de integridad solo acepta esa diferencia: si se
+  altera cualquier otra imagen, falla.
 
 Lo que **no** se pudo probar aquí, porque este entorno es Linux y sin pantalla:
 

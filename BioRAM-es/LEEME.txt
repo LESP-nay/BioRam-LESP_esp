@@ -40,6 +40,13 @@ IMPORTANTE: NO MEZCLE LOS CUESTIONARIOS EN INGLES
   indica, pero si usa Archivo > Abrir perfil y escoge uno en ingles, las
   preguntas apareceran en ingles.
 
+SI ALGO APARECE EN INGLES
+
+  Quedan tres detalles menores en ingles, que no estorban: los encabezados
+  "Module" y "Result" al exportar resultados a CSV, el nombre que se propone
+  al crear un conjunto de respuestas ("New response set"), y el texto dibujado
+  dentro del logotipo. Todo lo demas, preguntas incluidas, esta en espanol.
+
 PARA GUARDAR SU TRABAJO
 
   Archivo > Guardar las respuestas  crea un archivo con sus respuestas.

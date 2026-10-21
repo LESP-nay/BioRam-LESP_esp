@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8"/>
+    <title>${rb.getString("Report_Title")}</title>
+    <style>
+      /*<![CDATA[*/
+#include($cssStyle)
+      /*]]>*/
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      <p>${rb.getString("Report_Header")}</p>
+    </div>
+    <div id="contentArea">
+      <div id="frontMatter">
+        #if ($logoPath)
+          <div id="logoImage">
+            <img src="$logoPath" alt="Logotipo"/>
+          </div>
+        #end
+        <h1>${rb.getString("Report_Title")}</h1>
+        <p id="date">$StrEscCls.escapeXml($date)</p>
+        <h3>${rb.getString("Report_Names")}</h3>
+        <p id="names" class="details">$StrEscCls.escapeXml($model.Names)</p>
+        <h3>${rb.getString("Report_Procedure")}</h3>
+        <p id="procedure"
+          class="details">$StrEscCls.escapeXml($model.Procedure)</p>
+      </div>
+
+## Results #############################
+#if($model.getCachedDataTable().getRowCount() > 0)
+      <div id="results">
+        <h3>${rb.getString("Report_Results")}</h3>
+        <table>
+          <thead>
+            <tr>
+  #foreach($col in $columnIndices)
+              <th>$StrEscCls.escapeXml($resultsTable.getColumnName($col))</th>
+  #end
+            </tr>
+          </thead>
+          <tbody>
+  #foreach($row in $rowIndices)
+          <tr>
+    #foreach($col in $columnIndices)
+      ## Get the CSS class set if it's numeric data
+      #if($resultsTable.getColumnClass($col) == $ResultProfileClass)
+        #set($class = ' class="numeric"')
+      #else
+        #set($class = "")
+      #end
+            <td$class>$StrEscCls.escapeXml($results[$row][$col])</td>
+    #end
+          </tr>
+  #end
+          </tbody>
+        </table>
+      </div>
+#end
+
+## Charts #############################
+#if ($includeCharts)
+      <div id="charts">
+        <h3>${rb.getString("Report_Charts")}</h3>
+  ## Use iChart to index the charts.  Its indices align with the order of the 
+  ## images in chartPaths (they have to be, or else legends and charts wouldn't
+  ## match up).
+  #set ($iChart = 0)
+  #foreach ($chartPath in $chartPaths)
+    #set ($chart = $model.getChartsListModel().getElementAt($iChart))
+        <div class="chartDiv">
+          <div class="chartImage">
+            <img src="${chartPath}" alt="chart" />
+          </div>
+          <div class="legendEntries">
+    #set ($iSeries = 0)
+    #foreach ($series in $chart.getPlot().getDataset().getSeries())
+      #set ($iDP = 1)
+      #foreach ($dataPoint in $series.Items)
+            <div class="legendEntry">
+              <p>${iDP}
+              <img src="${chartLegendPaths[$iChart][$iSeries]}"
+              alt="Data Point" />
+              </p>
+              <div><p>${dataPoint.LegendHTML}</p></div>
+            </div>
+         #set ($iDP = $iDP + 1)
+      #end
+      #set ($iSeries = $iSeries + 1)
+    #end
+          </div>
+        </div>
+  #set ($iChart = $iChart + 1)
+  #end
+      </div>
+#end
+
+## Response Sets #############################
+#if ($questionResponseSets.size() > 0)
+      <div id="responseSets">
+        <h3>${rb.getString("Report_ResponseSets")}</h3>
+
+  #foreach ($resp in $questionResponseSets)
+    #set ($qsm =
+      $SavedResponseHashMapClass.getResponseSetModule($model, $resp))
+    #set($qsm.SavedResponseComboBoxModel.SelectedItem = $resp)
+    #set($listQSM = $qsm.toListModel().toArray())
+
+        <div class="response-set-header">
+          <span class="module">$StrEscCls.escapeXml($qsm.toString()):</span>
+          <span class="response-set">$StrEscCls.escapeXml($resp.Name)</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>${rb.getString("Report_RSQuestion")}</th>
+              <th>${rb.getString("Report_RSResponseSuggestions")}</th>
+              <th>${rb.getString("Report_RSScore")}</th>
+            </tr>
+          </thead>
+          <tbody>
+
+    #foreach ($qso in $listQSM)
+      #if ($qso.Class == $QuestionSetCategoryClass)
+            <tr><td class="categoryRow" 
+            colspan="3">$StrEscCls.escapeXml($qso.Title)</td></tr>
+      #elseif ($qso.Class == $QuestionSetQuestionClass)
+            <tr>
+              <td>$StrEscCls.escapeXml($qso.Title)</td>
+              <td>$StrEscCls.escapeXml($qso.DetailText)</td>
+              <td class="numeric">$qso.Score</td>
+            </tr>
+      #end
+    #end
+          </tbody>
+        </table>
+  #end
+      </div>
+    </div>
+#end
+  </body>
+</html>

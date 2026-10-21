@@ -14,13 +14,31 @@ Uso:
 La tabla JSON es la fuente de la traducción: una entrada por texto con su ID
 estable, el original en inglés ("en") y la traducción ("es").
 """
+import hashlib
 import json
+import pathlib
 import sys
 import zipfile
 import xml.etree.ElementTree as ET
 
 # Etiquetas cuyo texto ve el usuario en la aplicación.
 TEXT_TAGS = ('title', 'detailText', 'chartTitle', 'legendTitle', 'frontHTML')
+
+# Imágenes con texto dibujado dentro, que por eso también se traducen. Se
+# localizan por su contenido y no por su nombre: el fondo de la gráfica de
+# riesgo es el mismo archivo en los dos modelos, pero con otro nombre en cada
+# uno, y aparece dos veces en cada modelo.
+AQUI = pathlib.Path(__file__).resolve().parent
+MEDIA_ES = {
+    # Rótulos "Very Low ... Very High" del fondo de la gráfica de riesgo.
+    'c5f5dc15e43c69687e47c769286c094a': AQUI / 'media' / 'fondo_grafica_es.png',
+}
+
+
+def media_traducida(datos):
+    """Devuelve la versión en español de una imagen, o None si no hay."""
+    ruta = MEDIA_ES.get(hashlib.md5(datos).hexdigest())
+    return ruta.read_bytes() if ruta else None
 
 
 def read_model(raml_path):
@@ -87,15 +105,24 @@ def construir(raml_path, json_path, out_path):
             print('\n'.join(errors[:50]))
             sys.exit(f'{len(errors)} errores; no se generó {out_path}')
         xml = ET.tostring(root, encoding='UTF-8', xml_declaration=True)
+        imagenes = 0
         with zipfile.ZipFile(out_path, 'w', zipfile.ZIP_DEFLATED) as out:
             for info in z.infolist():
-                data = xml if info.filename == 'model.xml' else z.read(info.filename)
+                if info.filename == 'model.xml':
+                    data = xml
+                else:
+                    data = z.read(info.filename)
+                    traducida = media_traducida(data)
+                    if traducida is not None:
+                        data = traducida
+                        imagenes += 1
                 out.writestr(info, data)
-    print(f'{len(texts)} textos traducidos -> {out_path}')
+    extra = f', {imagenes} imágenes con texto' if imagenes else ''
+    print(f'{len(texts)} textos traducidos{extra} -> {out_path}')
 
 
 def verificar(en_path, es_path):
-    """Comprueba que el modelo traducido es idéntico al original salvo los textos."""
+    """Comprueba que el modelo traducido solo cambia en textos e imágenes traducidas."""
     a, b = read_model(en_path), read_model(es_path)
     ea, eb = list(a.iter()), list(b.iter())
     if len(ea) != len(eb):
@@ -110,12 +137,20 @@ def verificar(en_path, es_path):
             print(f'difiere <{x.tag}>: {x.text!r} -> {y.text!r}')
     with zipfile.ZipFile(en_path) as za, zipfile.ZipFile(es_path) as zb:
         for name in za.namelist():
-            if name != 'model.xml' and za.read(name) != zb.read(name):
-                diffs += 1
-                print(f'archivo distinto: {name}')
+            if name == 'model.xml':
+                continue
+            original, traducido = za.read(name), zb.read(name)
+            if original == traducido:
+                continue
+            # Solo se admite la diferencia si es una imagen traducida a propósito.
+            if media_traducida(original) == traducido:
+                continue
+            diffs += 1
+            print(f'archivo distinto: {name}')
     if diffs:
         sys.exit(f'{diffs} diferencias fuera de los textos')
-    print(f'OK: estructura, UUID, pesos e imágenes idénticos ({len(ea)} elementos)')
+    print(f'OK: estructura, UUID, pesos y fórmulas idénticos ({len(ea)} elementos); '
+          'las únicas imágenes distintas son las traducidas a propósito')
 
 
 if __name__ == '__main__':
