@@ -16,12 +16,23 @@ ENTREGA=BioRAM-es
 CLASES=$(mktemp -d)
 trap 'rm -rf "$CLASES"' EXIT
 
+# Los dos modelos se arman distinto, a proposito:
+#
+# Bioproteccion: se traduce el modelo ingles vigente, porque la traduccion
+# oficial de Sandia corresponde a ese mismo modelo (comparten los 151 UUID).
+#
+# Bioseguridad: se parte del modelo en espanol ya traducido. El modelo ingles
+# de BioRAM 4.0.5 reparte las preguntas en dos modulos (Facility y Agent),
+# mientras que la traduccion oficial al espanol corresponde a la version
+# anterior, de un solo modulo. El laboratorio prefiere ese cuestionario unido,
+# asi que la fuente es traduccion/fuente/Biosafety_es_corregido.raml y aqui
+# solo se limpian espacios y se cambia la imagen de la grafica.
 echo "== 1. Modelos en espanol"
-python3 traduccion/raml_es.py construir Biosafety.raml   traduccion/biosafety_es.json   "$ENTREGA/Biosafety_es.raml"
+python3 traduccion/raml_es.py adaptar   traduccion/fuente/Biosafety_es_corregido.raml "$ENTREGA/Biosafety_es.raml"
 python3 traduccion/raml_es.py construir Biosecurity.raml traduccion/biosecurity_es.json "$ENTREGA/Biosecurity_es.raml"
 
 echo "== 2. Comprobacion: solo cambiaron los textos"
-python3 traduccion/raml_es.py verificar Biosafety.raml   "$ENTREGA/Biosafety_es.raml"
+python3 traduccion/raml_es.py verificar traduccion/fuente/BiosafetyRAM_es.raml "$ENTREGA/Biosafety_es.raml"
 python3 traduccion/raml_es.py verificar Biosecurity.raml "$ENTREGA/Biosecurity_es.raml"
 
 echo "== 3. Clases propias (arranque y textos que estaban en el codigo)"

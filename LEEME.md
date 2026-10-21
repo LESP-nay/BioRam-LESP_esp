@@ -67,7 +67,8 @@ puntajes se leerían mal ("2,488" en vez de "2.488").
 ## Qué se tradujo
 
 - Las 105 preguntas de cada modelo, con sus textos de detalle (los criterios de
-  puntuación de cada opción).
+  puntuación de cada opción). En bioseguridad las preguntas van numeradas,
+  "(17) ¿Qué tipo de material...", como en el cuestionario del laboratorio.
 - Los nombres de categorías, módulos, perfiles de resultados, gráficas, ejes y
   leyendas.
 - La portada de cada modelo.
@@ -107,19 +108,33 @@ Poco, y nada que impida trabajar:
 | Logotipo de la portada | La imagen dice "International Biological Threat Reduction" | Es el logotipo del programa original, no texto traducible. |
 | Menú *Configuración > Seleccionar idioma* | Siguen apareciendo los once idiomas | La lista está fija en el código. Al quitar los paquetes, elegir otro idioma ya solo lleva al inglés; el español sigue funcionando. |
 
-## De dónde viene la traducción
+## De dónde viene cada modelo
 
-De las traducciones al español que Sandia ya había publicado en este
-repositorio, no de una traducción nueva. Son las preguntas oficiales y se
-reutilizan tal cual; solo se corrigió el formato, que traía espacios dobles y
-espacios duros de la conversión desde MS Word, y se quitó la numeración "(17)"
-que el modelo en inglés no tiene.
+De las traducciones al español que Sandia ya había publicado, no de una
+traducción nueva. Son las preguntas oficiales. Las fuentes están en
+`traduccion/fuente/`; se guardan ahí para que no estorben, porque también
+acaban en `_es.raml` y competían por la carga automática.
 
-Esos archivos se conservan en `traduccion/fuente/`, porque son la fuente de la
-traducción. Se movieron ahí para que no estorben: también acaban en `_es.raml` y
-competían por la carga automática. El de bioprotección ya traducía el modelo
-vigente; el de bioseguridad traducía una versión anterior, con otros
-identificadores y otro orden, así que **no** sirve con el modelo actual.
+Cada modelo se arma distinto, a propósito:
+
+**Bioprotección** se traduce desde el modelo inglés vigente, porque la
+traducción oficial corresponde a ese mismo modelo: comparten los 151
+identificadores. Viene repartida en dos módulos, *Instalación* y *Agente*, igual
+que el original en inglés y que la traducción oficial de Sandia. No es un
+defecto: el modelo separa las preguntas de la instalación, que se responden una
+vez, de las del agente, que se responden por cada agente.
+
+**Bioseguridad** parte de `traduccion/fuente/Biosafety_es_corregido.raml`, el
+cuestionario de un solo módulo que usa el laboratorio. El modelo inglés de
+BioRAM 4.0.5 reparte sus preguntas en dos módulos, *Facility* y *Agent*, pero la
+traducción oficial al español corresponde a la versión anterior, de un módulo
+único, y es la que el laboratorio prefiere. Sobre ese archivo solo se limpian
+los espacios sobrantes, se traduce el nombre del módulo y se cambia la imagen de
+la gráfica: ni una palabra de las preguntas se toca.
+
+Queda en el repositorio la traducción del modelo inglés de dos módulos, por si
+alguna vez hace falta: `traduccion/biosafety_es.json` con
+`raml_es.py construir Biosafety.raml ...` la reconstruye.
 
 ## Cómo se regenera
 

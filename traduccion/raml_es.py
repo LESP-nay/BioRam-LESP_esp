@@ -9,7 +9,12 @@ original en inglés.
 Uso:
   python raml_es.py extraer   Biosafety.raml   traduccion/biosafety_es.json
   python raml_es.py construir Biosafety.raml   traduccion/biosafety_es.json  Biosafety_es.raml
+  python raml_es.py adaptar   entrada_es.raml  salida_es.raml
   python raml_es.py verificar Biosafety.raml   Biosafety_es.raml
+
+"adaptar" se usa con un modelo que ya viene traducido: solo limpia los espacios
+sobrantes de la conversión desde MS Word y cambia las imágenes con texto por su
+versión en español. No traduce nada ni toca la estructura.
 
 La tabla JSON es la fuente de la traducción: una entrada por texto con su ID
 estable, el original en inglés ("en") y la traducción ("es").
@@ -17,6 +22,7 @@ estable, el original en inglés ("en") y la traducción ("es").
 import hashlib
 import json
 import pathlib
+import re
 import sys
 import zipfile
 import xml.etree.ElementTree as ET
@@ -121,6 +127,48 @@ def construir(raml_path, json_path, out_path):
     print(f'{len(texts)} textos traducidos{extra} -> {out_path}')
 
 
+# Etiquetas sueltas que quedaron en inglés en el modelo ya traducido. El
+# nombre del módulo se ve en el desplegable "Seleccione un módulo".
+PENDIENTES = {'Biosafety': 'Bioseguridad', 'Biosecurity': 'Bioprotección'}
+
+
+def adaptar(entrada, salida):
+    """Prepara un modelo ya traducido: limpia espacios y traduce las imágenes."""
+    with zipfile.ZipFile(entrada) as z:
+        root = ET.fromstring(z.read('model.xml'))
+        limpios, sueltas = 0, 0
+        for _, elem in iter_texts(root):
+            if elem.tag == 'frontHTML':
+                continue  # es HTML: los espacios son suyos
+            if elem.text.strip() in PENDIENTES:
+                elem.text = PENDIENTES[elem.text.strip()]
+                sueltas += 1
+                continue
+            # Solo espacios: ni una palabra cambia. La numeración "(17)" se
+            # respeta, porque quien tradujo el modelo decidió conservarla.
+            nuevo = '\n'.join(re.sub(r' {2,}', ' ', linea).rstrip()
+                               for linea in elem.text.split('\n'))
+            if nuevo != elem.text:
+                elem.text = nuevo
+                limpios += 1
+
+        xml = ET.tostring(root, encoding='UTF-8', xml_declaration=True)
+        imagenes = 0
+        with zipfile.ZipFile(salida, 'w', zipfile.ZIP_DEFLATED) as out:
+            for info in z.infolist():
+                if info.filename == 'model.xml':
+                    data = xml
+                else:
+                    data = z.read(info.filename)
+                    traducida = media_traducida(data)
+                    if traducida is not None:
+                        data = traducida
+                        imagenes += 1
+                out.writestr(info, data)
+    print(f'{limpios} textos con espacios limpiados, {sueltas} etiquetas sueltas '
+          f'traducidas, {imagenes} imágenes con texto -> {salida}')
+
+
 def verificar(en_path, es_path):
     """Comprueba que el modelo traducido solo cambia en textos e imágenes traducidas."""
     a, b = read_model(en_path), read_model(es_path)
@@ -154,7 +202,8 @@ def verificar(en_path, es_path):
 
 
 if __name__ == '__main__':
-    cmds = {'extraer': extraer, 'construir': construir, 'verificar': verificar}
+    cmds = {'extraer': extraer, 'construir': construir,
+            'adaptar': adaptar, 'verificar': verificar}
     if len(sys.argv) < 2 or sys.argv[1] not in cmds:
         sys.exit(__doc__)
     cmds[sys.argv[1]](*sys.argv[2:])
