@@ -18,7 +18,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import intercambio, modelo, motor
+from . import intercambio, modelo, motor, reporte
 from .datos import Almacen
 
 POR_OMISION = 'bioram.db'
@@ -162,6 +162,22 @@ def cmd_exportar(alm, args):
     print(f'exportado a {args.archivo}')
 
 
+# ------------------------------------------------------------------ reportes
+def cmd_reporte(alm, args):
+    if args.area:
+        contenido = reporte.html_de_area(alm, args.id)
+    elif args.csv:
+        contenido = reporte.csv_de_evaluacion(alm, args.id)
+    else:
+        contenido = reporte.html_de_evaluacion(alm, args.id)
+    if args.archivo:
+        codificacion = 'utf-8-sig' if args.csv else 'utf-8'
+        Path(args.archivo).write_text(contenido, encoding=codificacion)
+        print(f'guardado en {args.archivo}')
+    else:
+        print(contenido)
+
+
 # -------------------------------------------------------------------- versión
 def cmd_version_guardar(alm, args):
     v = alm.guardar_version(args.evaluacion, autor=args.autor, nota=args.nota)
@@ -220,6 +236,13 @@ def construir_analizador():
     ex = sub.add_parser('exportar', help='guardar las respuestas como .raml')
     ex.add_argument('evaluacion', type=int); ex.add_argument('archivo')
     ex.add_argument('--conjunto'); ex.set_defaults(func=cmd_exportar)
+
+    rp = sub.add_parser('reporte', help='generar el reporte (HTML o CSV)')
+    rp.add_argument('id', type=int, help='id de la evaluación, o del área con --area')
+    rp.add_argument('--area', action='store_true', help='resumen del área en vez de una evaluación')
+    rp.add_argument('--csv', action='store_true', help='hoja de cálculo en vez de página web')
+    rp.add_argument('--archivo', help='dónde guardarlo (si no, se imprime)')
+    rp.set_defaults(func=cmd_reporte)
 
     vr = sub.add_parser('version', help='historial de una evaluación').add_subparsers(dest='sub', required=True)
     vg = vr.add_parser('guardar'); vg.add_argument('evaluacion', type=int)

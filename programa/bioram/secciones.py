@@ -29,6 +29,19 @@ EXPLICACION = {
 }
 ORDEN = (AGENTE, INSTALACION)
 
+# El nombre de cada cuestionario, para encabezados y reportes.
+NOMBRE_EVALUACION = {'bioseguridad': 'Bioseguridad', 'bioproteccion': 'Bioprotección'}
+
+# Cómo se le llama también en el laboratorio, para que nadie dude de que es lo
+# mismo. Bioseguridad y bioprotección NO son sinónimos entre sí: la primera
+# evita el contagio accidental y la segunda el robo o el uso malintencionado.
+SINONIMO = {'bioseguridad': '', 'bioproteccion': 'biocustodia'}
+
+
+def con_sinonimo(tipo: str) -> str:
+    otro = SINONIMO.get(tipo)
+    return f'{NOMBRE_EVALUACION[tipo]} ({otro})' if otro else NOMBRE_EVALUACION[tipo]
+
 # Categoría de primer nivel -> sección. Las claves son los identificadores, que
 # no cambian aunque se corrija el texto de un título.
 CATEGORIAS = {

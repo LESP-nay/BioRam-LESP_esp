@@ -11,7 +11,7 @@ Los dos cuestionarios viajan **dentro** del programa (`bioram/cuestionarios/`),
 así que no hay archivos `.raml` sueltos que confundir. Todo el trabajo del
 laboratorio se guarda en **un solo archivo** SQLite: respaldarlo es copiarlo.
 
-Estado: **etapas 1 y 2 terminadas**. Hay ventana:
+Estado: **etapas 1, 2 y 3 terminadas**. Hay ventana:
 
 ```
 cd programa
@@ -83,7 +83,9 @@ python3 -m bioram.cli --datos lab.db exportar 1 para_el_programa_viejo.raml
 | `bioram/datos.py` | El archivo del laboratorio: áreas, cepas, evaluaciones, respuestas e historial. |
 | `bioram/intercambio.py` | Importar y exportar `.raml`. |
 | `bioram/cli.py` | La línea de comandos, útil para revisar y para pruebas. |
-| `bioram/interfaz/` | La ventana: inicio, captura, resultados, portada y respaldo. |
+| `bioram/secciones.py` | El reparto de las preguntas en agente e instalaciones. |
+| `bioram/reporte.py` | Los reportes por cepa y por área, en HTML y CSV. |
+| `bioram/interfaz/` | La ventana: inicio, captura, resultados, portada, respaldo y salidas. |
 
 ## Lo que ya hace mejor que el programa actual
 
@@ -121,9 +123,35 @@ También se comprueba la compatibilidad en los dos sentidos: un archivo del
 programa original se importa completo, y lo que este programa exporta lo abre el
 programa original y da los mismos puntajes.
 
+## Reportes
+
+Desde la ventana, el botón **«Guardar reporte…»** de cada evaluación genera:
+
+- **PDF** — listo para el expediente. Lleva los datos de la evaluación, el
+  avance por sección, los resultados, las gráficas y las 105 preguntas con la
+  respuesta que se eligió y si fue una estimación.
+- **Página web (HTML)** — lo mismo, para ver en pantalla o pegar en un oficio.
+- **Hoja de cálculo (CSV)** — una fila por pregunta, para analizar aparte.
+
+En la pantalla de inicio, **«Resumen del área…»** genera el consolidado: el
+estado de todas las cepas del área y una tabla que compara sus resultados.
+
+También desde la línea de comandos:
+
+```
+python3 -m bioram.cli --datos lab.db reporte 1 --archivo evaluacion.html
+python3 -m bioram.cli --datos lab.db reporte 1 --csv --archivo evaluacion.csv
+python3 -m bioram.cli --datos lab.db reporte 1 --area --archivo resumen.html
+```
+
+Dos cosas que costaron y conviene no deshacer: el PDF **no** debe fijar el
+tamaño del documento (si se fija, Qt mete las 18 páginas en una sola hoja
+kilométrica), y la tipografía del reporte es Arial y su equivalente libre,
+porque con otras Qt escribe los dos puntos y las rayas en un código privado y
+el texto del PDF no se puede copiar ni buscar. Hay una prueba que lo vigila.
+
 ## Lo que falta
 
-- **Etapa 3**: reporte por cepa y consolidado por área, y exportar a PDF y CSV.
 - **Etapa 4**: empaquetar en un solo `.exe`. En espera, como se acordó.
 
 ## Decisiones que quedan pendientes

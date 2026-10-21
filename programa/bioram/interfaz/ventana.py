@@ -19,6 +19,7 @@ from .ficha import PanelFicha
 from .inicio import PantallaInicio
 from .portada import PanelPortada
 from .resultados import PanelResultados
+from .salidas import guardar_reporte, imagenes_de
 
 
 class PaginaEvaluacion(QWidget):
@@ -63,6 +64,10 @@ class PaginaEvaluacion(QWidget):
         textos.addWidget(Ayuda(area.nombre))
         fila.addLayout(textos)
         encabezado.addWidget(marca, 1)
+        reporte = BotonGrande('Guardar reporte…', color)
+        reporte.setToolTip('Guardar esta evaluación como PDF, página web u hoja de cálculo')
+        reporte.clicked.connect(self._guardar_reporte)
+        encabezado.addWidget(reporte)
         disposicion.addLayout(encabezado)
 
         self.portada = PanelPortada(cuestionario)
@@ -84,6 +89,12 @@ class PaginaEvaluacion(QWidget):
         self.portada.mostrar(evaluacion.responsables, evaluacion.procedimiento)
         self.captura.mostrar(almacen.respuestas(evaluacion_id))
         self.resultados.mostrar(almacen.puntajes(evaluacion_id))
+
+    def _guardar_reporte(self):
+        # Las gráficas se dibujan con los resultados al día.
+        self.resultados.mostrar(self.almacen.puntajes(self.evaluacion_id))
+        guardar_reporte(self, self.almacen, self.evaluacion_id,
+                        imagenes_de(self.resultados))
 
     def _guardar(self, pregunta, respuesta):
         if respuesta is None:

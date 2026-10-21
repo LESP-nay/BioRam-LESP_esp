@@ -16,6 +16,7 @@ from ..datos import Almacen
 from .estilo import (Ayuda, BotonGrande, COLOR_TIPO, INICIAL_TIPO, NOMBRE_TIPO,
                      PELIGRO, TEXTO_SUAVE, Tarjeta, Titulo, color_de_avance, icono,
                      insignia)
+from .salidas import guardar_resumen_de_area
 
 TOTAL_PREGUNTAS = 105
 
@@ -34,7 +35,10 @@ class BotonEvaluacion(BotonGrande):
                 f' border: 2px dashed {color}; border-radius: 10px;'
                 f' padding: 10px 18px; font-weight: 600; }}'
                 f'QPushButton:hover {{ background: #f6f9ff; }}')
-        self.setToolTip('Abrir el cuestionario' if existe else 'Crear esta evaluación')
+        from .. import secciones
+        que_es = secciones.con_sinonimo(tipo)
+        self.setToolTip(f'{que_es}: ' + ('abrir el cuestionario' if existe
+                                         else 'crear esta evaluación'))
 
 
 class TarjetaCepa(Tarjeta):
@@ -147,6 +151,10 @@ class PantallaInicio(QWidget):
         cabecera = QHBoxLayout()
         self.titulo_area = Titulo('', tamano=16)
         cabecera.addWidget(self.titulo_area, 1)
+        self.boton_resumen = BotonGrande('Resumen del área…')
+        self.boton_resumen.setToolTip('Guardar un PDF con todas las cepas del área')
+        self.boton_resumen.clicked.connect(self._resumen_de_area)
+        cabecera.addWidget(self.boton_resumen)
         self.boton_cepa = BotonGrande('＋  Nueva cepa', COLOR_TIPO['bioproteccion'])
         self.boton_cepa.clicked.connect(self.nueva_cepa)
         cabecera.addWidget(self.boton_cepa)
@@ -205,6 +213,7 @@ class PantallaInicio(QWidget):
         area_id = self.area_actual()
         hay_area = area_id is not None
         self.boton_cepa.setEnabled(hay_area)
+        self.boton_resumen.setEnabled(hay_area)
         self.renombrar_area.setEnabled(hay_area)
         self.eliminar_area.setEnabled(hay_area)
 
@@ -251,6 +260,11 @@ class PantallaInicio(QWidget):
         if ok and nombre.strip():
             self.almacen.crear_cepa(area_id, nombre)
             self.recargar()
+
+    def _resumen_de_area(self):
+        area_id = self.area_actual()
+        if area_id is not None:
+            guardar_resumen_de_area(self, self.almacen, area_id)
 
     def _crear_evaluacion(self, cepa_id, tipo):
         nueva = self.almacen.crear_evaluacion(cepa_id, tipo)
