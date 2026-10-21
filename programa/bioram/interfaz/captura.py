@@ -14,10 +14,11 @@ from PySide6.QtWidgets import (QButtonGroup, QCheckBox, QComboBox, QHBoxLayout,
                                QInputDialog, QLabel, QLineEdit, QProgressBar,
                                QPushButton, QScrollArea, QVBoxLayout, QWidget)
 
+from .. import secciones
 from ..datos import Respuesta
 from ..modelo import Cuestionario, Pregunta
 from .estilo import (Ayuda, BORDE, BotonGrande, COMPLETO, TARJETA, TEXTO_SUAVE,
-                     Tarjeta, insignia)
+                     Tarjeta, Titulo, color_de_avance, insignia)
 
 SIN_RESPONDER = 'Sin responder'
 OTRO = 'Otro valor…'
@@ -172,27 +173,79 @@ class FilaPregunta(Tarjeta):
         return texto in self.pregunta.titulo.lower() or texto in (self.pregunta.detalle or '').lower()
 
 
+class EncabezadoSeccion(QWidget):
+    """La franja que separa las preguntas del agente de las del laboratorio."""
+
+    def __init__(self, seccion: str, total: int, color: str, parent=None):
+        super().__init__(parent)
+        self.seccion = seccion
+        disposicion = QVBoxLayout(self)
+        disposicion.setContentsMargins(4, 14, 4, 2)
+        disposicion.setSpacing(2)
+
+        fila = QHBoxLayout()
+        titulo = Titulo(secciones.NOMBRE[seccion], tamano=13, color=color)
+        fila.addWidget(titulo)
+        self.cuenta = Ayuda('')
+        fila.addWidget(self.cuenta)
+        fila.addStretch(1)
+        disposicion.addLayout(fila)
+        disposicion.addWidget(Ayuda(secciones.EXPLICACION[seccion]))
+
+        linea = QWidget()
+        linea.setFixedHeight(3)
+        linea.setStyleSheet(f'background: {color}; border-radius: 2px;')
+        disposicion.addWidget(linea)
+        self.total = total
+
+    def actualizar(self, hechas: int):
+        self.cuenta.setText(f'— {hechas} de {self.total} contestadas')
+
+
 class PanelCaptura(QWidget):
     """El cuestionario completo: avance arriba, preguntas abajo."""
 
     cambiada = Signal(str, object)
 
-    def __init__(self, cuestionario: Cuestionario, color: str = COMPLETO, parent=None):
+    def __init__(self, cuestionario: Cuestionario, color: str = COMPLETO,
+                 tipo: str | None = None, parent=None):
         super().__init__(parent)
         self.cuestionario = cuestionario
         self.color = color
+        self.tipo = tipo
+        self.seccion_de = secciones.por_pregunta(cuestionario, tipo) if tipo else {}
         self.filas: dict[str, FilaPregunta] = {}
         self.orden: list[FilaPregunta] = []
+        self.encabezados: dict[str, EncabezadoSeccion] = {}
 
         disposicion = QVBoxLayout(self)
         disposicion.setContentsMargins(14, 14, 14, 14)
         disposicion.setSpacing(10)
 
-        # Avance, bien visible
+        # Avance: el total y, debajo, una barra por sección.
         self.barra = QProgressBar()
         self.barra.setRange(0, len(cuestionario.preguntas))
         self.barra.setStyleSheet(f'QProgressBar::chunk {{ background: {color}; }}')
         disposicion.addWidget(self.barra)
+
+        self.barras_seccion = {}
+        if self.seccion_de:
+            por_seccion = QHBoxLayout()
+            por_seccion.setSpacing(18)
+            totales = secciones.avance(cuestionario, tipo, {})
+            for seccion in secciones.ORDEN:
+                columna = QVBoxLayout()
+                columna.setSpacing(3)
+                etiqueta = Ayuda(secciones.NOMBRE[seccion])
+                barra = QProgressBar()
+                barra.setRange(0, totales[seccion][1])
+                barra.setTextVisible(False)
+                barra.setFixedHeight(8)
+                columna.addWidget(etiqueta)
+                columna.addWidget(barra)
+                self.barras_seccion[seccion] = (barra, etiqueta)
+                por_seccion.addLayout(columna, 1)
+            disposicion.addLayout(por_seccion)
 
         # Buscar y filtrar
         barra = QHBoxLayout()
@@ -228,7 +281,15 @@ class PanelCaptura(QWidget):
         contenedor.setStyleSheet('background: transparent;')
         self.lista = QVBoxLayout(contenedor)
         self.lista.setSpacing(10)
+        seccion_actual = None
+        totales = secciones.avance(cuestionario, tipo, {}) if self.seccion_de else {}
         for numero, pregunta in enumerate(cuestionario.preguntas_en_orden(), 1):
+            seccion = self.seccion_de.get(pregunta.uuid)
+            if seccion is not None and seccion != seccion_actual:
+                encabezado = EncabezadoSeccion(seccion, totales[seccion][1], color)
+                self.encabezados[seccion] = encabezado
+                self.lista.addWidget(encabezado)
+                seccion_actual = seccion
             fila = FilaPregunta(numero, pregunta, color)
             fila.cambiada.connect(self.cambiada)
             fila.cambiada.connect(lambda *_: self._actualizar_avance())
@@ -258,6 +319,20 @@ class PanelCaptura(QWidget):
     def _actualizar_avance(self):
         contestadas = sum(1 for f in self.filas.values() if f.contestada())
         total = len(self.filas)
+
+        for seccion, (barra, etiqueta) in self.barras_seccion.items():
+            hechas = sum(1 for u, f in self.filas.items()
+                         if self.seccion_de.get(u) == seccion and f.contestada())
+            barra.setValue(hechas)
+            de_cuantas = barra.maximum()
+            tono = color_de_avance(hechas, de_cuantas)
+            barra.setStyleSheet(
+                f'QProgressBar {{ background: #e7ecf3; border: none; border-radius: 4px; }}'
+                f'QProgressBar::chunk {{ background: {tono}; border-radius: 4px; }}')
+            etiqueta.setText(
+                f'{secciones.NOMBRE[seccion]}: <b>{hechas}</b> de {de_cuantas}')
+            if seccion in self.encabezados:
+                self.encabezados[seccion].actualizar(hechas)
         self.barra.setValue(contestadas)
         self.barra.setFormat(
             f'{contestadas} de {total} preguntas contestadas  (%p%)'
@@ -272,6 +347,7 @@ class PanelCaptura(QWidget):
     def _filtrar(self, *_):
         texto = self.buscador.text()
         modo = self.grupo.checkedId()
+        visibles_por_seccion = {s: 0 for s in self.encabezados}
         for fila in self.orden:
             visible = (not texto or fila.coincide_con(texto))
             if modo == 1:
@@ -279,6 +355,12 @@ class PanelCaptura(QWidget):
             elif modo == 2:
                 visible = visible and fila.contestada()
             fila.setVisible(visible)
+            seccion = self.seccion_de.get(fila.pregunta.uuid)
+            if visible and seccion in visibles_por_seccion:
+                visibles_por_seccion[seccion] += 1
+        # Un encabezado sin preguntas debajo solo estorba.
+        for seccion, encabezado in self.encabezados.items():
+            encabezado.setVisible(bool(visibles_por_seccion[seccion]))
 
     def _ir_a_la_siguiente(self):
         for fila in self.orden:

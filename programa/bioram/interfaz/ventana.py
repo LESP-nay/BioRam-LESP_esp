@@ -66,8 +66,8 @@ class PaginaEvaluacion(QWidget):
         disposicion.addLayout(encabezado)
 
         self.portada = PanelPortada(cuestionario)
-        self.captura = PanelCaptura(cuestionario, color)
-        self.resultados = PanelResultados(cuestionario)
+        self.captura = PanelCaptura(cuestionario, color, evaluacion.tipo)
+        self.resultados = PanelResultados(cuestionario, evaluacion.tipo)
         self.ficha = PanelFicha(almacen, evaluacion_id)
         self.captura.cambiada.connect(self._guardar)
         self.portada.cambiada.connect(self._guardar_cabecera)

@@ -32,6 +32,28 @@ Al contestar, cada criterio del cuestionario es una opción de la lista: se
 elige la frase y el número lo pone el programa. Se guarda exactamente lo mismo
 que escribía el programa original.
 
+### Las dos secciones
+
+Las 105 preguntas se contestan de corrido, pero están separadas en dos
+secciones con su propio avance:
+
+- **Agente biológico** — lo que el agente es: cómo infecta, qué tan grave es y
+  qué consecuencias trae. No cambia con lo que haga el laboratorio.
+- **Instalaciones del laboratorio** — procedimientos, equipo, controles y
+  medidas. Es donde el laboratorio puede actuar.
+
+El reparto no es interpretación nuestra: el modelo inglés de BioRAM 4.0.5
+divide cada cuestionario en un módulo «Facility» y otro «Agent», y
+`bioram/secciones.py` repite ese corte. Las pruebas comprueban que los totales
+coinciden con los del original: 52 y 53 en bioseguridad, 46 y 59 en
+bioprotección.
+
+En los resultados, cada número dice de qué sección depende, y cada gráfica
+dice de qué depende cada eje. Eso sale del propio modelo, no de un supuesto:
+la **consecuencia depende solo del agente**, mientras que la **probabilidad
+depende del agente y de las instalaciones**. Es la lectura útil para el
+laboratorio: sobre el eje vertical sí puede actuar.
+
 ## Probarlo
 
 ```

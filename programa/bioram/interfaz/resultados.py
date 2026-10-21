@@ -11,8 +11,9 @@ from PySide6.QtWidgets import (QHBoxLayout, QHeaderView, QLabel, QScrollArea,
                                QSizePolicy, QSplitter, QTableWidget, QTableWidgetItem,
                                QVBoxLayout, QWidget)
 
-from .. import motor
+from .. import motor, secciones
 from ..modelo import Cuestionario, Grafica
+from .estilo import Ayuda, BIOPROTECCION, BIOSEGURIDAD, TEXTO_SUAVE, Titulo, color_de_avance
 
 # Colores de los puntos, en el orden en que aparecen en la leyenda.
 COLORES = ['#1f4e79', '#c00000', '#2e7d32', '#e07b00', '#6a1b9a',
@@ -106,16 +107,27 @@ class LienzoGrafica(QWidget):
 class PanelResultados(QWidget):
     """Tabla de perfiles a la izquierda, gráficas a la derecha."""
 
-    def __init__(self, cuestionario: Cuestionario, parent=None):
+    def __init__(self, cuestionario: Cuestionario, tipo: str | None = None, parent=None):
         super().__init__(parent)
         self.cuestionario = cuestionario
+        self.tipo = tipo
 
-        self.tabla = QTableWidget(0, 2)
-        self.tabla.setHorizontalHeaderLabels(['Perfil de resultados', 'Puntaje'])
+        izquierda = QWidget()
+        columna_izq = QVBoxLayout(izquierda)
+        columna_izq.setContentsMargins(0, 0, 0, 0)
+        columna_izq.setSpacing(8)
+
+        self.avance = Ayuda('')
+        columna_izq.addWidget(self.avance)
+
+        self.tabla = QTableWidget(0, 3)
+        self.tabla.setHorizontalHeaderLabels(['Resultado', 'Puntaje', 'De qué depende'])
         self.tabla.verticalHeader().setVisible(False)
         self.tabla.setEditTriggers(QTableWidget.NoEditTriggers)
         self.tabla.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
         self.tabla.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        self.tabla.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeToContents)
+        columna_izq.addWidget(self.tabla, 1)
 
         interior = QWidget()
         interior.setStyleSheet('background: transparent;')
@@ -127,6 +139,12 @@ class PanelResultados(QWidget):
             titulo.setWordWrap(True)
             titulo.setAlignment(Qt.AlignHCenter)
             columna.addWidget(titulo)
+
+            nota = self._nota_de_ejes(grafica)
+            if nota:
+                etiqueta = Ayuda(nota)
+                etiqueta.setAlignment(Qt.AlignHCenter)
+                columna.addWidget(etiqueta)
             lienzo = LienzoGrafica(grafica)
             self.lienzos.append(lienzo)
             columna.addWidget(lienzo, 1)
@@ -145,26 +163,76 @@ class PanelResultados(QWidget):
         derecha.viewport().setStyleSheet('background: transparent;')
 
         division = QSplitter(Qt.Horizontal)
-        division.addWidget(self.tabla)
+        division.addWidget(izquierda)
         division.addWidget(derecha)
-        division.setStretchFactor(0, 4)
+        division.setStretchFactor(0, 5)
         division.setStretchFactor(1, 5)
-        division.setSizes([430, 520])
+        division.setSizes([560, 500])
 
         disposicion = QHBoxLayout(self)
         disposicion.addWidget(division)
+
+    def _nota_de_ejes(self, grafica: Grafica) -> str:
+        """De qué sección depende cada eje. Sale del propio modelo."""
+        if not self.tipo:
+            return ''
+
+        def seccion_de(uuids):
+            usadas = set()
+            for uuid in uuids:
+                perfil = self.cuestionario.perfiles.get(uuid)
+                if perfil is not None:
+                    usadas |= secciones.de_que_depende(self.cuestionario, self.tipo, perfil)
+            if usadas == {secciones.AGENTE}:
+                return 'depende solo del agente'
+            if usadas == {secciones.INSTALACION}:
+                return 'depende solo de las instalaciones'
+            return 'depende del agente y de las instalaciones'
+
+        x = seccion_de({p.perfil_x for p in grafica.puntos})
+        y = seccion_de({p.perfil_y for p in grafica.puntos})
+        return f'{grafica.eje_x}: {x}  ·  {grafica.eje_y}: {y}'
 
     def mostrar(self, respuestas: dict[str, float]):
         puntajes = motor.resultados(self.cuestionario, respuestas)
         self.tabla.setRowCount(len(puntajes))
         for fila, (uuid, valor) in enumerate(puntajes.items()):
-            titulo = self.cuestionario.perfiles[uuid].titulo
-            celda_titulo = QTableWidgetItem(titulo)
-            celda_titulo.setToolTip(titulo)
+            perfil = self.cuestionario.perfiles[uuid]
+            celda_titulo = QTableWidgetItem(perfil.titulo)
+            celda_titulo.setToolTip(perfil.titulo)
             self.tabla.setItem(fila, 0, celda_titulo)
             celda = QTableWidgetItem(f'{valor:.4f}')
             celda.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
             self.tabla.setItem(fila, 1, celda)
+
+            origen = ''
+            if self.tipo:
+                usadas = secciones.de_que_depende(self.cuestionario, self.tipo, perfil)
+                if usadas == {secciones.AGENTE}:
+                    origen = 'Agente'
+                elif usadas == {secciones.INSTALACION}:
+                    origen = 'Instalaciones'
+                elif usadas:
+                    origen = 'Agente + instalaciones'
+            celda_origen = QTableWidgetItem(origen)
+            celda_origen.setForeground(QColor(TEXTO_SUAVE))
+            celda_origen.setToolTip(
+                secciones.resumen_de_dependencia(usadas) if self.tipo else '')
+            self.tabla.setItem(fila, 2, celda_origen)
+
+        if self.tipo:
+            avance = secciones.avance(self.cuestionario, self.tipo, respuestas)
+            partes = []
+            for seccion in secciones.ORDEN:
+                hechas, total = avance[seccion]
+                tono = color_de_avance(hechas, total)
+                partes.append(f'<span style="color:{tono}">●</span> '
+                              f'{secciones.NOMBRE[seccion]}: <b>{hechas}</b> de {total}')
+            faltan = sum(t - h for h, t in avance.values())
+            aviso = ('' if not faltan else
+                     f'<br><span style="color:#b45309">Faltan {faltan} preguntas; '
+                     'cuentan como 0 y los puntajes salen más bajos.</span>')
+            self.avance.setText('&nbsp;&nbsp;&nbsp;'.join(partes) + aviso)
 
         for lienzo, puntos in zip(self.lienzos,
                                   motor.puntos_de_grafica(self.cuestionario, respuestas)):
