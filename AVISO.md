@@ -186,13 +186,29 @@ Lo que sí es nuevo y propio es el programa alrededor: cómo se guardan los dato
 cómo se capturan las respuestas, los reportes y la organización por áreas y
 cepas.
 
-### Licencia del código propio
+### Licencia del código propio: GPL versión 3
 
-**Pendiente de decidir por el laboratorio.** Hoy el programa en Python no declara
-titular ni licencia en ninguna parte. Conviene declarar al laboratorio como
-titular del código nuevo y elegir una licencia para esa parte (por ejemplo MIT o
-GPL), dejando escrito que esa licencia cubre **solo el código nuevo** y no los
-cuestionarios de Sandia que lleva dentro.
+El laboratorio decidió liberar su código bajo la **Licencia Pública General de
+GNU, versión 3 o posterior**, conservando el crédito al autor del método
+original.
+
+- El texto completo de la licencia está en [`LICENSE`](LICENSE).
+- El titular del código nuevo es el **Laboratorio Estatal de Salud Pública de
+  Nayarit**.
+- Cada archivo de código lleva el aviso correspondiente, y
+  `programa/bioram/__init__.py` reúne los créditos completos.
+
+Lo que esa licencia cubre y lo que no, dicho sin rodeos:
+
+| | |
+|---|---|
+| **Sí cubre** | El código escrito por el laboratorio: la interfaz, el almacenamiento en SQLite, el modelo de áreas → cepas → evaluaciones, los reportes, el motor reimplementado en Python, las herramientas de traducción y los lanzadores. |
+| **No cubre** | Los cuestionarios de Sandia que el programa lleva dentro (`programa/bioram/cuestionarios/`): las 105 preguntas de cada evaluación, sus pesos, sus criterios, los perfiles de resultados y las portadas. Eso sigue siendo de Sandia, con los avisos de la sección 1. |
+
+La GPL v3 obliga a quien redistribuya el programa, o una versión modificada de
+él, a entregar también el código fuente bajo la misma licencia y a conservar los
+avisos de derechos. Es lo que el laboratorio pide a cambio del trabajo que
+regala.
 
 ---
 

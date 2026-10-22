@@ -1,0 +1,228 @@
+E00	Likelihood Ingestion Individual	1.5670680001
+E00	Likelihood Inhalation Individual	1.1325419969
+E00	Likelihood Percutaneous Individual	0.0000000000
+E00	Likelihood Contact Individual	0.5899179948
+E00	Likelihood Ingestion Community	0.5427076807
+E00	Likelihood Inhalation Community	2.1135770685
+E00	Likelihood Percutaneous Community	0.0000000000
+E00	Likelihood Contact Community	0.2714935874
+E00	Likelihood Ingestion Animal	0.5222283424
+E00	Likelihood Inhalation Animal	0.0000000000
+E00	Likelihood Percutaneous Animal	0.5584775870
+E00	Likelihood Contact Animal	2.0512422253
+E00	Consequence of Disease to Humans	0.3834211879
+E00	Secondary Consequence of Disease to Humans	0.8018216216
+E00	Consequence of Disease to Animals	1.7332800000
+E00	Secondary Consequence of Disease to Animals	1.1846250000
+E00	Consequence of Disease to the Community	0.4025922473
+E00	Likelihood of Secondary Transmission Human	1.3018109665
+E00	Likelihood of Secondary Transmission Animal	1.5588305941
+E01	Likelihood Ingestion Individual	2.0831128477
+E01	Likelihood Inhalation Individual	0.9567415559
+E01	Likelihood Percutaneous Individual	0.0000000000
+E01	Likelihood Contact Individual	1.8435631966
+E01	Likelihood Ingestion Community	0.6158945364
+E01	Likelihood Inhalation Community	0.3669961613
+E01	Likelihood Percutaneous Community	0.0000000000
+E01	Likelihood Contact Community	0.7101660989
+E01	Likelihood Ingestion Animal	0.2857260434
+E01	Likelihood Inhalation Animal	0.2396408379
+E01	Likelihood Percutaneous Animal	1.0020711008
+E01	Likelihood Contact Animal	1.8403369257
+E01	Consequence of Disease to Humans	1.3407445091
+E01	Secondary Consequence of Disease to Humans	1.3048793919
+E01	Consequence of Disease to Animals	2.1658000000
+E01	Secondary Consequence of Disease to Animals	1.2758687500
+E01	Consequence of Disease to the Community	1.4077817345
+E01	Likelihood of Secondary Transmission Human	1.6486997986
+E01	Likelihood of Secondary Transmission Animal	1.5323277629
+E02	Likelihood Ingestion Individual	1.8870918474
+E02	Likelihood Inhalation Individual	0.6177842414
+E02	Likelihood Percutaneous Individual	1.8243544936
+E02	Likelihood Contact Individual	0.9349918274
+E02	Likelihood Ingestion Community	0.6587293830
+E02	Likelihood Inhalation Community	0.7739574663
+E02	Likelihood Percutaneous Community	1.0111233735
+E02	Likelihood Contact Community	0.3603743179
+E02	Likelihood Ingestion Animal	0.4735415440
+E02	Likelihood Inhalation Animal	0.7486665210
+E02	Likelihood Percutaneous Animal	0.1449668691
+E02	Likelihood Contact Animal	2.4897630409
+E02	Consequence of Disease to Humans	0.6610240000
+E02	Secondary Consequence of Disease to Humans	1.0303006757
+E02	Consequence of Disease to Animals	1.3587200000
+E02	Secondary Consequence of Disease to Animals	1.8519000000
+E02	Consequence of Disease to the Community	0.6940752000
+E02	Likelihood of Secondary Transmission Human	1.3943715450
+E02	Likelihood of Secondary Transmission Animal	2.1472755239
+E03	Likelihood Ingestion Individual	0.0000000000
+E03	Likelihood Inhalation Individual	0.3891704383
+E03	Likelihood Percutaneous Individual	0.7742062090
+E03	Likelihood Contact Individual	1.2856792683
+E03	Likelihood Ingestion Community	0.0000000000
+E03	Likelihood Inhalation Community	0.5076165738
+E03	Likelihood Percutaneous Community	0.3656787825
+E03	Likelihood Contact Community	0.4965559989
+E03	Likelihood Ingestion Animal	0.0000000000
+E03	Likelihood Inhalation Animal	1.7296670639
+E03	Likelihood Percutaneous Animal	0.4973769176
+E03	Likelihood Contact Animal	1.3269815372
+E03	Consequence of Disease to Humans	0.2708925818
+E03	Secondary Consequence of Disease to Humans	1.4309037162
+E03	Consequence of Disease to Animals	0.5380000000
+E03	Secondary Consequence of Disease to Animals	1.4791562500
+E03	Consequence of Disease to the Community	0.2844372109
+E03	Likelihood of Secondary Transmission Human	1.3563492334
+E03	Likelihood of Secondary Transmission Animal	1.5995148790
+E05	Likelihood Ingestion Individual	1.0265292947
+E05	Likelihood Inhalation Individual	1.0295746723
+E05	Likelihood Percutaneous Individual	2.0109502319
+E05	Likelihood Contact Individual	2.2496886311
+E05	Likelihood Ingestion Community	0.2389756473
+E05	Likelihood Inhalation Community	0.0550508946
+E05	Likelihood Percutaneous Community	0.4578890296
+E05	Likelihood Contact Community	0.4147161632
+E05	Likelihood Ingestion Animal	0.1189174443
+E05	Likelihood Inhalation Animal	NaN
+E05	Likelihood Percutaneous Animal	0.2527555250
+E05	Likelihood Contact Animal	0.0000000000
+E05	Consequence of Disease to Humans	1.3903868121
+E05	Secondary Consequence of Disease to Humans	1.1943891892
+E05	Consequence of Disease to Animals	0.9058400000
+E05	Secondary Consequence of Disease to Animals	1.3306312500
+E05	Consequence of Disease to the Community	1.4599061527
+E05	Likelihood of Secondary Transmission Human	1.6392082784
+E05	Likelihood of Secondary Transmission Animal	NaN
+E09	Likelihood Ingestion Individual	1.1151970991
+E09	Likelihood Inhalation Individual	1.2086223099
+E09	Likelihood Percutaneous Individual	1.4784692325
+E09	Likelihood Contact Individual	1.4847625777
+E09	Likelihood Ingestion Community	0.6153271325
+E09	Likelihood Inhalation Community	0.3331583735
+E09	Likelihood Percutaneous Community	0.3775358020
+E09	Likelihood Contact Community	0.6142320254
+E09	Likelihood Ingestion Animal	0.4490386668
+E09	Likelihood Inhalation Animal	NaN
+E09	Likelihood Percutaneous Animal	0.3129548314
+E09	Likelihood Contact Animal	1.5504786358
+E09	Consequence of Disease to Humans	0.7069547636
+E09	Secondary Consequence of Disease to Humans	0.6747351351
+E09	Consequence of Disease to Animals	2.5235400000
+E09	Secondary Consequence of Disease to Animals	0.8510250000
+E09	Consequence of Disease to the Community	0.7423025018
+E09	Likelihood of Secondary Transmission Human	1.0009103249
+E09	Likelihood of Secondary Transmission Animal	NaN
+E14	Likelihood Ingestion Individual	0.9405378779
+E14	Likelihood Inhalation Individual	0.5448995347
+E14	Likelihood Percutaneous Individual	1.5599804812
+E14	Likelihood Contact Individual	1.2635087643
+E14	Likelihood Ingestion Community	0.5619225332
+E14	Likelihood Inhalation Community	0.0913412623
+E14	Likelihood Percutaneous Community	1.4641605115
+E14	Likelihood Contact Community	0.5032978999
+E14	Likelihood Ingestion Animal	0.3749484907
+E14	Likelihood Inhalation Animal	NaN
+E14	Likelihood Percutaneous Animal	0.9521064894
+E14	Likelihood Contact Animal	0.9498224395
+E14	Consequence of Disease to Humans	0.1638087030
+E14	Secondary Consequence of Disease to Humans	2.3742162162
+E14	Consequence of Disease to Animals	1.1457600000
+E14	Secondary Consequence of Disease to Animals	0.9271875000
+E14	Consequence of Disease to the Community	0.1719991382
+E14	Likelihood of Secondary Transmission Human	1.9245079775
+E14	Likelihood of Secondary Transmission Animal	NaN
+E16	Likelihood Ingestion Individual	2.2153273849
+E16	Likelihood Inhalation Individual	1.3284008236
+E16	Likelihood Percutaneous Individual	1.5625098053
+E16	Likelihood Contact Individual	2.2063029757
+E16	Likelihood Ingestion Community	0.9635824822
+E16	Likelihood Inhalation Community	0.1988488954
+E16	Likelihood Percutaneous Community	1.6660382583
+E16	Likelihood Contact Community	0.9633576906
+E16	Likelihood Ingestion Animal	0.3706111033
+E16	Likelihood Inhalation Animal	NaN
+E16	Likelihood Percutaneous Animal	0.8678337689
+E16	Likelihood Contact Animal	2.3742931580
+E16	Consequence of Disease to Humans	0.6800213455
+E16	Secondary Consequence of Disease to Humans	1.5857695946
+E16	Consequence of Disease to Animals	2.0460000000
+E16	Secondary Consequence of Disease to Animals	0.4051500000
+E16	Consequence of Disease to the Community	0.7140224127
+E16	Likelihood of Secondary Transmission Human	1.8742995516
+E16	Likelihood of Secondary Transmission Animal	NaN
+E21	Likelihood Ingestion Individual	2.4386340973
+E21	Likelihood Inhalation Individual	1.5595132416
+E21	Likelihood Percutaneous Individual	0.9764817839
+E21	Likelihood Contact Individual	1.2388716931
+E21	Likelihood Ingestion Community	0.3451455345
+E21	Likelihood Inhalation Community	0.5013242304
+E21	Likelihood Percutaneous Community	0.8327883861
+E21	Likelihood Contact Community	0.2506011173
+E21	Likelihood Ingestion Animal	0.0964081748
+E21	Likelihood Inhalation Animal	NaN
+E21	Likelihood Percutaneous Animal	0.8476460404
+E21	Likelihood Contact Animal	0.6692084877
+E21	Consequence of Disease to Humans	2.7651449212
+E21	Secondary Consequence of Disease to Humans	0.7221891892
+E21	Consequence of Disease to Animals	1.8800000000
+E21	Secondary Consequence of Disease to Animals	1.2537187500
+E21	Consequence of Disease to the Community	2.9034021673
+E21	Likelihood of Secondary Transmission Human	1.3270852201
+E21	Likelihood of Secondary Transmission Animal	NaN
+E28	Likelihood Ingestion Individual	1.1588519345
+E28	Likelihood Inhalation Individual	1.0521129765
+E28	Likelihood Percutaneous Individual	0.5297207226
+E28	Likelihood Contact Individual	0.9550274778
+E28	Likelihood Ingestion Community	0.4414927406
+E28	Likelihood Inhalation Community	0.1797180369
+E28	Likelihood Percutaneous Community	0.1020118268
+E28	Likelihood Contact Community	0.4934278671
+E28	Likelihood Ingestion Animal	0.1898254906
+E28	Likelihood Inhalation Animal	NaN
+E28	Likelihood Percutaneous Animal	0.0310256859
+E28	Likelihood Contact Animal	2.1271652498
+E28	Consequence of Disease to Humans	1.7294970424
+E28	Secondary Consequence of Disease to Humans	1.2118945946
+E28	Consequence of Disease to Animals	1.4742000000
+E28	Secondary Consequence of Disease to Animals	1.2921125000
+E28	Consequence of Disease to the Community	1.8159718945
+E28	Likelihood of Secondary Transmission Human	1.1850765357
+E28	Likelihood of Secondary Transmission Animal	NaN
+E30	Likelihood Ingestion Individual	0.7194473577
+E30	Likelihood Inhalation Individual	0.6587239933
+E30	Likelihood Percutaneous Individual	0.0000000000
+E30	Likelihood Contact Individual	1.5229443447
+E30	Likelihood Ingestion Community	0.1623241202
+E30	Likelihood Inhalation Community	0.0385760340
+E30	Likelihood Percutaneous Community	0.0000000000
+E30	Likelihood Contact Community	0.3246979150
+E30	Likelihood Ingestion Animal	0.0000000000
+E30	Likelihood Inhalation Animal	NaN
+E30	Likelihood Percutaneous Animal	0.2047555938
+E30	Likelihood Contact Animal	0.4338294596
+E30	Consequence of Disease to Humans	0.4610109091
+E30	Secondary Consequence of Disease to Humans	1.1995587838
+E30	Consequence of Disease to Animals	0.5103800000
+E30	Secondary Consequence of Disease to Animals	0.4289062500
+E30	Consequence of Disease to the Community	0.4840614545
+E30	Likelihood of Secondary Transmission Human	1.3516143185
+E30	Likelihood of Secondary Transmission Animal	NaN
+E36	Likelihood Ingestion Individual	0.6884317323
+E36	Likelihood Inhalation Individual	0.6322483574
+E36	Likelihood Percutaneous Individual	0.7291718662
+E36	Likelihood Contact Individual	0.3441288746
+E36	Likelihood Ingestion Community	0.2064572272
+E36	Likelihood Inhalation Community	0.1675251217
+E36	Likelihood Percutaneous Community	0.6032524947
+E36	Likelihood Contact Community	0.1460015137
+E36	Likelihood Ingestion Animal	0.2737285035
+E36	Likelihood Inhalation Animal	NaN
+E36	Likelihood Percutaneous Animal	0.3535962471
+E36	Likelihood Contact Animal	0.9150238613
+E36	Consequence of Disease to Humans	0.3833640364
+E36	Secondary Consequence of Disease to Humans	1.6690945946
+E36	Consequence of Disease to Animals	0.4228400000
+E36	Secondary Consequence of Disease to Animals	1.3454062500
+E36	Consequence of Disease to the Community	0.4025322382
+E36	Likelihood of Secondary Transmission Human	1.1032029824
+E36	Likelihood of Secondary Transmission Animal	NaN

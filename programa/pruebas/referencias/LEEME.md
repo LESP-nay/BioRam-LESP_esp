@@ -9,6 +9,7 @@ que la reimplementación en Python no cambia ni un resultado.
 | `bioseguridad.tsv`, `bioproteccion.tsv` | El puntaje de cada perfil en cada escenario, según el motor Java. |
 | `agentes_bioproteccion.tsv` | Lo mismo para los 80 agentes que trae el cuestionario: datos reales. |
 | `BiosafetyTestResponses.raml` | Archivo de respuestas del programa original, para probar la importación. |
+| `escenarios_nan_biosafety_en.json`, `nan_biosafety_en.tsv` | 12 escenarios del modelo **inglés** de bioseguridad, 228 valores, 16 de ellos «no es un número». Los cuestionarios en español no llegan a producirlos, así que este es el único camino para probar que el motor contagia el NaN igual que `Math.max` y `Math.min` de Java. |
 
 ## Cómo se regeneran
 

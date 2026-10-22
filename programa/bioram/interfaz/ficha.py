@@ -1,3 +1,6 @@
+# BioRAM LESP — Copyright (C) 2025-2026 Laboratorio Estatal de Salud Pública de Nayarit.
+# Software libre bajo la Licencia Pública General de GNU v3 o posterior (ver LICENSE).
+# Método y cuestionarios: BioRAM, de Sandia National Laboratories (ver AVISO.md).
 """Datos y respaldo de una evaluación: historial, copiar y exportar.
 
 Guardar una versión es como sacarle una foto a la evaluación: queda con fecha y

@@ -1,3 +1,6 @@
+# BioRAM LESP — Copyright (C) 2025-2026 Laboratorio Estatal de Salud Pública de Nayarit.
+# Software libre bajo la Licencia Pública General de GNU v3 o posterior (ver LICENSE).
+# Método y cuestionarios: BioRAM, de Sandia National Laboratories (ver AVISO.md).
 """La ventana no debe perder ni una respuesta por el camino.
 
 Qt se dibuja sin pantalla (QT_QPA_PLATFORM=offscreen), así que estas pruebas

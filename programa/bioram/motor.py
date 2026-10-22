@@ -1,3 +1,6 @@
+# BioRAM LESP — Copyright (C) 2025-2026 Laboratorio Estatal de Salud Pública de Nayarit.
+# Software libre bajo la Licencia Pública General de GNU v3 o posterior (ver LICENSE).
+# Método y cuestionarios: BioRAM, de Sandia National Laboratories (ver AVISO.md).
 """El cálculo de los resultados de BioRAM.
 
 Reproduce exactamente el motor del programa original en Java
@@ -40,6 +43,27 @@ def _potencia(base: float, exponente: float) -> float:
     return resultado
 
 
+def _extremo(valores: list[float], mayor: bool) -> float:
+    """Máximo o mínimo con la semántica de Math.max y Math.min de Java.
+
+    Las de Python no sirven aquí y la diferencia se ve:
+
+      - Si algún valor es "no es un número", Java contagia siempre; el max() de
+        Python sólo si ese valor va primero (max(nan, 1.0) da nan pero
+        max(1.0, nan) da 1.0).
+      - Con el cero firmado, Math.max devuelve +0.0 y Math.min devuelve -0.0 sin
+        importar el orden; en Python el resultado depende de cuál va primero.
+        Importa porque un -0.0 cambia el signo de un infinito si luego se divide.
+    """
+    if any(math.isnan(v) for v in valores):
+        return math.nan
+    extremo = max(valores) if mayor else min(valores)
+    if extremo == 0.0:
+        # Java prefiere el cero positivo en el máximo y el negativo en el mínimo.
+        return 0.0 if mayor else -0.0
+    return extremo
+
+
 def puntaje(nodo: Nodo, respuestas: dict[str, float],
             perfiles: dict[str, 'object'] | None = None) -> float:
     """Puntaje de un nodo del árbol de resultados."""
@@ -76,8 +100,7 @@ def puntaje(nodo: Nodo, respuestas: dict[str, float],
     if tipo in ('ResultMathOpMin', 'ResultMathOpMax'):
         if not hijos:
             return 0.0
-        extremo = min(hijos) if tipo.endswith('Min') else max(hijos)
-        return extremo * nodo.peso
+        return _extremo(hijos, mayor=tipo.endswith('Max')) * nodo.peso
 
     if tipo == 'ResultMathOpExponent':
         suma = sum(hijos)
