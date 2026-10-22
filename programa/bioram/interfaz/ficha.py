@@ -17,7 +17,7 @@ from PySide6.QtWidgets import (QFileDialog, QHBoxLayout, QHeaderView, QInputDial
                                QMessageBox, QTableWidget, QTableWidgetItem,
                                QVBoxLayout, QWidget)
 
-from .. import intercambio, modelo
+from .. import intercambio, modelo, secciones
 from ..datos import Almacen
 from .estilo import Ayuda, BotonGrande, COLOR_TIPO, PELIGRO, Titulo
 from .salidas import nombre_de_archivo_seguro
@@ -66,6 +66,42 @@ class PanelFicha(QWidget):
         fila.addWidget(self.boton_volver)
         fila.addStretch(1)
         disposicion.addLayout(fila)
+
+        # -------------------------------------- instalaciones de toda el área
+        disposicion.addSpacing(8)
+        disposicion.addWidget(Titulo(
+            f'Instalaciones de {almacen.area(almacen.cepa(evaluacion.cepa_id).area_id).nombre}',
+            tamano=13))
+        disposicion.addWidget(Ayuda(
+            'Las preguntas de instalaciones del laboratorio son las mismas para todas '
+            'las cepas del área. Contéstelas una vez aquí y guárdelas para el área: '
+            'cada cepa nueva las traerá ya contestadas. Si en una cepa cambia algo, '
+            'modifíquelo en su evaluación: no toca las del área.'))
+
+        self.etiqueta_area = Ayuda('')
+        disposicion.addWidget(self.etiqueta_area)
+
+        del_area = QHBoxLayout()
+        guardar_area = BotonGrande('Guardar estas respuestas para el área',
+                                   COLOR_TIPO[self.tipo])
+        guardar_area.setToolTip('Las respuestas de instalaciones de esta evaluación '
+                                'quedan como las del área')
+        guardar_area.clicked.connect(self.guardar_para_el_area)
+        del_area.addWidget(guardar_area)
+
+        self.boton_traer_area = BotonGrande('Traer las del área')
+        self.boton_traer_area.setToolTip('Reemplaza las respuestas de instalaciones '
+                                         'de esta evaluación con las del área')
+        self.boton_traer_area.clicked.connect(self.traer_del_area)
+        del_area.addWidget(self.boton_traer_area)
+
+        limpiar_inst = BotonGrande('Limpiar y empezar de cero', PELIGRO)
+        limpiar_inst.setToolTip('Borra las respuestas de instalaciones de esta '
+                                'evaluación para contestarlas desde el principio')
+        limpiar_inst.clicked.connect(self.limpiar_instalaciones)
+        del_area.addWidget(limpiar_inst)
+        del_area.addStretch(1)
+        disposicion.addLayout(del_area)
 
         # ------------------------------------------------- copiar y exportar
         disposicion.addSpacing(8)
@@ -117,6 +153,30 @@ class PanelFicha(QWidget):
                 self.tabla.setItem(fila, columna, celda)
         self.tabla.resizeColumnsToContents()
         self.boton_volver.setEnabled(bool(versiones))
+
+        # el estado de las respuestas de instalaciones del área
+        del_area = self.almacen.respuestas_de_area(self._area_id(), self.tipo)
+        de_instalacion = self._preguntas_de_instalacion()
+        mias = {u: r for u, r in self.almacen.respuestas(self.evaluacion_id).items()
+                if u in de_instalacion}
+        iguales = sum(1 for u, r in mias.items()
+                      if u in del_area and del_area[u].valor == r.valor)
+        if not del_area:
+            estado = (f'El área no tiene instalaciones guardadas. '
+                      f'En esta evaluación hay {len(mias)} de {len(de_instalacion)} '
+                      'contestadas.')
+        elif iguales == len(del_area) == len(mias):
+            estado = (f'Las {len(mias)} respuestas de instalaciones de esta evaluación '
+                      'son las del área.')
+        else:
+            distintas = len(mias) - iguales
+            cuantas = ('ninguna distinta' if distintas == 0 else
+                       '1 distinta' if distintas == 1 else f'{distintas} distintas')
+            estado = (f'El área tiene {len(del_area)} respuestas de instalaciones '
+                      f'guardadas. En esta evaluación hay {len(mias)} contestadas, '
+                      f'{cuantas} de las del área.')
+        self.etiqueta_area.setText(estado)
+        self.boton_traer_area.setEnabled(bool(del_area))
 
     def guardar_version(self):
         autor, ok = QInputDialog.getText(self, 'Guardar una versión',
@@ -182,6 +242,98 @@ class PanelFicha(QWidget):
         if not self._guardar(respuestas, 'Copiar respuestas'):
             return
         self.respuestas_cambiadas.emit()
+
+    # ------------------------------------- instalaciones que valen para el área
+    def _preguntas_de_instalacion(self) -> set[str]:
+        cuestionario = modelo.incluido(self.tipo)
+        por_pregunta = secciones.por_pregunta(cuestionario, self.tipo)
+        return {u for u, s in por_pregunta.items() if s == secciones.INSTALACION}
+
+    def _area_id(self) -> int:
+        evaluacion = self.almacen.evaluacion(self.evaluacion_id)
+        return self.almacen.cepa(evaluacion.cepa_id).area_id
+
+    def guardar_para_el_area(self):
+        """Las respuestas de instalaciones de esta evaluación pasan a ser las del área."""
+        de_instalacion = self._preguntas_de_instalacion()
+        mias = {u: r for u, r in self.almacen.respuestas(self.evaluacion_id).items()
+                if u in de_instalacion}
+        if not mias:
+            QMessageBox.information(
+                self, 'Instalaciones del área',
+                'Todavía no hay ninguna respuesta de instalaciones contestada en '
+                'esta evaluación.')
+            return
+        area = self.almacen.area(self._area_id())
+        cuantas_antes = len(self.almacen.respuestas_de_area(self._area_id(), self.tipo))
+        texto = (f'Se van a guardar {len(mias)} respuestas de instalaciones como las '
+                 f'de «{area.nombre}».\n\nCada cepa nueva del área las traerá ya '
+                 'contestadas.')
+        if cuantas_antes:
+            texto += (f'\n\nEl área ya tenía {cuantas_antes} guardadas y se '
+                      'reemplazarán. Las evaluaciones que ya existen no cambian.')
+        if QMessageBox.question(self, 'Instalaciones del área', texto + '\n\n¿Continuar?',
+                                QMessageBox.Yes | QMessageBox.No,
+                                QMessageBox.Yes) != QMessageBox.Yes:
+            return
+        try:
+            self.almacen.borrar_respuestas_de_area(self._area_id(), self.tipo)
+            self.almacen.guardar_respuestas_de_area(self._area_id(), self.tipo, mias)
+        except (sqlite3.Error, ValueError) as e:
+            QMessageBox.critical(self, 'Instalaciones del área',
+                                 f'NO se guardó nada:\n\n{e}')
+            return
+        self.recargar()
+        QMessageBox.information(
+            self, 'Instalaciones del área',
+            f'Guardadas {len(mias)} respuestas para «{area.nombre}».')
+
+    def traer_del_area(self):
+        del_area = self.almacen.respuestas_de_area(self._area_id(), self.tipo)
+        if not del_area:
+            QMessageBox.information(
+                self, 'Instalaciones del área',
+                'El área todavía no tiene respuestas de instalaciones guardadas.\n\n'
+                'Contéstelas en una evaluación y use «Guardar estas respuestas para '
+                'el área».')
+            return
+        if QMessageBox.question(
+                self, 'Traer las del área',
+                f'Se van a traer {len(del_area)} respuestas de instalaciones del área '
+                'y reemplazarán lo que tenga contestado en esas preguntas.\n\n'
+                'Las preguntas del agente biológico no se tocan.\n\n¿Continuar?',
+                QMessageBox.Yes | QMessageBox.No, QMessageBox.No) != QMessageBox.Yes:
+            return
+        if not self._guardar(del_area, 'Traer las del área'):
+            return
+        self.respuestas_cambiadas.emit()
+        self.recargar()
+
+    def limpiar_instalaciones(self):
+        """Borra las respuestas de instalaciones de ESTA evaluación, no las del área."""
+        de_instalacion = self._preguntas_de_instalacion()
+        mias = [u for u in self.almacen.respuestas(self.evaluacion_id)
+                if u in de_instalacion]
+        if not mias:
+            QMessageBox.information(self, 'Limpiar',
+                                    'No hay respuestas de instalaciones que borrar.')
+            return
+        if QMessageBox.question(
+                self, 'Limpiar y empezar de cero',
+                f'Se van a borrar las {len(mias)} respuestas de instalaciones de esta '
+                'evaluación, para contestarlas desde el principio.\n\n'
+                'Las preguntas del agente biológico y las respuestas guardadas del '
+                'área no se tocan.\n\n¿Continuar?',
+                QMessageBox.Yes | QMessageBox.No, QMessageBox.No) != QMessageBox.Yes:
+            return
+        try:
+            for pregunta in mias:
+                self.almacen.borrar_respuesta(self.evaluacion_id, pregunta)
+        except sqlite3.Error as e:
+            QMessageBox.critical(self, 'Limpiar', f'No se pudo borrar:\n\n{e}')
+            return
+        self.respuestas_cambiadas.emit()
+        self.recargar()
 
     def _guardar(self, respuestas, titulo) -> bool:
         """Guarda y avisa si no se pudo. Devuelve si quedó guardado."""

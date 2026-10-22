@@ -150,6 +150,43 @@ kilométrica), y la tipografía del reporte es Arial y su equivalente libre,
 porque con otras Qt escribe los dos puntos y las rayas en un código privado y
 el texto del PDF no se puede copiar ni buscar. Hay una prueba que lo vigila.
 
+## Las instalaciones se contestan una vez por área
+
+Las preguntas de **instalaciones del laboratorio** son las mismas para todas las
+cepas que se trabajan en un área: el edificio, los gabinetes, los controles de
+acceso y los procedimientos no cambian de una cepa a otra. Las del **agente
+biológico** sí cambian con cada cepa.
+
+Por eso no hay que contestarlas una vez por cepa:
+
+1. Abra la evaluación de la primera cepa del área y contéstele las preguntas de
+   instalaciones.
+2. En la pestaña **Datos y respaldo**, oprima **«Guardar estas respuestas para el
+   área»**.
+3. Cada cepa nueva de esa área arranca con esas respuestas ya contestadas. El
+   programa lo dice en la misma pestaña: *«Las 52 respuestas de instalaciones de
+   esta evaluación son las del área»*.
+
+Si en una cepa alguna cambia, se modifica en su evaluación y queda como respuesta
+de esa cepa: **no toca las del área ni las de las demás cepas**. La pestaña avisa
+cuántas quedaron distintas.
+
+Hay dos botones más para cuando hace falta:
+
+| Botón | Qué hace |
+|---|---|
+| **Traer las del área** | Reemplaza las respuestas de instalaciones de esta evaluación con las del área. Las del agente no se tocan. |
+| **Limpiar y empezar de cero** | Borra las respuestas de instalaciones de **esta** evaluación para contestarlas desde el principio. Las del área quedan guardadas. |
+
+Desde la línea de comandos:
+
+```
+python -m bioram.cli area instalaciones 1 bioseguridad                      # ver
+python -m bioram.cli area instalaciones 1 bioseguridad --de-evaluacion 3    # fijar
+python -m bioram.cli area instalaciones 1 bioseguridad --limpiar            # borrar
+python -m bioram.cli evaluacion nueva 5 bioseguridad --sin-heredar          # sin heredar
+```
+
 ## Lo que falta
 
 - **Etapa 4**: empaquetar en un solo `.exe`. En espera, como se acordó.

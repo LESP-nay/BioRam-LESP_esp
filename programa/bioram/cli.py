@@ -22,7 +22,7 @@ import os
 import sys
 from pathlib import Path
 
-from . import datos, intercambio, modelo, motor, reporte
+from . import datos, intercambio, modelo, motor, reporte, secciones
 from .datos import Almacen
 
 POR_OMISION = 'bioram.db'
@@ -49,6 +49,43 @@ def cmd_area_listar(alm, args):
 
 
 # --------------------------------------------------------------------- cepas
+def cmd_area_instalaciones(alm, args):
+    """Ver, fijar o limpiar las respuestas de instalaciones de un área."""
+    area = alm.area(args.area)
+    cuestionario = modelo.incluido(args.tipo)
+    de_instalacion = {u for u, s in secciones.por_pregunta(cuestionario, args.tipo).items()
+                      if s == secciones.INSTALACION}
+
+    if args.limpiar:
+        alm.borrar_respuestas_de_area(args.area, args.tipo)
+        print(f'«{area.nombre}»: respuestas de instalaciones borradas')
+        return
+
+    if args.de_evaluacion:
+        eva = alm.evaluacion(args.de_evaluacion)
+        if eva.tipo != args.tipo:
+            sys.exit(f'la evaluación {args.de_evaluacion} es de {eva.tipo}, no de {args.tipo}')
+        mias = {u: r for u, r in alm.respuestas(args.de_evaluacion).items()
+                if u in de_instalacion}
+        if not mias:
+            sys.exit('esa evaluación no tiene respuestas de instalaciones contestadas')
+        alm.borrar_respuestas_de_area(args.area, args.tipo)
+        alm.guardar_respuestas_de_area(args.area, args.tipo, mias)
+        print(f'«{area.nombre}»: {len(mias)} respuestas de instalaciones guardadas')
+        return
+
+    del_area = alm.respuestas_de_area(args.area, args.tipo)
+    print(f'«{area.nombre}» / {secciones.NOMBRE_EVALUACION[args.tipo]}: '
+          f'{len(del_area)} de {len(de_instalacion)} respuestas de instalaciones')
+    if not del_area:
+        return
+    for numero, pregunta in enumerate(cuestionario.preguntas_en_orden(), 1):
+        r = del_area.get(pregunta.uuid)
+        if r is not None:
+            marca = '  (estimación)' if r.aproximada else ''
+            print(f'  {numero:>3}. {r.valor:g}{marca}  {pregunta.titulo[:62]}')
+
+
 def cmd_cepa_nueva(alm, args):
     cepa_id = alm.crear_cepa(args.area, args.nombre, args.agente)
     print(f'cepa {cepa_id}: {args.nombre} (área {args.area})')
@@ -62,10 +99,13 @@ def cmd_cepa_listar(alm, args):
 
 # --------------------------------------------------------------- evaluaciones
 def cmd_evaluacion_nueva(alm, args):
+    heredadas = len(alm.respuestas_heredables(args.cepa, args.tipo)) if args.heredar else 0
     eva_id = alm.crear_evaluacion(args.cepa, args.tipo, responsables=args.responsables,
-                                  copiar_de=args.copiar_de)
+                                  copiar_de=args.copiar_de, heredar=args.heredar)
     cepa = alm.cepa(args.cepa)
     print(f'evaluación {eva_id}: {args.tipo} de {cepa.nombre}')
+    if heredadas and args.copiar_de is None:
+        print(f'  heredó {heredadas} respuestas de instalaciones del área')
     if args.plantilla:
         cuestionario = modelo.incluido(args.tipo)
         if args.plantilla not in cuestionario.plantillas:
@@ -231,6 +271,15 @@ def construir_analizador():
     a = area.add_parser('nueva'); a.add_argument('nombre'); a.add_argument('--responsable', default='')
     a.set_defaults(func=cmd_area_nueva)
     area.add_parser('listar').set_defaults(func=cmd_area_listar)
+    ai = area.add_parser('instalaciones',
+                         help='respuestas de instalaciones que heredan las cepas')
+    ai.add_argument('area', type=int); ai.add_argument('tipo', choices=modelo.TIPOS)
+    accion = ai.add_mutually_exclusive_group()
+    accion.add_argument('--de-evaluacion', dest='de_evaluacion', type=int,
+                        help='tomarlas de las respuestas de esa evaluación')
+    accion.add_argument('--limpiar', action='store_true',
+                        help='borrar las respuestas de instalaciones del área')
+    ai.set_defaults(func=cmd_area_instalaciones)
 
     cepa = sub.add_parser('cepa', help='cepas de un área').add_subparsers(dest='sub', required=True)
     c = cepa.add_parser('nueva'); c.add_argument('area', type=int); c.add_argument('nombre')
@@ -243,6 +292,8 @@ def construir_analizador():
     en.add_argument('tipo', choices=modelo.TIPOS); en.add_argument('--responsables', default='')
     en.add_argument('--plantilla', help='precargar con un agente del cuestionario')
     en.add_argument('--copiar-de', dest='copiar_de', type=int, help='copiar las respuestas de otra evaluación')
+    en.add_argument('--sin-heredar', dest='heredar', action='store_false',
+                    help='no traer las respuestas de instalaciones del área')
     en.set_defaults(func=cmd_evaluacion_nueva)
     ev.add_parser('listar').set_defaults(func=cmd_evaluacion_listar)
 

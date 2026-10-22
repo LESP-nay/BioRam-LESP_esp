@@ -23,7 +23,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
-VERSION_ESQUEMA = 1
+VERSION_ESQUEMA = 2
 TIPOS = ('bioseguridad', 'bioproteccion')
 
 
@@ -83,6 +83,18 @@ CREATE TABLE IF NOT EXISTS respuesta (
     valor         REAL NOT NULL,
     aproximada    INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY (evaluacion_id, pregunta)
+);
+
+-- Las respuestas que valen para toda el área: las instalaciones del
+-- laboratorio son las mismas para todas las cepas que se trabajan ahí, así que
+-- se contestan una vez y cada cepa nueva las hereda.
+CREATE TABLE IF NOT EXISTS respuesta_area (
+    area_id    INTEGER NOT NULL REFERENCES area(id) ON DELETE CASCADE,
+    tipo       TEXT NOT NULL CHECK (tipo IN ('bioseguridad', 'bioproteccion')),
+    pregunta   TEXT NOT NULL,
+    valor      REAL NOT NULL,
+    aproximada INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (area_id, tipo, pregunta)
 );
 
 CREATE TABLE IF NOT EXISTS version (
@@ -208,6 +220,12 @@ class Almacen:
             self.cx.executescript(ESQUEMA)
             self.cx.execute('INSERT OR IGNORE INTO meta (clave, valor) VALUES (?, ?)',
                             ('version_esquema', str(VERSION_ESQUEMA)))
+            # Un archivo de una versión anterior se actualiza al abrirlo: las
+            # tablas nuevas las crea el CREATE TABLE IF NOT EXISTS de arriba, y
+            # aquí se anota la versión a la que quedó.
+            self.cx.execute(
+                'UPDATE meta SET valor = ? WHERE clave = ? AND CAST(valor AS INTEGER) < ?',
+                (str(VERSION_ESQUEMA), 'version_esquema', VERSION_ESQUEMA))
             self.cx.commit()
         except sqlite3.DatabaseError as e:
             # Archivo corrupto, truncado, de solo lectura, o que no es una base
@@ -304,6 +322,53 @@ class Almacen:
             raise LookupError(f'no existe la cepa {cepa_id}')
         return Cepa(**dict(f))
 
+    # ------------------------------------------------- respuestas del área
+    # Las instalaciones del laboratorio son las mismas para todas las cepas que
+    # se trabajan en un área, así que se contestan una vez en el área y cada
+    # evaluación nueva las hereda. Quien evalúa puede modificarlas en su cepa
+    # —quedan como respuestas suyas, sin tocar las del área— o limpiarlas para
+    # empezar de cero.
+
+    def guardar_respuestas_de_area(self, area_id, tipo, respuestas: dict):
+        """Guarda las respuestas que valen para toda el área."""
+        self.area(area_id)
+        if tipo not in TIPOS:
+            raise ValueError(f'tipo desconocido: {tipo}')
+        filas = []
+        for pregunta, r in respuestas.items():
+            if isinstance(r, Respuesta):
+                filas.append((area_id, tipo, pregunta,
+                              revisar_valor(r.valor), int(r.aproximada)))
+            else:
+                filas.append((area_id, tipo, pregunta, revisar_valor(r), 0))
+        self.cx.executemany(
+            'INSERT INTO respuesta_area (area_id, tipo, pregunta, valor, aproximada)'
+            ' VALUES (?,?,?,?,?) ON CONFLICT(area_id, tipo, pregunta)'
+            ' DO UPDATE SET valor = excluded.valor, aproximada = excluded.aproximada',
+            filas)
+        self.cx.commit()
+
+    def respuestas_de_area(self, area_id, tipo) -> dict[str, Respuesta]:
+        return {f['pregunta']: Respuesta(f['valor'], bool(f['aproximada']))
+                for f in self.cx.execute(
+                    'SELECT pregunta, valor, aproximada FROM respuesta_area'
+                    ' WHERE area_id = ? AND tipo = ?', (area_id, tipo))}
+
+    def borrar_respuestas_de_area(self, area_id, tipo, preguntas=None):
+        """Borra las respuestas del área; con preguntas, sólo esas."""
+        if preguntas is None:
+            self.cx.execute('DELETE FROM respuesta_area WHERE area_id = ? AND tipo = ?',
+                            (area_id, tipo))
+        else:
+            self.cx.executemany(
+                'DELETE FROM respuesta_area WHERE area_id = ? AND tipo = ? AND pregunta = ?',
+                [(area_id, tipo, p) for p in preguntas])
+        self.cx.commit()
+
+    def respuestas_heredables(self, cepa_id, tipo) -> dict[str, Respuesta]:
+        """Las respuestas del área a la que pertenece una cepa."""
+        return self.respuestas_de_area(self.cepa(cepa_id).area_id, tipo)
+
     def renombrar_cepa(self, cepa_id, nombre):
         cepa = self.cepa(cepa_id)
         nombre = limpiar_texto(nombre)
@@ -324,8 +389,15 @@ class Almacen:
 
     # ---------------------------------------------------------- evaluaciones
     def crear_evaluacion(self, cepa_id, tipo, titulo='', responsables='',
-                         procedimiento='', copiar_de=None) -> int:
-        """Crea una evaluación; con copiar_de arranca con las respuestas de otra."""
+                         procedimiento='', copiar_de=None, heredar=True) -> int:
+        """Crea una evaluación.
+
+        Con copiar_de arranca con las respuestas de otra evaluación. Si no, y
+        heredar es cierto, arranca con las respuestas que el área tenga
+        contestadas: las instalaciones del laboratorio son las mismas para todas
+        sus cepas. Quedan como respuestas de esta evaluación, así que se pueden
+        modificar o borrar sin tocar las del área.
+        """
         if tipo not in TIPOS:
             raise ValueError(f'tipo desconocido: {tipo} (use {" o ".join(TIPOS)})')
         self.cepa(cepa_id)
@@ -341,6 +413,10 @@ class Almacen:
             if origen.tipo != tipo:
                 raise ValueError('no se pueden copiar respuestas entre tipos distintos')
             self.guardar_respuestas(nueva, self.respuestas(copiar_de))
+        elif heredar:
+            del_area = self.respuestas_heredables(cepa_id, tipo)
+            if del_area:
+                self.guardar_respuestas(nueva, del_area)
         return nueva
 
     def evaluacion(self, evaluacion_id) -> Evaluacion:

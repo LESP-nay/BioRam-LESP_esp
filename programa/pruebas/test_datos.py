@@ -221,3 +221,104 @@ def test_un_archivo_que_no_es_una_base_de_datos_da_un_mensaje_claro(tmp_path):
         Almacen(malo)
     assert 'No se pudo abrir el archivo de datos' in str(e.value)
     assert str(malo) in str(e.value)
+
+
+# ---------------------------------------------------------------------------
+# Herencia: las instalaciones del laboratorio son las mismas para todas las
+# cepas de un área, así que se contestan una vez y cada cepa nueva las trae.
+
+def _area_con_cepa(alm, nombre_area='Área', nombre_cepa='Cepa'):
+    area = alm.crear_area(nombre_area)
+    return area, alm.crear_cepa(area, nombre_cepa)
+
+
+def test_una_cepa_nueva_hereda_las_respuestas_del_area(tmp_path):
+    with Almacen(tmp_path / 'b.db') as alm:
+        area, cepa = _area_con_cepa(alm)
+        alm.guardar_respuestas_de_area(area, 'bioseguridad',
+                                       {'p1': 3.0, 'p2': Respuesta(4.0, True)})
+        eva = alm.crear_evaluacion(cepa, 'bioseguridad')
+        traidas = alm.respuestas(eva)
+        assert set(traidas) == {'p1', 'p2'}
+        assert traidas['p1'].valor == 3.0
+        assert traidas['p2'].aproximada is True
+        # otra cepa del área también
+        otra = alm.crear_cepa(area, 'Otra cepa')
+        assert len(alm.respuestas(alm.crear_evaluacion(otra, 'bioseguridad'))) == 2
+
+
+def test_con_heredar_apagado_la_evaluacion_arranca_vacia(tmp_path):
+    with Almacen(tmp_path / 'b.db') as alm:
+        area, cepa = _area_con_cepa(alm)
+        alm.guardar_respuestas_de_area(area, 'bioseguridad', {'p1': 3.0})
+        eva = alm.crear_evaluacion(cepa, 'bioseguridad', heredar=False)
+        assert alm.respuestas(eva) == {}
+
+
+def test_modificar_lo_heredado_no_toca_las_respuestas_del_area(tmp_path):
+    """Es lo que pidió el laboratorio: heredar, pero poder modificar."""
+    with Almacen(tmp_path / 'b.db') as alm:
+        area, cepa = _area_con_cepa(alm)
+        alm.guardar_respuestas_de_area(area, 'bioseguridad', {'p1': 3.0})
+        eva = alm.crear_evaluacion(cepa, 'bioseguridad')
+        alm.guardar_respuestas(eva, {'p1': 1.0})
+        assert alm.respuestas(eva)['p1'].valor == 1.0
+        assert alm.respuestas_de_area(area, 'bioseguridad')['p1'].valor == 3.0
+        # y una cepa nueva sigue heredando la del área, no la modificada
+        otra = alm.crear_cepa(area, 'Otra')
+        nueva = alm.crear_evaluacion(otra, 'bioseguridad')
+        assert alm.respuestas(nueva)['p1'].valor == 3.0
+
+
+def test_limpiar_las_respuestas_de_la_evaluacion_no_toca_las_del_area(tmp_path):
+    """La otra mitad de lo que pidió el laboratorio: empezar de cero."""
+    with Almacen(tmp_path / 'b.db') as alm:
+        area, cepa = _area_con_cepa(alm)
+        alm.guardar_respuestas_de_area(area, 'bioseguridad', {'p1': 3.0, 'p2': 2.0})
+        eva = alm.crear_evaluacion(cepa, 'bioseguridad')
+        for pregunta in list(alm.respuestas(eva)):
+            alm.borrar_respuesta(eva, pregunta)
+        assert alm.respuestas(eva) == {}
+        assert len(alm.respuestas_de_area(area, 'bioseguridad')) == 2
+
+
+def test_cada_evaluacion_hereda_lo_de_su_propio_tipo(tmp_path):
+    with Almacen(tmp_path / 'b.db') as alm:
+        area, cepa = _area_con_cepa(alm)
+        alm.guardar_respuestas_de_area(area, 'bioseguridad', {'p1': 3.0})
+        alm.guardar_respuestas_de_area(area, 'bioproteccion', {'q1': 1.0, 'q2': 2.0})
+        assert len(alm.respuestas(alm.crear_evaluacion(cepa, 'bioseguridad'))) == 1
+        assert len(alm.respuestas(alm.crear_evaluacion(cepa, 'bioproteccion'))) == 2
+
+
+def test_borrar_el_area_se_lleva_sus_respuestas(tmp_path):
+    with Almacen(tmp_path / 'b.db') as alm:
+        area, _ = _area_con_cepa(alm)
+        alm.guardar_respuestas_de_area(area, 'bioseguridad', {'p1': 3.0})
+        alm.borrar_area(area)
+        assert alm.cx.execute('SELECT COUNT(*) FROM respuesta_area').fetchone()[0] == 0
+
+
+def test_las_respuestas_del_area_tambien_se_validan(tmp_path):
+    with Almacen(tmp_path / 'b.db') as alm:
+        area, _ = _area_con_cepa(alm)
+        with pytest.raises(ValueError, match='número finito'):
+            alm.guardar_respuestas_de_area(area, 'bioseguridad', {'p1': float('nan')})
+        with pytest.raises(ValueError, match='tipo desconocido'):
+            alm.guardar_respuestas_de_area(area, 'otra cosa', {'p1': 1.0})
+
+
+def test_un_archivo_de_la_version_anterior_se_actualiza_al_abrirlo(tmp_path):
+    """La tabla nueva se crea y la versión del esquema queda al día."""
+    ruta = tmp_path / 'vieja.db'
+    with Almacen(ruta) as alm:
+        alm.cx.execute("UPDATE meta SET valor = '1' WHERE clave = 'version_esquema'")
+        alm.cx.execute('DROP TABLE respuesta_area')
+        alm.cx.commit()
+    with Almacen(ruta) as alm:
+        guardada = alm.cx.execute(
+            "SELECT valor FROM meta WHERE clave = 'version_esquema'").fetchone()[0]
+        assert int(guardada) == 2
+        area = alm.crear_area('Área')
+        alm.guardar_respuestas_de_area(area, 'bioseguridad', {'p1': 1.0})
+        assert len(alm.respuestas_de_area(area, 'bioseguridad')) == 1
