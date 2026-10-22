@@ -17,6 +17,7 @@ respuestas de ese momento, con fecha y autor, que queda como historial.
 """
 from __future__ import annotations
 
+import math
 import sqlite3
 from dataclasses import dataclass
 from datetime import datetime
@@ -24,6 +25,20 @@ from pathlib import Path
 
 VERSION_ESQUEMA = 1
 TIPOS = ('bioseguridad', 'bioproteccion')
+
+
+class ArchivoDeDatosInvalido(Exception):
+    """El archivo de datos no se puede abrir: corrupto, ajeno o sin permiso."""
+
+    def __init__(self, ruta, causa=None):
+        self.ruta = Path(ruta)
+        self.causa = causa
+        super().__init__(
+            f'No se pudo abrir el archivo de datos:\n\n{self.ruta}\n\n'
+            'Puede estar dañado, no ser un archivo de BioRAM LESP, o no tener '
+            'permiso de escritura. Si tiene un respaldo, recupérelo; si no, '
+            'mueva este archivo a un lado y el programa creará uno nuevo.'
+            + (f'\n\nDetalle técnico: {causa}' if causa else ''))
 
 ESQUEMA = """
 CREATE TABLE IF NOT EXISTS meta (
@@ -142,18 +157,62 @@ def _ahora() -> str:
     return datetime.now().isoformat(timespec='seconds')
 
 
+# Caracteres que XML 1.0 no admite. Si uno entra en el nombre de un área o de
+# una cepa, el .raml que se exporta queda ilegible para el programa original y
+# para este, así que se limpian al capturar y no al escribir.
+_PROHIBIDOS = ''.join(chr(c) for c in range(0x20) if chr(c) not in '\t\n\r')
+_PROHIBIDOS += ''.join(chr(c) for c in range(0x7F, 0xA0))
+_LIMPIAR = str.maketrans('', '', _PROHIBIDOS)
+
+
+def limpiar_texto(texto: str) -> str:
+    """Quita los caracteres que no se pueden escribir en un XML."""
+    return str(texto or '').translate(_LIMPIAR).strip()
+
+
+def revisar_valor(valor, pregunta=None) -> float:
+    """Comprueba que una respuesta sea un número usable.
+
+    El «no es un número» y el infinito se rechazan siempre: entran por un error
+    de captura y luego salen impresos en el reporte. Si se pasa la pregunta, se
+    comprueban además sus límites, que en los dos cuestionarios son 0 y 4.
+    """
+    try:
+        v = float(valor)
+    except (TypeError, ValueError):
+        raise ValueError(f'«{valor}» no es un número') from None
+    if math.isnan(v) or math.isinf(v):
+        raise ValueError('la respuesta tiene que ser un número finito')
+    if pregunta is not None:
+        minimo = getattr(pregunta, 'minimo', None)
+        maximo = getattr(pregunta, 'maximo', None)
+        if minimo is not None and maximo is not None and not (minimo <= v <= maximo):
+            raise ValueError(
+                f'la respuesta {v:g} está fuera de los límites de la pregunta '
+                f'({minimo:g} a {maximo:g})')
+    return v
+
+
 class Almacen:
     """El archivo de datos del laboratorio."""
 
     def __init__(self, ruta):
         self.ruta = Path(ruta)
-        self.cx = sqlite3.connect(self.ruta)
-        self.cx.row_factory = sqlite3.Row
-        self.cx.execute('PRAGMA foreign_keys = ON')
-        self.cx.executescript(ESQUEMA)
-        self.cx.execute('INSERT OR IGNORE INTO meta (clave, valor) VALUES (?, ?)',
-                        ('version_esquema', str(VERSION_ESQUEMA)))
-        self.cx.commit()
+        try:
+            # timeout: si otra copia del programa está escribiendo, espera en vez
+            # de fallar de inmediato. WAL: deja leer mientras otro escribe.
+            self.cx = sqlite3.connect(self.ruta, timeout=15)
+            self.cx.row_factory = sqlite3.Row
+            self.cx.execute('PRAGMA foreign_keys = ON')
+            self.cx.execute('PRAGMA journal_mode = WAL')
+            self.cx.executescript(ESQUEMA)
+            self.cx.execute('INSERT OR IGNORE INTO meta (clave, valor) VALUES (?, ?)',
+                            ('version_esquema', str(VERSION_ESQUEMA)))
+            self.cx.commit()
+        except sqlite3.DatabaseError as e:
+            # Archivo corrupto, truncado, de solo lectura, o que no es una base
+            # de datos. Sin esto sale una traza de Python que nadie puede leer.
+            raise ArchivoDeDatosInvalido(self.ruta, e) from e
         self._revisar_version()
 
     def _revisar_version(self):
@@ -175,9 +234,15 @@ class Almacen:
 
     # ---------------------------------------------------------------- áreas
     def crear_area(self, nombre, responsable='', notas='') -> int:
-        cur = self.cx.execute(
-            'INSERT INTO area (nombre, responsable, notas, creada) VALUES (?,?,?,?)',
-            (nombre.strip(), responsable, notas, _ahora()))
+        nombre = limpiar_texto(nombre)
+        if not nombre:
+            raise ValueError('el área necesita un nombre')
+        try:
+            cur = self.cx.execute(
+                'INSERT INTO area (nombre, responsable, notas, creada) VALUES (?,?,?,?)',
+                (nombre, limpiar_texto(responsable), notas, _ahora()))
+        except sqlite3.IntegrityError:
+            raise ValueError(f'ya existe un área llamada «{nombre}»') from None
         self.cx.commit()
         return cur.lastrowid
 
@@ -191,6 +256,18 @@ class Almacen:
             raise LookupError(f'no existe el área {area_id}')
         return Area(**dict(f))
 
+    def renombrar_area(self, area_id, nombre):
+        self.area(area_id)
+        nombre = limpiar_texto(nombre)
+        if not nombre:
+            raise ValueError('el área necesita un nombre')
+        try:
+            self.cx.execute('UPDATE area SET nombre = ? WHERE id = ?',
+                            (nombre, area_id))
+        except sqlite3.IntegrityError:
+            raise ValueError(f'ya existe un área llamada «{nombre}»') from None
+        self.cx.commit()
+
     def borrar_area(self, area_id):
         """Borra el área con sus cepas y evaluaciones."""
         self.cx.execute('DELETE FROM area WHERE id = ?', (area_id,))
@@ -198,10 +275,18 @@ class Almacen:
 
     # ---------------------------------------------------------------- cepas
     def crear_cepa(self, area_id, nombre, agente='', notas='') -> int:
-        self.area(area_id)   # falla pronto si el área no existe
-        cur = self.cx.execute(
-            'INSERT INTO cepa (area_id, nombre, agente, notas, creada) VALUES (?,?,?,?,?)',
-            (area_id, nombre.strip(), agente, notas, _ahora()))
+        area = self.area(area_id)   # falla pronto si el área no existe
+        nombre = limpiar_texto(nombre)
+        if not nombre:
+            raise ValueError('la cepa necesita un nombre')
+        try:
+            cur = self.cx.execute(
+                'INSERT INTO cepa (area_id, nombre, agente, notas, creada)'
+                ' VALUES (?,?,?,?,?)',
+                (area_id, nombre, limpiar_texto(agente), notas, _ahora()))
+        except sqlite3.IntegrityError:
+            raise ValueError(
+                f'el área «{area.nombre}» ya tiene una cepa llamada «{nombre}»') from None
         self.cx.commit()
         return cur.lastrowid
 
@@ -218,6 +303,20 @@ class Almacen:
         if f is None:
             raise LookupError(f'no existe la cepa {cepa_id}')
         return Cepa(**dict(f))
+
+    def renombrar_cepa(self, cepa_id, nombre):
+        cepa = self.cepa(cepa_id)
+        nombre = limpiar_texto(nombre)
+        if not nombre:
+            raise ValueError('la cepa necesita un nombre')
+        try:
+            self.cx.execute('UPDATE cepa SET nombre = ? WHERE id = ?',
+                            (nombre, cepa_id))
+        except sqlite3.IntegrityError:
+            area = self.area(cepa.area_id)
+            raise ValueError(
+                f'el área «{area.nombre}» ya tiene una cepa llamada «{nombre}»') from None
+        self.cx.commit()
 
     def borrar_cepa(self, cepa_id):
         self.cx.execute('DELETE FROM cepa WHERE id = ?', (cepa_id,))
@@ -282,19 +381,32 @@ class Almacen:
 
     # ------------------------------------------------------------ respuestas
     def guardar_respuestas(self, evaluacion_id, respuestas: dict):
-        """Guarda o reemplaza respuestas. Acepta {uuid: valor} o {uuid: Respuesta}."""
+        """Guarda o reemplaza respuestas. Acepta {uuid: valor} o {uuid: Respuesta}.
+
+        Si el valor llega como número desnudo, la marca de «es una estimación»
+        que ya tuviera la respuesta se conserva: sólo se cambia cuando viene un
+        objeto Respuesta, que es quien sabe de esa marca.
+        """
         self.evaluacion(evaluacion_id)
-        filas = []
+        con_marca, sin_marca = [], []
         for pregunta, r in respuestas.items():
             if isinstance(r, Respuesta):
-                filas.append((evaluacion_id, pregunta, float(r.valor), int(r.aproximada)))
+                con_marca.append((evaluacion_id, pregunta,
+                                  revisar_valor(r.valor), int(r.aproximada)))
             else:
-                filas.append((evaluacion_id, pregunta, float(r), 0))
-        self.cx.executemany(
-            'INSERT INTO respuesta (evaluacion_id, pregunta, valor, aproximada)'
-            ' VALUES (?,?,?,?) ON CONFLICT(evaluacion_id, pregunta)'
-            ' DO UPDATE SET valor = excluded.valor, aproximada = excluded.aproximada',
-            filas)
+                sin_marca.append((evaluacion_id, pregunta, revisar_valor(r), 0))
+        if con_marca:
+            self.cx.executemany(
+                'INSERT INTO respuesta (evaluacion_id, pregunta, valor, aproximada)'
+                ' VALUES (?,?,?,?) ON CONFLICT(evaluacion_id, pregunta)'
+                ' DO UPDATE SET valor = excluded.valor, aproximada = excluded.aproximada',
+                con_marca)
+        if sin_marca:
+            self.cx.executemany(
+                'INSERT INTO respuesta (evaluacion_id, pregunta, valor, aproximada)'
+                ' VALUES (?,?,?,?) ON CONFLICT(evaluacion_id, pregunta)'
+                ' DO UPDATE SET valor = excluded.valor',
+                sin_marca)
         self.cx.execute('UPDATE evaluacion SET actualizada = ? WHERE id = ?',
                         (_ahora(), evaluacion_id))
         self.cx.commit()

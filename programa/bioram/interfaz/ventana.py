@@ -8,6 +8,8 @@ evaluación. Se va y se vuelve con un botón grande, como en un navegador.
 """
 from __future__ import annotations
 
+import sqlite3
+
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QAction
 from PySide6.QtWidgets import (QHBoxLayout, QMainWindow, QMessageBox, QStackedWidget,
@@ -100,15 +102,41 @@ class PaginaEvaluacion(QWidget):
                         imagenes_de(self.resultados))
 
     def _guardar(self, pregunta, respuesta):
-        if respuesta is None:
-            self.almacen.borrar_respuesta(self.evaluacion_id, pregunta)
-        else:
-            self.almacen.guardar_respuestas(self.evaluacion_id, {pregunta: respuesta})
+        """Guarda una respuesta, y si no se pudo guardar lo dice.
+
+        Sin este aviso la pregunta se pintaba de contestada y la barra llegaba a
+        «¡Cuestionario completo!» aunque no se hubiera guardado nada: el error
+        salía por la consola, que en el ejecutable de Windows no existe. Pasaba
+        con el archivo de datos abierto por otra copia del programa, en una
+        carpeta de red, o sin permiso de escritura.
+        """
+        try:
+            if respuesta is None:
+                self.almacen.borrar_respuesta(self.evaluacion_id, pregunta)
+            else:
+                self.almacen.guardar_respuestas(self.evaluacion_id, {pregunta: respuesta})
+        except (sqlite3.Error, ValueError) as e:
+            QMessageBox.critical(
+                self, 'No se pudo guardar la respuesta',
+                'Esta respuesta NO quedó guardada:\n\n'
+                f'{e}\n\n'
+                'Puede ser que el programa esté abierto en otra ventana sobre el '
+                'mismo archivo, que el archivo esté en una carpeta de red, o que '
+                'no tenga permiso de escritura.\n\n'
+                'Revise el archivo de datos antes de seguir contestando: '
+                f'{self.almacen.ruta}')
+            # Se vuelve a pintar desde la base, para que la pantalla muestre lo
+            # que de verdad está guardado y no lo que se creyó guardar.
+            self.captura.mostrar(self.almacen.respuestas(self.evaluacion_id))
 
     def _guardar_cabecera(self, responsables, procedimiento):
-        self.almacen.actualizar_evaluacion(self.evaluacion_id,
-                                           responsables=responsables,
-                                           procedimiento=procedimiento)
+        try:
+            self.almacen.actualizar_evaluacion(self.evaluacion_id,
+                                               responsables=responsables,
+                                               procedimiento=procedimiento)
+        except sqlite3.Error as e:
+            QMessageBox.critical(self, 'No se pudo guardar',
+                                 f'Los datos de la portada no quedaron guardados:\n\n{e}')
 
     def _recargar_respuestas(self):
         self.captura.mostrar(self.almacen.respuestas(self.evaluacion_id))

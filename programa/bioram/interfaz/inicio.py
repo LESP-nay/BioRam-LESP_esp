@@ -248,11 +248,19 @@ class PantallaInicio(QWidget):
             self.columna_cepas.insertWidget(self.columna_cepas.count() - 1, tarjeta)
 
     # ---------------------------------------------------------------- altas
+    def _avisar(self, titulo, error):
+        """Un nombre repetido o vacío no puede quedarse en silencio."""
+        QMessageBox.warning(self, titulo, str(error))
+
     def nueva_area(self):
         nombre, ok = QInputDialog.getText(self, 'Nueva área',
                                           'Nombre del área del laboratorio:')
         if ok and nombre.strip():
-            self.recargar(seleccionar_area=self.almacen.crear_area(nombre))
+            try:
+                nueva = self.almacen.crear_area(nombre)
+            except ValueError as e:
+                return self._avisar('Nueva área', e)
+            self.recargar(seleccionar_area=nueva)
 
     def nueva_cepa(self):
         area_id = self.area_actual()
@@ -261,7 +269,10 @@ class PantallaInicio(QWidget):
         nombre, ok = QInputDialog.getText(
             self, 'Nueva cepa', 'Nombre de la cepa o del agente biológico:')
         if ok and nombre.strip():
-            self.almacen.crear_cepa(area_id, nombre)
+            try:
+                self.almacen.crear_cepa(area_id, nombre)
+            except ValueError as e:
+                return self._avisar('Nueva cepa', e)
             self.recargar()
 
     def _resumen_de_area(self):
@@ -283,9 +294,10 @@ class PantallaInicio(QWidget):
         nombre, ok = QInputDialog.getText(self, 'Cambiar el nombre',
                                           'Nuevo nombre del área:', text=area.nombre)
         if ok and nombre.strip():
-            self.almacen.cx.execute('UPDATE area SET nombre = ? WHERE id = ?',
-                                    (nombre.strip(), area_id))
-            self.almacen.cx.commit()
+            try:
+                self.almacen.renombrar_area(area_id, nombre)
+            except ValueError as e:
+                return self._avisar('Cambiar el nombre', e)
             self.recargar(seleccionar_area=area_id)
 
     def _eliminar_area(self):
@@ -307,9 +319,10 @@ class PantallaInicio(QWidget):
         nombre, ok = QInputDialog.getText(self, 'Cambiar el nombre',
                                           'Nuevo nombre de la cepa:', text=cepa.nombre)
         if ok and nombre.strip():
-            self.almacen.cx.execute('UPDATE cepa SET nombre = ? WHERE id = ?',
-                                    (nombre.strip(), cepa_id))
-            self.almacen.cx.commit()
+            try:
+                self.almacen.renombrar_cepa(cepa_id, nombre)
+            except ValueError as e:
+                return self._avisar('Cambiar el nombre', e)
             self.recargar_cepas()
 
     def _eliminar_cepa(self, cepa_id):

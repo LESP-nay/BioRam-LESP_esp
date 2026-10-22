@@ -18,7 +18,7 @@ import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .datos import Respuesta
+from .datos import Respuesta, limpiar_texto, revisar_valor
 from .modelo import Cuestionario
 
 
@@ -27,6 +27,7 @@ class Importacion:
     """Lo que trae un archivo de respuestas, ya cotejado con el cuestionario."""
     conjuntos: dict[str, dict[str, Respuesta]] = field(default_factory=dict)
     desconocidas: dict[str, int] = field(default_factory=dict)   # conjunto -> cuántas
+    fuera_de_limites: dict[str, int] = field(default_factory=dict)   # conjunto -> cuántas
     responsables: str = ''
     procedimiento: str = ''
 
@@ -51,10 +52,19 @@ def leer_respuestas(ruta, cuestionario: Cuestionario) -> Importacion:
         destino = resultado.conjuntos.setdefault(nombre, {})
         for r in conjunto.findall('response'):
             uuid = r.get('uuid')
-            if uuid in cuestionario.preguntas:
-                destino[uuid] = Respuesta(float(r.text))
-            else:
+            if uuid not in cuestionario.preguntas:
                 resultado.desconocidas[nombre] = resultado.desconocidas.get(nombre, 0) + 1
+                continue
+            try:
+                # Un archivo ajeno puede traer valores fuera de los límites del
+                # cuestionario, o un «nan». Entraban a la base y después salían
+                # impresos en el reporte.
+                valor = revisar_valor(r.text, cuestionario.preguntas[uuid])
+            except ValueError:
+                resultado.fuera_de_limites[nombre] = \
+                    resultado.fuera_de_limites.get(nombre, 0) + 1
+                continue
+            destino[uuid] = Respuesta(valor)
     return resultado
 
 
@@ -70,8 +80,8 @@ def escribir_respuestas(ruta, cuestionario_raml, conjuntos: dict[str, dict],
 
     salida = ET.Element('RamModel')
     info = ET.SubElement(salida, 'ModelInformation')
-    ET.SubElement(info, 'names').text = responsables
-    ET.SubElement(info, 'procedure').text = procedimiento
+    ET.SubElement(info, 'names').text = limpiar_texto(responsables)
+    ET.SubElement(info, 'procedure').text = limpiar_texto(procedimiento)
 
     for modulo_origen in origen.findall('QuestionModule'):
         raiz_origen = modulo_origen.find('QuestionSetRoot')
@@ -83,7 +93,9 @@ def escribir_respuestas(ruta, cuestionario_raml, conjuntos: dict[str, dict],
 
         for nombre, respuestas in conjuntos.items():
             conjunto = ET.SubElement(modulo, 'ResponseSet')
-            ET.SubElement(conjunto, 'responseSetName').text = nombre
+            # Un carácter de control en el nombre producía un .raml que ni el
+            # Java ni este programa podían volver a abrir.
+            ET.SubElement(conjunto, 'responseSetName').text = limpiar_texto(nombre)
             for pregunta, r in respuestas.items():
                 if pregunta not in preguntas_del_modulo:
                     continue

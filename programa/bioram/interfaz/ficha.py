@@ -8,6 +8,10 @@ nombre, y siempre se puede volver a ella.
 """
 from __future__ import annotations
 
+import sqlite3
+import xml.etree.ElementTree as ET
+import zipfile
+
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import (QFileDialog, QHBoxLayout, QHeaderView, QInputDialog,
                                QMessageBox, QTableWidget, QTableWidgetItem,
@@ -16,6 +20,12 @@ from PySide6.QtWidgets import (QFileDialog, QHBoxLayout, QHeaderView, QInputDial
 from .. import intercambio, modelo
 from ..datos import Almacen
 from .estilo import Ayuda, BotonGrande, COLOR_TIPO, PELIGRO, Titulo
+from .salidas import nombre_de_archivo_seguro
+
+# Lo que puede fallar al leer o escribir un .raml: el archivo no existe, no
+# es un zip, el XML está roto, o las respuestas no son números.
+FALLAS_DE_ARCHIVO = (OSError, ValueError, KeyError,
+                     zipfile.BadZipFile, ET.ParseError)
 
 
 class PanelFicha(QWidget):
@@ -169,37 +179,68 @@ class PanelFicha(QWidget):
                 'reemplazarán lo que tenga contestado.\n\n¿Continuar?',
                 QMessageBox.Yes | QMessageBox.No, QMessageBox.No) != QMessageBox.Yes:
             return
-        self.almacen.guardar_respuestas(self.evaluacion_id, respuestas)
+        if not self._guardar(respuestas, 'Copiar respuestas'):
+            return
         self.respuestas_cambiadas.emit()
 
+    def _guardar(self, respuestas, titulo) -> bool:
+        """Guarda y avisa si no se pudo. Devuelve si quedó guardado."""
+        try:
+            self.almacen.guardar_respuestas(self.evaluacion_id, respuestas)
+        except (sqlite3.Error, ValueError) as e:
+            QMessageBox.critical(
+                self, titulo,
+                f'NO se guardó nada:\n\n{e}\n\nRevise el archivo de datos: '
+                f'{self.almacen.ruta}')
+            return False
+        return True
+
     def usar_plantilla(self):
-        plantillas = modelo.incluido(self.tipo).plantillas
+        cuestionario = modelo.incluido(self.tipo)
+        # El cuestionario trae alguna plantilla sin ninguna respuesta; ofrecerla
+        # sólo hace perder el tiempo.
+        plantillas = {n: r for n, r in cuestionario.plantillas.items() if r}
         nombres = sorted(plantillas)
         nombre, ok = QInputDialog.getItem(self, 'Agente conocido',
                                           'Precargar las respuestas de:', nombres, 0, True)
         if not ok or nombre not in plantillas:
             return
-        self.almacen.guardar_respuestas(self.evaluacion_id, plantillas[nombre])
+        if not self._guardar(plantillas[nombre], 'Agente conocido'):
+            return
         self.respuestas_cambiadas.emit()
+        traidas = len(plantillas[nombre])
+        faltan = len(cuestionario.preguntas) - traidas
         QMessageBox.information(
             self, 'Agente conocido',
-            f'Se precargaron {len(plantillas[nombre])} respuestas de «{nombre}».\n\n'
-            'Revise cada una: son los valores del cuestionario oficial y pueden no '
-            'coincidir con su laboratorio.')
+            f'Se precargaron {traidas} respuestas de «{nombre}»'
+            + (f'; faltan {faltan} por contestar.' if faltan else '.')
+            + '\n\nRevise cada una: son los valores del cuestionario oficial y '
+            'pueden no coincidir con su laboratorio.')
 
     def exportar(self):
         evaluacion = self.almacen.evaluacion(self.evaluacion_id)
         cepa = self.almacen.cepa(evaluacion.cepa_id)
         ruta, _ = QFileDialog.getSaveFileName(
-            self, 'Exportar las respuestas', f'{cepa.nombre} - {self.tipo}.raml',
+            self, 'Exportar las respuestas',
+            nombre_de_archivo_seguro(f'{cepa.nombre} - {self.tipo}', '.raml'),
             'Archivos de BioRAM (*.raml)')
         if not ruta:
             return
-        intercambio.escribir_respuestas(
-            ruta, modelo.ruta_incluido(self.tipo),
-            {cepa.nombre: self.almacen.respuestas(self.evaluacion_id)},
-            responsables=evaluacion.responsables, procedimiento=evaluacion.procedimiento)
-        QMessageBox.information(self, 'Exportar', f'Guardado en:\n{ruta}')
+        try:
+            intercambio.escribir_respuestas(
+                ruta, modelo.ruta_incluido(self.tipo),
+                {cepa.nombre: self.almacen.respuestas(self.evaluacion_id)},
+                responsables=evaluacion.responsables,
+                procedimiento=evaluacion.procedimiento)
+        except FALLAS_DE_ARCHIVO as e:
+            QMessageBox.warning(self, 'Exportar',
+                                f'No se pudo escribir el archivo:\n\n{e}')
+            return
+        QMessageBox.information(
+            self, 'Exportar',
+            f'Guardado en:\n{ruta}\n\nEl formato .raml es el del programa original '
+            'y no puede guardar las marcas de «es una estimación». Para respaldar '
+            'todo, copie el archivo de datos completo.')
 
     def importar(self):
         ruta, _ = QFileDialog.getOpenFileName(self, 'Importar respuestas', '',
@@ -207,7 +248,14 @@ class PanelFicha(QWidget):
         if not ruta:
             return
         cuestionario = modelo.incluido(self.tipo)
-        leido = intercambio.leer_respuestas(ruta, cuestionario)
+        try:
+            leido = intercambio.leer_respuestas(ruta, cuestionario)
+        except FALLAS_DE_ARCHIVO as e:
+            QMessageBox.warning(
+                self, 'Importar',
+                f'No se pudo leer el archivo:\n\n{e}\n\n'
+                '¿Es un archivo .raml de BioRAM?')
+            return
         if not leido.conjuntos:
             QMessageBox.warning(self, 'Importar',
                                 'Ese archivo no trae respuestas.')
@@ -226,7 +274,12 @@ class PanelFicha(QWidget):
             aviso = (f'\n\nAtención: {leido.desconocidas[nombre]} respuestas del '
                      'archivo no corresponden a ninguna pregunta de este '
                      'cuestionario y no se importaron.')
-        self.almacen.guardar_respuestas(self.evaluacion_id, respuestas)
+        if leido.fuera_de_limites.get(nombre):
+            aviso += (f'\n\nAtención: {leido.fuera_de_limites[nombre]} respuestas '
+                      'del archivo están fuera de los límites del cuestionario '
+                      '(0 a 4) y no se importaron.')
+        if not self._guardar(respuestas, 'Importar'):
+            return
         self.respuestas_cambiadas.emit()
         QMessageBox.information(self, 'Importar',
                                 f'Se importaron {len(respuestas)} respuestas.{aviso}')

@@ -18,10 +18,11 @@ El archivo de datos es bioram.db en la carpeta actual, o el que indique --datos.
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
-from . import intercambio, modelo, motor, reporte
+from . import datos, intercambio, modelo, motor, reporte
 from .datos import Almacen
 
 POR_OMISION = 'bioram.db'
@@ -105,8 +106,13 @@ def cmd_responder(alm, args):
     if not 1 <= args.numero <= len(preguntas):
         sys.exit(f'la pregunta debe ir de 1 a {len(preguntas)}')
     pregunta = preguntas[args.numero - 1]
-    alm.guardar_respuestas(args.evaluacion, {pregunta.uuid: args.valor})
-    print(f'{args.numero}. {pregunta.titulo[:70]} -> {args.valor}')
+    # Los límites los define el cuestionario (0 a 4 en los dos). Sin esta
+    # comprobación, un 999 entraba en la base y el reporte salía con «nan».
+    valor = datos.revisar_valor(args.valor, pregunta)
+    respuesta = datos.Respuesta(valor, bool(args.aproximada))
+    alm.guardar_respuestas(args.evaluacion, {pregunta.uuid: respuesta})
+    marca = '  (estimación)' if args.aproximada else ''
+    print(f'{args.numero}. {pregunta.titulo[:70]} -> {valor:g}{marca}')
 
 
 # ----------------------------------------------------------------- resultados
@@ -173,7 +179,30 @@ def cmd_reporte(alm, args):
         contenido = reporte.csv_de_evaluacion(alm, args.id)
     else:
         contenido = reporte.html_de_evaluacion(alm, args.id)
+
+    if args.pdf:
+        if not args.archivo:
+            sys.exit('el PDF necesita --archivo')
+        # Qt sólo se importa si de verdad se pide un PDF, para que el resto de la
+        # línea de comandos siga sirviendo en un equipo sin Qt instalado.
+        try:
+            # Sin pantalla: la línea de comandos nunca abre una ventana, y Qt
+            # necesita de todos modos una aplicación viva para medir las letras.
+            os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
+            from PySide6.QtGui import QGuiApplication
+
+            from .interfaz.salidas import _a_pdf
+        except ImportError as e:
+            sys.exit(f'para generar PDF hace falta PySide6: {e}')
+        if QGuiApplication.instance() is None:
+            QGuiApplication([sys.argv[0]])
+        _a_pdf(contenido, Path(args.archivo))
+        print(f'guardado en {args.archivo}')
+        return
+
     if args.archivo:
+        # La codificación la decide el contenido, no la bandera: un HTML con
+        # marca de orden de bytes se ve mal en algunos navegadores.
         codificacion = 'utf-8-sig' if args.csv else 'utf-8'
         Path(args.archivo).write_text(contenido, encoding=codificacion)
         print(f'guardado en {args.archivo}')
@@ -227,7 +256,10 @@ def construir_analizador():
 
     rs = sub.add_parser('responder', help='responder una pregunta por su número')
     rs.add_argument('evaluacion', type=int); rs.add_argument('numero', type=int)
-    rs.add_argument('valor', type=float); rs.set_defaults(func=cmd_responder)
+    rs.add_argument('valor', type=float)
+    rs.add_argument('--aproximada', action='store_true',
+                    help='marcar la respuesta como una estimación')
+    rs.set_defaults(func=cmd_responder)
 
     re = sub.add_parser('resultados', help='calcular los resultados de una evaluación')
     re.add_argument('evaluacion', type=int); re.set_defaults(func=cmd_resultados)
@@ -243,7 +275,11 @@ def construir_analizador():
     rp = sub.add_parser('reporte', help='generar el reporte (HTML o CSV)')
     rp.add_argument('id', type=int, help='id de la evaluación, o del área con --area')
     rp.add_argument('--area', action='store_true', help='resumen del área en vez de una evaluación')
-    rp.add_argument('--csv', action='store_true', help='hoja de cálculo en vez de página web')
+    formato = rp.add_mutually_exclusive_group()
+    formato.add_argument('--csv', action='store_true',
+                         help='hoja de cálculo en vez de página web (no se puede con --area)')
+    formato.add_argument('--pdf', action='store_true',
+                         help='PDF en vez de página web; necesita --archivo')
     rp.add_argument('--archivo', help='dónde guardarlo (si no, se imprime)')
     rp.set_defaults(func=cmd_reporte)
 
@@ -259,11 +295,25 @@ def construir_analizador():
 
 def main(argv=None):
     args = construir_analizador().parse_args(argv)
-    with Almacen(Path(args.datos)) as alm:
+    if getattr(args, 'area', False) and getattr(args, 'csv', False):
+        sys.exit('error: el resumen de área no se puede generar como hoja de cálculo')
+    try:
+        alm = Almacen(Path(args.datos))
+    except datos.ArchivoDeDatosInvalido as e:
+        sys.exit(f'error: {e}')
+    with alm:
         try:
             args.func(alm, args)
         except (LookupError, ValueError) as e:
             sys.exit(f'error: {e}')
+        except BrokenPipeError:
+            # Pasa con «resultados | head»: la salida se cerró antes de tiempo.
+            # Sin esto Python imprime una traza al terminar.
+            try:
+                sys.stdout.close()
+            except BrokenPipeError:
+                pass
+            os._exit(0)
 
 
 if __name__ == '__main__':

@@ -16,6 +16,7 @@ import base64
 import csv
 import html
 import io
+import math
 from datetime import datetime
 
 from . import modelo, motor, secciones
@@ -45,6 +46,16 @@ ESTILO = """
 
 def _e(texto) -> str:
     return html.escape(str(texto or ''))
+
+
+def _celda(texto) -> str:
+    """Texto para una hoja de cálculo, sin que Excel lo tome por fórmula.
+
+    Una cepa llamada «=SUMA(...)», «-80 °C» o «+H1N1» se convierte en fórmula al
+    abrir el archivo, y en vez del nombre aparece un error o un número.
+    """
+    s = str(texto or '')
+    return "'" + s if s[:1] in ('=', '+', '-', '@', '\t', '\r') else s
 
 
 def _fecha() -> str:
@@ -134,13 +145,27 @@ def html_de_evaluacion(almacen: Almacen, evaluacion_id: int,
 
     partes.append('<h2>Resultados</h2>')
     filas = []
+    no_finitos = 0
     for uuid, valor in puntajes.items():
         perfil = cuestionario.perfiles[uuid]
         depende = secciones.de_que_depende(cuestionario, evaluacion.tipo, perfil)
-        filas.append((_e(perfil.titulo), f'{valor:.4f}',
+        if math.isnan(valor) or math.isinf(valor):
+            no_finitos += 1
+            texto = 'sin valor' if math.isnan(valor) else ('∞' if valor > 0 else '−∞')
+        else:
+            texto = f'{valor:.4f}'
+        filas.append((_e(perfil.titulo), texto,
                       _e(secciones.resumen_de_dependencia(depende))))
     partes.append(_tabla(['Resultado', 'Puntaje', 'De qué depende'], filas,
                          clases=('', 'num', '')))
+    if no_finitos:
+        partes.append(
+            f'<p class="aviso">{no_finitos} resultado(s) no se pudieron calcular. '
+            'Pasa cuando una combinación de respuestas lleva el cálculo a una '
+            'división entre cero o a la raíz de un número negativo. Revise las '
+            'respuestas de las preguntas de las que depende ese resultado; si '
+            'están completas y el valor sigue sin salir, anótelo así en el '
+            'expediente: es el comportamiento del modelo original.</p>')
 
     if imagenes:
         partes.append('<h2>Gráficas de riesgo</h2>')
@@ -240,16 +265,19 @@ def csv_de_evaluacion(almacen: Almacen, evaluacion_id: int) -> str:
         respuesta = respuestas.get(pregunta.uuid)
         valor = respuesta.valor if respuesta else None
         escritor.writerow([
-            area.nombre, cepa.nombre, secciones.NOMBRE_EVALUACION[evaluacion.tipo],
+            _celda(area.nombre), _celda(cepa.nombre),
+            secciones.NOMBRE_EVALUACION[evaluacion.tipo],
             secciones.NOMBRE.get(seccion_de.get(pregunta.uuid), ''), numero,
-            ' '.join(pregunta.titulo.split()),
+            _celda(' '.join(pregunta.titulo.split())),
             '' if valor is None else f'{valor:g}',
             'sí' if respuesta and respuesta.aproximada else '',
-            _descripcion_de(pregunta, valor)])
+            _celda(_descripcion_de(pregunta, valor))])
 
     escritor.writerow([])
     escritor.writerow(['resultado', 'puntaje'])
     puntajes = motor.resultados(cuestionario, {p: r.valor for p, r in respuestas.items()})
     for uuid, valor in puntajes.items():
-        escritor.writerow([cuestionario.perfiles[uuid].titulo, f'{valor:.6f}'])
+        texto = ('sin valor' if math.isnan(valor)
+                 else 'infinito' if math.isinf(valor) else f'{valor:.6f}')
+        escritor.writerow([_celda(cuestionario.perfiles[uuid].titulo), texto])
     return salida.getvalue()

@@ -5,7 +5,8 @@
 import pytest
 
 from bioram import modelo
-from bioram.datos import Almacen, Respuesta
+from bioram.datos import (Almacen, ArchivoDeDatosInvalido, Respuesta, limpiar_texto,
+                          revisar_valor)
 
 
 @pytest.fixture
@@ -122,3 +123,101 @@ def test_las_plantillas_de_agentes_se_pueden_guardar(alm):
     eva = alm.crear_evaluacion(cepa, 'bioproteccion')
     alm.guardar_respuestas(eva, cuestionario.plantillas['Bacillus anthracis'])
     assert len(alm.puntajes(eva)) == len(cuestionario.plantillas['Bacillus anthracis'])
+
+
+# ---------------------------------------------------------------------------
+# Lo que el programa tiene que avisar en vez de callarse. Cada una de estas
+# pruebas corresponde a una falla real que se encontró probando el programa.
+
+def test_un_nombre_de_area_repetido_se_rechaza_con_un_mensaje(tmp_path):
+    with Almacen(tmp_path / 'b.db') as alm:
+        alm.crear_area('Bacteriología')
+        with pytest.raises(ValueError, match='ya existe un área'):
+            alm.crear_area('Bacteriología')
+
+
+def test_un_nombre_de_cepa_repetido_en_la_misma_area_se_rechaza(tmp_path):
+    with Almacen(tmp_path / 'b.db') as alm:
+        a1 = alm.crear_area('Área 1')
+        a2 = alm.crear_area('Área 2')
+        alm.crear_cepa(a1, 'M. tuberculosis')
+        with pytest.raises(ValueError, match='ya tiene una cepa'):
+            alm.crear_cepa(a1, 'M. tuberculosis')
+        # en otra área sí se puede: es la misma cepa en otro lugar
+        assert alm.crear_cepa(a2, 'M. tuberculosis')
+
+
+def test_un_nombre_vacio_se_rechaza(tmp_path):
+    with Almacen(tmp_path / 'b.db') as alm:
+        with pytest.raises(ValueError, match='necesita un nombre'):
+            alm.crear_area('   ')
+        area = alm.crear_area('Área')
+        with pytest.raises(ValueError, match='necesita un nombre'):
+            alm.crear_cepa(area, '\t\n')
+
+
+def test_los_caracteres_que_xml_no_admite_se_quitan_al_capturar(tmp_path):
+    """Si entran, el .raml que se exporta queda ilegible para los dos programas."""
+    with Almacen(tmp_path / 'b.db') as alm:
+        area = alm.crear_area('Bacter\x00iolog\x08ía')
+        assert alm.area(area).nombre == 'Bacteriología'
+        cepa = alm.crear_cepa(area, 'M.\x1f tuberculosis')
+        assert alm.cepa(cepa).nombre == 'M. tuberculosis'
+
+
+def test_renombrar_a_un_nombre_que_ya_existe_se_rechaza(tmp_path):
+    with Almacen(tmp_path / 'b.db') as alm:
+        a1 = alm.crear_area('Área 1')
+        alm.crear_area('Área 2')
+        with pytest.raises(ValueError, match='ya existe un área'):
+            alm.renombrar_area(a1, 'Área 2')
+        alm.renombrar_area(a1, 'Virología')
+        assert alm.area(a1).nombre == 'Virología'
+
+
+def test_una_respuesta_que_no_es_un_numero_finito_se_rechaza(tmp_path):
+    with Almacen(tmp_path / 'b.db') as alm:
+        area = alm.crear_area('Área')
+        cepa = alm.crear_cepa(area, 'Cepa')
+        eva = alm.crear_evaluacion(cepa, 'bioseguridad')
+        for malo in (float('nan'), float('inf'), float('-inf')):
+            with pytest.raises(ValueError, match='número finito'):
+                alm.guardar_respuestas(eva, {'una-pregunta': malo})
+        with pytest.raises(ValueError, match='no es un número'):
+            alm.guardar_respuestas(eva, {'una-pregunta': 'dos'})
+
+
+def test_los_limites_de_la_pregunta_se_respetan():
+    from bioram import modelo
+    pregunta = modelo.incluido('bioseguridad').preguntas_en_orden()[0]
+    assert revisar_valor(2.5, pregunta) == 2.5
+    assert revisar_valor(0, pregunta) == 0.0
+    assert revisar_valor(4, pregunta) == 4.0
+    for fuera in (999, -5, 4.1):
+        with pytest.raises(ValueError, match='fuera de los límites'):
+            revisar_valor(fuera, pregunta)
+
+
+def test_guardar_solo_el_numero_no_borra_la_marca_de_estimacion(tmp_path):
+    """Pasaba al contestar de nuevo una pregunta ya marcada como estimación."""
+    with Almacen(tmp_path / 'b.db') as alm:
+        area = alm.crear_area('Área')
+        cepa = alm.crear_cepa(area, 'Cepa')
+        eva = alm.crear_evaluacion(cepa, 'bioseguridad')
+        alm.guardar_respuestas(eva, {'p1': Respuesta(4.0, aproximada=True)})
+        assert alm.respuestas(eva)['p1'].aproximada is True
+        alm.guardar_respuestas(eva, {'p1': 3.0})
+        r = alm.respuestas(eva)['p1']
+        assert (r.valor, r.aproximada) == (3.0, True)
+        # y un objeto Respuesta sí la cambia
+        alm.guardar_respuestas(eva, {'p1': Respuesta(2.0, aproximada=False)})
+        assert alm.respuestas(eva)['p1'].aproximada is False
+
+
+def test_un_archivo_que_no_es_una_base_de_datos_da_un_mensaje_claro(tmp_path):
+    malo = tmp_path / 'malo.db'
+    malo.write_text('esto no es una base de datos', encoding='utf-8')
+    with pytest.raises(ArchivoDeDatosInvalido) as e:
+        Almacen(malo)
+    assert 'No se pudo abrir el archivo de datos' in str(e.value)
+    assert str(malo) in str(e.value)

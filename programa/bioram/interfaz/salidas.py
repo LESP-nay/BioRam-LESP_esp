@@ -18,6 +18,23 @@ from .. import reporte
 from ..datos import Almacen
 
 
+# Lo que Windows no admite en un nombre de archivo. El nombre de una cepa puede
+# traer cualquiera de estos (por ejemplo «Influenza A/H1N1» o «BSL-3: sala 2») y
+# entonces el diálogo de guardar lo rechaza o guarda con otro nombre.
+_PROHIBIDOS_EN_ARCHIVO = '<>:"/\\|?*'
+_LARGO_MAXIMO = 80
+
+
+def nombre_de_archivo_seguro(nombre: str, extension: str = '') -> str:
+    """Convierte un nombre cualquiera en uno que Windows acepte."""
+    limpio = ''.join('-' if c in _PROHIBIDOS_EN_ARCHIVO or ord(c) < 0x20 else c
+                     for c in str(nombre or ''))
+    limpio = ' '.join(limpio.split()).strip(' .')      # Windows no quiere punto final
+    if len(limpio) > _LARGO_MAXIMO:
+        limpio = limpio[:_LARGO_MAXIMO].rstrip()
+    return (limpio or 'sin nombre') + extension
+
+
 def imagenes_de(panel_resultados) -> list[bytes]:
     """Dibuja las gráficas tal como se ven y las devuelve como PNG."""
     imagenes = []
@@ -50,7 +67,7 @@ def guardar_reporte(padre, almacen: Almacen, evaluacion_id: int, imagenes=None):
     """Pregunta dónde guardar y en qué formato, y lo guarda."""
     evaluacion = almacen.evaluacion(evaluacion_id)
     cepa = almacen.cepa(evaluacion.cepa_id)
-    sugerido = f'{cepa.nombre} - {evaluacion.tipo}.pdf'.replace('/', '-')
+    sugerido = nombre_de_archivo_seguro(f'{cepa.nombre} - {evaluacion.tipo}', '.pdf')
     ruta, filtro = QFileDialog.getSaveFileName(padre, 'Guardar el reporte', sugerido, FILTROS)
     if not ruta:
         return
@@ -77,7 +94,7 @@ def guardar_reporte(padre, almacen: Almacen, evaluacion_id: int, imagenes=None):
 
 def guardar_resumen_de_area(padre, almacen: Almacen, area_id: int):
     area = almacen.area(area_id)
-    sugerido = f'Resumen {area.nombre}.pdf'.replace('/', '-')
+    sugerido = nombre_de_archivo_seguro(f'Resumen {area.nombre}', '.pdf')
     ruta, filtro = QFileDialog.getSaveFileName(
         padre, 'Guardar el resumen del área', sugerido,
         'PDF (*.pdf);;Página web (*.html)')
@@ -86,8 +103,8 @@ def guardar_resumen_de_area(padre, almacen: Almacen, area_id: int):
     ruta = Path(ruta)
     if not ruta.suffix:
         ruta = ruta.with_suffix('.html' if 'html' in filtro else '.pdf')
-    html = reporte.html_de_area(almacen, area_id)
     try:
+        html = reporte.html_de_area(almacen, area_id)
         if ruta.suffix.lower() == '.html':
             ruta.write_text(html, encoding='utf-8')
         else:
