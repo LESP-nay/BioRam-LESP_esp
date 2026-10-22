@@ -17,6 +17,7 @@ nuevo que reúne las dos evaluaciones en una sola herramienta.
 | Usar BioRAM en español, en Windows | **[`LEEME.md`](LEEME.md)** |
 | Usar el programa nuevo (áreas, cepas y las dos evaluaciones juntas) | **[`programa/LEEME.md`](programa/LEEME.md)** |
 | Saber de quién es cada cosa y qué se puede redistribuir | **[`AVISO.md`](AVISO.md)** |
+| Ver las comprobaciones contra el programa original, y cómo se leen los resultados | **[`VERIFICACION.md`](VERIFICACION.md)** |
 | El original en inglés de Sandia | la sección de abajo |
 
 ## Qué hay aquí
@@ -52,9 +53,16 @@ No es una afirmación de confianza, está comprobado:
   original y dan los mismos puntajes.
 - La unión de los módulos de cada cuestionario se verificó contra los valores
   previos: no cambió ningún número.
+- Diez de las ponderaciones publicadas por Sandia en el apéndice B de su guía
+  de usuario se reproducen **exactas** al centésimo en el modelo que usa el
+  laboratorio.
 - Ni el programa Java ni el programa en Python acceden a Internet, envían
   informes ni mandan información a ningún lado. Está auditado y documentado en
   [`AVISO.md`](AVISO.md), sección 6.
+
+Todo el detalle, con los números y las órdenes que los produjeron, está en
+[`VERIFICACION.md`](VERIFICACION.md). Ahí también está explicado por qué el
+modelo es multiplicativo y qué significa eso al leer un resultado.
 
 Un detalle que conviene saber: en **bioseguridad**, el cuestionario oficial de
 Sandia en español es una **revisión distinta** del inglés que está en este
