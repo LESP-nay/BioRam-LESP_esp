@@ -30,6 +30,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - name: Bibliotecas de sistema que PySide6 necesita
+        # La máquina de Ubuntu viene pelona: sin esto, importar PySide6 falla
+        # con «libEGL.so.1: cannot open shared object file». Hace falta incluso
+        # para la plataforma «offscreen», porque QtGui se enlaza contra ellas.
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            libegl1 libgl1 libxkbcommon-x11-0 libdbus-1-3
       - name: Instalar lo necesario
         run: |
           python -m pip install --upgrade pip
