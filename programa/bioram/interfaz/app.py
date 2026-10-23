@@ -15,12 +15,32 @@ import sys
 import traceback
 from pathlib import Path
 
+from PySide6.QtCore import QLibraryInfo, QTranslator
 from PySide6.QtWidgets import QApplication, QMessageBox
 
 from .. import ubicacion
 from ..datos import Almacen, ArchivoDeDatosInvalido
 from . import estilo
 from .ventana import Ventana
+
+
+def _poner_en_espanol(app) -> QTranslator | None:
+    """Pone en español los botones que trae Qt, no el programa.
+
+    Son los de los cuadros de diálogo estándar: Cerrar, Sí, No, Cancelar,
+    Guardar, Abrir, y los menús de los campos de texto. Sin esto salen en
+    inglés en medio de un programa que está todo en español, porque Qt sólo
+    carga su traducción si se le pide.
+
+    Se devuelve el traductor para que quien llama lo conserve: si se lo lleva
+    el recolector de basura, Qt se queda sin él y los botones vuelven al inglés.
+    """
+    traductor = QTranslator()
+    carpeta = QLibraryInfo.path(QLibraryInfo.TranslationsPath)
+    if traductor.load('qtbase_es', carpeta):
+        app.installTranslator(traductor)
+        return traductor
+    return None
 
 
 def _mostrar_error_no_previsto(tipo, valor, rastro):
@@ -46,6 +66,7 @@ def main(argv=None):
 
     app = QApplication(argv[:1])
     app.setApplicationName('BioRAM LESP')
+    traductor = _poner_en_espanol(app)      # hay que conservarlo vivo
     estilo.aplicar(app)
     sys.excepthook = _mostrar_error_no_previsto
 
@@ -59,6 +80,7 @@ def main(argv=None):
     ventana.show()
     codigo = app.exec()
     almacen.cerrar()
+    del traductor
     return codigo
 
 

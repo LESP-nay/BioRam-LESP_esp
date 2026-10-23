@@ -70,7 +70,7 @@ CUESTIONARIOS = {
         'titulo': 'Evaluación de riesgos de bioseguridad',
         'subtitulo': 'Modelo de evaluación de riesgos relacionados con la bioseguridad '
                      '(RAM de Bioseguridad)',
-        'color': '#15803d',
+        'color': '#167b78',
         'version': 'Versión 1.0 · Septiembre de 2010 · SAND No. 2010-6487',
         'avisos': [
             'Cuestionario, ponderaciones y método: <b>BioRAM</b>, de Sandia National '
@@ -93,7 +93,7 @@ CUESTIONARIOS = {
         'titulo': 'Evaluación de riesgos de bioprotección',
         'subtitulo': 'Modelo de riesgos relacionados con la bioprotección 2010 '
                      '(BioRAM 2.0) · también llamada biocustodia',
-        'color': '#1d4ed8',
+        'color': '#232858',
         'version': 'Prototipo · 2010',
         'avisos': [
             'Cuestionario, ponderaciones y método: <b>BioRAM</b>, de Sandia National '
@@ -118,24 +118,24 @@ CUESTIONARIOS = {
 PLANTILLA = """<html>
   <head>
     <style type="text/css">
-body {{ font-family: Arial,Helvetica,sans-serif; color: #1f2933; }}
-.institucion {{ text-align: center; font-size: 9.5pt; color: #616e7c;
+body {{ font-family: Arial,Helvetica,sans-serif; color: #1b2435; }}
+.institucion {{ text-align: center; font-size: 9.5pt; color: #5a6478;
                 margin: 0; }}
 .laboratorio {{ text-align: center; font-size: 15pt; font-weight: bold;
                 color: {color}; padding-top: 4px; }}
-.lugar {{ text-align: center; font-size: 10pt; color: #616e7c;
+.lugar {{ text-align: center; font-size: 10pt; color: #5a6478;
           padding-bottom: 14px; }}
 .titulo {{ text-align: center; font-size: 21pt; color: {color};
            padding-top: 14px; padding-bottom: 2px; }}
 .subtitulo {{ text-align: center; font-size: 10.5pt; font-style: italic;
-              color: #3e4c59; }}
-.version {{ text-align: center; font-size: 9.5pt; color: #616e7c;
+              color: #4a5568; }}
+.version {{ text-align: center; font-size: 9.5pt; color: #5a6478;
             padding-top: 6px; padding-bottom: 14px; }}
 .contacto {{ text-align: center; font-size: 10.5pt; padding-top: 10px;
              padding-bottom: 10px; }}
 .advertencia {{ text-align: center; font-size: 10pt; color: #8a5a00;
                 padding-top: 10px; padding-bottom: 10px; }}
-.credito {{ text-align: center; font-size: 8.5pt; color: #616e7c;
+.credito {{ text-align: center; font-size: 8.5pt; color: #5a6478;
             padding-top: 14px; }}
     </style>
   </head>

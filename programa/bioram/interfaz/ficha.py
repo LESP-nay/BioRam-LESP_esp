@@ -13,9 +13,10 @@ import xml.etree.ElementTree as ET
 import zipfile
 
 from PySide6.QtCore import Qt, Signal
-from PySide6.QtWidgets import (QFileDialog, QHBoxLayout, QHeaderView, QInputDialog,
-                               QMessageBox, QTableWidget, QTableWidgetItem,
-                               QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QFileDialog, QFormLayout, QHBoxLayout, QHeaderView,
+                               QInputDialog, QMessageBox, QPlainTextEdit,
+                               QTableWidget, QTableWidgetItem, QVBoxLayout,
+                               QWidget)
 
 from .. import intercambio, modelo, secciones
 from ..datos import Almacen
@@ -30,6 +31,7 @@ FALLAS_DE_ARCHIVO = (OSError, ValueError, KeyError,
 
 class PanelFicha(QWidget):
     respuestas_cambiadas = Signal()
+    cabecera_cambiada = Signal(str, str)      # responsables, procedimiento
 
     def __init__(self, almacen: Almacen, evaluacion_id: int, parent=None):
         super().__init__(parent)
@@ -41,6 +43,38 @@ class PanelFicha(QWidget):
         disposicion = QVBoxLayout(self)
         disposicion.setContentsMargins(18, 18, 18, 18)
         disposicion.setSpacing(14)
+
+        # ------------------------------- quién y qué, sólo de esta evaluación
+        disposicion.addWidget(Titulo('Responsables y procedimiento', tamano=13))
+        self.aviso_cabecera = Ayuda('')
+        disposicion.addWidget(self.aviso_cabecera)
+
+        self.responsables = QPlainTextEdit()
+        self.responsables.setPlaceholderText(
+            'Nombre de la persona o personas responsables de la evaluación')
+        self.responsables.setMaximumHeight(62)
+        self.procedimiento = QPlainTextEdit()
+        self.procedimiento.setPlaceholderText(
+            'Procedimiento o actividad de laboratorio que se evalúa (incluya los '
+            'agentes, los hospedadores en riesgo y los datos que identifican al '
+            'área y al personal)')
+        self.procedimiento.setMaximumHeight(92)
+        formulario = QFormLayout()
+        formulario.addRow('Responsables:', self.responsables)
+        formulario.addRow('Procedimiento:', self.procedimiento)
+        disposicion.addLayout(formulario)
+
+        traer = BotonGrande('Traer los del área')
+        traer.setToolTip('Volver a copiar los que estén capturados en la pantalla '
+                         'del área, encima de lo que diga aquí')
+        traer.clicked.connect(self.traer_cabecera_del_area)
+        fila_cabecera = QHBoxLayout()
+        fila_cabecera.addWidget(traer)
+        fila_cabecera.addStretch(1)
+        disposicion.addLayout(fila_cabecera)
+
+        for campo in (self.responsables, self.procedimiento):
+            campo.textChanged.connect(self._avisar_cabecera)
 
         # ------------------------------------------------------- historial
         disposicion.addWidget(Titulo('Historial de la evaluación', tamano=13))
@@ -142,7 +176,53 @@ class PanelFicha(QWidget):
         self.recargar()
 
     # ------------------------------------------------------------ historial
+    def _avisar_cabecera(self):
+        self.cabecera_cambiada.emit(self.responsables.toPlainText(),
+                                    self.procedimiento.toPlainText())
+        self._poner_aviso_cabecera()
+
+    def mostrar_cabecera(self, responsables: str, procedimiento: str):
+        for campo, valor in ((self.responsables, responsables),
+                             (self.procedimiento, procedimiento)):
+            campo.blockSignals(True)
+            campo.setPlainText(valor or '')
+            campo.blockSignals(False)
+        self._poner_aviso_cabecera()
+
+    def _poner_aviso_cabecera(self):
+        """Dice si esto es lo del área o si ya se cambió aquí."""
+        evaluacion = self.almacen.evaluacion(self.evaluacion_id)
+        del_area = self.almacen.cabecera_heredable(evaluacion.cepa_id)
+        mios = (self.responsables.toPlainText().strip(),
+                self.procedimiento.toPlainText().strip())
+        suyos = (del_area[0].strip(), del_area[1].strip())
+        if not any(mios) and not any(suyos):
+            texto = ('Se capturan una vez en la pantalla del área y cada evaluación '
+                     'nueva los hereda. Todavía no hay ninguno capturado.')
+        elif mios == suyos:
+            texto = ('Son los del área, heredados al crear esta evaluación. Si los '
+                     'cambia aquí, sólo cambian en esta evaluación.')
+        else:
+            texto = ('Estos son propios de esta evaluación: ya no coinciden con los '
+                     'del área. Así queda: un reporte ya emitido no se reescribe '
+                     'porque después cambie el área.')
+        self.aviso_cabecera.setText(texto + ' Salen en el pie del reporte.')
+
+    def traer_cabecera_del_area(self):
+        evaluacion = self.almacen.evaluacion(self.evaluacion_id)
+        responsables, procedimiento = self.almacen.cabecera_heredable(evaluacion.cepa_id)
+        if not (responsables.strip() or procedimiento.strip()):
+            QMessageBox.information(
+                self, 'Nada que traer',
+                'El área todavía no tiene responsables ni procedimiento capturados.\n\n'
+                'Se capturan en la pantalla del área, abajo de las cepas.')
+            return
+        self.mostrar_cabecera(responsables, procedimiento)
+        self._avisar_cabecera()
+
     def recargar(self):
+        evaluacion = self.almacen.evaluacion(self.evaluacion_id)
+        self.mostrar_cabecera(evaluacion.responsables, evaluacion.procedimiento)
         versiones = self.almacen.versiones(self.evaluacion_id)
         self.tabla.setRowCount(len(versiones))
         for fila, version in enumerate(versiones):

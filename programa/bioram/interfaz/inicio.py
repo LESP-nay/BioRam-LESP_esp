@@ -9,16 +9,19 @@ menús.
 """
 from __future__ import annotations
 
+import sqlite3
+
 from PySide6.QtCore import Qt, Signal
-from PySide6.QtWidgets import (QHBoxLayout, QInputDialog, QLabel, QListWidget,
-                               QListWidgetItem, QMenu, QMessageBox, QProgressBar,
-                               QScrollArea, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QFormLayout, QHBoxLayout, QInputDialog, QLabel,
+                               QListWidget, QListWidgetItem, QMenu, QMessageBox,
+                               QPlainTextEdit, QProgressBar, QScrollArea,
+                               QVBoxLayout, QWidget)
 
 from .. import modelo
 from ..datos import Almacen
-from .estilo import (Ayuda, BotonGrande, COLOR_TIPO, INICIAL_TIPO, NOMBRE_TIPO,
-                     PELIGRO, TEXTO_SUAVE, Tarjeta, Titulo, color_de_avance, icono,
-                     insignia)
+from .estilo import (Ayuda, BotonGrande, COLOR_TIPO, INICIAL_TIPO, INSTITUCIONAL,
+                     NOMBRE_TIPO, PELIGRO, TEXTO_SUAVE, Tarjeta, Titulo,
+                     color_de_avance, icono, insignia)
 from .salidas import guardar_resumen_de_area
 
 TOTAL_PREGUNTAS = 105
@@ -37,7 +40,7 @@ class BotonEvaluacion(BotonGrande):
                 f'QPushButton {{ background: white; color: {color};'
                 f' border: 2px dashed {color}; border-radius: 10px;'
                 f' padding: 10px 18px; font-weight: 600; }}'
-                f'QPushButton:hover {{ background: #f6f9ff; }}')
+                f'QPushButton:hover {{ background: #f1f4fa; }}')
         from .. import secciones
         que_es = secciones.con_sinonimo(tipo)
         self.setToolTip(f'{que_es}: ' + ('abrir el cuestionario' if existe
@@ -158,13 +161,44 @@ class PantallaInicio(QWidget):
         self.boton_resumen.setToolTip('Guardar un PDF con todas las cepas del área')
         self.boton_resumen.clicked.connect(self._resumen_de_area)
         cabecera.addWidget(self.boton_resumen)
-        self.boton_cepa = BotonGrande('＋  Nueva cepa', COLOR_TIPO['bioproteccion'])
+        self.boton_cepa = BotonGrande('＋  Nueva cepa', INSTITUCIONAL)
         self.boton_cepa.clicked.connect(self.nueva_cepa)
         cabecera.addWidget(self.boton_cepa)
         derecha.addLayout(cabecera)
 
         self.explicacion = Ayuda('')
         derecha.addWidget(self.explicacion)
+
+        # Responsables y procedimiento del área. Van aquí, y no escondidos en
+        # cada evaluación, porque se capturan una vez para todo el área: son los
+        # mismos para todas sus cepas. Cada evaluación nueva se los lleva como
+        # suyos y desde «Datos y respaldo» puede cambiarlos sin tocar estos, de
+        # modo que cambiar hoy el responsable del área no reescribe un reporte
+        # ya emitido.
+        self.ficha_area = Tarjeta()
+        dentro = QVBoxLayout(self.ficha_area)
+        dentro.setContentsMargins(16, 12, 16, 14)
+        dentro.setSpacing(8)
+        dentro.addWidget(Titulo('Responsables y procedimiento del área', tamano=12))
+        dentro.addWidget(Ayuda(
+            'Se capturan una vez aquí. Cada evaluación que se cree después los '
+            'hereda y los imprime en el pie de su reporte.'))
+        self.responsables = QPlainTextEdit()
+        self.responsables.setPlaceholderText(
+            'Nombre de la persona o personas responsables de la evaluación')
+        self.responsables.setFixedHeight(58)
+        self.procedimiento = QPlainTextEdit()
+        self.procedimiento.setPlaceholderText(
+            'Procedimiento o actividad de laboratorio que se evalúa')
+        self.procedimiento.setFixedHeight(58)
+        formulario = QFormLayout()
+        formulario.setContentsMargins(0, 0, 0, 0)
+        formulario.addRow('Responsables:', self.responsables)
+        formulario.addRow('Procedimiento:', self.procedimiento)
+        dentro.addLayout(formulario)
+        derecha.addWidget(self.ficha_area)
+        for campo in (self.responsables, self.procedimiento):
+            campo.textChanged.connect(self._guardar_ficha_area)
 
         contenedor = QWidget()
         contenedor.setStyleSheet('background: transparent;')
@@ -194,7 +228,7 @@ class PantallaInicio(QWidget):
             cepas = len(self.almacen.cepas(area.id))
             elemento = QListWidgetItem(f'{area.nombre}\n{cepas} cepa' + ('s' if cepas != 1 else ''))
             elemento.setData(Qt.UserRole, area.id)
-            elemento.setIcon(icono(area.nombre[:1].upper(), COLOR_TIPO['bioseguridad'], 30))
+            elemento.setIcon(icono(area.nombre[:1].upper(), INSTITUCIONAL, 30))
             self.lista.addItem(elemento)
             if area.id == actual:
                 self.lista.setCurrentItem(elemento)
@@ -210,8 +244,17 @@ class PantallaInicio(QWidget):
     def recargar_cepas(self):
         while self.columna_cepas.count() > 1:
             elemento = self.columna_cepas.takeAt(0)
-            if elemento.widget():
-                elemento.widget().deleteLater()
+            vieja = elemento.widget()
+            if vieja:
+                # Ocultarla antes de pedir su borrado. deleteLater() no la borra
+                # en el acto: la deja en cola hasta la siguiente vuelta del bucle
+                # de eventos, y mientras tanto la tarjeta sigue siendo hija de
+                # esta pantalla y se sigue dibujando, ya sin disposición que la
+                # ordene. Se ve como un recuadro vacío debajo de las tarjetas
+                # buenas, un parpadeo al cambiar de área.
+                vieja.hide()
+                vieja.setParent(None)
+                vieja.deleteLater()
 
         area_id = self.area_actual()
         hay_area = area_id is not None
@@ -219,6 +262,15 @@ class PantallaInicio(QWidget):
         self.boton_resumen.setEnabled(hay_area)
         self.renombrar_area.setEnabled(hay_area)
         self.eliminar_area.setEnabled(hay_area)
+
+        self.ficha_area.setVisible(hay_area)
+        if hay_area:
+            area_cargada = self.almacen.area(area_id)
+            for campo, valor in ((self.responsables, area_cargada.responsables),
+                                 (self.procedimiento, area_cargada.procedimiento)):
+                campo.blockSignals(True)
+                campo.setPlainText(valor)
+                campo.blockSignals(False)
 
         if not hay_area:
             self.titulo_area.setText('Todavía no hay áreas')
@@ -246,6 +298,26 @@ class PantallaInicio(QWidget):
             tarjeta.renombrar.connect(self._renombrar_cepa)
             tarjeta.eliminar.connect(self._eliminar_cepa)
             self.columna_cepas.insertWidget(self.columna_cepas.count() - 1, tarjeta)
+
+    def _guardar_ficha_area(self):
+        """Guarda los datos del área en cuanto se escriben.
+
+        Si no se pudieran guardar hay que decirlo: en silencio, la pantalla
+        mostraría un responsable que no está en el archivo.
+        """
+        area_id = self.area_actual()
+        if area_id is None:
+            return
+        try:
+            self.almacen.actualizar_area(
+                area_id,
+                responsables=self.responsables.toPlainText(),
+                procedimiento=self.procedimiento.toPlainText())
+        except (sqlite3.Error, ValueError, LookupError) as e:
+            QMessageBox.critical(
+                self, 'No se pudo guardar',
+                'Los responsables y el procedimiento del área NO quedaron '
+                f'guardados:\n\n{e}')
 
     # ---------------------------------------------------------------- altas
     def _avisar(self, titulo, error):

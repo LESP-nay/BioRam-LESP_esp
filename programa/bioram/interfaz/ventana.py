@@ -22,7 +22,7 @@ from .estilo import (Ayuda, BotonGrande, COLOR_TIPO, INICIAL_TIPO, NOMBRE_TIPO,
                      Titulo, insignia)
 from .ficha import PanelFicha
 from .inicio import PantallaInicio
-from .portada import PanelPortada
+from .portada import CuadroAcercaDe
 from .resultados import PanelResultados
 from .salidas import guardar_reporte, imagenes_de
 
@@ -75,23 +75,20 @@ class PaginaEvaluacion(QWidget):
         encabezado.addWidget(reporte)
         disposicion.addLayout(encabezado)
 
-        self.portada = PanelPortada(cuestionario)
         self.captura = PanelCaptura(cuestionario, color, evaluacion.tipo)
         self.resultados = PanelResultados(cuestionario, evaluacion.tipo)
         self.ficha = PanelFicha(almacen, evaluacion_id)
         self.captura.cambiada.connect(self._guardar)
-        self.portada.cambiada.connect(self._guardar_cabecera)
+        self.ficha.cabecera_cambiada.connect(self._guardar_cabecera)
         self.ficha.respuestas_cambiadas.connect(self._recargar_respuestas)
 
         self.pestanas = QTabWidget()
         self.pestanas.addTab(self.captura, '1 · Contestar')
         self.pestanas.addTab(self.resultados, '2 · Resultados')
-        self.pestanas.addTab(self.portada, 'Portada')
         self.pestanas.addTab(self.ficha, 'Datos y respaldo')
         self.pestanas.currentChanged.connect(self._cambio_de_pestana)
         disposicion.addWidget(self.pestanas, 1)
 
-        self.portada.mostrar(evaluacion.responsables, evaluacion.procedimiento)
         self.captura.mostrar(almacen.respuestas(evaluacion_id))
         self.resultados.mostrar(almacen.puntajes(evaluacion_id))
 
@@ -136,7 +133,8 @@ class PaginaEvaluacion(QWidget):
                                                procedimiento=procedimiento)
         except sqlite3.Error as e:
             QMessageBox.critical(self, 'No se pudo guardar',
-                                 f'Los datos de la portada no quedaron guardados:\n\n{e}')
+                                 'Los responsables y el procedimiento NO quedaron '
+                                 f'guardados:\n\n{e}')
 
     def _recargar_respuestas(self):
         self.captura.mostrar(self.almacen.respuestas(self.evaluacion_id))
@@ -184,14 +182,12 @@ class Ventana(QMainWindow):
         archivo.addAction(salir)
 
         ayuda = self.menuBar().addMenu('A&yuda')
-        acerca = QAction('Acerca de BioRAM LESP', self)
-        acerca.triggered.connect(lambda: QMessageBox.information(
-            self, 'BioRAM LESP',
-            'Evaluación de riesgos de bioseguridad y bioprotección.\n\n'
-            'Los cuestionarios y el cálculo son los de BioRAM (Sandia National '
-            'Laboratories), traducidos al español y comprobados contra el '
-            'programa original: los resultados son los mismos.'))
+        acerca = QAction('Acerca de BioRAM LESP, créditos y licencia', self)
+        acerca.triggered.connect(self._acerca_de)
         ayuda.addAction(acerca)
+
+    def _acerca_de(self):
+        CuadroAcercaDe(self).exec()
 
     def abrir_evaluacion(self, evaluacion_id: int):
         pagina = PaginaEvaluacion(self.almacen, evaluacion_id, self.volver_al_inicio)

@@ -7,31 +7,57 @@ Pensado para quien usa poco la computadora: letra grande, botones con texto
 (no solo iconos), colores que siempre significan lo mismo y mucho aire entre
 las cosas.
 
+Los colores salen del logotipo oficial del laboratorio, que tiene dos: el azul
+marino #232858 y el turquesa #21B5B1. El marino es el institucional y manda en
+todo el programa.
+
+Dos reglas que no se pueden romper, y la razón:
+
+1. Todo color que lleve letras encima está medido. El turquesa puro del
+   logotipo NO admite letras blancas: su contraste es 2.53, y para leer un
+   texto hacen falta 4.5. Por eso donde va texto se usa el mismo tono
+   oscurecido. Las medidas las comprueba pruebas/test_estilo.py, que falla si
+   alguien mete un color que no se lee.
+
+2. El programa fija su propia paleta y no adopta la de Windows. Si la adoptara,
+   en Windows con tema oscuro el fondo se volvería negro mientras las letras
+   siguen siendo las de aquí: letras grises sobre negro, ilegibles. Eso lo
+   reportó el laboratorio y así se corrige.
+
 Regla de color, para que no haya que aprenderse nada:
-  verde  = bioseguridad, y también "ya está completo"
-  azul   = bioprotección
-  ámbar  = empezado, falta terminar
-  gris   = todavía sin empezar
+  turquesa hondo = bioseguridad
+  azul marino    = bioprotección, y el color institucional de todo lo demás
+  verde          = ya está completo
+  ámbar          = empezado, falta terminar
+  gris           = todavía sin empezar
 """
 from __future__ import annotations
 
 from PySide6.QtCore import QRectF, QSize, Qt
-from PySide6.QtGui import QColor, QFont, QIcon, QPainter, QPixmap
+from PySide6.QtGui import QColor, QFont, QIcon, QPainter, QPalette, QPixmap
 from PySide6.QtWidgets import QFrame, QLabel, QPushButton, QSizePolicy
 
-# Paleta
-TEXTO = '#1f2933'
-TEXTO_SUAVE = '#616e7c'
-FONDO = '#eef2f7'
-TARJETA = '#ffffff'
-BORDE = '#d6dde6'
+# Los dos del logotipo.
+MARINO = '#232858'
+TURQUESA = '#21b5b1'          # puro: sólo para adornos, nunca con texto encima
+TURQUESA_HONDO = '#167a77'    # el mismo tono, oscurecido hasta que se lee
+                              # sobre los dos fondos, el blanco y el claro
 
-BIOSEGURIDAD = '#15803d'
-BIOPROTECCION = '#1d4ed8'
-COMPLETO = '#15803d'
-EMPEZADO = '#b45309'
-VACIO = '#9aa5b1'
+TEXTO = '#1b2435'
+TEXTO_SUAVE = '#5a6478'
+FONDO = '#eef1f7'
+TARJETA = '#ffffff'
+BORDE = '#d3dae6'
+SURCO = '#dfe5ee'             # el canal por el que corre la barra de desplazamiento
+
+BIOSEGURIDAD = TURQUESA_HONDO
+BIOPROTECCION = MARINO
+COMPLETO = '#4b7a0f'
+EMPEZADO = '#b25209'
+VACIO = '#646e7f'
 PELIGRO = '#b91c1c'
+
+INSTITUCIONAL = MARINO
 
 COLOR_TIPO = {'bioseguridad': BIOSEGURIDAD, 'bioproteccion': BIOPROTECCION}
 NOMBRE_TIPO = {'bioseguridad': 'Bioseguridad', 'bioproteccion': 'Bioprotección'}
@@ -51,7 +77,37 @@ def hoja_de_estilo() -> str:
     QWidget {{ color: {TEXTO}; }}
     QMainWindow, QDialog {{ background: {FONDO}; }}
     QScrollArea {{ border: none; background: transparent; }}
-    QToolTip {{ background: #111; color: white; padding: 6px; border: none; }}
+    QToolTip {{ background: {MARINO}; color: white; padding: 6px; border: none; }}
+    QMenuBar {{ background: {FONDO}; }}
+    QMenuBar::item:selected {{ background: #dde3ee; border-radius: 6px; }}
+    QMenu {{ background: {TARJETA}; border: 1px solid {BORDE}; padding: 6px; }}
+    QMenu::item {{ padding: 8px 22px; border-radius: 6px; }}
+    QMenu::item:selected {{ background: #e3e8f3; }}
+
+    /* Las barras de desplazamiento llevan estilo propio a la fuerza. Qt obliga:
+       en cuanto una hoja de estilo toca un control compuesto, deja de dibujar
+       con el estilo del sistema las partes que la hoja no menciona. Sin estas
+       reglas la barra salía blanca sobre blanco —existía, medía sus 14 píxeles
+       y se podía arrastrar, pero no se veía—, y el laboratorio reportó, con
+       razón, que no había con qué bajar a las preguntas de abajo. */
+    QScrollBar:vertical {{
+        background: {SURCO}; width: 14px; margin: 0; border-radius: 7px;
+    }}
+    QScrollBar::handle:vertical {{
+        background: #8d9ab3; min-height: 40px; border-radius: 7px;
+        border: 3px solid {SURCO};
+    }}
+    QScrollBar::handle:vertical:hover {{ background: {MARINO}; }}
+    QScrollBar:horizontal {{
+        background: {SURCO}; height: 14px; margin: 0; border-radius: 7px;
+    }}
+    QScrollBar::handle:horizontal {{
+        background: #8d9ab3; min-width: 40px; border-radius: 7px;
+        border: 3px solid {SURCO};
+    }}
+    QScrollBar::handle:horizontal:hover {{ background: {MARINO}; }}
+    QScrollBar::add-line, QScrollBar::sub-line {{ height: 0; width: 0; border: none; }}
+    QScrollBar::add-page, QScrollBar::sub-page {{ background: transparent; }}
 
     QPushButton {{
         background: {TARJETA};
@@ -64,21 +120,21 @@ def hoja_de_estilo() -> str:
     QPushButton:disabled {{ color: {VACIO}; background: #f1f4f8; }}
 
     QPushButton[relieve="principal"] {{
-        background: {BIOPROTECCION}; color: white; border: none; font-weight: 600;
+        background: {MARINO}; color: white; border: none; font-weight: 600;
     }}
-    QPushButton[relieve="principal"]:hover {{ background: #1b45bd; }}
+    QPushButton[relieve="principal"]:hover {{ background: #2e3670; }}
 
     QLineEdit, QPlainTextEdit, QTextBrowser, QComboBox, QSpinBox, QDoubleSpinBox {{
         background: {TARJETA};
         border: 1px solid {BORDE};
         border-radius: 8px;
         padding: 7px 10px;
-        selection-background-color: #cfe0ff;
+        selection-background-color: #c9d4ea;
     }}
     QComboBox::drop-down {{ width: 26px; border: none; }}
     QComboBox QAbstractItemView {{
         background: {TARJETA}; border: 1px solid {BORDE};
-        selection-background-color: #e8eefc; selection-color: {TEXTO};
+        selection-background-color: #e3e8f3; selection-color: {TEXTO};
     }}
 
     QTabWidget::pane {{ border: 1px solid {BORDE}; border-radius: 10px; background: {TARJETA}; top: -1px; }}
@@ -96,17 +152,21 @@ def hoja_de_estilo() -> str:
     }}
     QListWidget::item {{ padding: 10px 8px; border-bottom: 1px solid #eef1f5; }}
     QListWidget::item:selected, QTreeWidget::item:selected {{
-        background: #e8eefc; color: {TEXTO};
+        background: #e3e8f3; color: {TEXTO};
     }}
     QHeaderView::section {{
-        background: #f4f7fb; border: none; border-bottom: 1px solid {BORDE};
+        background: #f2f5fa; border: none; border-bottom: 1px solid {BORDE};
         padding: 9px; font-weight: 600;
     }}
     QTableWidget {{ gridline-color: #eef1f5; }}
 
+    /* El texto de la barra iba en blanco sobre un canal casi blanco: 1.19 de
+       contraste, invisible mientras la barra estuviera poco llena, que es justo
+       cuando más falta hace leerlo. Ahora va en el color del texto normal, y
+       quien quiera escribir encima de la parte llena pone la etiqueta aparte. */
     QProgressBar {{
-        background: #e7ecf3; border: none; border-radius: 9px; min-height: 18px;
-        text-align: center; color: white; font-size: 10pt; font-weight: 600;
+        background: {SURCO}; border: none; border-radius: 9px; min-height: 18px;
+        text-align: center; color: {TEXTO}; font-size: 10pt; font-weight: 600;
     }}
     QProgressBar::chunk {{ border-radius: 9px; }}
 
@@ -115,19 +175,62 @@ def hoja_de_estilo() -> str:
         width: 20px; height: 20px;
         border: 2px solid #9aa5b1; border-radius: 5px; background: {TARJETA};
     }}
-    QCheckBox::indicator:hover {{ border-color: {BIOPROTECCION}; }}
+    QCheckBox::indicator:hover {{ border-color: {MARINO}; }}
     QCheckBox::indicator:checked {{
-        background: {BIOPROTECCION}; border-color: {BIOPROTECCION};
+        background: {MARINO}; border-color: {MARINO};
         image: none;
     }}
     QCheckBox::indicator:disabled {{ border-color: #d2d9e2; background: #f1f4f8; }}
     """
 
 
+def paleta_fija() -> QPalette:
+    """La paleta del programa, escrita a mano y completa.
+
+    Completa a propósito: si se deja un papel sin asignar, Qt lo toma del tema
+    del sistema, y entonces en Windows con tema oscuro ese hueco sale negro
+    mientras las letras de aquí siguen siendo oscuras. El laboratorio lo vio
+    como letras grises sobre fondo negro.
+    """
+    p = QPalette()
+    claro, texto, blanco = QColor(FONDO), QColor(TEXTO), QColor(TARJETA)
+    for papel, color in (
+            (QPalette.Window, claro),
+            (QPalette.WindowText, texto),
+            (QPalette.Base, blanco),
+            (QPalette.AlternateBase, claro),
+            (QPalette.Text, texto),
+            (QPalette.Button, blanco),
+            (QPalette.ButtonText, texto),
+            (QPalette.BrightText, QColor(PELIGRO)),
+            (QPalette.ToolTipBase, QColor(MARINO)),
+            (QPalette.ToolTipText, blanco),
+            (QPalette.Highlight, QColor(MARINO)),
+            (QPalette.HighlightedText, blanco),
+            (QPalette.Link, QColor(MARINO)),
+            (QPalette.LinkVisited, QColor(TURQUESA_HONDO)),
+            (QPalette.PlaceholderText, QColor(VACIO)),
+    ):
+        for grupo in (QPalette.Active, QPalette.Inactive, QPalette.Disabled):
+            p.setColor(grupo, papel, color)
+    # Lo deshabilitado, encima: letra apagada y fondo sin resaltar.
+    for papel in (QPalette.WindowText, QPalette.Text, QPalette.ButtonText,
+                  QPalette.HighlightedText):
+        p.setColor(QPalette.Disabled, papel, QColor(VACIO))
+    for papel in (QPalette.Base, QPalette.Button, QPalette.Highlight):
+        p.setColor(QPalette.Disabled, papel, claro)
+    return p
+
+
 def aplicar(app):
     fuente = QFont(app.font())
     fuente.setPointSize(BASE_PT)
     app.setFont(fuente)
+    # «Fusion» dibuja igual en Windows, en Linux y en cualquier tema. El estilo
+    # nativo de Windows cambia solo con el tema del sistema, y entonces la mitad
+    # del programa se oscurece y la otra mitad no.
+    app.setStyle('Fusion')
+    app.setPalette(paleta_fija())
     app.setStyleSheet(hoja_de_estilo())
 
 

@@ -23,7 +23,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
-VERSION_ESQUEMA = 3
+VERSION_ESQUEMA = 4
 TIPOS = ('bioseguridad', 'bioproteccion')
 
 
@@ -56,11 +56,13 @@ CREATE TABLE IF NOT EXISTS meta (
 );
 
 CREATE TABLE IF NOT EXISTS area (
-    id          INTEGER PRIMARY KEY,
-    nombre      TEXT NOT NULL UNIQUE,
-    responsable TEXT NOT NULL DEFAULT '',
-    notas       TEXT NOT NULL DEFAULT '',
-    creada      TEXT NOT NULL
+    id            INTEGER PRIMARY KEY,
+    nombre        TEXT NOT NULL UNIQUE,
+    responsable   TEXT NOT NULL DEFAULT '',
+    notas         TEXT NOT NULL DEFAULT '',
+    responsables  TEXT NOT NULL DEFAULT '',
+    procedimiento TEXT NOT NULL DEFAULT '',
+    creada        TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS cepa (
@@ -135,6 +137,13 @@ class Area:
     responsable: str
     notas: str
     creada: str
+    # Quién hace las evaluaciones del área y qué procedimiento se evalúa. Viven
+    # aquí para capturarse una sola vez; cada evaluación nueva se los lleva como
+    # suyos y a partir de ahí puede cambiarlos sin tocar los del área, igual que
+    # las respuestas de instalaciones. Así, cambiar hoy el responsable del área
+    # no reescribe lo que dice un reporte ya firmado.
+    responsables: str = ''
+    procedimiento: str = ''
 
 
 @dataclass
@@ -252,6 +261,11 @@ class Almacen:
             if 'revision' not in columnas:
                 self.cx.execute("ALTER TABLE evaluacion ADD COLUMN revision "
                                 "TEXT NOT NULL DEFAULT ''")
+            de_area = {f['name'] for f in self.cx.execute('PRAGMA table_info(area)')}
+            for columna in ('responsables', 'procedimiento'):
+                if columna not in de_area:
+                    self.cx.execute(f'ALTER TABLE area ADD COLUMN {columna} '
+                                    "TEXT NOT NULL DEFAULT ''")
             # Un archivo de una versión anterior se actualiza al abrirlo: las
             # tablas nuevas las crea el CREATE TABLE IF NOT EXISTS de arriba, y
             # aquí se anota la versión a la que quedó.
@@ -305,6 +319,25 @@ class Almacen:
         if f is None:
             raise LookupError(f'no existe el área {area_id}')
         return Area(**dict(f))
+
+    def actualizar_area(self, area_id, **campos):
+        """Cambia los datos del área que no son su nombre."""
+        permitidos = {'responsables', 'procedimiento', 'responsable', 'notas'}
+        sobran = set(campos) - permitidos
+        if sobran:
+            raise ValueError(f'campos desconocidos del área: {", ".join(sorted(sobran))}')
+        if not campos:
+            return
+        self.area(area_id)
+        asignaciones = ', '.join(f'{c} = ?' for c in campos)
+        self.cx.execute(f'UPDATE area SET {asignaciones} WHERE id = ?',
+                        (*[limpiar_texto(v) for v in campos.values()], area_id))
+        self.cx.commit()
+
+    def cabecera_heredable(self, cepa_id) -> tuple[str, str]:
+        """Los responsables y el procedimiento que el área le presta a una cepa."""
+        area = self.area(self.cepa(cepa_id).area_id)
+        return area.responsables, area.procedimiento
 
     def renombrar_area(self, area_id, nombre):
         self.area(area_id)
@@ -429,10 +462,18 @@ class Almacen:
         contestadas: las instalaciones del laboratorio son las mismas para todas
         sus cepas. Quedan como respuestas de esta evaluación, así que se pueden
         modificar o borrar sin tocar las del área.
+
+        Con heredar también se lleva los responsables y el procedimiento del
+        área, si no se dan aquí. Lo mismo: quedan como suyos.
         """
         if tipo not in TIPOS:
             raise ValueError(f'tipo desconocido: {tipo} (use {" o ".join(TIPOS)})')
         self.cepa(cepa_id)
+        if heredar:
+            # Sólo lo que venga vacío: quien pasa un valor explícito manda.
+            del_area = self.cabecera_heredable(cepa_id)
+            responsables = responsables or del_area[0]
+            procedimiento = procedimiento or del_area[1]
         ahora = _ahora()
         cur = self.cx.execute(
             'INSERT INTO evaluacion (cepa_id, tipo, titulo, responsables, procedimiento,'

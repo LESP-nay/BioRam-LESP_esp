@@ -35,6 +35,17 @@ origen_leeme = RAIZ / 'LEEME.md'
 if origen_leeme.exists():
     datos.append((str(origen_leeme), 'documentos'))
 
+# La traducción al español de los botones que trae Qt (Cerrar, Sí, No,
+# Cancelar...). PyInstaller no se la lleva sola, y sin ella los cuadros de
+# diálogo salen en inglés en medio de un programa que está todo en español.
+import PySide6                                                  # noqa: E402
+_traducciones = Path(PySide6.__file__).parent / 'Qt' / 'translations'
+_qm = _traducciones / 'qtbase_es.qm'
+if _qm.exists():
+    datos.append((str(_qm), 'PySide6/Qt/translations'))
+else:
+    raise SystemExit(f'falta la traducción al español de Qt: {_qm}')
+
 # De PySide6 sólo se usan Core, Gui, Widgets y Svg (el logotipo) más el PDF que
 # escribe los reportes. Todo lo demás estorba.
 SOBRAN = [

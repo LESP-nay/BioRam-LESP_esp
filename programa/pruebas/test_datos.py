@@ -352,3 +352,92 @@ def test_las_dos_evaluaciones_tienen_revisiones_distintas():
     a = modelo.incluido('bioseguridad').revision
     b = modelo.incluido('bioproteccion').revision
     assert a and b and a != b
+
+
+# ---------------------------------------------------------------------------
+# Responsables y procedimiento: se capturan en el área y los hereda cada
+# evaluación nueva. El laboratorio los pidió en la pantalla del área para no
+# recapturarlos cepa por cepa.
+
+def test_la_evaluacion_nueva_hereda_los_responsables_del_area(tmp_path):
+    alm = Almacen(tmp_path / 'b.db')
+    area = alm.crear_area('Virología')
+    alm.actualizar_area(area, responsables='QFB Ana Gómez',
+                        procedimiento='Aislamiento viral, BSL-2')
+    cepa = alm.crear_cepa(area, 'Influenza A/H1N1')
+    evaluacion = alm.evaluacion(alm.crear_evaluacion(cepa, 'bioseguridad'))
+    assert evaluacion.responsables == 'QFB Ana Gómez'
+    assert evaluacion.procedimiento == 'Aislamiento viral, BSL-2'
+    alm.cerrar()
+
+
+def test_cambiar_el_area_no_reescribe_una_evaluacion_ya_hecha(tmp_path):
+    """Un reporte ya emitido no puede cambiar solo porque después cambie el área."""
+    alm = Almacen(tmp_path / 'b.db')
+    area = alm.crear_area('Virología')
+    alm.actualizar_area(area, responsables='Equipo de 2026')
+    cepa = alm.crear_cepa(area, 'Influenza A/H1N1')
+    vieja = alm.crear_evaluacion(cepa, 'bioseguridad')
+
+    alm.actualizar_area(area, responsables='Equipo de 2027')
+    nueva = alm.crear_evaluacion(cepa, 'bioproteccion')
+
+    assert alm.evaluacion(vieja).responsables == 'Equipo de 2026'
+    assert alm.evaluacion(nueva).responsables == 'Equipo de 2027'
+    alm.cerrar()
+
+
+def test_lo_que_se_pasa_a_mano_le_gana_a_lo_del_area(tmp_path):
+    alm = Almacen(tmp_path / 'b.db')
+    area = alm.crear_area('Virología')
+    alm.actualizar_area(area, responsables='Del área', procedimiento='Del área')
+    cepa = alm.crear_cepa(area, 'Influenza A/H1N1')
+    evaluacion = alm.evaluacion(
+        alm.crear_evaluacion(cepa, 'bioseguridad', responsables='Sólo esta vez'))
+    assert evaluacion.responsables == 'Sólo esta vez'
+    assert evaluacion.procedimiento == 'Del área'      # lo vacío sí se hereda
+    alm.cerrar()
+
+
+def test_sin_heredar_no_se_trae_nada_del_area(tmp_path):
+    alm = Almacen(tmp_path / 'b.db')
+    area = alm.crear_area('Virología')
+    alm.actualizar_area(area, responsables='Del área')
+    cepa = alm.crear_cepa(area, 'Influenza A/H1N1')
+    evaluacion = alm.evaluacion(
+        alm.crear_evaluacion(cepa, 'bioseguridad', heredar=False))
+    assert evaluacion.responsables == ''
+    alm.cerrar()
+
+
+def test_un_archivo_del_esquema_anterior_se_actualiza_sin_perder_nada(tmp_path):
+    """El laboratorio ya tiene archivos del esquema 3; tienen que seguir abriendo."""
+    import sqlite3
+    ruta = tmp_path / 'viejo.db'
+    cx = sqlite3.connect(ruta)
+    cx.executescript("""
+    CREATE TABLE meta (clave TEXT PRIMARY KEY, valor TEXT NOT NULL);
+    INSERT INTO meta VALUES ('version_esquema','3');
+    CREATE TABLE area (id INTEGER PRIMARY KEY, nombre TEXT NOT NULL UNIQUE,
+      responsable TEXT NOT NULL DEFAULT '', notas TEXT NOT NULL DEFAULT '',
+      creada TEXT NOT NULL);
+    INSERT INTO area (nombre, creada) VALUES ('Bacteriología','2026-01-01');
+    """)
+    cx.commit()
+    cx.close()
+
+    alm = Almacen(ruta)
+    area = alm.areas()[0]
+    assert area.nombre == 'Bacteriología'
+    assert area.responsables == '' and area.procedimiento == ''
+    alm.actualizar_area(area.id, responsables='Se puede escribir')
+    assert alm.area(area.id).responsables == 'Se puede escribir'
+    alm.cerrar()
+
+
+def test_actualizar_area_rechaza_un_campo_que_no_existe(tmp_path):
+    alm = Almacen(tmp_path / 'b.db')
+    area = alm.crear_area('Virología')
+    with pytest.raises(ValueError, match='campos desconocidos'):
+        alm.actualizar_area(area, color_favorito='azul')
+    alm.cerrar()
