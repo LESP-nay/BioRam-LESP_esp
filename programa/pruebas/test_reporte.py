@@ -82,8 +82,8 @@ def test_el_resumen_del_area_compara_las_cepas(lab):
 @pytest.mark.skipif(not shutil.which('pdftotext'), reason='falta pdftotext')
 def test_el_pdf_se_pagina_y_su_texto_se_puede_copiar(lab, tmp_path):
     """Si el PDF no se puede copiar ni buscar, no sirve para un expediente."""
-    import os
-    os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
+    from bioram.sin_pantalla import plataforma_sin_ventana
+    plataforma_sin_ventana()
     pytest.importorskip('PySide6')
     from PySide6.QtWidgets import QApplication
     from bioram.interfaz.salidas import _a_pdf

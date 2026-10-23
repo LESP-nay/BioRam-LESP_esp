@@ -3,14 +3,14 @@
 # Método y cuestionarios: BioRAM, de Sandia National Laboratories (ver AVISO.md).
 """La ventana no debe perder ni una respuesta por el camino.
 
-Qt se dibuja sin pantalla (QT_QPA_PLATFORM=offscreen), así que estas pruebas
-corren en cualquier servidor.
+Qt se dibuja sin abrir ventanas, así que estas pruebas corren en cualquier
+servidor. Cómo se logra eso depende del sistema: ver bioram/sin_pantalla.py.
 """
-import os
-
 import pytest
 
-os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
+from bioram.sin_pantalla import plataforma_sin_ventana
+
+plataforma_sin_ventana()
 
 pytest.importorskip('PySide6')
 from PySide6.QtWidgets import QApplication            # noqa: E402

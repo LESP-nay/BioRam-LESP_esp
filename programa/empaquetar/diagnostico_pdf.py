@@ -21,7 +21,6 @@ El programa genera un PDF de prueba y reporta:
 """
 from __future__ import annotations
 
-import os
 import re
 import shutil
 import subprocess
@@ -29,8 +28,11 @@ import sys
 import zlib
 from pathlib import Path
 
-os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from bioram.sin_pantalla import plataforma_sin_ventana   # noqa: E402
+
+PLATAFORMA = plataforma_sin_ventana()
 
 BUSCADAS = ('Arial', 'Liberation Sans', 'Helvetica')
 MUESTRA = 'Mycobacterium tuberculosis'
@@ -108,7 +110,7 @@ def main():
     from PySide6.QtWidgets import QApplication
     QApplication.instance() or QApplication([sys.argv[0]])
 
-    print(f'Plataforma de Qt: {os.environ.get("QT_QPA_PLATFORM", "(la del sistema)")}')
+    print(f'Plataforma de Qt: {PLATAFORMA}')
     print(f'Sistema: {sys.platform}\n')
     tipografias_que_ve_qt()
 
@@ -116,7 +118,11 @@ def main():
     from bioram.datos import Almacen, Respuesta
     from bioram.interfaz.salidas import _a_pdf
 
-    almacen = Almacen(destino.parent / 'diagnostico.db')
+    # Base nueva cada vez: si se reusa, el segundo diagnóstico truena al crear
+    # un área que ya existe, y eso no tiene nada que ver con lo que se mide.
+    base = destino.with_suffix('.db')
+    base.unlink(missing_ok=True)
+    almacen = Almacen(base)
     area = almacen.crear_area('Bacteriología')
     cepa = almacen.crear_cepa(area, MUESTRA)
     evaluacion = almacen.crear_evaluacion(cepa, 'bioseguridad')

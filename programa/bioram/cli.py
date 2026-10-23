@@ -228,7 +228,9 @@ def cmd_reporte(alm, args):
         try:
             # Sin pantalla: la línea de comandos nunca abre una ventana, y Qt
             # necesita de todos modos una aplicación viva para medir las letras.
-            os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
+            # El cómo depende del sistema; ver bioram/sin_pantalla.py.
+            from .sin_pantalla import plataforma_sin_ventana
+            plataforma_sin_ventana()
             from PySide6.QtGui import QGuiApplication
 
             from .interfaz.salidas import _a_pdf
