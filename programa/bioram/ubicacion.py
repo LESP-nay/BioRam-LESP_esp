@@ -126,3 +126,16 @@ def traduccion_de_qt() -> Path:
     if base:
         return Path(base) / 'bioram' / 'media' / 'qtbase_es.qm'
     return Path(__file__).resolve().parent / 'media' / 'qtbase_es.qm'
+
+
+def palomita() -> Path:
+    """El dibujo de la palomita de las casillas.
+
+    Va en un archivo porque las hojas de estilo de Qt sólo saben pintar una
+    casilla marcada con una imagen; sin ella queda un cuadro de color liso, y
+    marcado y sin marcar se distinguen sólo por el relleno.
+    """
+    base = getattr(sys, '_MEIPASS', None)
+    if base:
+        return Path(base) / 'bioram' / 'media' / 'palomita.png'
+    return Path(__file__).resolve().parent / 'media' / 'palomita.png'

@@ -36,10 +36,14 @@ def nombre_de_archivo_seguro(nombre: str, extension: str = '') -> str:
 
 
 def imagenes_de(panel_resultados) -> list[bytes]:
-    """Dibuja las gráficas tal como se ven y las devuelve como PNG."""
+    """Dibuja las gráficas tal como se ven y las devuelve como PNG.
+
+    Al doble de la resolución de la pantalla: en el PDF se imprimen, y una
+    captura al tamaño de la ventana sale con los bordes y las letras dentadas.
+    """
     imagenes = []
     for lienzo in getattr(panel_resultados, 'lienzos', []):
-        mapa = lienzo.grab()
+        mapa = lienzo.imagen(escala=2.0) if hasattr(lienzo, 'imagen') else lienzo.grab()
         datos = QByteArray()
         memoria = QBuffer(datos)
         memoria.open(QBuffer.WriteOnly)

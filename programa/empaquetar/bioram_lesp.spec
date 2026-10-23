@@ -29,6 +29,9 @@ datos = [
     # El icono viaja dentro aunque también se incruste en el .exe: el del .exe
     # lo usa el Explorador, y este otro lo usan la ventana y la barra de tareas.
     (str(RAIZ / 'bioram' / 'media' / 'bioram.ico'), 'bioram/media'),
+    # La palomita de las casillas: sin ella, marcado y sin marcar se distinguen
+    # sólo por el relleno del cuadro.
+    (str(RAIZ / 'bioram' / 'media' / 'palomita.png'), 'bioram/media'),
 ]
 for documento in ('LICENSE', 'AVISO.md', 'VERIFICACION.md'):
     origen = PROYECTO / documento

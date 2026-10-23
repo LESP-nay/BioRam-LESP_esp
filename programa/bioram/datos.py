@@ -17,13 +17,14 @@ respuestas de ese momento, con fecha y autor, que queda como historial.
 """
 from __future__ import annotations
 
+import json
 import math
 import sqlite3
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
-VERSION_ESQUEMA = 4
+VERSION_ESQUEMA = 5
 TIPOS = ('bioseguridad', 'bioproteccion')
 
 
@@ -107,6 +108,11 @@ CREATE TABLE IF NOT EXISTS respuesta_area (
     valor      REAL NOT NULL,
     aproximada INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY (area_id, tipo, pregunta)
+);
+
+CREATE TABLE IF NOT EXISTS preferencia (
+    clave TEXT PRIMARY KEY,
+    valor TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS version (
@@ -295,6 +301,35 @@ class Almacen:
 
     def __exit__(self, *_):
         self.cerrar()
+
+    # --------------------------------------------------------- preferencias
+    # Cómo quiere este laboratorio ver sus gráficas: qué resultados grafica,
+    # con qué nombre y de qué tamaño. Van por archivo de datos y no por
+    # evaluación: es una decisión del laboratorio, no de cada cepa. No tocan el
+    # cálculo —los puntajes se guardan y se reportan todos—, sólo el dibujo.
+
+    def preferencia(self, clave: str, por_omision=None):
+        fila = self.cx.execute('SELECT valor FROM preferencia WHERE clave = ?',
+                               (clave,)).fetchone()
+        if fila is None:
+            return por_omision
+        try:
+            return json.loads(fila[0])
+        except json.JSONDecodeError:
+            # Un archivo tocado a mano no puede tumbar el programa; se vuelve a
+            # lo de siempre, que es sólo una preferencia de dibujo.
+            return por_omision
+
+    def guardar_preferencia(self, clave: str, valor):
+        self.cx.execute(
+            'INSERT INTO preferencia (clave, valor) VALUES (?,?) '
+            'ON CONFLICT(clave) DO UPDATE SET valor = excluded.valor',
+            (clave, json.dumps(valor, ensure_ascii=False)))
+        self.cx.commit()
+
+    def borrar_preferencia(self, clave: str):
+        self.cx.execute('DELETE FROM preferencia WHERE clave = ?', (clave,))
+        self.cx.commit()
 
     # ---------------------------------------------------------------- áreas
     def crear_area(self, nombre, responsable='', notas='') -> int:

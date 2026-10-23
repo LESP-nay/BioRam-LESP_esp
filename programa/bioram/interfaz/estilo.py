@@ -77,6 +77,10 @@ def color_de_avance(hechas: int, total: int) -> str:
 
 
 def hoja_de_estilo() -> str:
+    # as_posix: Qt lee las hojas de estilo con barras normales, también en
+    # Windows, donde una barra invertida se tomaría por un escape.
+    from .. import ubicacion
+    PALOMITA = ubicacion.palomita().as_posix()
     return f"""
     QWidget {{ color: {TEXTO}; }}
     QMainWindow, QDialog {{ background: {FONDO}; }}
@@ -182,7 +186,7 @@ def hoja_de_estilo() -> str:
     QCheckBox::indicator:hover {{ border-color: {MARINO}; }}
     QCheckBox::indicator:checked {{
         background: {MARINO}; border-color: {MARINO};
-        image: none;
+        image: url({PALOMITA});
     }}
     QCheckBox::indicator:disabled {{ border-color: #d2d9e2; background: #f1f4f8; }}
     """

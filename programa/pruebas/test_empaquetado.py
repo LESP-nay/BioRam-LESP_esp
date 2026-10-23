@@ -67,7 +67,20 @@ def test_los_botones_de_qt_salen_en_espanol():
         app.removeTranslator(traductor)
 
 
-@pytest.mark.parametrize('archivo', ['bioram.ico', 'qtbase_es.qm'])
+def test_la_palomita_de_las_casillas_viaja_y_la_hoja_de_estilo_la_usa():
+    """Sin ella, una casilla marcada es sólo un cuadro de color."""
+    pytest.importorskip('PySide6')
+    from bioram.interfaz import estilo
+
+    ruta = ubicacion.palomita()
+    assert ruta.is_file(), f'falta la palomita: {ruta}'
+    hoja = estilo.hoja_de_estilo()
+    assert f'image: url({ruta.as_posix()})' in hoja
+    assert '\\' not in ruta.as_posix(), (
+        'en una hoja de estilo de Qt la barra invertida se toma por un escape')
+
+
+@pytest.mark.parametrize('archivo', ['bioram.ico', 'qtbase_es.qm', 'palomita.png'])
 def test_la_receta_del_ejecutable_se_lleva_esos_archivos(archivo):
     """De nada sirve que estén si PyInstaller no los mete dentro."""
     assert SPEC.is_file()

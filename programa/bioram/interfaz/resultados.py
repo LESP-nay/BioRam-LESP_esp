@@ -3,117 +3,33 @@
 # Método y cuestionarios: BioRAM, de Sandia National Laboratories (ver AVISO.md).
 """Los resultados: la tabla de perfiles y la gráfica de riesgo.
 
-La gráfica es la misma del programa original: los puntos se colocan sobre la
-imagen de fondo del cuestionario, la de los arcos con "Muy bajo … Muy alto".
+El dibujo de la gráfica y sus ajustes viven en grafica.py. Aquí se arma la
+pantalla y se enlazan las dos cosas.
 """
 from __future__ import annotations
 
-from PySide6.QtCore import QPointF, QRectF, Qt
-from PySide6.QtGui import QBrush, QColor, QFont, QImage, QPainter, QPen, QPixmap
-from PySide6.QtWidgets import (QHBoxLayout, QHeaderView, QLabel, QScrollArea,
-                               QSizePolicy, QSplitter, QTableWidget, QTableWidgetItem,
-                               QVBoxLayout, QWidget)
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QColor
+from PySide6.QtWidgets import (QFileDialog, QHBoxLayout, QHeaderView, QLabel,
+                               QMessageBox, QScrollArea, QSplitter, QTableWidget,
+                               QTableWidgetItem, QVBoxLayout, QWidget)
 
 from .. import motor, secciones
 from ..modelo import Cuestionario, Grafica
-from .estilo import Ayuda, BIOPROTECCION, BIOSEGURIDAD, TEXTO_SUAVE, Titulo, color_de_avance
-
-# Colores de los puntos, en el orden en que aparecen en la leyenda.
-COLORES = ['#1f4e79', '#c00000', '#2e7d32', '#e07b00', '#6a1b9a',
-           '#00838f', '#9e3d00', '#37474f', '#ad1457', '#4e6b1f',
-           '#5d4037', '#0277bd']
-
-
-class LienzoGrafica(QWidget):
-    """Dibuja los puntos de una gráfica sobre su imagen de fondo."""
-
-    MARGEN_IZQ, MARGEN_INF, MARGEN_SUP, MARGEN_DER = 56, 44, 16, 16
-
-    def __init__(self, grafica: Grafica, parent=None):
-        super().__init__(parent)
-        self.grafica = grafica
-        self.puntos: list[tuple[str, float, float]] = []
-        self.fondo = QPixmap()
-        if grafica.fondo:
-            imagen = QImage()
-            imagen.loadFromData(grafica.fondo)
-            self.fondo = QPixmap.fromImage(imagen)
-        self.setMinimumSize(320, 300)
-        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-
-    def mostrar(self, puntos):
-        self.puntos = puntos
-        self.update()
-
-    def _area(self) -> QRectF:
-        return QRectF(self.MARGEN_IZQ, self.MARGEN_SUP,
-                      max(1, self.width() - self.MARGEN_IZQ - self.MARGEN_DER),
-                      max(1, self.height() - self.MARGEN_SUP - self.MARGEN_INF))
-
-    def _a_pixel(self, area: QRectF, x: float, y: float) -> QPointF:
-        minimo, maximo = self.grafica.minimo, self.grafica.maximo
-        rango = (maximo - minimo) or 1.0
-        fx = min(max((x - minimo) / rango, 0.0), 1.0)
-        fy = min(max((y - minimo) / rango, 0.0), 1.0)
-        return QPointF(area.left() + fx * area.width(),
-                       area.bottom() - fy * area.height())
-
-    def paintEvent(self, evento):
-        pintor = QPainter(self)
-        pintor.setRenderHint(QPainter.Antialiasing)
-        pintor.fillRect(self.rect(), Qt.white)
-        area = self._area()
-
-        if not self.fondo.isNull():
-            pintor.drawPixmap(area.toRect(), self.fondo)
-        pintor.setPen(QPen(QColor('#888')))
-        pintor.drawRect(area)
-
-        # Ejes: el nombre y las marcas de 0 a 4.
-        fuente = QFont(self.font())
-        fuente.setPointSizeF(max(7.0, fuente.pointSizeF() - 1))
-        pintor.setFont(fuente)
-        pasos = 4
-        for i in range(pasos + 1):
-            valor = self.grafica.minimo + (self.grafica.maximo - self.grafica.minimo) * i / pasos
-            p = self._a_pixel(area, valor, self.grafica.minimo)
-            pintor.drawLine(QPointF(p.x(), area.bottom()), QPointF(p.x(), area.bottom() + 4))
-            pintor.drawText(QRectF(p.x() - 20, area.bottom() + 6, 40, 14),
-                            Qt.AlignHCenter | Qt.AlignTop, f'{valor:g}')
-            q = self._a_pixel(area, self.grafica.minimo, valor)
-            pintor.drawLine(QPointF(area.left() - 4, q.y()), QPointF(area.left(), q.y()))
-            pintor.drawText(QRectF(area.left() - 34, q.y() - 7, 28, 14),
-                            Qt.AlignRight | Qt.AlignVCenter, f'{valor:g}')
-
-        pintor.drawText(QRectF(area.left(), area.bottom() + 22, area.width(), 16),
-                        Qt.AlignHCenter, self.grafica.eje_x)
-        pintor.save()
-        pintor.translate(14, area.center().y())
-        pintor.rotate(-90)
-        pintor.drawText(QRectF(-80, -8, 160, 16), Qt.AlignHCenter, self.grafica.eje_y)
-        pintor.restore()
-
-        for i, (_, x, y) in enumerate(self.puntos):
-            if x != x or y != y:          # "no es un número"
-                continue
-            color = QColor(COLORES[i % len(COLORES)])
-            relleno = QColor(color); relleno.setAlpha(190)
-            pintor.setPen(QPen(QColor('white'), 1.5))
-            pintor.setBrush(QBrush(relleno))
-            pintor.drawEllipse(self._a_pixel(area, x, y), 7, 7)
-            pintor.setPen(QPen(color.darker(140), 1.2))
-            pintor.setBrush(Qt.NoBrush)
-            pintor.drawEllipse(self._a_pixel(area, x, y), 7, 7)
-        pintor.end()
+from .estilo import Ayuda, BotonGrande, TEXTO, TEXTO_SUAVE, color_de_avance
+from .grafica import COLORES, CuadroPersonalizar, LienzoGrafica, Preferencias
+from .salidas import nombre_de_archivo_seguro
 
 
 class PanelResultados(QWidget):
     """Tabla de perfiles a la izquierda, gráficas a la derecha."""
 
-    def __init__(self, cuestionario: Cuestionario, tipo: str | None = None, parent=None):
+    def __init__(self, cuestionario: Cuestionario, tipo: str | None = None,
+                 almacen=None, parent=None):
         super().__init__(parent)
         self.cuestionario = cuestionario
         self.tipo = tipo
+        self.preferencias = Preferencias(almacen)
 
         izquierda = QWidget()
         columna_izq = QVBoxLayout(izquierda)
@@ -148,7 +64,7 @@ class PanelResultados(QWidget):
                 etiqueta = Ayuda(nota)
                 etiqueta.setAlignment(Qt.AlignHCenter)
                 columna.addWidget(etiqueta)
-            lienzo = LienzoGrafica(grafica)
+            lienzo = LienzoGrafica(grafica, self.preferencias)
             self.lienzos.append(lienzo)
             columna.addWidget(lienzo, 1)
             leyenda = QLabel()
@@ -159,15 +75,35 @@ class PanelResultados(QWidget):
             columna.addSpacing(10)
             lienzo.leyenda = leyenda
 
+        botones = QHBoxLayout()
+        personalizar = BotonGrande('Personalizar la gráfica…')
+        personalizar.setToolTip('Quitar resultados que su laboratorio no evalúa, '
+                                'cambiarles el nombre o el tamaño de la letra')
+        personalizar.clicked.connect(self.personalizar)
+        botones.addWidget(personalizar)
+        guardar = BotonGrande('Guardar la imagen…')
+        guardar.setToolTip('Guardar la gráfica como JPEG o PNG para pegarla en un '
+                           'informe o en una presentación')
+        guardar.clicked.connect(self.guardar_imagen)
+        botones.addWidget(guardar)
+        botones.addStretch(1)
+
         # Con varias gráficas no caben de golpe: mejor desplazar que encimarlas.
         derecha = QScrollArea()
         derecha.setWidget(interior)
         derecha.setWidgetResizable(True)
         derecha.viewport().setStyleSheet('background: transparent;')
 
+        panel_derecho = QWidget()
+        columna_der = QVBoxLayout(panel_derecho)
+        columna_der.setContentsMargins(0, 0, 0, 0)
+        columna_der.setSpacing(8)
+        columna_der.addLayout(botones)
+        columna_der.addWidget(derecha, 1)
+
         division = QSplitter(Qt.Horizontal)
         division.addWidget(izquierda)
-        division.addWidget(derecha)
+        division.addWidget(panel_derecho)
         division.setStretchFactor(0, 5)
         division.setStretchFactor(1, 5)
         division.setSizes([560, 500])
@@ -203,6 +139,7 @@ class PanelResultados(QWidget):
             perfil = self.cuestionario.perfiles[uuid]
             celda_titulo = QTableWidgetItem(perfil.titulo)
             celda_titulo.setToolTip(perfil.titulo)
+            celda_titulo.setData(Qt.UserRole, uuid)
             self.tabla.setItem(fila, 0, celda_titulo)
             celda = QTableWidgetItem(f'{valor:.4f}')
             celda.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
@@ -237,9 +174,102 @@ class PanelResultados(QWidget):
                      'cuentan como 0 y los puntajes salen más bajos.</span>')
             self.avance.setText('&nbsp;&nbsp;&nbsp;'.join(partes) + aviso)
 
+        self.ultimas_respuestas = respuestas
         for lienzo, puntos in zip(self.lienzos,
                                   motor.puntos_de_grafica(self.cuestionario, respuestas)):
             lienzo.mostrar(puntos)
-            lienzo.leyenda.setText('<br>'.join(
-                f'<span style="color:{COLORES[i % len(COLORES)]}">●</span>&nbsp;{leyenda}'
-                for i, (leyenda, _, _) in enumerate(puntos)))
+        self._poner_leyendas()
+        self._marcar_apagados()
+
+    def _poner_leyendas(self):
+        """La leyenda lista sólo lo que se dibuja, y con el nombre que se le puso."""
+        for lienzo in self.lienzos:
+            visibles = lienzo.visibles()
+            if visibles:
+                lienzo.leyenda.setText('<br>'.join(
+                    f'<span style="color:{COLORES[i % len(COLORES)]}">●</span>&nbsp;'
+                    f'{lienzo.nombre_de(i)}' for i in visibles))
+            else:
+                lienzo.leyenda.setText(
+                    '<i>No se está dibujando ningún resultado en esta gráfica. '
+                    'Use «Personalizar la gráfica…» para volver a mostrarlos.</i>')
+
+    # ------------------------------------------------------------- personalizar
+    def _apagados(self) -> set[str]:
+        """Perfiles que el laboratorio quitó de todas las gráficas donde salían.
+
+        Un perfil que no aparece en ninguna gráfica no cuenta: la mayoría no
+        aparece, y marcarlos todos sería ruido. Sólo interesa el que sí se
+        graficaba y se apagó a propósito.
+        """
+        sale, visible = set(), set()
+        for grafica in self.cuestionario.graficas:
+            for punto in grafica.puntos:
+                sale.add(punto.perfil_x)
+                sale.add(punto.perfil_y)
+                if self.preferencias.visible(f'{punto.perfil_x}|{punto.perfil_y}'):
+                    visible.add(punto.perfil_x)
+                    visible.add(punto.perfil_y)
+        return sale - visible
+
+    def personalizar(self):
+        CuadroPersonalizar(self.lienzos, self.preferencias,
+                           self._redibujar, self).exec()
+
+    def _redibujar(self):
+        for lienzo in self.lienzos:
+            lienzo.update()
+        self._poner_leyendas()
+        if getattr(self, 'ultimas_respuestas', None) is not None:
+            self._marcar_apagados()
+
+    def guardar_imagen(self):
+        """La gráfica como archivo, para pegarla en un informe."""
+        if not self.lienzos:
+            return
+        lienzo = self.lienzos[0]
+        if len(self.lienzos) > 1:
+            # Con varias, se guarda la que más arriba esté a la vista; no hay
+            # forma de elegir sin complicar la pantalla, y la primera es la
+            # principal en los dos cuestionarios.
+            lienzo = self.lienzos[0]
+        sugerido = nombre_de_archivo_seguro(lienzo.grafica.titulo) + '.jpg'
+        ruta, _ = QFileDialog.getSaveFileName(
+            self, 'Guardar la gráfica', sugerido,
+            'Imagen JPEG (*.jpg *.jpeg);;Imagen PNG (*.png)')
+        if not ruta:
+            return
+        imagen = lienzo.imagen(escala=3.0)
+        formato = 'PNG' if ruta.lower().endswith('.png') else 'JPG'
+        # 92: la gráfica tiene texto y bordes finos, y una calidad más baja los
+        # ensucia con los artefactos cuadrados típicos del JPEG.
+        if not imagen.save(ruta, formato, 92):
+            QMessageBox.critical(
+                self, 'No se pudo guardar',
+                f'No se pudo escribir la imagen en:\n\n{ruta}\n\n'
+                'Revise que la carpeta exista y que tenga permiso de escritura.')
+            return
+        QMessageBox.information(
+            self, 'Imagen guardada',
+            f'La gráfica quedó en:\n\n{ruta}\n\n'
+            f'Mide {imagen.width()} × {imagen.height()} píxeles, suficiente para '
+            'imprimirla o pegarla en un informe.')
+
+    def _marcar_apagados(self):
+        apagados = self._apagados()
+        if not apagados:
+            for fila in range(self.tabla.rowCount()):
+                celda = self.tabla.item(fila, 0)
+                if celda is not None:
+                    celda.setForeground(QColor(TEXTO))
+            return
+        for fila in range(self.tabla.rowCount()):
+            celda = self.tabla.item(fila, 0)
+            if celda is None:
+                continue
+            uuid = celda.data(Qt.UserRole)
+            if uuid in apagados:
+                celda.setForeground(QColor(TEXTO_SUAVE))
+                celda.setToolTip(f'{celda.text()}\n\n'
+                                 'Su puntaje se calcula y se reporta, pero no se '
+                                 'dibuja en la gráfica porque así se configuró.')
