@@ -64,11 +64,13 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install PySide6 pyinstaller pytest
 
-      # La prueba del texto del PDF se corre aparte. En la primera ejecución
-      # falló SÓLO en Windows: el PDF sale con sus 19 páginas pero pdftotext no
-      # saca una sola letra. Está sin resolver, así que se informa a gritos pero
-      # no se bloquea el armado, porque el laboratorio necesita el ejecutable
-      # para empezar a probar. Todo lo demás sí bloquea.
+      # La prueba del texto del PDF se corre aparte y SIN la plataforma
+      # «offscreen». El diagnóstico mostró por qué: en Windows, con offscreen,
+      # Qt ve CERO tipografías, así que el PDF sale sin ninguna empotrada y sin
+      # una sola letra extraíble. En Linux no pasa, porque ahí offscreen sí usa
+      # fontconfig. Es una limitación del entorno de pruebas, no del programa:
+      # en una Windows de verdad el programa usa la plataforma nativa y tiene
+      # todas las tipografías del sistema.
       - name: Correr las pruebas en Windows
         working-directory: programa
         env:
@@ -77,18 +79,20 @@ jobs:
           python -m pytest -q
           --deselect pruebas/test_reporte.py::test_el_pdf_se_pagina_y_su_texto_se_puede_copiar
 
-      - name: Diagnóstico del texto del PDF en Windows
+      - name: Diagnóstico del PDF con la plataforma «offscreen»
         working-directory: programa
         env:
           QT_QPA_PLATFORM: offscreen
-        run: python empaquetar/diagnostico_pdf.py diagnostico.pdf
+        run: python empaquetar/diagnostico_pdf.py diagnostico-offscreen.pdf
 
-      - name: El texto del PDF (pendiente, no bloquea)
+      - name: Diagnóstico del PDF con la plataforma nativa de Windows
+        working-directory: programa
+        run: python empaquetar/diagnostico_pdf.py diagnostico-nativo.pdf
+
+      - name: El texto del PDF, con la plataforma nativa
         id: pdf
         continue-on-error: true
         working-directory: programa
-        env:
-          QT_QPA_PLATFORM: offscreen
         run: >
           python -m pytest -q
           pruebas/test_reporte.py::test_el_pdf_se_pagina_y_su_texto_se_puede_copiar
@@ -97,7 +101,7 @@ jobs:
         if: steps.pdf.outcome == 'failure'
         shell: pwsh
         run: |
-          Write-Host "::warning::En Windows el texto del PDF no se puede copiar ni buscar. El reporte se imprime bien, pero no sirve para citar ni indexar en un expediente. Ver el paso de diagnóstico."
+          Write-Host "::warning::Con la plataforma NATIVA de Windows el texto del PDF tampoco se puede copiar. Eso ya no sería cosa del entorno de pruebas: habría que corregirlo en el programa. Ver los dos pasos de diagnóstico."
 
       - name: Armar el ejecutable
         working-directory: programa
