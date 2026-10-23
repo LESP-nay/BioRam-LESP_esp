@@ -7,9 +7,15 @@ Pensado para quien usa poco la computadora: letra grande, botones con texto
 (no solo iconos), colores que siempre significan lo mismo y mucho aire entre
 las cosas.
 
-Los colores salen del logotipo oficial del laboratorio, que tiene dos: el azul
-marino #232858 y el turquesa #21B5B1. El marino es el institucional y manda en
-todo el programa.
+Los colores salen de dos sitios, los dos propios: el azul marino #232858 del
+logotipo oficial del laboratorio, que es el institucional y manda en todo el
+programa, y el cian del icono del programa para el segundo plano.
+
+El cian está en el tono 190°, y esa cifra importa. El turquesa del logotipo está
+en 178°, al filo del verde, y oscurecido lo bastante para que se lea encima sale
+un verde apagado: el laboratorio lo vio y pidió cambiarlo. A 190° ya no hay
+duda, es azul. El icono del programa no tiene un solo píxel entre 90° y 160°,
+que es donde vive el verde.
 
 Dos reglas que no se pueden romper, y la razón:
 
@@ -25,11 +31,11 @@ Dos reglas que no se pueden romper, y la razón:
    reportó el laboratorio y así se corrige.
 
 Regla de color, para que no haya que aprenderse nada:
-  turquesa hondo = bioseguridad
-  azul marino    = bioprotección, y el color institucional de todo lo demás
-  verde          = ya está completo
-  ámbar          = empezado, falta terminar
-  gris           = todavía sin empezar
+  cian        = bioseguridad
+  azul marino = bioprotección, y el color institucional de todo lo demás
+  verde       = ya está completo
+  ámbar       = empezado, falta terminar
+  gris        = todavía sin empezar
 """
 from __future__ import annotations
 
@@ -37,11 +43,9 @@ from PySide6.QtCore import QRectF, QSize, Qt
 from PySide6.QtGui import QColor, QFont, QIcon, QPainter, QPalette, QPixmap
 from PySide6.QtWidgets import QFrame, QLabel, QPushButton, QSizePolicy
 
-# Los dos del logotipo.
-MARINO = '#232858'
-TURQUESA = '#21b5b1'          # puro: sólo para adornos, nunca con texto encima
-TURQUESA_HONDO = '#167a77'    # el mismo tono, oscurecido hasta que se lee
-                              # sobre los dos fondos, el blanco y el claro
+MARINO = '#232858'      # del logotipo del laboratorio: el institucional
+CIAN = '#02788f'        # del icono del programa, tono 190°, lejos del verde
+TURQUESA = '#21b5b1'    # el del logotipo, puro: adorno, nunca con texto encima
 
 TEXTO = '#1b2435'
 TEXTO_SUAVE = '#5a6478'
@@ -50,7 +54,7 @@ TARJETA = '#ffffff'
 BORDE = '#d3dae6'
 SURCO = '#dfe5ee'             # el canal por el que corre la barra de desplazamiento
 
-BIOSEGURIDAD = TURQUESA_HONDO
+BIOSEGURIDAD = CIAN
 BIOPROTECCION = MARINO
 COMPLETO = '#4b7a0f'
 EMPEZADO = '#b25209'
@@ -208,7 +212,7 @@ def paleta_fija() -> QPalette:
             (QPalette.Highlight, QColor(MARINO)),
             (QPalette.HighlightedText, blanco),
             (QPalette.Link, QColor(MARINO)),
-            (QPalette.LinkVisited, QColor(TURQUESA_HONDO)),
+            (QPalette.LinkVisited, QColor(CIAN)),
             (QPalette.PlaceholderText, QColor(VACIO)),
     ):
         for grupo in (QPalette.Active, QPalette.Inactive, QPalette.Disabled):

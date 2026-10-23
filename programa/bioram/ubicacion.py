@@ -100,3 +100,16 @@ def donde_estan_los_cuestionarios() -> Path:
     if base:
         return Path(base) / 'bioram' / 'cuestionarios'
     return Path(__file__).resolve().parent / 'cuestionarios'
+
+
+def icono_del_programa() -> Path:
+    """El icono del programa, para la ventana y la barra de tareas.
+
+    Va dentro del ejecutable, no suelto junto a él: un archivo suelto se mueve o
+    se borra sin querer, y entonces el programa aparece en la barra de tareas con
+    el icono genérico de Qt, como si no fuera suyo.
+    """
+    base = getattr(sys, '_MEIPASS', None)
+    if base:
+        return Path(base) / 'bioram' / 'media' / 'bioram.ico'
+    return Path(__file__).resolve().parent / 'media' / 'bioram.ico'

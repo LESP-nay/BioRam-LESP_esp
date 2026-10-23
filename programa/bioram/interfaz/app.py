@@ -16,6 +16,7 @@ import traceback
 from pathlib import Path
 
 from PySide6.QtCore import QLibraryInfo, QTranslator
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QMessageBox
 
 from .. import ubicacion
@@ -43,6 +44,29 @@ def _poner_en_espanol(app) -> QTranslator | None:
     return None
 
 
+def _poner_el_icono(app):
+    """El icono del programa, en la ventana y en la barra de tareas.
+
+    En Windows hace falta un paso más que en los demás sistemas. La barra de
+    tareas no mira el icono de la ventana: agrupa por un identificador de
+    aplicación, y si no se le da uno propio hereda el del intérprete que lo
+    lanzó. El resultado es que el programa sale con el icono genérico de Python
+    aunque la ventana tenga el suyo. Se lo damos antes de abrir ninguna ventana,
+    que es cuando Windows lo lee.
+    """
+    if sys.platform.startswith('win'):
+        try:
+            import ctypes
+            ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
+                'Nayarit.LESP.BioRAM.1')
+        except (ImportError, AttributeError, OSError):
+            # Sin esto el programa funciona igual; sólo se ve con otro icono.
+            pass
+    ruta = ubicacion.icono_del_programa()
+    if ruta.is_file():
+        app.setWindowIcon(QIcon(str(ruta)))
+
+
 def _mostrar_error_no_previsto(tipo, valor, rastro):
     """Muestra en un cuadro cualquier error que nadie atrapó."""
     detalle = ''.join(traceback.format_exception(tipo, valor, rastro))
@@ -67,6 +91,7 @@ def main(argv=None):
     app = QApplication(argv[:1])
     app.setApplicationName('BioRAM LESP')
     traductor = _poner_en_espanol(app)      # hay que conservarlo vivo
+    _poner_el_icono(app)
     estilo.aplicar(app)
     sys.excepthook = _mostrar_error_no_previsto
 

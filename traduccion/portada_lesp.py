@@ -70,7 +70,7 @@ CUESTIONARIOS = {
         'titulo': 'Evaluación de riesgos de bioseguridad',
         'subtitulo': 'Modelo de evaluación de riesgos relacionados con la bioseguridad '
                      '(RAM de Bioseguridad)',
-        'color': '#167b78',
+        'color': '#02788f',
         'version': 'Versión 1.0 · Septiembre de 2010 · SAND No. 2010-6487',
         'avisos': [
             'Cuestionario, ponderaciones y método: <b>BioRAM</b>, de Sandia National '

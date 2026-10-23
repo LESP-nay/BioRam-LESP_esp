@@ -172,6 +172,29 @@ viene de Sandia:
   arranque en español (`MainEs.java`) y el empaquetado.
 - `BioRAM-es/` — los lanzadores, el `LEEME.txt` y el `.jar` rearmado.
 - `LEEME.md`, este `AVISO.md` y la parte en español del `README.md`.
+- La imagen institucional: el logotipo del laboratorio en la portada de los
+  cuestionarios y de los reportes, la paleta de colores, y el icono del programa
+  (`programa/bioram/media/bioram.ico`), que el laboratorio aportó.
+
+### Una cosa que conviene pensar antes de publicar: el nombre en el icono
+
+El icono del programa lleva escrita la palabra **BioRam**. Eso merece una
+decisión consciente, no un descuido, por dos razones:
+
+1. «BioRAM» es el nombre con el que Sandia National Laboratories distribuye su
+   herramienta. La licencia GPL cubre el **código**; los nombres y las marcas
+   no se licencian con él. Un programa distinto que se presenta con el mismo
+   nombre y con logotipo propio puede dar a entender que lo publica Sandia, o
+   que Sandia lo avala, y ninguna de las dos cosas es cierta.
+2. Es justo lo que se le está preguntando a Sandia en `CARTA-A-SANDIA.md`. Lo
+   prudente es esperar su respuesta antes de usar el nombre en material que
+   salga del laboratorio.
+
+Mientras tanto no hay problema de uso interno: el programa se llama **BioRAM
+LESP**, dice en su portada, en sus reportes y en las propiedades del ejecutable
+de quién es el método y bajo qué número SAND, y no se presenta como producto de
+Sandia. Si Sandia pidiera otro nombre, cambiarlo es cosa de un rato: está en un
+solo sitio en cada archivo.
 
 ### Advertencia importante sobre el programa en Python
 

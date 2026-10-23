@@ -79,6 +79,22 @@ def test_el_turquesa_puro_no_se_usa_con_texto():
                                    estilo.INSTITUCIONAL)
 
 
+def test_ningun_color_con_texto_cae_en_la_franja_del_verde():
+    """El laboratorio pidió que las palabras dejaran de verse verdes.
+
+    El verde vive entre los 90° y los 160° del círculo cromático. El único que
+    puede quedarse ahí es el de «ya está completo», porque verde quiere decir
+    terminado en todas partes y cambiarlo costaría más de lo que vale.
+    """
+    for nombre, color in (('bioseguridad', estilo.BIOSEGURIDAD),
+                          ('bioprotección', estilo.BIOPROTECCION),
+                          ('institucional', estilo.INSTITUCIONAL),
+                          ('texto', estilo.TEXTO),
+                          ('texto de apoyo', estilo.TEXTO_SUAVE)):
+        assert not 90 <= _tono(color) <= 160, (
+            f'{nombre} ({color}) está en {_tono(color):.0f}°, que se ve verde')
+
+
 def _tono(color: str) -> float:
     import colorsys
     color = color.lstrip('#')
@@ -137,3 +153,28 @@ def test_la_paleta_no_deja_huecos_que_windows_pueda_oscurecer():
     fondo = paleta.color(QPalette.Active, QPalette.Window).name()
     letra = paleta.color(QPalette.Active, QPalette.WindowText).name()
     assert contraste(letra, fondo) >= TEXTO_NORMAL
+
+
+# ---------------------------------------------------------------------------
+# El icono del programa
+
+def test_el_icono_existe_y_trae_los_tamanos_que_windows_pide():
+    """Sin los tamaños chicos, Windows escala el de 256 y se ve borroso."""
+    pytest.importorskip('PySide6')
+    from bioram import ubicacion
+    from bioram.sin_pantalla import plataforma_sin_ventana
+
+    ruta = ubicacion.icono_del_programa()
+    assert ruta.is_file(), f'falta el icono del programa: {ruta}'
+
+    plataforma_sin_ventana()
+    # QApplication y no QGuiApplication: Qt sólo admite una por proceso, y las
+    # pruebas de interfaz que corren después necesitan la de widgets. Si aquí se
+    # crea la otra, aquéllas abortan el intérprete entero al crear el primer
+    # widget.
+    from PySide6.QtGui import QIcon
+    from PySide6.QtWidgets import QApplication
+    QApplication.instance() or QApplication([''])
+    tamanos = sorted(s.width() for s in QIcon(str(ruta)).availableSizes())
+    for pedido in (16, 32, 48, 256):
+        assert pedido in tamanos, f'al icono le falta el tamaño {pedido}'

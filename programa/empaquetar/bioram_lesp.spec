@@ -26,6 +26,9 @@ WINDOWS = sys.platform == 'win32'
 datos = [
     (str(RAIZ / 'bioram' / 'cuestionarios' / 'bioseguridad.raml'), 'bioram/cuestionarios'),
     (str(RAIZ / 'bioram' / 'cuestionarios' / 'bioproteccion.raml'), 'bioram/cuestionarios'),
+    # El icono viaja dentro aunque también se incruste en el .exe: el del .exe
+    # lo usa el Explorador, y este otro lo usan la ventana y la barra de tareas.
+    (str(RAIZ / 'bioram' / 'media' / 'bioram.ico'), 'bioram/media'),
 ]
 for documento in ('LICENSE', 'AVISO.md', 'VERIFICACION.md'):
     origen = PROYECTO / documento
@@ -79,7 +82,9 @@ analisis = Analysis(
 
 pyz = PYZ(analisis.pure)
 
-icono = PROYECTO / 'traduccion' / 'media' / 'bioram_lesp.ico'
+icono = RAIZ / 'bioram' / 'media' / 'bioram.ico'
+if not icono.exists():
+    raise SystemExit(f'falta el icono del programa: {icono}')
 
 exe = EXE(
     pyz,
@@ -97,7 +102,7 @@ exe = EXE(
     # la consola ahora se muestran en un cuadro (ver interfaz/app.py).
     console=False,
     disable_windowed_traceback=False,
-    icon=str(icono) if icono.exists() else None,
+    icon=str(icono),
     # Datos de versión para las Propiedades del archivo en Windows. Sin esto
     # el ejecutable sale sin empresa, sin producto y sin versión, que es parte
     # de lo que hace saltar el aviso de SmartScreen.
