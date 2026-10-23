@@ -214,6 +214,11 @@ Las revisiones hasta hoy:
 Si alguna vez un reporte suyo no cuadra con otro, lo primero que hay que mirar
 es esa línea del pie.
 
+## Para quien va a probar la beta
+
+Si le tocó probar el programa, la guía de qué probar y cómo reportar está en
+**[`PRUEBA-BETA.md`](PRUEBA-BETA.md)**.
+
 ## El ejecutable: cómo armarlo e instalarlo
 
 El programa se entrega como **un solo archivo**, `BioRAM LESP.exe`, sin
