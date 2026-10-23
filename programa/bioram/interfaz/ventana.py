@@ -171,9 +171,12 @@ class Ventana(QMainWindow):
             self, 'Dónde se guarda',
             'Todo su trabajo está en este único archivo:\n\n'
             f'{self.almacen.ruta.resolve()}\n\n'
-            'Para respaldarlo, cópielo a una memoria USB o a la nube. '
-            'Para llevárselo a otra computadora, copie ese archivo y abra el '
-            'programa junto a él.'))
+            'Para respaldarlo, cópielo a una memoria USB o a la nube. Para '
+            'llevárselo a otra computadora, copie ese archivo y abra el '
+            'programa junto a él.\n\n'
+            'IMPORTANTE: cierre el programa antes de copiarlo. Mientras está '
+            'abierto, los últimos cambios pueden estar todavía en dos archivos '
+            'de apoyo que se llaman igual y terminan en «-wal» y «-shm».'))
         archivo.addAction(donde)
         archivo.addSeparator()
         salir = QAction('Salir', self)

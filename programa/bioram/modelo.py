@@ -18,9 +18,11 @@ import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from . import ubicacion
+
 # Los dos cuestionarios viajan dentro del programa: no hay archivos sueltos
 # que el usuario pueda confundir o borrar.
-CUESTIONARIOS = Path(__file__).resolve().parent / 'cuestionarios'
+CUESTIONARIOS = ubicacion.donde_estan_los_cuestionarios()
 TIPOS = ('bioseguridad', 'bioproteccion')
 
 # Tipos de nodo del árbol de resultados que el motor sabe calcular.

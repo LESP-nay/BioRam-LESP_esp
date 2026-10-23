@@ -17,11 +17,10 @@ from pathlib import Path
 
 from PySide6.QtWidgets import QApplication, QMessageBox
 
+from .. import ubicacion
 from ..datos import Almacen, ArchivoDeDatosInvalido
 from . import estilo
 from .ventana import Ventana
-
-POR_OMISION = 'bioram.db'
 
 
 def _mostrar_error_no_previsto(tipo, valor, rastro):
@@ -43,7 +42,7 @@ def _mostrar_error_no_previsto(tipo, valor, rastro):
 
 def main(argv=None):
     argv = sys.argv if argv is None else argv
-    ruta = Path(argv[1]) if len(argv) > 1 else Path(POR_OMISION)
+    ruta = ubicacion.archivo_de_datos(argv[1] if len(argv) > 1 else None)
 
     app = QApplication(argv[:1])
     app.setApplicationName('BioRAM LESP')

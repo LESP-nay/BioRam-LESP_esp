@@ -1,0 +1,117 @@
+# Arma el ejecutable de Windows en una computadora con Windows de verdad.
+#
+# Hace falta porque PyInstaller no compila cruzado: un .exe de Windows sólo se
+# puede armar desde Windows. Este archivo le pide a GitHub una máquina con
+# Windows, corre las pruebas y, si pasan, arma el ejecutable y lo deja para
+# descargar.
+#
+# CÓMO DESCARGARLO
+#   1. En GitHub, pestaña «Actions».
+#   2. Entrar a la ejecución más reciente de «Ejecutable de Windows».
+#   3. Abajo, en «Artifacts», descargar «BioRAM-LESP-windows».
+#
+# El archivo que baja es un .zip; adentro viene «BioRAM LESP.exe».
+name: Ejecutable de Windows
+
+on:
+  push:
+    branches: ['**']
+    paths:
+      - 'programa/**'
+      - '.github/workflows/ejecutable-windows.yml'
+  workflow_dispatch:        # para armarlo a mano cuando se quiera
+
+jobs:
+  pruebas:
+    name: Pruebas en Linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Instalar lo necesario
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install PySide6 pytest
+      - name: Correr las pruebas
+        working-directory: programa
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python -m pytest -q
+
+  windows:
+    name: Armar el ejecutable
+    runs-on: windows-latest
+    needs: pruebas
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Instalar lo necesario
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install PySide6 pyinstaller pytest
+
+      - name: Correr las pruebas también en Windows
+        working-directory: programa
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python -m pytest -q
+
+      - name: Armar el ejecutable
+        working-directory: programa
+        run: python -m PyInstaller empaquetar/bioram_lesp.spec --noconfirm
+
+      - name: Comprobar que arranca y crea su archivo de datos
+        working-directory: programa
+        shell: pwsh
+        run: |
+          $exe = "dist\BioRAM LESP.exe"
+          if (-not (Test-Path $exe)) { throw "no se armó el ejecutable" }
+          $tam = [math]::Round((Get-Item $exe).Length / 1MB, 1)
+          Write-Host "tamaño: $tam MB"
+
+          # Se abre unos segundos y se cierra: alcanza para ver que no truena
+          # al arrancar y que crea la base de datos junto a él.
+          $prueba = "prueba-de-arranque"
+          New-Item -ItemType Directory -Force -Path $prueba | Out-Null
+          Copy-Item $exe $prueba
+          $p = Start-Process -FilePath "$prueba\BioRAM LESP.exe" -PassThru
+          Start-Sleep -Seconds 25
+          if ($p.HasExited -and $p.ExitCode -ne 0) {
+            throw "el programa terminó solo con código $($p.ExitCode)"
+          }
+          Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue
+          Start-Sleep -Seconds 2
+          if (-not (Test-Path "$prueba\bioram.db")) {
+            throw "no creó el archivo de datos junto al programa"
+          }
+          Write-Host "arranca y crea bioram.db: bien"
+
+      - name: Comprobar los datos de versión del archivo
+        working-directory: programa
+        shell: pwsh
+        run: |
+          $i = (Get-Item "dist\BioRAM LESP.exe").VersionInfo
+          Write-Host "Empresa:   $($i.CompanyName)"
+          Write-Host "Producto:  $($i.ProductName)"
+          Write-Host "Versión:   $($i.FileVersion)"
+          Write-Host "Copyright: $($i.LegalCopyright)"
+          if (-not $i.CompanyName) { throw "el ejecutable salió sin datos de versión" }
+
+      - name: Dejar el ejecutable para descargar
+        uses: actions/upload-artifact@v4
+        with:
+          name: BioRAM-LESP-windows
+          path: |
+            programa/dist/BioRAM LESP.exe
+            LEEME.md
+            AVISO.md
+            VERIFICACION.md
+            LICENSE
+          if-no-files-found: error
+          retention-days: 90

@@ -214,6 +214,62 @@ Las revisiones hasta hoy:
 Si alguna vez un reporte suyo no cuadra con otro, lo primero que hay que mirar
 es esa línea del pie.
 
+## El ejecutable: cómo armarlo e instalarlo
+
+El programa se entrega como **un solo archivo**, `BioRAM LESP.exe`, sin
+instalador. Se copia a donde se vaya a usar y se le da doble clic.
+
+### Dónde guarda el trabajo
+
+La primera vez que se abre crea su archivo de datos, `bioram.db`, siguiendo esta
+regla:
+
+1. **Junto al ejecutable**, si ahí se puede escribir. Es el modo portátil: se
+   copia la carpeta completa a una memoria USB y el trabajo viaja dentro.
+2. Si no se puede escribir ahí —por ejemplo si quedó instalado en «Archivos de
+   programa»— en **Documentos\BioRAM LESP\bioram.db**.
+
+El menú **Archivo ▸ ¿Dónde se guarda mi trabajo?** dice siempre la ruta exacta.
+
+> **Para respaldar, cierre primero el programa.** Mientras está abierto, junto a
+> `bioram.db` hay dos archivos de apoyo (`-wal` y `-shm`) con los últimos
+> cambios. Si se copia sólo `bioram.db` con el programa abierto, se pueden
+> perder. Con el programa cerrado basta con copiar `bioram.db`.
+
+### Armarlo en una computadora con Windows
+
+Es el camino más directo si tienen Windows a la mano. Hace falta **Python 3.11 o
+posterior**, de <https://www.python.org/downloads/>, marcando **«Add python.exe
+to PATH»** al instalarlo.
+
+Después, doble clic a `programa\empaquetar\construir.bat`. El guion instala lo
+que necesita, **corre las pruebas y sólo arma el ejecutable si todas pasan**, y
+lo deja en `programa\dist\`.
+
+### Armarlo sin tener Windows
+
+El repositorio trae un flujo de GitHub que lo arma en una máquina con Windows de
+verdad, porque PyInstaller no compila cruzado: un `.exe` de Windows sólo se
+arma desde Windows.
+
+1. En GitHub, pestaña **Actions**.
+2. Entrar a la ejecución más reciente de **«Ejecutable de Windows»**.
+3. Abajo, en **Artifacts**, descargar **BioRAM-LESP-windows**.
+
+Viene en un `.zip` con el ejecutable y los documentos. Ese flujo corre las
+pruebas en Linux y en Windows, arma el programa, lo abre para comprobar que
+arranca y que crea su archivo de datos, y verifica que lleve los datos de
+versión. Si algo falla, no publica nada.
+
+### Si Windows o el antivirus lo bloquean
+
+Es normal con ejecutables sin firma digital: aparece «Windows protegió tu PC»
+(SmartScreen). Elija **Más información ▸ Ejecutar de todas formas**. A
+diferencia de las versiones anteriores, éste sí trae datos de versión —empresa,
+producto, versión y copyright, visibles en Propiedades ▸ Detalles—, lo que
+ayuda, pero no lo evita del todo. Evitarlo por completo requiere un certificado
+de firma de código, que se compra.
+
 ## Lo que falta
 
 - **Etapa 4**: empaquetar en un solo `.exe`. En espera, como se acordó.

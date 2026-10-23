@@ -1,0 +1,20 @@
+# Restos de armar el ejecutable
+programa/build/
+programa/dist/
+*.spec.bak
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# Archivos de datos del programa: son el trabajo del laboratorio, no código
+bioram.db
+bioram.db-shm
+bioram.db-wal
+*.db-journal
+
+# Restos de las herramientas de traducción
+*.raml.nuevo
+*.raml.respaldo
