@@ -53,20 +53,45 @@ tiene dos. Ver la sección 5, que explica por qué eso era necesario.
 
 Aquí sí hay diferencias, y conviene tener claro de dónde vienen.
 
-| Archivo | Módulos | Preguntas | Perfiles | Categorías de resultado | Referencias a preguntas |
-|---|---:|---:|---:|---:|---:|
-| Inglés original (`Biosafety.raml`) | 2 | 105 | 19 | 155 | 276 |
-| **Español oficial de Sandia** | 1 | 105 | 19 | **182** | **284** |
-| Corregido por el laboratorio | 1 | 105 | 19 | 182 | 284 |
-| El que se entrega | 1 | 105 | 19 | 182 | 284 |
-| El del programa en Python | 1 | 105 | 19 | 182 | 284 |
+| Archivo | Módulos | Preguntas | Perfiles | Categorías de resultado | Referencias a preguntas | Identificadores en común con el español |
+|---|---:|---:|---:|---:|---:|---:|
+| Inglés **vigente** (`Biosafety.raml`, en la raíz) | 2 | 105 | 19 | 155 | 276 | **0 de 105** |
+| Inglés **de 2014** (dentro de `Java source.zip`) | 1 | 105 | 19 | **182** | **285** | **105 de 105** |
+| Español oficial de Sandia | 1 | 105 | 19 | 182 | 284 | — |
+| Corregido por el laboratorio | 1 | 105 | 19 | 182 | 284 | — |
+| El que se entrega | 1 | 105 | 19 | 182 | 284 | — |
+| El del programa en Python | 1 | 105 | 19 | 182 | 284 | — |
 
-Las cuatro filas en español son idénticas entre sí. **La diferencia aparece ya en
-el archivo oficial de Sandia en español**, no la introdujo la traducción hecha
-aquí ni la corrección del laboratorio.
+Aquí está la explicación completa, y es importante leer la tabla entera:
 
-Ninguno de los 105 identificadores de pregunta coincide entre inglés y español, y
-la organización difiere:
+**El español no se tradujo del `Biosafety.raml` que está en la raíz.** Se tradujo
+de otra revisión, la que viene dentro de `Java source.zip` en
+`models/Biosafety/Biosafety.raml`, fechada en 2014. Con esa revisión el español
+comparte **los 105 identificadores de pregunta**; con la de la raíz, **ninguno**.
+Por eso la comparación válida es contra 285, no contra 276.
+
+Contra esa revisión de 2014, el español es idéntico en todo: mismo orden de las
+105 preguntas, misma jerarquía, mismos pesos, mismos límites, mismos criterios,
+las mismas 50 categorías. Con **una** excepción, que es la siguiente sección.
+
+Las cuatro filas en español son idénticas entre sí. Ninguna diferencia la
+introdujo la traducción hecha aquí ni la corrección del laboratorio.
+
+Y contra el inglés **vigente** el español difiere mucho, legítimamente, porque
+son dos revisiones distintas del modelo: la revisión nueva reponderó el árbol de
+resultados (los guantes, la ropa, la protección ocular y el calzado pesan 0.0 en
+la nueva y pesaban 0.16, 0.09, 0.09 y 0.04 en la vieja; los aerosoles pasan de
+1.0 a 0.36; el punzocortante de 1.0 a 0.55). Con 2.000 escenarios al azar
+difieren 17 de los 19 perfiles, con diferencias de hasta 3.38 en una escala de 0
+a 4.
+
+**Qué significa para el laboratorio:** sus resultados de bioseguridad no son
+comparables con los de alguien que use el `Biosafety.raml` inglés de hoy. No es
+un defecto de la traducción; son dos revisiones. Bioprotección no tiene este
+problema: ahí el archivo inglés del proyecto es byte por byte el mismo que el del
+código fuente, así que el español corresponde a la revisión vigente.
+
+La organización también difiere respecto del inglés vigente:
 
 - El inglés agrupa en módulos «Facility» (52 preguntas) y «Agent» (53). El
   español pone las cuatro categorías de primer nivel en un solo módulo y en otro
@@ -87,6 +112,68 @@ la organización difiere:
 las dos revisiones, así que conviene anotar en los expedientes del laboratorio
 que se usa la revisión española oficial de Sandia, y no el archivo inglés de este
 repositorio.
+
+---
+
+## 2 bis. La traducción oficial de Sandia perdió una referencia de puntuación
+
+Éste es el hallazgo más importante de toda la verificación, y **está sin
+resolver**: necesita una decisión del laboratorio.
+
+Comparando el español contra la revisión inglesa de la que se tradujo (la de
+2014), los 19 perfiles de resultados coinciden salvo uno:
+
+| Perfil | Referencias a preguntas en el inglés de 2014 | En el español |
+|---|---:|---:|
+| **Probabilidad por ingestión (individuo)** | 21 | **20** |
+| Los otros 18 perfiles | — | iguales |
+
+La referencia que falta es:
+
+> pregunta `8e15e478-850c-4136-b1b0-5f6ef7d00265`, con peso 0.13
+> «¿Todos los agentes biológicos de este laboratorio figuran en los inventarios?»
+> (*Are all biological agents in this laboratory inventoried?*), colgada de la
+> categoría «Exposición por contacto».
+
+Está en el inglés de 2014 y **no está en ninguna de las cuatro variantes
+españolas**, incluida la oficial de Sandia. Es decir: la pérdida ocurrió en la
+traducción que hizo Sandia, no aquí.
+
+### Qué efecto tiene
+
+El efecto es medible y **va siempre en la misma dirección: el español puntúa más
+bajo**.
+
+| | |
+|---|---|
+| Diferencia máxima | **1.072** en una escala de 0 a 4 |
+| Con todas las respuestas iguales | 9.72 % más bajo |
+| En relativo, en escenarios mezclados | hasta 30.89 % más bajo |
+| Escenarios afectados (de 2.000 al azar) | **77.5 %** |
+| Perfiles afectados | «Probabilidad por ingestión (individuo)» y, de rebote, «Probabilidad de transmisión secundaria (seres humanos)» (hasta 0.199) |
+
+Dicho en claro: **el cuestionario en español subestima la probabilidad de
+infección por ingestión**. En una herramienta de bioseguridad, ésa es la
+dirección que importa, porque hace ver el riesgo menor de lo que el modelo
+original calcula.
+
+### Qué se puede hacer
+
+Reponer la referencia es una línea en el archivo, y está comprobado que con eso
+la diferencia cae a **0.000000000000 exacto sobre 38.000 valores**: el español
+queda idéntico a la revisión inglesa de la que se tradujo.
+
+**No se ha hecho**, porque cambia los puntajes de dos perfiles y ésa es una
+decisión del laboratorio, no técnica. Las dos opciones son defendibles:
+
+| Opción | A favor | En contra |
+|---|---|---|
+| **Reponerla** | El cálculo queda igual al del modelo original; deja de subestimar | Los resultados ya emitidos con la versión actual no serán comparables con los nuevos |
+| **Dejarla como está** | Se mantiene idéntico al archivo oficial que Sandia publicó en español | Se conserva un defecto conocido que subestima el riesgo |
+
+En cualquiera de los dos casos conviene **avisar a Sandia**, porque la errata es
+de su traducción y afecta a todos los laboratorios hispanohablantes que usen ese
+archivo.
 
 ---
 

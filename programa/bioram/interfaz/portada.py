@@ -16,6 +16,13 @@ from PySide6.QtWidgets import (QFormLayout, QLabel, QPlainTextEdit, QScrollArea,
 from ..modelo import Cuestionario
 
 
+# Alto del logotipo y de la portada, en puntos. El logotipo del laboratorio es
+# casi cuadrado, muy distinto del banner apaisado que traía el original, así que
+# conviene limitarlo para que no se coma la pantalla.
+ALTO_LOGO = 120
+ALTO_PORTADA = 380
+
+
 class PanelPortada(QWidget):
     cambiada = Signal(str, str)      # responsables, procedimiento
 
@@ -28,6 +35,10 @@ class PanelPortada(QWidget):
         if cuestionario.portada_imagen:
             imagen = QImage()
             imagen.loadFromData(cuestionario.portada_imagen)
+            # Un logotipo muy alto empujaba el texto de la portada detrás de su
+            # propia barra de desplazamiento, con dos barras anidadas a la vista.
+            if imagen.height() > ALTO_LOGO:
+                imagen = imagen.scaledToHeight(ALTO_LOGO, Qt.SmoothTransformation)
             logo = QLabel()
             logo.setPixmap(QPixmap.fromImage(imagen))
             logo.setAlignment(Qt.AlignHCenter)
@@ -36,7 +47,10 @@ class PanelPortada(QWidget):
         texto = QTextBrowser()
         texto.setHtml(cuestionario.portada_html)
         texto.setOpenExternalLinks(False)
-        texto.setMinimumHeight(240)
+        # Alto suficiente para que la portada completa se lea de un vistazo:
+        # encabezado, título, contacto, advertencia y créditos. Si aun así no
+        # cabe, la ventana entera se desplaza, que es lo esperable.
+        texto.setMinimumHeight(ALTO_PORTADA)
         columna.addWidget(texto)
 
         self.responsables = QPlainTextEdit()

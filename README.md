@@ -64,11 +64,21 @@ Todo el detalle, con los números y las órdenes que los produjeron, está en
 [`VERIFICACION.md`](VERIFICACION.md). Ahí también está explicado por qué el
 modelo es multiplicativo y qué significa eso al leer un resultado.
 
-Un detalle que conviene saber: en **bioseguridad**, el cuestionario oficial de
-Sandia en español es una **revisión distinta** del inglés que está en este
-repositorio, aunque los dos declaren «Versión 1.0, septiembre de 2010». En
-bioprotección son el mismo modelo. Está explicado en
-[`AVISO.md`](AVISO.md), sección 4.
+Dos cosas que conviene saber sobre **bioseguridad**:
+
+1. El cuestionario oficial de Sandia en español corresponde a una **revisión
+   distinta** del `Biosafety.raml` inglés que está en la raíz de este
+   repositorio, aunque los dos declaren «Versión 1.0, septiembre de 2010». Es la
+   revisión de 2014 que viene dentro de `Java source.zip`, con la que comparte
+   los 105 identificadores de pregunta. Los resultados no son comparables con
+   los de quien use el inglés de hoy.
+2. Esa traducción de Sandia **perdió una referencia de puntuación**, y por eso
+   subestima la probabilidad de infección por ingestión (hasta 1.07 de 4, en el
+   77.5 % de los escenarios). Hay que decidir si se repone. Está documentado con
+   los números en [`VERIFICACION.md`](VERIFICACION.md), sección 2 bis.
+
+Bioprotección no tiene ninguno de los dos problemas: es el mismo modelo que el
+inglés y da los mismos números.
 
 ---
 ---
