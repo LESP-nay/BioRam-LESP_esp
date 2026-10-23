@@ -113,3 +113,16 @@ def icono_del_programa() -> Path:
     if base:
         return Path(base) / 'bioram' / 'media' / 'bioram.ico'
     return Path(__file__).resolve().parent / 'media' / 'bioram.ico'
+
+
+def traduccion_de_qt() -> Path:
+    """La traducción al español de los botones que trae Qt.
+
+    Va en el repositorio y no se toma de la biblioteca instalada: la rueda de
+    PySide6 para Linux la trae, la de Windows no. Confiar en ella hacía fallar
+    el armado del ejecutable justo en la máquina donde hace falta.
+    """
+    base = getattr(sys, '_MEIPASS', None)
+    if base:
+        return Path(base) / 'bioram' / 'media' / 'qtbase_es.qm'
+    return Path(__file__).resolve().parent / 'media' / 'qtbase_es.qm'

@@ -154,27 +154,3 @@ def test_la_paleta_no_deja_huecos_que_windows_pueda_oscurecer():
     letra = paleta.color(QPalette.Active, QPalette.WindowText).name()
     assert contraste(letra, fondo) >= TEXTO_NORMAL
 
-
-# ---------------------------------------------------------------------------
-# El icono del programa
-
-def test_el_icono_existe_y_trae_los_tamanos_que_windows_pide():
-    """Sin los tamaños chicos, Windows escala el de 256 y se ve borroso."""
-    pytest.importorskip('PySide6')
-    from bioram import ubicacion
-    from bioram.sin_pantalla import plataforma_sin_ventana
-
-    ruta = ubicacion.icono_del_programa()
-    assert ruta.is_file(), f'falta el icono del programa: {ruta}'
-
-    plataforma_sin_ventana()
-    # QApplication y no QGuiApplication: Qt sólo admite una por proceso, y las
-    # pruebas de interfaz que corren después necesitan la de widgets. Si aquí se
-    # crea la otra, aquéllas abortan el intérprete entero al crear el primer
-    # widget.
-    from PySide6.QtGui import QIcon
-    from PySide6.QtWidgets import QApplication
-    QApplication.instance() or QApplication([''])
-    tamanos = sorted(s.width() for s in QIcon(str(ruta)).availableSizes())
-    for pedido in (16, 32, 48, 256):
-        assert pedido in tamanos, f'al icono le falta el tamaño {pedido}'

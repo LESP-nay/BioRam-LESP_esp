@@ -15,7 +15,7 @@ import sys
 import traceback
 from pathlib import Path
 
-from PySide6.QtCore import QLibraryInfo, QTranslator
+from PySide6.QtCore import QTranslator
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QMessageBox
 
@@ -33,12 +33,17 @@ def _poner_en_espanol(app) -> QTranslator | None:
     inglés en medio de un programa que está todo en español, porque Qt sólo
     carga su traducción si se le pide.
 
+    El archivo viaja con el programa y no se busca en la biblioteca instalada,
+    porque la rueda de PySide6 para Windows no lo trae.
+
     Se devuelve el traductor para que quien llama lo conserve: si se lo lleva
     el recolector de basura, Qt se queda sin él y los botones vuelven al inglés.
     """
+    ruta = ubicacion.traduccion_de_qt()
+    if not ruta.is_file():
+        return None
     traductor = QTranslator()
-    carpeta = QLibraryInfo.path(QLibraryInfo.TranslationsPath)
-    if traductor.load('qtbase_es', carpeta):
+    if traductor.load(str(ruta)):
         app.installTranslator(traductor)
         return traductor
     return None

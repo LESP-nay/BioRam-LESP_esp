@@ -160,6 +160,17 @@ dos se usa**. BioRAM en sí son 1.2 MB.
 
 ---
 
+### Lo que va dentro del ejecutable de Windows
+
+El programa en Python se distribuye como un solo `.exe` que lleva dentro a Qt,
+a través de PySide6. Qt y PySide6 son de The Qt Company y se usan bajo la
+**LGPL versión 3**, que es lo que permite distribuirlos junto a un programa
+propio. Se incluye además `programa/bioram/media/qtbase_es.qm`, la traducción
+al español de los textos que Qt pone por su cuenta —los botones «Cerrar»,
+«Cancelar», «Sí», «No» y los menús de los campos de texto—. Es parte de Qt y
+viaja bajo la misma licencia; está en el repositorio porque la distribución de
+PySide6 para Windows no la trae, aunque la de Linux sí.
+
 ## 3. Qué es obra propia de este laboratorio
 
 Lo siguiente lo hizo el Laboratorio Estatal de Salud Pública de Nayarit y no
