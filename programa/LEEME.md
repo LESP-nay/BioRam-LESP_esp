@@ -187,6 +187,33 @@ python -m bioram.cli area instalaciones 1 bioseguridad --limpiar            # bo
 python -m bioram.cli evaluacion nueva 5 bioseguridad --sin-heredar          # sin heredar
 ```
 
+## Con qué revisión del cuestionario se calculó un resultado
+
+El programa **no guarda los puntajes: los recalcula** a partir de las respuestas
+cada vez que abre una evaluación o genera un reporte. Eso es lo correcto —así
+nunca hay un puntaje viejo pegado a unas respuestas nuevas— pero tiene una
+consecuencia: si el cuestionario se corrige, un reporte impreso antes y otro
+impreso después pueden no coincidir.
+
+Para que eso nunca quede sin explicación, cada cuestionario tiene una **huella de
+revisión** de ocho caracteres, calculada sólo sobre lo que afecta al cálculo. Y:
+
+- cada evaluación guarda con qué revisión se capturaron sus respuestas;
+- todos los reportes la imprimen al pie, junto al número SAND;
+- si una evaluación se capturó con una revisión y se reporta con otra, el
+  reporte lo avisa.
+
+Las revisiones hasta hoy:
+
+| Cuestionario | Huella | Qué es |
+|---|---|---|
+| Bioseguridad | `53c8ebff` | Traducción de Sandia tal cual. En uso hasta el 23/10/2026 |
+| Bioseguridad | `fc20862a` | Con la referencia de ingestión repuesta. Es la que se usa |
+| Bioprotección | `e94994e1` | Sandia, sin cambios |
+
+Si alguna vez un reporte suyo no cuadra con otro, lo primero que hay que mirar
+es esa línea del pie.
+
 ## Lo que falta
 
 - **Etapa 4**: empaquetar en un solo `.exe`. En espera, como se acordó.

@@ -1,4 +1,4 @@
-E00	Probabilidad por ingestión (individuo)	1.6130749045
+E00	Probabilidad por ingestión (individuo)	1.9005978317
 E00	Probabilidad por inhalación (individuo)	1.1257565812
 E00	Probabilidad percutánea (individuo)	1.2172419147
 E00	Probabilidad por contacto (individuo)	1.6832572039
@@ -74,7 +74,7 @@ E03	Consecuencia secundaria de la enfermedad para los animales	0.6246750000
 E03	Consecuencia de la enfermedad para la comunidad	0.4259102400
 E03	Probabilidad de transmisión secundaria (seres humanos)	1.1375215792
 E03	Probabilidad de transmisión secundaria (animales)	0.9274401181
-E04	Probabilidad por ingestión (individuo)	0.3879281810
+E04	Probabilidad por ingestión (individuo)	0.5613487615
 E04	Probabilidad por inhalación (individuo)	0.8502031814
 E04	Probabilidad percutánea (individuo)	1.2574183508
 E04	Probabilidad por contacto (individuo)	1.4690054485
@@ -93,7 +93,7 @@ E04	Consecuencia secundaria de la enfermedad para los animales	1.1056000000
 E04	Consecuencia de la enfermedad para la comunidad	0.6526296000
 E04	Probabilidad de transmisión secundaria (seres humanos)	1.2076617787
 E04	Probabilidad de transmisión secundaria (animales)	1.3830907787
-E05	Probabilidad por ingestión (individuo)	1.0090878701
+E05	Probabilidad por ingestión (individuo)	1.2394945279
 E05	Probabilidad por inhalación (individuo)	1.0984231993
 E05	Probabilidad percutánea (individuo)	1.0537217755
 E05	Probabilidad por contacto (individuo)	1.1361851120
@@ -112,7 +112,7 @@ E05	Consecuencia secundaria de la enfermedad para los animales	0.7782000000
 E05	Consecuencia de la enfermedad para la comunidad	0.6184886400
 E05	Probabilidad de transmisión secundaria (seres humanos)	1.3715934651
 E05	Probabilidad de transmisión secundaria (animales)	1.2817788157
-E06	Probabilidad por ingestión (individuo)	1.6130749045
+E06	Probabilidad por ingestión (individuo)	1.9005978317
 E06	Probabilidad por inhalación (individuo)	1.1257565812
 E06	Probabilidad percutánea (individuo)	1.2172419147
 E06	Probabilidad por contacto (individuo)	1.6832572039
@@ -188,7 +188,7 @@ E09	Consecuencia secundaria de la enfermedad para los animales	0.6246750000
 E09	Consecuencia de la enfermedad para la comunidad	0.4259102400
 E09	Probabilidad de transmisión secundaria (seres humanos)	1.1375215792
 E09	Probabilidad de transmisión secundaria (animales)	0.9274401181
-E10	Probabilidad por ingestión (individuo)	0.3879281810
+E10	Probabilidad por ingestión (individuo)	0.5613487615
 E10	Probabilidad por inhalación (individuo)	0.8502031814
 E10	Probabilidad percutánea (individuo)	1.2574183508
 E10	Probabilidad por contacto (individuo)	1.4690054485
@@ -207,7 +207,7 @@ E10	Consecuencia secundaria de la enfermedad para los animales	1.1056000000
 E10	Consecuencia de la enfermedad para la comunidad	0.6526296000
 E10	Probabilidad de transmisión secundaria (seres humanos)	1.2076617787
 E10	Probabilidad de transmisión secundaria (animales)	1.3830907787
-E11	Probabilidad por ingestión (individuo)	1.0090878701
+E11	Probabilidad por ingestión (individuo)	1.2394945279
 E11	Probabilidad por inhalación (individuo)	1.0984231993
 E11	Probabilidad percutánea (individuo)	1.0537217755
 E11	Probabilidad por contacto (individuo)	1.1361851120
@@ -226,7 +226,7 @@ E11	Consecuencia secundaria de la enfermedad para los animales	0.7782000000
 E11	Consecuencia de la enfermedad para la comunidad	0.6184886400
 E11	Probabilidad de transmisión secundaria (seres humanos)	1.3715934651
 E11	Probabilidad de transmisión secundaria (animales)	1.2817788157
-E12	Probabilidad por ingestión (individuo)	1.6130749045
+E12	Probabilidad por ingestión (individuo)	1.9005978317
 E12	Probabilidad por inhalación (individuo)	1.1257565812
 E12	Probabilidad percutánea (individuo)	1.2172419147
 E12	Probabilidad por contacto (individuo)	1.6832572039
@@ -302,7 +302,7 @@ E15	Consecuencia secundaria de la enfermedad para los animales	0.6246750000
 E15	Consecuencia de la enfermedad para la comunidad	0.4259102400
 E15	Probabilidad de transmisión secundaria (seres humanos)	1.1375215792
 E15	Probabilidad de transmisión secundaria (animales)	0.9274401181
-E16	Probabilidad por ingestión (individuo)	0.3879281810
+E16	Probabilidad por ingestión (individuo)	0.5613487615
 E16	Probabilidad por inhalación (individuo)	0.8502031814
 E16	Probabilidad percutánea (individuo)	1.2574183508
 E16	Probabilidad por contacto (individuo)	1.4690054485
@@ -321,7 +321,7 @@ E16	Consecuencia secundaria de la enfermedad para los animales	1.1056000000
 E16	Consecuencia de la enfermedad para la comunidad	0.6526296000
 E16	Probabilidad de transmisión secundaria (seres humanos)	1.2076617787
 E16	Probabilidad de transmisión secundaria (animales)	1.3830907787
-E17	Probabilidad por ingestión (individuo)	1.0090878701
+E17	Probabilidad por ingestión (individuo)	1.2394945279
 E17	Probabilidad por inhalación (individuo)	1.0984231993
 E17	Probabilidad percutánea (individuo)	1.0537217755
 E17	Probabilidad por contacto (individuo)	1.1361851120
@@ -340,7 +340,7 @@ E17	Consecuencia secundaria de la enfermedad para los animales	0.7782000000
 E17	Consecuencia de la enfermedad para la comunidad	0.6184886400
 E17	Probabilidad de transmisión secundaria (seres humanos)	1.3715934651
 E17	Probabilidad de transmisión secundaria (animales)	1.2817788157
-E18	Probabilidad por ingestión (individuo)	1.6130749045
+E18	Probabilidad por ingestión (individuo)	1.9005978317
 E18	Probabilidad por inhalación (individuo)	1.1257565812
 E18	Probabilidad percutánea (individuo)	1.2172419147
 E18	Probabilidad por contacto (individuo)	1.6832572039

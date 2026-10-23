@@ -98,10 +98,29 @@ def _encabezado(titulo: str, subtitulo: str) -> str:
             f'<p class="suave">Generado el {_fecha()}</p>')
 
 
-def _pie() -> str:
-    return ('<p class="pie">BioRAM LESP. Los cuestionarios y el cálculo son los de '
-            'BioRAM, de Sandia National Laboratories, traducidos al español. Los '
-            'resultados son los mismos que los del programa original.</p>')
+def _pie(cuestionario=None, revision_usada: str = '') -> str:
+    """El pie del reporte: crédito de origen y con qué revisión se calculó.
+
+    La revisión importa: el programa no guarda los puntajes, los recalcula a
+    partir de las respuestas. Sin este dato, un reporte impreso hoy y otro
+    impreso después de una corrección del cuestionario podrían no coincidir y
+    nada en el expediente lo explicaría.
+    """
+    partes = ['<p class="pie">BioRAM LESP. Los cuestionarios, las ponderaciones y '
+              'el cálculo son los de BioRAM, de Sandia National Laboratories '
+              '(SAND No. 2010-6487), traducidos al español. Los resultados se '
+              'comprobaron contra el programa original.']
+    if cuestionario is not None and cuestionario.revision:
+        partes.append(f'<br>Revisión del cuestionario: <b>{_e(cuestionario.revision)}</b>.')
+        if revision_usada and revision_usada != cuestionario.revision:
+            partes.append(
+                '<br><b>Atención:</b> estas respuestas se capturaron con la '
+                f'revisión «{_e(revision_usada)}», distinta de la que ahora tiene '
+                'el programa. Los puntajes de arriba se recalcularon con la '
+                'revisión actual, así que pueden no coincidir con un reporte '
+                'emitido antes.')
+    partes.append('</p>')
+    return ''.join(partes)
 
 
 def html_de_evaluacion(almacen: Almacen, evaluacion_id: int,
@@ -193,7 +212,7 @@ def html_de_evaluacion(almacen: Almacen, evaluacion_id: int,
             partes.append(_tabla(['#', 'Pregunta', 'Puntaje', 'Respuesta'], filas,
                                  clases=('num', '', 'num', '')))
 
-    partes.append(_pie())
+    partes.append(_pie(cuestionario, evaluacion.revision))
     partes.append('</body></html>')
     return '\n'.join(partes)
 
@@ -243,6 +262,10 @@ def html_de_area(almacen: Almacen, area_id: int) -> str:
             partes.append(_tabla(columnas, filas,
                                  clases=('',) + ('num',) * len(titulos)))
 
+    partes.append('<p class="pie">Revisiones de los cuestionarios: '
+                  + '; '.join(f'{secciones.NOMBRE_EVALUACION[t]} '
+                              f'{_e(modelo.incluido(t).revision)}'
+                              for t in modelo.TIPOS) + '.</p>')
     partes.append(_pie())
     partes.append('</body></html>')
     return '\n'.join(partes)
@@ -273,6 +296,10 @@ def csv_de_evaluacion(almacen: Almacen, evaluacion_id: int) -> str:
             'sí' if respuesta and respuesta.aproximada else '',
             _celda(_descripcion_de(pregunta, valor))])
 
+    escritor.writerow([])
+    escritor.writerow(['revisión del cuestionario', _celda(cuestionario.revision)])
+    if evaluacion.revision and evaluacion.revision != cuestionario.revision:
+        escritor.writerow(['capturada con la revisión', _celda(evaluacion.revision)])
     escritor.writerow([])
     escritor.writerow(['resultado', 'puntaje'])
     puntajes = motor.resultados(cuestionario, {p: r.valor for p, r in respuestas.items()})

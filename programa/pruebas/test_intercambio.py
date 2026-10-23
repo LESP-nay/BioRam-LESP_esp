@@ -32,7 +32,10 @@ def test_las_respuestas_importadas_dan_el_puntaje_conocido():
     puntajes = motor.resultados(cuestionario, {u: r.valor for u, r in respuestas.items()})
     por_titulo = {p.titulo: puntajes[u] for u, p in cuestionario.perfiles.items()}
 
-    assert por_titulo['Probabilidad por ingestión (individuo)'] == pytest.approx(2.246251, abs=1e-6)
+    # 2.488131 desde que se repuso la referencia de puntuación que la traducción
+    # de Sandia había perdido; antes daba 2.246251. Tomado del motor Java real
+    # sobre el cuestionario corregido.
+    assert por_titulo['Probabilidad por ingestión (individuo)'] == pytest.approx(2.488131, abs=1e-6)
     assert por_titulo['Probabilidad por inhalación (individuo)'] == pytest.approx(0.938083, abs=1e-6)
 
 

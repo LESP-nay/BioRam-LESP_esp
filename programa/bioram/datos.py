@@ -23,7 +23,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
-VERSION_ESQUEMA = 2
+VERSION_ESQUEMA = 3
 TIPOS = ('bioseguridad', 'bioproteccion')
 
 
@@ -40,6 +40,15 @@ class ArchivoDeDatosInvalido(Exception):
             'mueva este archivo a un lado y el programa creará uno nuevo.'
             + (f'\n\nDetalle técnico: {causa}' if causa else ''))
 
+# Nota sobre la columna «revision» de la tabla evaluacion: guarda con qué
+# revisión del cuestionario se capturaron las respuestas. El programa no guarda
+# los puntajes, los recalcula cada vez; sin ese dato, un reporte impreso antes
+# de corregir el cuestionario y otro de después no coincidirían y nada lo
+# explicaría.
+#
+# Los comentarios van aquí y no dentro del SQL a propósito: SQLite reescribe el
+# DDL al hacer ALTER TABLE, y un comentario dentro de un CREATE TABLE hace que
+# una migración posterior falle con «incomplete input».
 ESQUEMA = """
 CREATE TABLE IF NOT EXISTS meta (
     clave TEXT PRIMARY KEY,
@@ -74,7 +83,8 @@ CREATE TABLE IF NOT EXISTS evaluacion (
     estado        TEXT NOT NULL DEFAULT 'borrador'
                   CHECK (estado IN ('borrador', 'terminada')),
     creada        TEXT NOT NULL,
-    actualizada   TEXT NOT NULL
+    actualizada   TEXT NOT NULL,
+    revision      TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE IF NOT EXISTS respuesta (
@@ -148,6 +158,7 @@ class Evaluacion:
     estado: str
     creada: str
     actualizada: str
+    revision: str = ''      # revisión del cuestionario con que se capturó
 
 
 @dataclass
@@ -167,6 +178,20 @@ class Version:
 
 def _ahora() -> str:
     return datetime.now().isoformat(timespec='seconds')
+
+
+def _revision_en_vigor(tipo: str) -> str:
+    """La revisión del cuestionario que el programa tiene cargada ahora.
+
+    Se importa aquí dentro y no arriba para no obligar a datos.py a depender de
+    modelo.py: así el almacén se puede usar con cuestionarios que no son los
+    incluidos, sin que falle.
+    """
+    try:
+        from . import modelo
+        return modelo.incluido(tipo).revision
+    except Exception:
+        return ''
 
 
 # Caracteres que XML 1.0 no admite. Si uno entra en el nombre de un área o de
@@ -220,6 +245,13 @@ class Almacen:
             self.cx.executescript(ESQUEMA)
             self.cx.execute('INSERT OR IGNORE INTO meta (clave, valor) VALUES (?, ?)',
                             ('version_esquema', str(VERSION_ESQUEMA)))
+            # Columnas que no existían en versiones anteriores del esquema.
+            # CREATE TABLE IF NOT EXISTS no las agrega a una tabla que ya está.
+            columnas = {f['name'] for f in
+                        self.cx.execute('PRAGMA table_info(evaluacion)')}
+            if 'revision' not in columnas:
+                self.cx.execute("ALTER TABLE evaluacion ADD COLUMN revision "
+                                "TEXT NOT NULL DEFAULT ''")
             # Un archivo de una versión anterior se actualiza al abrirlo: las
             # tablas nuevas las crea el CREATE TABLE IF NOT EXISTS de arriba, y
             # aquí se anota la versión a la que quedó.
@@ -404,8 +436,9 @@ class Almacen:
         ahora = _ahora()
         cur = self.cx.execute(
             'INSERT INTO evaluacion (cepa_id, tipo, titulo, responsables, procedimiento,'
-            ' creada, actualizada) VALUES (?,?,?,?,?,?,?)',
-            (cepa_id, tipo, titulo, responsables, procedimiento, ahora, ahora))
+            ' creada, actualizada, revision) VALUES (?,?,?,?,?,?,?,?)',
+            (cepa_id, tipo, titulo, responsables, procedimiento, ahora, ahora,
+             _revision_en_vigor(tipo)))
         nueva = cur.lastrowid
         self.cx.commit()
         if copiar_de is not None:
@@ -483,8 +516,12 @@ class Almacen:
                 ' VALUES (?,?,?,?) ON CONFLICT(evaluacion_id, pregunta)'
                 ' DO UPDATE SET valor = excluded.valor',
                 sin_marca)
-        self.cx.execute('UPDATE evaluacion SET actualizada = ? WHERE id = ?',
-                        (_ahora(), evaluacion_id))
+        # La revisión se vuelve a sellar al contestar: lo que importa es con
+        # cuál se capturaron las respuestas que hay hoy.
+        self.cx.execute(
+            'UPDATE evaluacion SET actualizada = ?, revision = ? WHERE id = ?',
+            (_ahora(), _revision_en_vigor(self.evaluacion(evaluacion_id).tipo),
+             evaluacion_id))
         self.cx.commit()
 
     def borrar_respuesta(self, evaluacion_id, pregunta):

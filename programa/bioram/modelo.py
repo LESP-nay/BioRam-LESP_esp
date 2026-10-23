@@ -12,6 +12,7 @@ en datos.py; el cuestionario nunca se modifica.
 from __future__ import annotations
 
 import functools
+import hashlib
 import zipfile
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
@@ -107,6 +108,9 @@ class Cuestionario:
     # Conjuntos de respuestas que trae el propio cuestionario. En bioprotección
     # son los 80 agentes (Bacillus anthracis, etc.), que sirven de plantilla.
     plantillas: dict[str, dict[str, float]]
+    # Huella de lo que afecta al cálculo, para poder decir en un reporte con
+    # qué revisión del cuestionario se obtuvieron los números.
+    revision: str = ''
 
     def preguntas_en_orden(self) -> list[Pregunta]:
         orden = []
@@ -230,7 +234,59 @@ def cargar(ruta) -> Cuestionario:
         portada_html=_texto(info, 'frontHTML') if info is not None else '',
         portada_imagen=imagenes.get(_texto(info, 'frontImagePath')) if info is not None else None,
         plantillas=plantillas,
+        revision=_revision(raiz_xml),
     )
+
+
+# ---------------------------------------------------------------- revisión
+# Dos cuestionarios con el mismo nombre pueden dar números distintos: así pasó
+# con la referencia de puntuación que la traducción de Sandia había perdido.
+# Como el programa no guarda los puntajes sino que los recalcula cada vez, hace
+# falta poder decir con qué revisión se calculó un resultado; si no, un reporte
+# impreso el año pasado y otro de hoy pueden no coincidir sin que nada lo
+# explique.
+#
+# La huella se calcula SÓLO sobre lo que afecta al cálculo: los árboles de los
+# perfiles de resultados y los límites de cada pregunta. Así, corregir la
+# redacción de una pregunta o cambiar la portada no cambia la revisión, y
+# cambiar un peso sí.
+
+REVISIONES_CONOCIDAS = {
+    # --- bioseguridad
+    '53c8ebff': 'traducción oficial de Sandia tal cual, a la que le falta la '
+                'referencia de ingestión; usada hasta el 23/10/2026',
+    'fc20862a': 'referencia de ingestión repuesta el 23/10/2026; el cálculo '
+                'queda idéntico al de la revisión inglesa de 2014 de la que se '
+                'tradujo, que tiene esta misma huella',
+    # --- bioprotección
+    'e94994e1': 'Sandia, sin cambios en el cálculo; idéntica a la inglesa',
+}
+
+
+def _revision(raiz_xml) -> str:
+    """Huella corta de lo que afecta al cálculo, más su descripción si se conoce."""
+    partes = []
+    for q in raiz_xml.iter('QuestionSetQuestion'):
+        b = q.find('bounds')
+        partes.append('Q' + (q.findtext('uuid') or '')
+                      + ('' if b is None else f'|{b.get("lower")}|{b.get("upper")}'))
+    for p in raiz_xml.findall('ResultProfile'):
+        def recorrer(e):
+            partes.append(e.tag + '|' + (e.findtext('rawWeight') or '')
+                          + '|' + (e.findtext('questionUUID') or '')
+                          + '|' + (e.findtext('value') or '')
+                          + '|' + (e.findtext('normalizeChildren') or ''))
+            hijos = e.find('Children')
+            if hijos is not None:
+                for c in hijos:
+                    if c.tag.startswith('Result'):
+                        recorrer(c)
+        titulo = p.find('ResultTitle')
+        if titulo is not None:
+            recorrer(titulo)
+    huella = hashlib.sha256('\n'.join(partes).encode()).hexdigest()[:8]
+    descripcion = REVISIONES_CONOCIDAS.get(huella)
+    return f'{huella} ({descripcion})' if descripcion else huella
 
 
 @functools.lru_cache(maxsize=None)

@@ -115,10 +115,11 @@ repositorio.
 
 ---
 
-## 2 bis. La traducción oficial de Sandia perdió una referencia de puntuación
+## 2 bis. La referencia de puntuación que la traducción de Sandia perdió — **repuesta el 23/10/2026**
 
-Éste es el hallazgo más importante de toda la verificación, y **está sin
-resolver**: necesita una decisión del laboratorio.
+Éste fue el hallazgo más importante de toda la verificación. **Ya está
+corregido**; abajo queda el registro de qué pasaba, qué se hizo y cómo se
+comprobó.
 
 Comparando el español contra la revisión inglesa de la que se tradujo (la de
 2014), los 19 perfiles de resultados coinciden salvo uno:
@@ -157,23 +158,78 @@ infección por ingestión**. En una herramienta de bioseguridad, ésa es la
 dirección que importa, porque hace ver el riesgo menor de lo que el modelo
 original calcula.
 
-### Qué se puede hacer
+### Qué se hizo
 
-Reponer la referencia es una línea en el archivo, y está comprobado que con eso
-la diferencia cae a **0.000000000000 exacto sobre 38.000 valores**: el español
-queda idéntico a la revisión inglesa de la que se tradujo.
+El laboratorio decidió **reponerla**, por la razón estadística: un sesgo
+sistemático de un solo sentido no se promedia con más datos, corre toda la
+serie; y el costo de corregir era el más bajo que iba a ser nunca, porque
+todavía no había evaluaciones acumuladas.
 
-**No se ha hecho**, porque cambia los puntajes de dos perfiles y ésa es una
-decisión del laboratorio, no técnica. Las dos opciones son defendibles:
+La reposición la hace `traduccion/reponer_referencia.py`, una herramienta
+re-ejecutable que lleva escrito el nodo exacto del original del que sale:
 
-| Opción | A favor | En contra |
+```xml
+<ResultQuestion>
+    <questionUUID>8e15e478-850c-4136-b1b0-5f6ef7d00265</questionUUID>
+    <rawWeight>0.13</rawWeight>
+</ResultQuestion>
+```
+
+insertado como primer hijo de la categoría `cef76a48-…` (peso 0.86, que **no**
+normaliza los pesos de sus hijos, por eso faltar un sumando bajaba el
+resultado), justo antes de la pregunta `bb9a10c8-…`, exactamente donde está en
+el inglés de 2014.
+
+### Cómo se comprobó
+
+La herramienta no se conforma con escribir el nodo: después de reponerlo
+recalcula y **exige que la diferencia contra el original sea cero**, y si no lo
+es deshace el cambio. Resultado:
+
+| Comprobación | Resultado |
+|---|---|
+| Español corregido contra el inglés de 2014, 400 escenarios | **7.600 valores, diferencia máxima 0.000000000000** |
+| Huella de la estructura de cálculo | español `fc20862a` = inglés de 2014 `fc20862a` |
+| Referencias de prueba, regeneradas con el **motor Java real** | 380 valores; cambiaron 10, todos del perfil de ingestión, todos hacia arriba |
+| Ida y vuelta Python → `.raml` → Java, con las dos evaluaciones | 27 perfiles, 0 diferencias |
+| Suite de pruebas | 70 en verde |
+
+La huella es la prueba más limpia: el cuestionario en español y la revisión
+inglesa de la que se tradujo tienen ahora **la misma estructura de cálculo,
+bit por bit**.
+
+### El rastro de auditoría
+
+Como el programa **no guarda los puntajes sino que los recalcula** a partir de
+las respuestas, corregir el cuestionario cambia, en silencio, lo que dará un
+reporte de una evaluación vieja. Para que eso nunca quede sin explicación se
+agregó un sello de revisión:
+
+- Cada cuestionario tiene una **huella de ocho caracteres** calculada sólo
+  sobre lo que afecta al cálculo (los árboles de los perfiles y los límites de
+  las preguntas). Corregir la redacción de una pregunta o la portada no la
+  cambia; cambiar un peso sí.
+- Cada evaluación **guarda con qué revisión se capturaron** sus respuestas, y
+  se vuelve a sellar cada vez que se contesta.
+- **Todos los reportes imprimen la revisión** con la que se calcularon, junto
+  al número SAND. En la hoja de cálculo va en su propio renglón.
+- Si una evaluación se capturó con una revisión y se reporta con otra, el
+  reporte lo dice con un aviso: *«estas respuestas se capturaron con la
+  revisión X… los puntajes se recalcularon con la revisión actual, así que
+  pueden no coincidir con un reporte emitido antes»*.
+
+Las revisiones registradas hasta hoy:
+
+| Cuestionario | Huella | Qué es |
 |---|---|---|
-| **Reponerla** | El cálculo queda igual al del modelo original; deja de subestimar | Los resultados ya emitidos con la versión actual no serán comparables con los nuevos |
-| **Dejarla como está** | Se mantiene idéntico al archivo oficial que Sandia publicó en español | Se conserva un defecto conocido que subestima el riesgo |
+| Bioseguridad | `53c8ebff` | Traducción oficial de Sandia tal cual, sin la referencia. En uso hasta el 23/10/2026 |
+| Bioseguridad | `fc20862a` | Referencia repuesta. Idéntica a la revisión inglesa de 2014 |
+| Bioprotección | `e94994e1` | Sandia, sin cambios en el cálculo |
 
-En cualquiera de los dos casos conviene **avisar a Sandia**, porque la errata es
-de su traducción y afecta a todos los laboratorios hispanohablantes que usen ese
-archivo.
+### Lo que queda por hacer
+
+**Avisar a Sandia**: la errata es de su traducción oficial y la están usando
+todos los laboratorios hispanohablantes que trabajen con ese archivo.
 
 ---
 

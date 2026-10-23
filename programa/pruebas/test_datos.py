@@ -5,8 +5,8 @@
 import pytest
 
 from bioram import modelo
-from bioram.datos import (Almacen, ArchivoDeDatosInvalido, Respuesta, limpiar_texto,
-                          revisar_valor)
+from bioram.datos import (VERSION_ESQUEMA, Almacen, ArchivoDeDatosInvalido,
+                          Respuesta, limpiar_texto, revisar_valor)
 
 
 @pytest.fixture
@@ -308,17 +308,47 @@ def test_las_respuestas_del_area_tambien_se_validan(tmp_path):
             alm.guardar_respuestas_de_area(area, 'otra cosa', {'p1': 1.0})
 
 
-def test_un_archivo_de_la_version_anterior_se_actualiza_al_abrirlo(tmp_path):
-    """La tabla nueva se crea y la versión del esquema queda al día."""
+def test_un_archivo_de_una_version_anterior_se_actualiza_al_abrirlo(tmp_path):
+    """Las tablas y columnas nuevas se crean, y la versión queda al día."""
     ruta = tmp_path / 'vieja.db'
     with Almacen(ruta) as alm:
+        # se deja como la versión 1: sin respuestas de área y sin la columna
+        # de revisión del cuestionario
         alm.cx.execute("UPDATE meta SET valor = '1' WHERE clave = 'version_esquema'")
         alm.cx.execute('DROP TABLE respuesta_area')
+        alm.cx.execute('ALTER TABLE evaluacion DROP COLUMN revision')
         alm.cx.commit()
+
     with Almacen(ruta) as alm:
         guardada = alm.cx.execute(
             "SELECT valor FROM meta WHERE clave = 'version_esquema'").fetchone()[0]
-        assert int(guardada) == 2
+        assert int(guardada) == VERSION_ESQUEMA
+
         area = alm.crear_area('Área')
         alm.guardar_respuestas_de_area(area, 'bioseguridad', {'p1': 1.0})
         assert len(alm.respuestas_de_area(area, 'bioseguridad')) == 1
+
+        cepa = alm.crear_cepa(area, 'Cepa')
+        eva = alm.crear_evaluacion(cepa, 'bioseguridad')
+        assert alm.evaluacion(eva).revision, 'la evaluación debe quedar sellada'
+
+
+def test_la_evaluacion_guarda_con_que_revision_se_capturo(tmp_path):
+    """Sin esto, un reporte de antes y otro de después no se podrían explicar."""
+    with Almacen(tmp_path / 'b.db') as alm:
+        area, cepa = _area_con_cepa(alm)
+        eva = alm.crear_evaluacion(cepa, 'bioseguridad')
+        esperada = modelo.incluido('bioseguridad').revision
+        assert alm.evaluacion(eva).revision == esperada
+        # y se vuelve a sellar al contestar
+        alm.cx.execute("UPDATE evaluacion SET revision = 'otra' WHERE id = ?", (eva,))
+        alm.cx.commit()
+        alm.guardar_respuestas(eva, {'p1': 2.0})
+        assert alm.evaluacion(eva).revision == esperada
+
+
+def test_las_dos_evaluaciones_tienen_revisiones_distintas():
+    """Son cuestionarios distintos, así que su huella de cálculo no coincide."""
+    a = modelo.incluido('bioseguridad').revision
+    b = modelo.incluido('bioproteccion').revision
+    assert a and b and a != b

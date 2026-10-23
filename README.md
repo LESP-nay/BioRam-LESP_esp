@@ -72,10 +72,12 @@ Dos cosas que conviene saber sobre **bioseguridad**:
    revisión de 2014 que viene dentro de `Java source.zip`, con la que comparte
    los 105 identificadores de pregunta. Los resultados no son comparables con
    los de quien use el inglés de hoy.
-2. Esa traducción de Sandia **perdió una referencia de puntuación**, y por eso
-   subestima la probabilidad de infección por ingestión (hasta 1.07 de 4, en el
-   77.5 % de los escenarios). Hay que decidir si se repone. Está documentado con
-   los números en [`VERIFICACION.md`](VERIFICACION.md), sección 2 bis.
+2. Esa traducción de Sandia **había perdido una referencia de puntuación**, por
+   lo que subestimaba la probabilidad de infección por ingestión. **Se repuso el
+   23/10/2026**, y con eso el cálculo quedó idéntico al de la revisión inglesa
+   de la que se tradujo: misma huella de estructura, `fc20862a`. Cada reporte
+   imprime con qué revisión se calculó. Está documentado con los números en
+   [`VERIFICACION.md`](VERIFICACION.md), sección 2 bis.
 
 Bioprotección no tiene ninguno de los dos problemas: es el mismo modelo que el
 inglés y da los mismos números.
