@@ -33,9 +33,8 @@ el espacio que el programa reserva.
 
 QUÉ CAMBIAR AQUÍ
 
-Las cuatro constantes de abajo. `INSTITUCION` está vacía a propósito: llénela
-con el nombre de la dependencia de la que depende el laboratorio si quiere que
-aparezca encima de su nombre.
+Las cuatro constantes de abajo: la cadena de dependencias del laboratorio, su
+nombre, el lugar y el correo de contacto.
 """
 from __future__ import annotations
 
@@ -48,8 +47,14 @@ import xml.etree.ElementTree as ET
 import zipfile
 
 # --------------------------------------------------------------- lo editable
-INSTITUCION = ''        # p. ej. 'Servicios de Salud de Nayarit'
-LABORATORIO = 'Laboratorio Estatal de Salud Pública de Nayarit'
+# La cadena de la que depende el laboratorio, de arriba hacia abajo. Sale
+# encima de su nombre, en letra chica.
+DEPENDENCIAS = (
+    'Servicios de Salud de Nayarit (SSN)',
+    'Comisión Estatal para la Protección contra Riesgos Sanitarios '
+    'de Nayarit (CESPRISNAY)',
+)
+LABORATORIO = 'Laboratorio Estatal de Salud Pública de Nayarit (LESP Nayarit)'
 LUGAR = 'Nayarit, México'
 CONTACTO = 'gnc.lespnay@gmail.com'
 # ---------------------------------------------------------------------------
@@ -114,7 +119,8 @@ PLANTILLA = """<html>
   <head>
     <style type="text/css">
 body {{ font-family: Arial,Helvetica,sans-serif; color: #1f2933; }}
-.institucion {{ text-align: center; font-size: 10pt; color: #616e7c; }}
+.institucion {{ text-align: center; font-size: 9.5pt; color: #616e7c;
+                margin: 0; }}
 .laboratorio {{ text-align: center; font-size: 15pt; font-weight: bold;
                 color: {color}; padding-top: 4px; }}
 .lugar {{ text-align: center; font-size: 10pt; color: #616e7c;
@@ -153,8 +159,8 @@ body {{ font-family: Arial,Helvetica,sans-serif; color: #1f2933; }}
 
 def _encabezado() -> str:
     partes = []
-    if INSTITUCION:
-        partes.append(f'    <p class="institucion">{html.escape(INSTITUCION)}</p>')
+    for dependencia in DEPENDENCIAS:
+        partes.append(f'    <p class="institucion">{html.escape(dependencia)}</p>')
     partes.append(f'    <p class="laboratorio">{html.escape(LABORATORIO)}</p>')
     if LUGAR:
         partes.append(f'    <p class="lugar">{html.escape(LUGAR)}</p>')
@@ -237,8 +243,9 @@ def main(argv=None):
         sys.exit(f'no existe el archivo del logotipo: {args.logo}')
 
     print(f'Contacto de soporte: {CONTACTO}')
-    print(f'Laboratorio: {LABORATORIO}'
-          + (f' ({INSTITUCION})' if INSTITUCION else ''))
+    for dependencia in DEPENDENCIAS:
+        print(f'  {dependencia}')
+    print(f'  {LABORATORIO}')
     print(f'Logotipo: {args.logo if args.logo else "no se cambia"}\n')
 
     for clave, cuestionario in CUESTIONARIOS.items():
