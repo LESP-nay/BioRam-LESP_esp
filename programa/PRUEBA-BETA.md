@@ -56,9 +56,11 @@ Guarde el reporte en los tres formatos: PDF, página web y hoja de cálculo.
 Ábralos. Imprima el PDF si puede.
 
 Lo que queremos saber: ¿se ve bien? ¿los acentos salen correctos? ¿la hoja de
-cálculo abre bien en Excel? **¿Puede seleccionar y copiar el texto del PDF?**
-Esta última es importante: sabemos que en Windows puede fallar y necesitamos
-confirmarlo.
+cálculo abre bien en Excel? ¿Puede seleccionar y copiar el texto del PDF?
+
+Esto último ya se midió en una Windows de verdad y sale bien —17 824 caracteres
+extraíbles, con Arial empotrada—, pero se agradece la confirmación en su equipo:
+una impresora o un lector de PDF distinto pueden cambiar las cosas.
 
 ### 4. Portarse mal a propósito
 
@@ -116,7 +118,6 @@ Para que no gaste tiempo reportándolo:
 
 | Pendiente | Estado |
 |---|---|
-| El texto del PDF podría no poderse copiar en Windows | **Confírmelo, por favor.** Es lo único de esta lista que sí queremos que nos diga |
 | Windows avisa que el programa no está firmado | Conocido. Requiere un certificado de firma de código, que se compra |
 | La licencia de BioRAM | Pendiente de la respuesta de Sandia |
 | La encuesta nueva de 2023 | Pendiente de traducir, decidido para después |
