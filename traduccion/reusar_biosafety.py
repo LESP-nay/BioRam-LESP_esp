@@ -35,7 +35,7 @@ def main(plantilla_en):
     with open('biosafety_es.json', encoding='utf-8') as f:
         table = json.load(f)
 
-    root = raml_es.read_model('../Biosafety.raml')
+    root = raml_es.read_model('../historico/sandia/Biosafety.raml')
     padre = {}
 
     def walk(elem):

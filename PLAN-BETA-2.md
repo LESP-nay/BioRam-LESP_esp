@@ -100,7 +100,7 @@ Estas no esperan a nadie, pero sí dependen de una decisión del laboratorio.
 El `.jar` en español que este laboratorio rearmó y redistribuye lleva dentro
 **1 075 clases de JFreeChart**, que es LGPL. La LGPL obliga a incluir su texto y
 a permitir que alguien sustituya esa biblioteca por otra versión. Hoy **no se
-incluye ningún texto LGPL**: ni en `BioRAM-es/`, ni en el `.jar`.
+incluye ningún texto LGPL**: ni en `historico/java-es/`, ni en el `.jar`.
 
 Esto se arregla de dos maneras, y la segunda es mejor:
 
@@ -123,7 +123,7 @@ laboratorio. Desaparece si se deja de distribuir el `.jar`.
 
 ### 2.3 La ruta interna de Sandia — **no es nuestra, y no hay que tocarla**
 
-Dentro de `Java source.zip` hay dos archivos `private.properties` de NetBeans
+Dentro de `historico/sandia/Java source.zip` hay dos archivos `private.properties` de NetBeans
 con la ruta `C:\Users\cehines`, de una computadora de Sandia. Estaba anotado
 como pendiente «técnico, trivial», y al revisarlo resulta que **no era nuestro**:
 ese zip es de Sandia, tal como ellos lo subieron, y nuestro código Python no

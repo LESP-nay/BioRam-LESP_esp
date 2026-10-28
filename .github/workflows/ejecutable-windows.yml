@@ -148,9 +148,10 @@ jobs:
           name: BioRAM-LESP-windows
           path: |
             programa/dist/BioRAM LESP.exe
-            LEEME.md
+            programa/LEEME.md
             AVISO.md
             VERIFICACION.md
+            FICHA-DEL-INSTRUMENTO.md
             LICENSE
           if-no-files-found: error
           retention-days: 90

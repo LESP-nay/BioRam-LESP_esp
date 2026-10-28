@@ -7,10 +7,10 @@ la estructura, por lo que el modelo traducido calcula exactamente igual que el
 original en inglés.
 
 Uso:
-  python raml_es.py extraer   Biosafety.raml   traduccion/biosafety_es.json
-  python raml_es.py construir Biosafety.raml   traduccion/biosafety_es.json  Biosafety_es.raml
+  python raml_es.py extraer   historico/sandia/Biosafety.raml   traduccion/biosafety_es.json
+  python raml_es.py construir historico/sandia/Biosafety.raml   traduccion/biosafety_es.json  Biosafety_es.raml
   python raml_es.py adaptar   entrada_es.raml  salida_es.raml
-  python raml_es.py verificar Biosafety.raml   Biosafety_es.raml
+  python raml_es.py verificar historico/sandia/Biosafety.raml   Biosafety_es.raml
 
 "adaptar" se usa con un modelo que ya viene traducido: solo limpia los espacios
 sobrantes de la conversión desde MS Word y cambia las imágenes con texto por su

@@ -6,7 +6,7 @@
 EL PROBLEMA
 
 El cuestionario de bioseguridad en español se tradujo de la revisión inglesa
-que viene dentro de «Java source.zip» (models/Biosafety/Biosafety.raml, 2014),
+que viene dentro de «historico/sandia/Java source.zip» (models/Biosafety/Biosafety.raml, 2014),
 con la que comparte los 105 identificadores de pregunta. Contra esa revisión el
 español es idéntico en todo —mismo orden, misma jerarquía, mismos pesos, mismos
 límites, mismos criterios, las mismas 50 categorías— salvo en **un** nodo: al
@@ -79,13 +79,13 @@ PERFIL = 'Probabilidad por ingestión (individuo)'
 
 # Sólo bioseguridad: bioprotección no tiene este defecto.
 ARCHIVOS = [
-    RAIZ / 'BioRAM-es' / 'Biosafety_es.raml',
+    RAIZ / 'historico' / 'java-es' / 'Biosafety_es.raml',
     RAIZ / 'programa' / 'bioram' / 'cuestionarios' / 'bioseguridad.raml',
 ]
 
 # El original del que se tradujo, para comprobar contra él. Viene dentro de
-# «Java source.zip», que está en la raíz del repositorio.
-ZIP_FUENTE = RAIZ / 'Java source.zip'
+# «historico/sandia/Java source.zip», que está en la raíz del repositorio.
+ZIP_FUENTE = RAIZ / 'historico' / 'sandia' / 'Java source.zip'
 DENTRO = 'Java source/BioRAM/models/Biosafety/Biosafety.raml'
 
 
@@ -221,7 +221,7 @@ def main(argv=None):
     temporal = pathlib.Path('/tmp') / 'biosafety_2014_para_comprobar.raml'
     original = _original_2014(temporal)
     if original is None:
-        print('  AVISO: no se encontró «Java source.zip», así que no se pudo '
+        print('  AVISO: no se encontró «historico/sandia/Java source.zip», así que no se pudo '
               'comprobar contra el original. Los archivos quedaron cambiados; '
               f'los respaldos están en {[str(r) for r in respaldos.values()]}')
         return 1

@@ -106,14 +106,14 @@ be recovered after saving and reloading.** We reproduced it by answering all 105
 questions, saving, reloading and selecting the saved set: 0 of 46 Facility
 answers came back, while all 59 Agent answers did. `Biosafety.raml`, whose two
 modules have distinct root UUIDs, does not have the problem. We also reproduced
-it with the 4.0.6 build in `CDC BioRAM.zip`, so it is in the model data rather
+it with the 4.0.6 build in `historico/sandia/CDC BioRAM.zip`, so it is in the model data rather
 than in the code. The same duplicate UUID is present in the Spanish file and in
 `BiosecurityAugust2015.raml`.
 
 **3. The Spanish Biosafety translation tracks an earlier revision of the model.**
 
 The Spanish Biosafety file shares all 105 question UUIDs with
-`models/Biosafety/Biosafety.raml` inside `Java source.zip` (dated 2014), and none
+`models/Biosafety/Biosafety.raml` inside `historico/sandia/Java source.zip` (dated 2014), and none
 with the current `Biosafety.raml` in the repository root. The two revisions
 differ substantially in the result-profile weights, so Spanish-speaking and
 English-speaking users of BioRAM are not currently producing comparable biosafety
@@ -227,13 +227,13 @@ reprodujimos contestando las 105 preguntas, grabando, recargando y seleccionando
 el conjunto guardado: volvieron 0 de 46 respuestas de «Facility» y las 59 de
 «Agent» completas. `Biosafety.raml`, cuyos dos módulos tienen identificadores
 distintos, no lo sufre. También lo reprodujimos con la versión 4.0.6 de
-`CDC BioRAM.zip`, así que está en los datos del modelo y no en el código. El
+`historico/sandia/CDC BioRAM.zip`, así que está en los datos del modelo y no en el código. El
 mismo identificador repetido está en el archivo español y en
 `BiosecurityAugust2015.raml`.
 
 **3. La traducción de bioseguridad al español corresponde a una revisión
 anterior del modelo.** El archivo español comparte los 105 identificadores de
-pregunta con `models/Biosafety/Biosafety.raml` de dentro de `Java source.zip`
+pregunta con `models/Biosafety/Biosafety.raml` de dentro de `historico/sandia/Java source.zip`
 (de 2014) y ninguno con el `Biosafety.raml` actual de la raíz del repositorio.
 Las dos revisiones difieren bastante en los pesos de los perfiles de resultados,
 así que hoy los usuarios en español y en inglés no producen puntajes de

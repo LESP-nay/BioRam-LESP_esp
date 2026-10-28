@@ -18,10 +18,10 @@ este repositorio (`Referencia.java` y `CalcAll.java`). Se compilan contra el
 `.jar` y se ejecutan sin pantalla:
 
 ```
-javac -cp BioRAM-es/bioram-4.0.5-es-java-actual.jar -d . Referencia.java
+javac -cp historico/java-es/bioram-4.0.5-es-java-actual.jar -d . Referencia.java
 java -Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Djava.awt.headless=true \
-     -cp "BioRAM-es/bioram-4.0.5-es-java-actual.jar:." \
-     Referencia BioRAM-es/Biosafety_es.raml escenarios.raml 20 > bioseguridad.tsv
+     -cp "historico/java-es/bioram-4.0.5-es-java-actual.jar:." \
+     Referencia historico/java-es/Biosafety_es.raml escenarios.raml 20 > bioseguridad.tsv
 ```
 
 Solo hay que rehacerlos si cambia un cuestionario.

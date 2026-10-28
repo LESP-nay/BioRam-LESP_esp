@@ -98,15 +98,15 @@ def test_el_cero_firmado_sale_como_en_java():
 
 # El modelo inglés vigente de bioseguridad sí llega a producir «no es un número»;
 # los dos cuestionarios en español no (comprobado sobre 40.016 escenarios cada
-# uno). Por eso la prueba de ese camino usa el modelo inglés, que vive en la raíz
-# del repositorio: si sólo se distribuye la carpeta programa/, se omite.
-BIOSAFETY_EN = AQUI.parent.parent / 'Biosafety.raml'
+# uno). Por eso la prueba de ese camino usa el modelo inglés de Sandia, que está
+# en historico/sandia/: si sólo se distribuye la carpeta programa/, se omite.
+BIOSAFETY_EN = AQUI.parent.parent / 'historico' / 'sandia' / 'Biosafety.raml'
 
 
 def test_los_valores_no_finitos_coinciden_con_el_motor_java():
     """228 valores del modelo inglés, 16 de ellos «no es un número»."""
     if not BIOSAFETY_EN.exists():
-        pytest.skip(f'no está {BIOSAFETY_EN.name}, que vive en la raíz del repositorio')
+        pytest.skip(f'no está {BIOSAFETY_EN}, el modelo inglés de Sandia')
 
     cuestionario = modelo.cargar(BIOSAFETY_EN)
     escenarios = json.loads(

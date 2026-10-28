@@ -46,7 +46,7 @@ Dos cosas que conviene no confundir al leerlo:
 
 Lo que consta **a favor** del uso y la redistribución:
 
-- La **guía de usuario oficial de Sandia** (`BioRAM UserGuide SAND.pdf`, agosto de
+- La **guía de usuario oficial de Sandia** (`historico/sandia/BioRAM UserGuide SAND.pdf`, agosto de
   2021, 80 páginas) lo dice de forma expresa:
 
   > *"The BioRAM software tool was developed as **open source software** per the
@@ -248,7 +248,7 @@ viene de Sandia:
   **Pero** lleva dentro los cuestionarios de Sandia (ver la advertencia abajo).
 - `traduccion/` — las herramientas de traducción y verificación, el punto de
   arranque en español (`MainEs.java`) y el empaquetado.
-- `BioRAM-es/` — los lanzadores, el `LEEME.txt` y el `.jar` rearmado.
+- `historico/java-es/` — los lanzadores, el `LEEME.txt` y el `.jar` rearmado.
 - `LEEME.md`, este `AVISO.md` y la parte en español del `README.md`.
 - La imagen institucional: el logotipo del laboratorio en la portada de los
   cuestionarios y de los reportes, la paleta de colores, y el icono del programa

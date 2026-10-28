@@ -56,7 +56,7 @@ Aquí sí hay diferencias, y conviene tener claro de dónde vienen.
 | Archivo | Módulos | Preguntas | Perfiles | Categorías de resultado | Referencias a preguntas | Identificadores en común con el español |
 |---|---:|---:|---:|---:|---:|---:|
 | Inglés **vigente** (`Biosafety.raml`, en la raíz) | 2 | 105 | 19 | 155 | 276 | **0 de 105** |
-| Inglés **de 2014** (dentro de `Java source.zip`) | 1 | 105 | 19 | **182** | **285** | **105 de 105** |
+| Inglés **de 2014** (dentro de `historico/sandia/Java source.zip`) | 1 | 105 | 19 | **182** | **285** | **105 de 105** |
 | Español oficial de Sandia | 1 | 105 | 19 | 182 | 284 | — |
 | Corregido por el laboratorio | 1 | 105 | 19 | 182 | 284 | — |
 | El que se entrega | 1 | 105 | 19 | 182 | 284 | — |
@@ -65,7 +65,7 @@ Aquí sí hay diferencias, y conviene tener claro de dónde vienen.
 Aquí está la explicación completa, y es importante leer la tabla entera:
 
 **El español no se tradujo del `Biosafety.raml` que está en la raíz.** Se tradujo
-de otra revisión, la que viene dentro de `Java source.zip` en
+de otra revisión, la que viene dentro de `historico/sandia/Java source.zip` en
 `models/Biosafety/Biosafety.raml`, fechada en 2014. Con esa revisión el español
 comparte **los 105 identificadores de pregunta**; con la de la raíz, **ninguno**.
 Por eso la comparación válida es contra 285, no contra 276.
@@ -347,8 +347,8 @@ seleccionando el conjunto guardado:
 |---|---:|---|
 | `Biosecurity.raml` (inglés, dos módulos con el **mismo** identificador) | 2 | **0 de 46** y 59 de 59 |
 | `Biosafety.raml` (inglés, dos módulos con identificadores **distintos**) | 2 | 52 de 52 y 53 de 53 |
-| `BioRAM-es/Biosecurity_es.raml` (módulos unidos aquí) | 1 | **105 de 105** |
-| `BioRAM-es/Biosafety_es.raml` (un solo módulo) | 1 | **105 de 105** |
+| `historico/java-es/Biosecurity_es.raml` (módulos unidos aquí) | 1 | **105 de 105** |
+| `historico/java-es/Biosafety_es.raml` (un solo módulo) | 1 | **105 de 105** |
 
 El archivo se graba bien: el conjunto escrito contiene las 46 y las 59
 respuestas. Lo que falla es la carga.
@@ -357,7 +357,7 @@ Dos consecuencias prácticas:
 
 1. **Unir los módulos no fue un rodeo, fue el arreglo correcto.** Un módulo, un
    identificador, sin colisión.
-2. **La versión 4.0.6 no lo corrige.** Dentro de `CDC BioRAM.zip` de este
+2. **La versión 4.0.6 no lo corrige.** Dentro de `historico/sandia/CDC BioRAM.zip` de este
    repositorio hay un `bioram-4.0.6.exe` (de septiembre de 2016, compilado por
    otra persona de Sandia) que añade una clase `ResponseSetGroup` y cambia justo
    las clases implicadas. Se probó con el mismo arnés: da exactamente el mismo

@@ -14,8 +14,9 @@ nuevo que reúne las dos evaluaciones en una sola herramienta.
 
 | Si usted quiere… | Lea |
 |---|---|
-| Usar BioRAM en español, en Windows | **[`LEEME.md`](LEEME.md)** |
-| Usar el programa nuevo (áreas, cepas y las dos evaluaciones juntas) | **[`programa/LEEME.md`](programa/LEEME.md)** |
+| Usar el programa (áreas, cepas y las dos evaluaciones juntas) | **[`programa/LEEME.md`](programa/LEEME.md)** |
+| Saber qué instrumento aplica, para autorizarlo | **[`FICHA-DEL-INSTRUMENTO.md`](FICHA-DEL-INSTRUMENTO.md)** |
+| La versión anterior en Java | [`historico/java-es/LEEME.md`](historico/java-es/LEEME.md) |
 | Saber de quién es cada cosa y qué se puede redistribuir | **[`AVISO.md`](AVISO.md)** |
 | Ver las comprobaciones contra el programa original, y cómo se leen los resultados | **[`VERIFICACION.md`](VERIFICACION.md)** |
 | El original en inglés de Sandia | la sección de abajo |
@@ -23,32 +24,27 @@ nuevo que reúne las dos evaluaciones en una sola herramienta.
 ## Qué hay aquí
 
 ```
-BioRAM-es/      El programa Java traducido, listo para usar en Windows.
-                Dos ejecutables, uno por evaluación, y los dos cuestionarios
-                en español. Es lo que se descarga para trabajar.
+programa/       EL PROGRAMA. En Python, para Windows. Reúne bioseguridad y
+                bioprotección, organiza el trabajo por áreas y cepas, y guarda
+                todo en un solo archivo. Es lo que se usa y lo que se mejora.
 
-programa/       El programa nuevo, en Python. Reúne bioseguridad y
-                bioprotección en una sola herramienta, organiza el trabajo
-                por áreas y cepas, y guarda todo en un solo archivo.
+traduccion/     Las herramientas con las que se tradujo y se verifica la
+                traducción. Se volverán a usar cuando cambie el banco de
+                preguntas.
 
-traduccion/     Las herramientas con las que se hizo y se verifica la
-                traducción, y el código Java que se cambió.
+historico/      Lo que ya no hace falta para trabajar, pero no se puede borrar.
+                sandia/   el original de Sandia, sin modificar: es la referencia
+                          del cálculo y la prueba de qué versión se usó.
+                java-es/  la primera entrega, en Java, que el programa nuevo
+                          reemplaza. Lleva su propio LEEME.md.
 
-AVISO.md        Procedencia, derechos y licencias. Léalo antes de redistribuir.
-VERIFICACION.md Las comprobaciones contra el programa original de Sandia.
-PLAN-BETA-2.md  Qué sigue, y qué está detenido esperando a alguien.
-LEEME.md        Instrucciones del programa Java en español.
-
-CARTA-A-SANDIA.md     La consulta que se le hizo a Sandia sobre la licencia.
-RESPUESTA-A-SANDIA.md La contestación a su respuesta, lista para enviar.
+AVISO.md                  Procedencia, derechos y licencias. Léalo antes de redistribuir.
+VERIFICACION.md           Las comprobaciones contra el programa original de Sandia.
+FICHA-DEL-INSTRUMENTO.md  Qué instrumento aplica el programa. Para la instancia que autoriza.
+PLAN-BETA-2.md            Qué sigue, y qué está detenido esperando a alguien.
+CARTA-A-SANDIA.md         La consulta que se le hizo a Sandia sobre la licencia.
+RESPUESTA-A-SANDIA.md     La contestación a su respuesta, lista para enviar.
 ```
-
-Lo demás en la raíz (los `.xlsx`, los `.pdf`, los `.raml` en inglés, el `.zip`
-del código fuente, los ejecutables y el `.jar` originales) **viene del
-repositorio de Sandia y se conserva sin cambios**. Se conserva a propósito y no
-por descuido: es la referencia contra la que se verifica que el programa nuevo
-calcula igual, y es la prueba de qué versión se usó, que es justo lo que está
-en conversación con Sandia sobre la licencia.
 
 ### Si va a modificar algo
 
@@ -83,7 +79,7 @@ Dos cosas que conviene saber sobre **bioseguridad**:
 1. El cuestionario oficial de Sandia en español corresponde a una **revisión
    distinta** del `Biosafety.raml` inglés que está en la raíz de este
    repositorio, aunque los dos declaren «Versión 1.0, septiembre de 2010». Es la
-   revisión de 2014 que viene dentro de `Java source.zip`, con la que comparte
+   revisión de 2014 que viene dentro de `historico/sandia/Java source.zip`, con la que comparte
    los 105 identificadores de pregunta. Los resultados no son comparables con
    los de quien use el inglés de hoy.
 2. Esa traducción de Sandia **había perdido una referencia de puntuación**, por

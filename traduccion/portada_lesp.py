@@ -65,7 +65,7 @@ RAIZ = AQUI.parent
 # Color del encabezado de cada cuestionario, el mismo que usa el programa nuevo.
 CUESTIONARIOS = {
     'bioseguridad': {
-        'archivos': [RAIZ / 'BioRAM-es' / 'Biosafety_es.raml',
+        'archivos': [RAIZ / 'historico' / 'java-es' / 'Biosafety_es.raml',
                      RAIZ / 'programa' / 'bioram' / 'cuestionarios' / 'bioseguridad.raml'],
         'titulo': 'Evaluación de riesgos de bioseguridad',
         'subtitulo': 'Modelo de evaluación de riesgos relacionados con la bioseguridad '
@@ -88,7 +88,7 @@ CUESTIONARIOS = {
             'decisiones relativas al manejo de riesgos.',
     },
     'bioproteccion': {
-        'archivos': [RAIZ / 'BioRAM-es' / 'Biosecurity_es.raml',
+        'archivos': [RAIZ / 'historico' / 'java-es' / 'Biosecurity_es.raml',
                      RAIZ / 'programa' / 'bioram' / 'cuestionarios' / 'bioproteccion.raml'],
         'titulo': 'Evaluación de riesgos de bioprotección',
         'subtitulo': 'Modelo de riesgos relacionados con la bioprotección 2010 '

@@ -11,8 +11,8 @@
 set -e
 
 PLANTILLA_BIOSAFETY="${PLANTILLA_BIOSAFETY:-}"
-JAR_ORIGINAL=bioram-4.0.5.jar
-ENTREGA=BioRAM-es
+JAR_ORIGINAL=historico/sandia/bioram-4.0.5.jar
+ENTREGA=historico/java-es
 CLASES=$(mktemp -d)
 trap 'rm -rf "$CLASES"' EXIT
 
@@ -32,11 +32,11 @@ SEC_DIVIDIDO="$CLASES/Biosecurity_dividido.raml"
 
 echo "== 1. Modelos en espanol"
 python3 traduccion/raml_es.py adaptar   traduccion/fuente/Biosafety_es_corregido.raml "$ENTREGA/Biosafety_es.raml"
-python3 traduccion/raml_es.py construir Biosecurity.raml traduccion/biosecurity_es.json "$SEC_DIVIDIDO"
+python3 traduccion/raml_es.py construir historico/sandia/Biosecurity.raml traduccion/biosecurity_es.json "$SEC_DIVIDIDO"
 
 echo "== 2. Comprobacion: solo cambiaron los textos"
 python3 traduccion/raml_es.py verificar traduccion/fuente/BiosafetyRAM_es.raml "$ENTREGA/Biosafety_es.raml"
-python3 traduccion/raml_es.py verificar Biosecurity.raml "$SEC_DIVIDIDO"
+python3 traduccion/raml_es.py verificar historico/sandia/Biosecurity.raml "$SEC_DIVIDIDO"
 
 echo "== 3. Un solo modulo en bioproteccion"
 python3 traduccion/unir_modulos.py "$SEC_DIVIDIDO" "$ENTREGA/Biosecurity_es.raml" "Bioprotección"
@@ -46,7 +46,7 @@ javac --release 8 -nowarn -cp "$JAR_ORIGINAL" -d "$CLASES" traduccion/java/*.jav
 
 echo "== 5. Programas .jar"
 cd traduccion
-python3 empacar.py "../$JAR_ORIGINAL" ../bioram-4.0.5-es.jar \
+python3 empacar.py "../$JAR_ORIGINAL" ../historico/java-es/bioram-4.0.5-es.jar \
   --clases "$CLASES" --main-class gov.sandia.bioram.MainEs \
   --solo-espanol --reemplazar Resources/reportTemplate.vm=reportTemplate.vm
 python3 empacar.py "../$JAR_ORIGINAL" "../$ENTREGA/bioram-4.0.5-es-java-actual.jar" \

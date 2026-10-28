@@ -86,3 +86,39 @@ def test_la_receta_del_ejecutable_se_lleva_esos_archivos(archivo):
     assert SPEC.is_file()
     assert archivo in SPEC.read_text(encoding='utf-8'), (
         f'{archivo} no aparece en {SPEC.name}: no viajaría dentro del ejecutable')
+
+
+# ---------------------------------------------------------------------------
+# Las rutas al histórico
+
+def test_las_rutas_al_historico_apuntan_a_algo_que_existe():
+    """Mover una carpeta no puede romper en silencio una comprobación.
+
+    Al separar el repositorio en «programa», «traduccion» e «historico», una
+    prueba que compara contra el modelo inglés de Sandia dejó de encontrarlo y
+    pasó a saltarse sola: seguía saliendo todo en verde con una comprobación
+    menos. Esta prueba recorre lo que apunta al histórico y falla si algo no
+    está, que es lo que debió pasar entonces.
+    """
+    raiz = pathlib.Path(__file__).resolve().parent.parent.parent
+    if not (raiz / 'historico').is_dir():
+        pytest.skip('sólo se distribuyó la carpeta programa/, sin el histórico')
+
+    import re
+    faltan = []
+    for carpeta in ('traduccion', 'programa'):
+        if not (raiz / carpeta).is_dir():
+            continue
+        for archivo in list((raiz / carpeta).rglob('*.py')) + \
+                       list((raiz / carpeta).rglob('*.sh')):
+            if '__pycache__' in str(archivo):
+                continue
+            texto = archivo.read_text(encoding='utf-8', errors='replace')
+            rutas = set(re.findall(r"historico/[\w\-./ ]+?\.(?:raml|jar|zip|exe|pdf)",
+                                   texto))
+            for trozos in re.findall(r"'historico'(?:\s*/\s*'[^']+')+", texto):
+                rutas.add('/'.join(re.findall(r"'([^']+)'", trozos)))
+            for ruta in rutas:
+                if not (raiz / ruta).exists():
+                    faltan.append(f'{archivo.relative_to(raiz)} apunta a {ruta}')
+    assert not faltan, 'rutas al histórico que ya no existen:\n  ' + '\n  '.join(faltan)

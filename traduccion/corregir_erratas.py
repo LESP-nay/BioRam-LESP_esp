@@ -33,8 +33,8 @@ RAIZ = AQUI.parent
 
 # Los cuatro archivos en español que hay que mantener iguales entre sí.
 ARCHIVOS = [
-    RAIZ / 'BioRAM-es' / 'Biosafety_es.raml',
-    RAIZ / 'BioRAM-es' / 'Biosecurity_es.raml',
+    RAIZ / 'historico' / 'java-es' / 'Biosafety_es.raml',
+    RAIZ / 'historico' / 'java-es' / 'Biosecurity_es.raml',
     RAIZ / 'programa' / 'bioram' / 'cuestionarios' / 'bioseguridad.raml',
     RAIZ / 'programa' / 'bioram' / 'cuestionarios' / 'bioproteccion.raml',
 ]

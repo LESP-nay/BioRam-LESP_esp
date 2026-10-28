@@ -5,7 +5,7 @@ evaluaciones de bioseguridad (*biosafety*) y bioprotección (*biosecurity*).
 
 ## Qué usar
 
-Descargue la carpeta **`BioRAM-es/`** completa y dé doble clic al programa que
+Descargue la carpeta **`historico/java-es/`** completa y dé doble clic al programa que
 necesite:
 
 | Archivo | Para qué |
@@ -57,7 +57,7 @@ Se corrigió de tres formas, para que no vuelva a pasar:
    `Biosecurity_es.raml` **por nombre exacto** junto al programa. Si no lo
    encuentra, abre vacío y lo dice, en vez de cargar otro idioma en silencio.
 2. **Un ejecutable por evaluación**, cada uno con su modelo fijado.
-3. **La carpeta `BioRAM-es/` no contiene ningún modelo en inglés.**
+3. **La carpeta `historico/java-es/` no contiene ningún modelo en inglés.**
 
 También fija el idioma en **es-MX**. La interfaz se tomaba del idioma de
 Windows, así que en un Windows en inglés salía en inglés; y se usa `es_MX`, no
@@ -143,7 +143,7 @@ la gráfica: ni una palabra de las preguntas se toca.
 
 Queda en el repositorio la traducción del modelo inglés de dos módulos, por si
 alguna vez hace falta: `traduccion/biosafety_es.json` con
-`raml_es.py construir Biosafety.raml ...` la reconstruye.
+`raml_es.py construir historico/sandia/Biosafety.raml ...` la reconstruye.
 
 ## Cómo se regenera
 
@@ -175,7 +175,7 @@ cd .. && ./traduccion/construir.sh
 ```
 
 La plantilla inglesa es `util/translatedQuestionMover/modelTemplates/Biosafety.raml`,
-que viene dentro de `Java source.zip`. Es la versión del modelo que corresponde a
+que viene dentro de `historico/sandia/Java source.zip`. Es la versión del modelo que corresponde a
 la traducción antigua y sirve de puente para emparejar las preguntas (ver
 `traduccion/emparejar.py`).
 

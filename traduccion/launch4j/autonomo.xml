@@ -1,7 +1,7 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>../../BioRAM-es/bioram-4.0.5-es-java-actual.jar</jar>
+  <jar>../../historico/java-es/bioram-4.0.5-es-java-actual.jar</jar>
   <outfile>../../BioRAM-4.0.5-es-portable.exe</outfile>
   <errTitle>BioRAM</errTitle>
   <chdir>.</chdir>

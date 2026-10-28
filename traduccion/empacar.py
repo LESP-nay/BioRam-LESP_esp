@@ -24,8 +24,8 @@ Opciones:
   --reemplazar R=A   sustituye el recurso R del .jar por el archivo A. Repetible.
 
 Uso:
-  python empacar.py ../bioram-4.0.5.jar ../bioram-4.0.5-es.jar
-  python empacar.py ../bioram-4.0.5.jar ../salida.jar --jaxb libs_jaxb/ \\
+  python empacar.py ../historico/sandia/bioram-4.0.5.jar ../historico/java-es/bioram-4.0.5-es.jar
+  python empacar.py ../historico/sandia/bioram-4.0.5.jar ../salida.jar --jaxb libs_jaxb/ \\
       --clases /tmp/clases --main-class gov.sandia.bioram.MainEs
 """
 import argparse
