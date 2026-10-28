@@ -34,13 +34,27 @@ programa/       El programa nuevo, en Python. Reúne bioseguridad y
 traduccion/     Las herramientas con las que se hizo y se verifica la
                 traducción, y el código Java que se cambió.
 
-AVISO.md        Procedencia, derechos y licencias.
+AVISO.md        Procedencia, derechos y licencias. Léalo antes de redistribuir.
+VERIFICACION.md Las comprobaciones contra el programa original de Sandia.
+PLAN-BETA-2.md  Qué sigue, y qué está detenido esperando a alguien.
 LEEME.md        Instrucciones del programa Java en español.
+
+CARTA-A-SANDIA.md     La consulta que se le hizo a Sandia sobre la licencia.
+RESPUESTA-A-SANDIA.md La contestación a su respuesta, lista para enviar.
 ```
 
-Lo demás en la raíz (los `.xlsx`, los `.pdf`, los `.raml` en inglés, los `.zip`
-del código fuente) viene del repositorio original de Sandia y se conserva sin
-cambios.
+Lo demás en la raíz (los `.xlsx`, los `.pdf`, los `.raml` en inglés, el `.zip`
+del código fuente, los ejecutables y el `.jar` originales) **viene del
+repositorio de Sandia y se conserva sin cambios**. Se conserva a propósito y no
+por descuido: es la referencia contra la que se verifica que el programa nuevo
+calcula igual, y es la prueba de qué versión se usó, que es justo lo que está
+en conversación con Sandia sobre la licencia.
+
+### Si va a modificar algo
+
+Lea **[`programa/LEEME.md`](programa/LEEME.md)**, sección «Para quien vaya a
+modificar el programa». Están las siete reglas que no se pueden romper y la
+prueba que vigila cada una.
 
 ## Lo que se verificó
 

@@ -11,7 +11,8 @@ Los dos cuestionarios viajan **dentro** del programa (`bioram/cuestionarios/`),
 así que no hay archivos `.raml` sueltos que confundir. Todo el trabajo del
 laboratorio se guarda en **un solo archivo** SQLite: respaldarlo es copiarlo.
 
-Estado: **etapas 1, 2 y 3 terminadas**. Hay ventana:
+Estado: **en prueba beta**, con ejecutable de Windows. Para correrlo desde el
+código:
 
 ```
 cd programa
@@ -20,13 +21,16 @@ python3 -m bioram.interfaz.app lab.db
 
 La pantalla de inicio muestra las áreas y, de cada una, sus cepas como tarjetas
 con las dos evaluaciones a la vista y su avance. Se entra a un cuestionario
-haciendo clic en su botón de color: verde para bioseguridad, azul para
-bioprotección. Dentro hay cuatro pestañas: contestar, resultados, portada, y
-datos y respaldo.
+haciendo clic en su botón de color: cian para bioseguridad, azul marino para
+bioprotección. Dentro hay tres pestañas: contestar, resultados, y datos y
+respaldo. Los créditos y la licencia están en **Ayuda ▸ Acerca de**, fuera del
+camino de trabajo.
 
 Está pensada para quien usa poco la computadora: letra grande, botones con
 texto, colores que siempre significan lo mismo (verde completo, ámbar
-empezado, gris sin empezar) y las respuestas se guardan solas.
+empezado, gris sin empezar) y las respuestas se guardan solas. Los colores
+salen del logotipo del laboratorio y están medidos para que se lean; ver
+`bioram/interfaz/estilo.py`.
 
 Al contestar, cada criterio del cuestionario es una opción de la lista: se
 elige la frase y el número lo pone el programa. Se guarda exactamente lo mismo
@@ -85,7 +89,11 @@ python3 -m bioram.cli --datos lab.db exportar 1 para_el_programa_viejo.raml
 | `bioram/cli.py` | La línea de comandos, útil para revisar y para pruebas. |
 | `bioram/secciones.py` | El reparto de las preguntas en agente e instalaciones. |
 | `bioram/reporte.py` | Los reportes por cepa y por área, en HTML y CSV. |
-| `bioram/interfaz/` | La ventana: inicio, captura, resultados, portada, respaldo y salidas. |
+| `bioram/interfaz/` | La ventana: inicio, captura, resultados, gráfica, créditos, respaldo y salidas. |
+| `bioram/interfaz/estilo.py` | La paleta y la hoja de estilo. Todos los colores están medidos. |
+| `bioram/interfaz/grafica.py` | El dibujo de la gráfica de riesgo y sus ajustes. |
+| `bioram/ubicacion.py` | Dónde vive el archivo de datos, y dónde los archivos que viajan dentro del `.exe`. |
+| `bioram/sin_pantalla.py` | Cómo trabaja Qt sin abrir ventanas. No es igual en Linux que en Windows. |
 
 ## Lo que ya hace mejor que el programa actual
 
@@ -275,15 +283,69 @@ producto, versión y copyright, visibles en Propiedades ▸ Detalles—, lo que
 ayuda, pero no lo evita del todo. Evitarlo por completo requiere un certificado
 de firma de código, que se compra.
 
-## Lo que falta
+## Para quien vaya a modificar el programa
 
-- **Etapa 4**: empaquetar en un solo `.exe`. En espera, como se acordó.
+Lo que conviene saber antes de tocar nada, porque son las reglas que no se
+pueden romper y cada una tiene una prueba que la vigila.
 
-## Decisiones que quedan pendientes
+**1. El cálculo es el de Sandia y no se toca.** `bioram/motor.py` reproduce el
+motor Java original, con sus rarezas incluidas: divisiones entre cero que dan
+infinito, potencias de base negativa que dan NaN, el cero con signo. Las
+pruebas lo comparan contra valores sacados del motor Java de verdad, guardados
+en `pruebas/referencias/`. Si una prueba de `test_motor.py` falla, lo más
+probable es que el cambio esté mal, no la prueba.
 
-- **Herencia de respuestas por área.** Hoy cada evaluación guarda sus propias
-  respuestas y se pueden copiar de otra con `--copiar-de`. Falta decidir si las
-  preguntas del laboratorio (prácticas, equipo, procedimientos) se responden una
-  vez por área y se heredan en sus cepas.
-- **Empaquetado en un `.exe`.** Es la etapa 4. Se puede con PyInstaller sobre
-  Windows o con GitHub Actions; conviene decidirlo al llegar.
+**2. Lo que es dibujo no puede cambiar un puntaje.** El laboratorio puede
+quitar un resultado de la gráfica o renombrarlo; el puntaje se sigue calculando
+y se sigue reportando. `test_grafica.py` lo comprueba sobre los 19 resultados.
+
+**3. Los colores se miden, no se eligen a ojo.** `test_estilo.py` calcula el
+contraste con la fórmula de las WCAG y falla si alguien mete un color que no se
+lee, si la barra de desplazamiento se queda sin estilo, o si la paleta deja un
+hueco que el tema oscuro de Windows pueda llenar de negro.
+
+**4. Un archivo de datos viejo tiene que seguir abriendo.** El esquema va por
+número (`VERSION_ESQUEMA` en `datos.py`) y cada versión nueva agrega columnas
+con `ALTER TABLE` al abrir. Dos trampas conocidas: los comentarios no pueden ir
+dentro de un `CREATE TABLE` —SQLite reescribe el DDL en un `ALTER TABLE` y falla
+con «incomplete input»— y hay una prueba que abre un archivo del esquema
+anterior y comprueba que no se pierde nada.
+
+**5. Cada evaluación recuerda con qué revisión del cuestionario se capturó.**
+Si el cuestionario cambia de forma que afecte al cálculo, su huella cambia y el
+reporte avisa. Eso permite corregir un cuestionario sin que un reporte viejo
+mienta. La huella se calcula sólo sobre lo que afecta al cálculo: cambiar la
+portada no la mueve.
+
+**6. Lo que tiene que viajar dentro del `.exe` se comprueba.** El icono, la
+palomita de las casillas y la traducción al español de los botones de Qt están
+en el repositorio y `test_empaquetado.py` verifica que existan, que sirvan y
+que la receta de PyInstaller los mencione. La rueda de PySide6 para Windows no
+trae la traducción, así que no se puede confiar en la biblioteca instalada.
+
+**7. Qt sin pantalla no se configura igual en los dos sistemas.** En Linux va
+con la plataforma «offscreen»; en Windows NO, porque ahí offscreen deja a Qt
+sin tipografías y el PDF sale sin texto que se pueda copiar. Está resuelto en
+un solo lugar, `bioram/sin_pantalla.py`, con la explicación.
+
+### Cómo se trabaja
+
+```
+cd programa
+python3 -m pytest -q              # las 129 pruebas, unos 8 segundos
+python3 -m bioram.interfaz.app lab.db
+```
+
+El ejecutable de Windows **no se arma aquí**: PyInstaller no compila cruzado.
+Lo arma GitHub Actions en una máquina con Windows en cada empujón que toque
+`programa/`; ver `.github/workflows/ejecutable-windows.yml`. La receta está en
+`empaquetar/bioram_lesp.spec`.
+
+### Dónde está el resto del contexto
+
+| Para saber… | Lea |
+|---|---|
+| De quién es cada cosa y qué se puede redistribuir | `../AVISO.md` |
+| Las comprobaciones contra el programa original | `../VERIFICACION.md` |
+| Qué sigue y qué está detenido esperando a alguien | `../PLAN-BETA-2.md` |
+| Qué probar en la beta y cómo reportar | `PRUEBA-BETA.md` |
