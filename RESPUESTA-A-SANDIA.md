@@ -99,6 +99,13 @@ pass them to the author when you reach him. We are glad to contribute the
 corrections back in whatever form suits Sandia: a pull request, corrected files,
 or just our verification notes.
 
+While preparing this reply we noticed one more small thing, which is yours
+rather than ours: `Java source.zip` contains two NetBeans `private.properties`
+files under `gov/sandia/bioram/` that carry an internal path from a developer's
+machine (`C:\Users\cehines`). We have not altered your archive and do not intend
+to — we mention it only in case you would rather it not be in a public
+repository.
+
 **One thing we want to be transparent about.** Our own additions — the
 interface, the storage, the reports — we are releasing under the GNU GPL v3,
 which is compatible with BSD-3 and keeps your notices intact. If Sandia would
@@ -183,6 +190,13 @@ de ingeniería y no de licencias, así que le pedimos que se los pase al autor
 cuando lo contacte. Con gusto aportamos las correcciones de vuelta en la forma
 que a Sandia le acomode: un pull request, los archivos corregidos, o
 simplemente nuestras notas de verificación.
+
+Al preparar esta respuesta notamos una cosa más, que es de ustedes y no
+nuestra: `Java source.zip` trae dos archivos `private.properties` de NetBeans
+bajo `gov/sandia/bioram/` con una ruta interna de la computadora de un
+desarrollador (`C:\Users\cehines`). No hemos modificado su archivo ni
+pensamos hacerlo; lo mencionamos sólo por si prefieren que no esté en un
+repositorio público.
 
 **Algo que queremos transparentar.** Lo que agregamos nosotros —la interfaz, el
 almacenamiento, los reportes— lo liberamos bajo la GNU GPL v3, que es compatible
