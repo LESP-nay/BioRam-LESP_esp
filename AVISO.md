@@ -81,26 +81,93 @@ Lo que **falta**, y es un detalle de forma, no de fondo:
   obligaciones tiene quien redistribuye: a qué atribución obliga, si hay que
   conservar avisos, etc.
 
+  Esto **lo confirmó la propia Sandia** el 28 de octubre de 2026, y además
+  explicó por qué: el producto se creó *«en una época en la que Sandia no tenía
+  buen control de su oferta de código abierto»*. Ver más abajo.
+
 ### Lo que este laboratorio hace y el riesgo de cada cosa
 
 | Acción | Respaldo |
 |---|---|
 | **Usarla** internamente | Respaldo expreso: la guía la declara código abierto y Sandia la publica para este propósito |
 | **Traducirla y rearmarla** | Lo mismo, y además Sandia ya publicó traducciones oficiales a once idiomas. El `.jar` traducido y el programa en Python son **obra derivada**, y hay que conservar los avisos de Sandia (lo hacemos) |
-| **Redistribuirla públicamente** | Coherente con «código abierto», pero **sin licencia escrita no se sabe con qué condiciones**. Y sigue vigente la advertencia de exportación de la portada |
+| **Redistribuirla públicamente** | Coherente con «código abierto», y desde el 28/10/2026 con permiso expreso por correo de la persona que lleva las licencias en Sandia, que se compromete a atribuir una BSD-3. **Pero la licencia todavía no está puesta**, y sigue vigente la advertencia de exportación de la portada |
+
+### La respuesta de Sandia, 28 de octubre de 2026
+
+Se escribió a Sandia y **contestaron**. Responde **Robert Sleeper JD, Licensing
+Executive de Sandia National Laboratories** (`rdsleep@sandia.gov`). Lo que dice,
+en sus palabras:
+
+> *"It appears that the above was created at a time when Sandia didn't have
+> great control of our OS offerings and this particular product has **no attached
+> OPEN SOURCE license**. We will move to attach one asap so we can give you the
+> proper permissions. Probably BDS3. **I think you can go forward based on
+> that** and I will reach out to the author and update it asap for BDS3 which
+> will allow you to **use, modify, and distribute** software for any
+> purpose—including commercial applications—as long as you follow a few basic
+> rules."*
+
+Con el enlace a <https://opensource.org/license/bsd-3-clause> y el texto del
+aviso que llevará, encabezado por:
+
+> *Copyright (c) &lt;YEAR tbd&gt; NATIONAL TECHNOLOGY AND ENGINEERING SOLUTIONS
+> OF SANDIA, LLC.*
+
+«BDS3» está escrito así dos veces, pero el enlace que da es el de la licencia
+**BSD de 3 cláusulas**: es un desliz de tecleo, no otra licencia.
+
+**Es exactamente nuestro archivo, no otro producto.** Sleeper encabeza su correo
+con *«SCR1186.1 Biosecurity Risk Assessment Methodology (BioRAM) v. 4.0 (Open
+Source)»*, y el número de registro coincide con el que cita la guía oficial:
+*«BioRAM falls under copyright 1186.1 Biosecurity Risk Assessment Methodology
+(BioRAM) v. 4.0, 2019»*. Además advierte que existe **una versión propietaria
+aparte**, y supone que no es la que nos interesa. No lo es, y se puede demostrar:
+todo lo que este laboratorio usó —el `.jar`, los cuestionarios y `Java
+source.zip`— lo subió `sacaske` al repositorio público `sandialabs/BioRAM`, el 6
+de febrero de 2018, en el segundo commit de ese repositorio. Este repositorio
+arranca con esos mismos commits.
+
+**Qué queda resuelto y qué no.** Conviene no confundirlo:
+
+| | |
+|---|---|
+| Resuelto | La herramienta **sí** es la de código abierto, y Sandia lo confirma por escrito |
+| Resuelto | Sandia **se compromete** a atribuirle una licencia, probablemente BSD-3 |
+| Resuelto | Hay permiso expreso, de la persona que lleva las licencias, para **seguir adelante** mientras tanto |
+| **Sin resolver** | **Hoy sigue sin haber ninguna licencia atribuida.** El permiso es un correo, no una licencia |
+| **Sin resolver** | El año del aviso de derecho de autor está «tbd», y la licencia es «probably» BSD-3 |
+| **Sin resolver** | No contestó sobre la **advertencia de control de exportaciones** de la portada |
+| **Sin resolver** | No contestó los **tres defectos** que se le reportaron. Es natural: lleva licencias, no ingeniería, y dice que hablará con el autor |
+
+**Qué implica si queda en BSD-3.** La BSD de 3 cláusulas es permisiva y
+**compatible con la GPL v3** que este laboratorio eligió para su propio código:
+se puede combinar sin conflicto. A cambio obliga a dos cosas, y las dos nos
+tocan:
+
+1. **Conservar el aviso de derecho de autor, la lista de condiciones y el
+   descargo de garantía**, tanto en el código como en lo que se distribuya en
+   binario. Los avisos de Sandia ya se conservan; faltará agregar el texto
+   completo de la BSD-3 en cuanto exista, con su año.
+2. **La cláusula de no-respaldo**: no se pueden usar los nombres del titular ni
+   de los colaboradores para respaldar o promocionar productos derivados sin
+   permiso previo por escrito. Esto cae justo sobre la pregunta del nombre
+   «BioRam» en el icono del programa, que quedó planteada más abajo. Ahora hay
+   motivo concreto para preguntárselo a Sleeper, que es además la persona
+   indicada.
+
+**Mientras tanto** se puede seguir usando y trabajando con normalidad, con más
+respaldo que antes. Guarde el correo de Sleeper: hasta que la licencia esté
+atribuida, ese correo **es** el permiso, y conviene que esté en el expediente.
 
 **Lo que conviene hacer, en orden de utilidad:**
 
-1. **Escribir a Sandia** (`sacaske@sandia.gov`, el contacto que la propia
-   herramienta publica) para pedir dos cosas concretas: que confirmen por escrito
-   bajo qué licencia se libera BioRAM, y que confirmen que la traducción al
-   español y su redistribución están permitidas. Es un correo corto y resuelve el
-   único punto abierto.
-2. **Mientras llega la respuesta**, se puede seguir usando y trabajando con
-   normalidad. La redistribución pública ya está respaldada por la declaración de
-   código abierto de la guía; lo que no está es precisado. Conservar todos los
-   avisos de Sandia, como se hace hoy, es lo que corresponde en cualquier caso.
-3. **Dejar constancia** de la advertencia de exportación. México es extranjero
+1. **Contestarle a Sleeper** (borrador listo en
+   [`RESPUESTA-A-SANDIA.md`](RESPUESTA-A-SANDIA.md)): agradecer, decirle con
+   precisión qué artefacto se usó para que la licencia se atribuya al correcto,
+   preguntarle por el nombre y el icono, y pedir que avise cuando la BSD-3 esté
+   puesta y con qué año.
+2. **Dejar constancia** de la advertencia de exportación. México es extranjero
    para efectos de ese aviso. En la práctica se trata de una herramienta de
    evaluación de riesgos publicada abiertamente por Sandia en GitHub y traducida
    por Sandia misma a once idiomas para laboratorios de otros países, lo que es
@@ -364,13 +431,27 @@ indica.
 
 ## 7. Lo que falta por decidir o corregir
 
-| Pendiente | Quién decide |
+Al 28 de octubre de 2026.
+
+| Pendiente | Estado | Quién decide |
+|---|---|---|
+| Que Sandia atribuya la licencia BSD-3 al producto, con su año | **En curso en Sandia.** Sleeper se comprometió a hacerlo «asap». Mientras tanto, su correo es el permiso | Sandia |
+| Contestarle a Sleeper: qué artefacto usamos, el nombre «BioRam» del icono, y el control de exportaciones | Borrador listo en `RESPUESTA-A-SANDIA.md` | Laboratorio |
+| Agregar el texto completo de la BSD-3 con su año, junto al `LICENSE` de la GPL v3 | Cuando Sandia la publique | Técnico |
+| Usar o no el nombre «BioRam» en el icono fuera del laboratorio | A la espera de la respuesta sobre la cláusula de no-respaldo | Laboratorio |
+| Los tres defectos reportados a Sandia (referencia faltante, UUID de módulo duplicado, divergencia con la revisión de 2014) | Reportados; Sleeper dice que hablará con el autor | Sandia |
+| Traducir la encuesta de 2022 (BioRisk) | Decidido para después | Laboratorio |
+| Quitar las rutas internas de Sandia del código fuente publicado | Pendiente | Técnico, trivial |
+| Corregir `Built-By` en el `.jar` en español | Pendiente | Técnico, trivial |
+| Agregar el texto LGPL de JFreeChart si se va a redistribuir el `.jar` | Pendiente | Técnico, trivial |
+| Firma de código para el `.exe`, que quitaría el aviso de SmartScreen | Requiere comprar un certificado | Laboratorio |
+
+### Ya resuelto
+
+| | Cuándo |
 |---|---|
-| Escribir a Sandia para que confirmen por escrito bajo qué licencia se libera BioRAM y que la traducción y su redistribución están permitidas | Laboratorio |
-| Elegir licencia para el código propio en Python | Laboratorio |
-| Cambiar el contacto de soporte de la portada por uno del laboratorio | Laboratorio |
-| Quitar las rutas internas de Sandia del código fuente publicado | Técnico, trivial |
-| Corregir `Built-By` en el `.jar` en español | Técnico, trivial |
-| Agregar el texto LGPL de JFreeChart si se va a redistribuir | Técnico, trivial |
-| Poner datos de versión en los `.exe` (hoy están vacíos: sin empresa, producto, versión ni copyright, lo que además contribuye al aviso de SmartScreen) | Técnico, al empaquetar |
-| Declarar al laboratorio como autor en los commits en lugar de la herramienta | Laboratorio |
+| Preguntarle a Sandia bajo qué licencia se libera BioRAM | Contestado el 28/10/2026: ninguna atribuida todavía; será BSD-3 |
+| Elegir licencia para el código propio en Python | GPL v3, y es compatible con la BSD-3 que viene |
+| Cambiar el contacto de soporte de la portada por uno del laboratorio | Hecho |
+| Datos de versión en el `.exe` | Hechos: empresa, producto, versión y copyright |
+| Declarar al laboratorio como autor en los commits | Hecho |
